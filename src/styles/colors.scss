@@ -1,0 +1,12 @@
+// Base Color Palettes
+@import 'color-themes';
+
+:root {
+	--theme-color-lightest: var(--theme-lightest-blue);
+	--theme-color-lighter: var(--theme-lighter-blue);
+	--theme-color-light: var(--theme-light-blue);
+	--theme-color-default: var(--theme-default-blue);
+	--theme-color-dark: var(--theme-dark-blue);
+	--theme-color-darker: var(--theme-darker-blue);
+	--theme-color-darkest: var(--theme-darkest-blue);
+}
