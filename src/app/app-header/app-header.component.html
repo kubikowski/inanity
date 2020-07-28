@@ -24,9 +24,9 @@
 </mat-menu>
 
 <mat-menu #themes="matMenu">
-	<button mat-menu-item (click)="$event.stopPropagation()"
-			*ngFor="let colorTheme of colorThemes">
-		<mat-icon style="color: var({{colorTheme.colorDefault}})">circle</mat-icon>
-		{{ colorTheme.displayName }} Theme
+	<button mat-menu-item (click)="togglePalette(colorPalette, $event)"
+			*ngFor="let colorPalette of colorPalettes">
+		<mat-icon style="color: var({{colorPalette.colorDefault}})">circle</mat-icon>
+		{{ colorPalette.displayName }} Theme
 	</button>
 </mat-menu>
