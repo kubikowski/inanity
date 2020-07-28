@@ -1,0 +1,13 @@
+
+html, body { height: 100%; }
+body { margin: 0; }
+
+
+a {
+	color: var(--theme-color-default);
+	text-decoration: none;
+
+	&:hover {
+		color: var(--theme-color-darker);
+	}
+}

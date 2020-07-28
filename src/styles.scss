@@ -3,8 +3,5 @@
 @import 'styles/colors';
 
 // Overrides
+@import 'styles/browser-overrides';
 @import 'styles/scrollbar-overrides';
-
-
-html, body { height: 100%; }
-body { margin: 0; }

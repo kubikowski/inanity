@@ -1,12 +1,13 @@
 :host {
 	main {
 		display: grid;
-		grid-template-rows: 8rem 1fr;
-		grid-template-columns: 38% 1fr;
+		grid-template:
+			[row1-start] "header header" 6em [row1-end]
+			[row2-start] "sidebar main" auto [row2-end]
+			/ 38% auto;
+
 		height: 100%;
-		grid-template-areas:
-			"header header"
-			"sidebar app";
+		width: 100%;
 		overflow: hidden;
 
 		font-size: 14px;
