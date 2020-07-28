@@ -1,0 +1,14 @@
+:host {
+
+	main {
+		display: grid;
+		grid-template-rows: 8rem 1fr;
+		grid-template-columns: 38% 1fr;
+		height: 100%;
+		grid-template-areas:
+        "header header"
+        "sidebar app";
+		overflow: hidden;
+		font-family: inherit;
+	}
+}
