@@ -7,34 +7,5 @@
 	<div>inanity.io</div>
 	<mat-divider [vertical]="true"></mat-divider>
 
-	<button mat-icon-button [matMenuTriggerFor]="settings">
-		<mat-icon>settings</mat-icon>
-	</button>
+	<app-theme-picker></app-theme-picker>
 </mat-toolbar>
-
-<mat-menu #settings="matMenu">
-	<button mat-menu-item [matMenuTriggerFor]="themes">
-		<mat-icon color="accent">stars</mat-icon>
-		Theme
-	</button>
-	<button mat-menu-item [matMenuTriggerFor]="palettes">
-		<mat-icon color="primary">circle</mat-icon>
-		Palette
-	</button>
-</mat-menu>
-
-<mat-menu #themes="matMenu">
-	<button mat-menu-item *ngFor="let colorTheme of colorThemes"
-			(click)="toggleTheme(colorTheme, $event)">
-		<mat-icon style="color: var({{colorTheme.colorBackground}})">stars</mat-icon>
-		{{ colorTheme.displayName }}
-	</button>
-</mat-menu>
-
-<mat-menu #palettes="matMenu">
-	<button mat-menu-item *ngFor="let colorPalette of colorPalettes"
-			(click)="togglePalette(colorPalette, $event)">
-		<mat-icon style="color: var({{colorPalette.colorDefault}})">circle</mat-icon>
-		{{ colorPalette.displayName }}
-	</button>
-</mat-menu>

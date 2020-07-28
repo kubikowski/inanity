@@ -10,11 +10,13 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AppThemePickerComponent } from './shared/app-theme-picker/app-theme-picker.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		AppHeaderComponent
+		AppHeaderComponent,
+		AppThemePickerComponent
 	],
 	imports: [
 		BrowserModule,
