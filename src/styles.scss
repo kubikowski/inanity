@@ -2,8 +2,8 @@
 @import 'styles/material-theme';
 
 // Colors and Color Themes
-@import 'styles/colors';
+@import 'styles/colors/colors';
 
 // Overrides
-@import 'styles/browser-overrides';
-@import 'styles/scrollbar-overrides';
+@import 'styles/overrides/browser-overrides';
+@import 'styles/overrides/scrollbar-overrides';
