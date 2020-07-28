@@ -9,7 +9,8 @@ import { ColorTheme } from '../shared/color-themes/models/color-theme';
 })
 export class AppHeaderComponent implements OnInit {
 
-	styles = document.documentElement.style;
+	body = document.body;
+	style = document.documentElement.style;
 
 	// Color Themes
 	rootTheme = ColorTheme.getRootTheme();
@@ -23,23 +24,27 @@ export class AppHeaderComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.body.classList.add(this.colorThemes[0].themeName);
 	}
 
 	toggleTheme(theme: ColorTheme, event: Event): void {
-		event.preventDefault();
+		event.stopPropagation();
 
 		Object.entries(this.rootTheme)
 			.forEach(([key, value]) => {
-				this.styles.setProperty( value, `var(${theme[key]})`);
+				this.style.setProperty( value, `var(${theme[key]})`);
 			});
+
+		this.body.classList.remove('light-theme', 'dark-theme');
+		this.body.classList.add(theme.themeName);
 	}
 
 	togglePalette(palette: ColorPalette, event: Event): void {
-		event.preventDefault();
+		event.stopPropagation();
 
 		Object.entries(this.rootPalette)
 			.forEach(([key, value]) => {
-			this.styles.setProperty( value, `var(${palette[key]})`);
+			this.style.setProperty( value, `var(${palette[key]})`);
 		});
 	}
 }

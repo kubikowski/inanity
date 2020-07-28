@@ -4,6 +4,7 @@ export class ColorTheme {
 		public colorAccent: string,
 		public colorDisabled: string,
 		public colorContrast: string,
+		public themeName?: string,
 		public displayName?: string,
 	) { }
 
@@ -13,6 +14,7 @@ export class ColorTheme {
 			`--${themeName}-theme-accent`,
 			`--${themeName}-theme-disabled`,
 			`--${themeName}-theme-contrast`,
+			`${themeName}-theme`,
 			displayName,
 		);
 	}
