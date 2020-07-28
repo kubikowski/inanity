@@ -1,14 +1,21 @@
 :host {
-
 	main {
 		display: grid;
 		grid-template-rows: 8rem 1fr;
 		grid-template-columns: 38% 1fr;
 		height: 100%;
 		grid-template-areas:
-        "header header"
-        "sidebar app";
+			"header header"
+			"sidebar app";
 		overflow: hidden;
-		font-family: inherit;
+
+		font-size: 14px;
+		font-family: Garamond, serif;
+
+		background:
+				var(--theme-color-backround)
+				linear-gradient(to top,
+						var(--theme-color-backround),
+						var(--theme-color-light));
 	}
 }

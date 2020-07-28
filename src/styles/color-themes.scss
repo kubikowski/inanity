@@ -1,13 +1,18 @@
 
 :root {
+	// Light Theme
+	--light-theme-background: white;
+	--light-theme-accent: lightgrey;
+	--light-theme-contrast: rgba(0,0,0,0.87);
+
 	// Blue Theme Palette
-	--theme-lightest-blue: #51d4ff;
-	--theme-lighter-blue: #1ab4f5;
-	--theme-light-blue: #00b3ee;
-	--theme-default-blue: #039ddd;
-	--theme-dark-blue: #0487cc;
-	--theme-darker-blue: #047ec5;
-	--theme-darkest-blue: #047ec5;
+	--blue-theme-lightest: #51d4ff;
+	--blue-theme-lighter: #1ab4f5;
+	--blue-theme-light: #00b3ee;
+	--blue-theme-default: #039ddd;
+	--blue-theme-dark: #0487cc;
+	--blue-theme-darker: #047ec5;
+	--blue-theme-darkest: #047ec5;
 
 	// Green Theme Palette
 	--theme-lightest-green: #70ee7a;
