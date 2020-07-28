@@ -13,6 +13,19 @@
 </mat-toolbar>
 
 <mat-menu #settings="matMenu">
-	<button mat-menu-item>Item 1</button>
-	<button mat-menu-item>Item 2</button>
+	<button mat-menu-item (click)="$event.stopPropagation()">
+		<mat-icon color="accent">stars</mat-icon>
+		Mode
+	</button>
+	<button mat-menu-item [matMenuTriggerFor]="themes">
+		<mat-icon color="primary">circle</mat-icon>
+		Theme
+	</button>
+</mat-menu>
+
+<mat-menu #themes="matMenu">
+	<button mat-menu-item>
+		<mat-icon>circle</mat-icon>
+		Blue Theme
+	</button>
 </mat-menu>
