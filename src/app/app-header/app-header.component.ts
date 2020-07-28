@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ColorPalette } from '../shared/color-themes/models/color-palette';
-import { ColorTheme } from '../shared/color-themes/models/color-theme';
+import { ColorPalette } from '../shared/colors/models/color-palette';
+import { ColorTheme } from '../shared/colors/models/color-theme';
 
 @Component({
 	selector: 'app-header',
