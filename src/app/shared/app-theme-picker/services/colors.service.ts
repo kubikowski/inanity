@@ -20,26 +20,41 @@ export class ColorsService {
 	colorPalettes = ColorPalette.getPalettes();
 
 	constructor() {
-		this.body.classList.add(this.colorThemes[0].themeName);
-		this.body.classList.add(this.colorPalettes[0].paletteName);
+		// Get Initial Theme and Palette
+		const theme = this.getThemeFromName(localStorage.getItem('theme')) ?? this.colorThemes[0];
+		const palette = this.getPaletteFromName(localStorage.getItem('palette')) ?? this.colorPalettes[0];
+
+		// Initialize Body ClassList
+		this.body.classList.add(theme.themeName);
+		this.body.classList.add(palette.paletteName);
+
+		// Initialize Theme and Palette
+		this.toggleTheme(theme);
+		this.togglePalette(palette);
 	}
 
 	toggleTheme(theme: ColorTheme): void {
 		this.body.classList.remove('light-theme', 'dark-theme');
 		this.body.classList.add(theme.themeName);
+		localStorage.setItem('theme', theme.themeName);
 
 		this.setTheme(theme);
-		this.setPalette(this.getPalette());
+		this.setPalette(this.getPaletteFromBody());
 	}
 
 	togglePalette(palette: ColorPalette): void {
 		this.body.classList.remove(...this.colorPalettes.map(colorPalette => colorPalette.paletteName));
 		this.body.classList.add(palette.paletteName);
+		localStorage.setItem('palette', palette.paletteName);
 
 		this.setPalette(palette);
 	}
 
-	getTheme(): ColorTheme {
+	getThemeFromName(themeName: string): ColorTheme {
+		return this.colorThemes.find(colorTheme => colorTheme.themeName === themeName);
+	}
+
+	getThemeFromBody(): ColorTheme {
 		for (const colorTheme of this.colorThemes) {
 			if (this.body.classList.contains(colorTheme.themeName)) {
 				return colorTheme;
@@ -54,7 +69,11 @@ export class ColorsService {
 		});
 	}
 
-	getPalette(): ColorPalette {
+	getPaletteFromName(paletteName: string): ColorPalette {
+		return this.colorPalettes.find(colorPalette => colorPalette.paletteName === paletteName);
+	}
+
+	getPaletteFromBody(): ColorPalette {
 		for (const colorPalette of this.colorPalettes) {
 			if (this.body.classList.contains(colorPalette.paletteName)) {
 				return colorPalette;
@@ -64,7 +83,7 @@ export class ColorsService {
 	}
 
 	getComputedPalette(palette: ColorPalette): ColorPalette {
-		switch (this.getTheme().themeName) {
+		switch (this.getThemeFromBody().themeName) {
 			case 'dark-theme':
 				return ColorPalette.getInverse(palette);
 			case 'light-theme':
