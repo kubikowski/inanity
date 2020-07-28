@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ColorTheme } from '../colors/models/color-theme.model';
-import { ColorPalette } from '../colors/models/color-palette.model';
-import { ColorsService } from '../colors/services/colors.service';
+import { ColorTheme } from './models/color-theme.model';
+import { ColorPalette } from './models/color-palette.model';
+import { ColorsService } from './services/colors.service';
 
 @Component({
 	selector: 'app-theme-picker',
