@@ -7,6 +7,7 @@ export class ColorPalette {
 		public colorDark: string,
 		public colorDarker: string,
 		public colorDarkest: string,
+		public paletteName?: string,
 		public displayName?: string,
 	) { }
 
@@ -19,6 +20,7 @@ export class ColorPalette {
 			`--${paletteName}-theme-dark`,
 			`--${paletteName}-theme-darker`,
 			`--${paletteName}-theme-darkest`,
+			`${paletteName}-palette`,
 			displayName,
 		);
 	}
@@ -43,5 +45,19 @@ export class ColorPalette {
 		];
 
 		return palettes.map(palette => ColorPalette.from(palette.paletteName, palette.displayName));
+	}
+
+	public static getInverse(colorPalette: ColorPalette): ColorPalette {
+		return new ColorPalette(
+			colorPalette.colorDarkest,
+			colorPalette.colorDarker,
+			colorPalette.colorDark,
+			colorPalette.colorDefault,
+			colorPalette.colorLight,
+			colorPalette.colorLighter,
+			colorPalette.colorLightest,
+			colorPalette.paletteName,
+			colorPalette.displayName,
+		);
 	}
 }
