@@ -10,10 +10,8 @@
 		width: 100%;
 		overflow: hidden;
 
-		background:
-			var(--theme-color-backround)
-			linear-gradient(to top,
-				var(--theme-color-backround),
-				var(--theme-color-light));
+		color: var(--theme-color-contrast);
+		background-color: var(--theme-color-light);
+		background-image: linear-gradient(to top, var(--theme-color-backround), var(--theme-color-light));
 	}
 }

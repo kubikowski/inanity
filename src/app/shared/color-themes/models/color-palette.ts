@@ -40,6 +40,7 @@ export class ColorPalette {
 		const palettes: {paletteName: string, displayName: string}[] = [
 			{paletteName: 'blue', displayName: 'Aqua'},
 			{paletteName: 'green', displayName: 'Moss'},
+			{paletteName: 'orange', displayName: 'Combustion'},
 		];
 
 		return palettes.map(palette => ColorPalette.from(palette.paletteName, palette.displayName));
