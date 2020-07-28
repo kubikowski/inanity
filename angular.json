@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "inanity"
+    }
+  },
+  "defaultProject": "inanity",
+  "cli": {
+    "analytics": false
+  }
 }
