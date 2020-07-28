@@ -1,0 +1,32 @@
+:not(.default-scrollbars) {
+
+	// Webkit Scrollbar Overrides
+	&::-webkit-scrollbar {
+		width: .5rem;
+		height: .5rem;
+	}
+
+	&::-webkit-scrollbar-button {
+		display: none;
+	}
+
+	&::-webkit-scrollbar-track {
+		border-radius: 0.5rem;
+		background-color: var(--tile-accent-background-color);
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: .5rem;
+		background-color: var(--tile-disabled-background-color);
+		box-shadow: inset 0 0 1px var(--box-shadow-color);
+		transition: box-shadow 200ms;
+
+		&:active {
+			box-shadow: inset 0 0 2px var(--box-shadow-color);
+		}
+	}
+
+	// Firefox Scrollbar Overrides
+	scrollbar-color: var(--tile-disabled-background-color) var(--tile-accent-background-color);
+	scrollbar-width: thin;
+}
