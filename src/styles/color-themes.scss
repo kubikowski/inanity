@@ -1,14 +1,4 @@
 
-//$blue-palette: (
-//	'lightest': #51d4ff,
-//	'lighter': #1ab4f5,
-//	'light': #00b3ee,
-//	'default': #039ddd,
-//	'dark': #0487cc,
-//	'darker': #047ec5,
-//	'darkest': #047ec5,
-//);
-
 :root {
 	// Blue Theme Palette
 	--theme-lightest-blue: #51d4ff;
@@ -18,4 +8,13 @@
 	--theme-dark-blue: #0487cc;
 	--theme-darker-blue: #047ec5;
 	--theme-darkest-blue: #047ec5;
+
+	// Green Theme Palette
+	--theme-lightest-green: #70ee7a;
+	--theme-lighter-green: #3cd070;
+	--theme-light-green: #50c878;
+	--theme-default-green: #3cb371;
+	--theme-dark-green: #00a86b;
+	--theme-darker-green: #009060;
+	--theme-darkest-green: #00755e;
 }
