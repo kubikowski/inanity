@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ColorTheme } from '../shared/color-themes/models/color-theme';
 
 @Component({
 	selector: 'app-header',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./app-header.component.scss']
 })
 export class AppHeaderComponent implements OnInit {
+
+	colorThemes = ColorTheme.getThemes();
 
 	constructor() {
 	}
