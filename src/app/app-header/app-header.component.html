@@ -13,17 +13,25 @@
 </mat-toolbar>
 
 <mat-menu #settings="matMenu">
-	<button mat-menu-item (click)="$event.stopPropagation()">
+	<button mat-menu-item [matMenuTriggerFor]="themes">
 		<mat-icon color="accent">stars</mat-icon>
 		Mode
 	</button>
-	<button mat-menu-item [matMenuTriggerFor]="themes">
+	<button mat-menu-item [matMenuTriggerFor]="palettes">
 		<mat-icon color="primary">circle</mat-icon>
 		Theme
 	</button>
 </mat-menu>
 
 <mat-menu #themes="matMenu">
+	<button mat-menu-item *ngFor="let colorTheme of colorThemes"
+			(click)="toggleTheme(colorTheme, $event)">
+		<mat-icon style="color: var({{colorTheme.colorBackground}})">stars</mat-icon>
+		{{ colorTheme.displayName }}
+	</button>
+</mat-menu>
+
+<mat-menu #palettes="matMenu">
 	<button mat-menu-item *ngFor="let colorPalette of colorPalettes"
 			(click)="togglePalette(colorPalette, $event)">
 		<mat-icon style="color: var({{colorPalette.colorDefault}})">circle</mat-icon>

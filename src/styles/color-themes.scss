@@ -1,10 +1,16 @@
 
 :root {
-	// Light Theme
+	// Light Mode [Light]
 	--light-theme-background: white;
 	--light-theme-accent: whitesmoke;
 	--light-theme-disabled: lightgrey;
 	--light-theme-contrast: rgba(0, 0, 0, 0.87);
+
+	// Dark Mode [Dracula]
+	--dark-theme-background: #282a36;
+	--dark-theme-accent: #44475a;
+	--dark-theme-disabled: #6272a4;
+	--dark-theme-contrast: #f8f8f2;
 
 	// Blue Theme Palette [Aqua]
 	--blue-theme-lightest: #51d4ff;

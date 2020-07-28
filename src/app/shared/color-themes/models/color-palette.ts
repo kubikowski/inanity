@@ -7,7 +7,6 @@ export class ColorPalette {
 		public colorDark: string,
 		public colorDarker: string,
 		public colorDarkest: string,
-
 		public displayName?: string,
 	) { }
 
