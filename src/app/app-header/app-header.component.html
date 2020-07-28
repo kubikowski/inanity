@@ -1,20 +1,18 @@
 <mat-toolbar>
-	<div>Home</div>
+	<button mat-icon-button>
+		<mat-icon>menu</mat-icon>
+	</button>
 
 	<mat-divider [vertical]="true"></mat-divider>
-
-	<div>Gong</div>
-
-
+	<div>inanity.io</div>
 	<mat-divider [vertical]="true"></mat-divider>
 
-	<ng-container>
-		<button mat-icon-button [matMenuTriggerFor]="menu">
-			<mat-icon>settings</mat-icon>
-		</button>
-		<mat-menu #menu="matMenu">
-			<button mat-menu-item>Item 1</button>
-			<button mat-menu-item>Item 2</button>
-		</mat-menu>
-	</ng-container>
+	<button mat-icon-button [matMenuTriggerFor]="settings">
+		<mat-icon>settings</mat-icon>
+	</button>
 </mat-toolbar>
+
+<mat-menu #settings="matMenu">
+	<button mat-menu-item>Item 1</button>
+	<button mat-menu-item>Item 2</button>
+</mat-menu>

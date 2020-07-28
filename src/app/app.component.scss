@@ -2,8 +2,8 @@
 	main {
 		display: grid;
 		grid-template:
-			[row1-start] "header header" 6em [row1-end]
-			[row2-start] "sidebar main" auto [row2-end]
+			[row1-start] "header header" auto [row1-end]
+			[row2-start] "sidebar main" 1fr [row2-end]
 			/ 38% auto;
 
 		height: 100%;
