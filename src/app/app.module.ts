@@ -15,12 +15,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppThemePickerComponent } from './shared/app-theme-picker/app-theme-picker.component';
+import { DyslexicTextComponent } from './shared/dyslexic-text/dyslexic-text.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		AppHeaderComponent,
-		AppThemePickerComponent
+		AppThemePickerComponent,
+		DyslexicTextComponent,
 	],
 	imports: [
 		BrowserModule,
