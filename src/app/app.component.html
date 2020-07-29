@@ -1,7 +1,17 @@
 <main>
 	<app-header></app-header>
 	<div> I am the sidebar</div>
-	<div>I am the main</div>
+	<mat-card>
+		<mat-card-header>
+			<mat-icon>album</mat-icon>
+			<mat-card-title>gong.io</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+			<p>The gong is real. It is a real gong.</p>
+			<p>When you hit the gong, it sends a message to an arduino listener that strikes the gong.</p>
+		</mat-card-content>
+	</mat-card>
 </main>
 
 <router-outlet></router-outlet>

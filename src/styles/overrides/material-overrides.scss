@@ -1,0 +1,18 @@
+
+mat-card {
+	margin: 5rem;
+	height: calc(100% - 12.5rem);
+	overflow: auto;
+
+	mat-card-header {
+		height: 0;
+		position: -webkit-sticky; /* Safari */
+		position: sticky;
+		top: 0;
+
+		mat-icon {
+			order: -1;
+			font-size: 2rem;
+		}
+	}
+}
