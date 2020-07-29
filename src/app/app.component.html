@@ -4,12 +4,18 @@
 	<mat-card>
 		<mat-card-header>
 			<mat-icon>album</mat-icon>
-			<mat-card-title>gong.io</mat-card-title>
+			<mat-card-title>
+				<dyslexic-text [text]="'gong'" [suffix]="'.io'"></dyslexic-text>
+			</mat-card-title>
 		</mat-card-header>
 		<mat-card-content>
 			<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-			<p>The gong is real. It is a real gong.</p>
-			<p>When you hit the gong, it sends a message to an arduino listener that strikes the gong.</p>
+			<p>
+				<dyslexic-text [text]="'The gong is real. It is a real gong.'"></dyslexic-text>
+			</p>
+			<p>
+				<dyslexic-text [text]="'When you hit the gong, it sends a message to an arduino listener that strikes the gong.'"></dyslexic-text>
+			</p>
 		</mat-card-content>
 	</mat-card>
 </main>

@@ -1,1 +1,4 @@
-{{ prefix + outputText + suffix }}
+<!--  IK this looks terrible, but it keeps the correct spacing  -->
+{{ prefix }}<ng-container *ngFor="let word of outputWords;">
+	{{ word + ' ' }}
+</ng-container>{{ suffix }}

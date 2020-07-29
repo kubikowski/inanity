@@ -12,8 +12,7 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 	subscriptions = new SubSink();
 
 	@Input()
-	defaultText: string;
-	outputText: string;
+	text: string;
 
 	@Input()
 	prefix?: string = '';
@@ -23,6 +22,8 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 	defaultWords: string[];
 	dyslexicWordCombinations: string[][] = [];
 
+	outputWords: string[];
+
 	constructor() {
 	}
 
@@ -30,8 +31,10 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 		this.setDefaultWords();
 		this.generateDyslexicWords();
 
-		this.subscriptions.sink = timer(0, 2000)
-			.subscribe(() => this.getNewDyslexicText());
+		for (let i = 0; i < this.defaultWords.length; i++) {
+			this.subscriptions.sink = timer(0, 1000 + Math.floor(Math.random() * 1000))
+				.subscribe(() => this.getNewDyslexicWordByIndex(i));
+		}
 	}
 
 	ngOnDestroy(): void {
@@ -39,15 +42,15 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 	}
 
 	setDefaultWords(): void {
-		this.defaultWords = this.defaultText
+		this.defaultWords = this.text
 			.split(' ')
 			.map(searchTerm => searchTerm.trim())
 			.filter(searchTerm => searchTerm.length !== 0);
+
+		this.outputWords = [...this.defaultWords];
 	}
 
 	generateDyslexicWords(): void {
-		this.setDefaultWords();
-
 		this.defaultWords.forEach(word => {
 			this.dyslexicWordCombinations.push(this.generateDyslexicWordCombinations(word));
 		});
@@ -83,14 +86,8 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 		return dyslexicWordCombinations;
 	}
 
-	getNewDyslexicText(): void {
-		const selectedWords = [];
-
-		for (let i = 0; i < this.defaultWords.length; i++) {
-			selectedWords.push(this.getNewDyslexicWord(this.defaultWords[i], this.dyslexicWordCombinations[i]));
-		}
-
-		this.outputText = selectedWords.join(' ');
+	getNewDyslexicWordByIndex(wordIndex: number): void {
+		this.outputWords[wordIndex] = this.getNewDyslexicWord(this.defaultWords[wordIndex], this.dyslexicWordCombinations[wordIndex]);
 	}
 
 	getNewDyslexicWord(defaultWord: string, dyslexicWordCombinations: string[]): string {
