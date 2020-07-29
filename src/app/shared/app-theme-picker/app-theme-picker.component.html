@@ -11,6 +11,11 @@
 		<mat-icon color="primary">circle</mat-icon>
 		Palette
 	</button>
+	<mat-checkbox class="mat-menu-item" color="primary"
+				  [(ngModel)]="dyslexicText" (change)="toggleDyslexicText($event)"
+				  (ngModelChange)="toggleDyslexicText($event)">
+		Dyslexic Text
+	</mat-checkbox>
 </mat-menu>
 
 <mat-menu #themes="matMenu">

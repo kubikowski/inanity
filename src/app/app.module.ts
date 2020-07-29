@@ -16,6 +16,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppThemePickerComponent } from './shared/app-theme-picker/app-theme-picker.component';
 import { DyslexicTextComponent } from './shared/dyslexic-text/dyslexic-text.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -34,6 +36,9 @@ import { DyslexicTextComponent } from './shared/dyslexic-text/dyslexic-text.comp
 		MatIconModule,
 		MatMenuModule,
 		MatToolbarModule,
+		MatCheckboxModule,
+		ReactiveFormsModule,
+		FormsModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent]

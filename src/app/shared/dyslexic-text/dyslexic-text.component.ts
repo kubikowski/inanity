@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { DyslexicTextService } from './services/dyslexic-text.service';
 import { SubSink } from 'subsink';
 import { timer } from 'rxjs/internal/observable/timer';
 
@@ -24,7 +25,7 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 
 	outputWords: string[];
 
-	constructor() {
+	constructor(private dyslexicTextService: DyslexicTextService) {
 	}
 
 	ngOnInit(): void {
@@ -32,7 +33,7 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 		this.generateDyslexicWords();
 
 		for (let i = 0; i < this.defaultWords.length; i++) {
-			this.subscriptions.sink = timer(0, 1000 + Math.floor(Math.random() * 1000))
+			this.subscriptions.sink = timer(2000, 1500 + Math.floor(Math.random() * 1000))
 				.subscribe(() => this.getNewDyslexicWordByIndex(i));
 		}
 	}
@@ -87,7 +88,9 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 	}
 
 	getNewDyslexicWordByIndex(wordIndex: number): void {
-		this.outputWords[wordIndex] = this.getNewDyslexicWord(this.defaultWords[wordIndex], this.dyslexicWordCombinations[wordIndex]);
+		this.outputWords[wordIndex] = this.dyslexicTextService.getEnabled()
+			? this.getNewDyslexicWord(this.defaultWords[wordIndex], this.dyslexicWordCombinations[wordIndex])
+			: this.defaultWords[wordIndex];
 	}
 
 	getNewDyslexicWord(defaultWord: string, dyslexicWordCombinations: string[]): string {
