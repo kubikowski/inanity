@@ -32,9 +32,9 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 		this.setDefaultWords();
 		this.generateDyslexicWords();
 
-		for (let i = 0; i < this.defaultWords.length; i++) {
+		for (let wordIndex = 0; wordIndex < this.defaultWords.length; wordIndex++) {
 			this.subscriptions.sink = timer(2000, 1500 + Math.floor(Math.random() * 1000))
-				.subscribe(() => this.getNewDyslexicWordByIndex(i));
+				.subscribe(() => this.getNewDyslexicWordByIndex(wordIndex));
 		}
 	}
 
@@ -69,16 +69,16 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 			const remainingLetters = orderedLetters.join('');
 
 			// Number of steps to move each letter
-			for (let i = 0; i < remainingLetters.length - 1; i++) {
+			for (let distance = 0; distance < remainingLetters.length - 1; distance++) {
 
 				// Moving Letter Index
-				for (let j = 0; j < remainingLetters.length - i - 1; j++) {
-					const startingChars = remainingLetters.slice(0, j);
-					const forwardChar = remainingLetters.charAt(j);
-					const backwardChars = remainingLetters.slice(j + 1, j + i + 2);
-					const endingChars = remainingLetters.slice(j + i + 2);
+				for (let letterIndex = 0; letterIndex < remainingLetters.length - distance - 1; letterIndex++) {
+					const startingLetters = remainingLetters.slice(0, letterIndex);
+					const forwardLetter = remainingLetters.charAt(letterIndex);
+					const backwardLetters = remainingLetters.slice(letterIndex + 1, letterIndex + distance + 2);
+					const endingLetters = remainingLetters.slice(letterIndex + distance + 2);
 
-					const result = firstLetter + startingChars + backwardChars + forwardChar + endingChars + lastLetter;
+					const result = firstLetter + startingLetters + backwardLetters + forwardLetter + endingLetters + lastLetter;
 					dyslexicWordCombinations.push(result);
 				}
 			}
@@ -94,7 +94,7 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 	}
 
 	getNewDyslexicWord(defaultWord: string, dyslexicWordCombinations: string[]): string {
-		const odds = Math.floor(Math.random() * dyslexicWordCombinations.length * 5);
-		return dyslexicWordCombinations[odds] ?? defaultWord;
+		const combinationIndex = Math.floor(Math.random() * dyslexicWordCombinations.length * 5);
+		return dyslexicWordCombinations[combinationIndex] ?? defaultWord;
 	}
 }
