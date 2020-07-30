@@ -66,7 +66,7 @@ $inanity-primary-theme: rational-dark-palette(
 
 // Inanity Accent Theme (based off the App & Tile Background Colors)
 $inanity-accent-theme: rational-light-palette(
-	var(--theme-color-backround),
+	var(--theme-color-background),
 	var(--theme-color-accent),
 	var(--theme-color-disabled),
 );

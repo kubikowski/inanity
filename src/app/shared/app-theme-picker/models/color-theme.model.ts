@@ -21,7 +21,7 @@ export class ColorTheme {
 
 	public static getRootTheme(): ColorTheme {
 		return new ColorTheme(
-			'--theme-color-backround',
+			'--theme-color-background',
 			'--theme-color-accent',
 			'--theme-color-disabled',
 			'--theme-color-contrast',
