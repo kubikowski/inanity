@@ -94,13 +94,7 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 	}
 
 	getNewDyslexicWord(defaultWord: string, dyslexicWordCombinations: string[]): string {
-		let odds = Math.floor(Math.random() * 60);
-		for (const dyslexicWordCombination of dyslexicWordCombinations) {
-			if (odds === 0) {
-				return dyslexicWordCombination;
-			}
-			odds--;
-		}
-		return defaultWord;
+		const odds = Math.floor(Math.random() * dyslexicWordCombinations.length * 5);
+		return dyslexicWordCombinations[odds] ?? defaultWord;
 	}
 }
