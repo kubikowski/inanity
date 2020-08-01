@@ -9,7 +9,7 @@ export class DyslexicTextService {
 	constructor() {
 		// Get Initial Values
 		const enabled = JSON.parse(localStorage.getItem('dyslexic-text')) ?? true;
-		const amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 5;
+		const amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 10;
 
 		// Initialize Values
 		this.setEnabled(enabled);

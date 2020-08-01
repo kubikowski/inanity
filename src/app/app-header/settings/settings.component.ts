@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
 
 	// Dyslexic Text
 	dyslexicTextEnabled = true;
-	dyslexiaAmount = 5;
+	dyslexiaAmount = 10;
 
 	constructor(private colorsService: ColorsService,
 				private dyslexicTextService: DyslexicTextService) {
@@ -45,6 +45,6 @@ export class SettingsComponent implements OnInit {
 	}
 
 	setDyslexiaAmount(): void {
-		this.dyslexicTextService.setAmount(10 - this.dyslexiaAmount);
+		this.dyslexicTextService.setAmount(20 - this.dyslexiaAmount);
 	}
 }
