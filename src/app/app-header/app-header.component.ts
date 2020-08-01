@@ -18,7 +18,7 @@ export class AppHeaderComponent implements OnInit {
 	}
 
 	toggleSidenav(event: Event): void {
-		event.currentTarget.blur();
+		(event.currentTarget as HTMLElement).blur();
 		this.sidenav.toggle();
 	}
 }
