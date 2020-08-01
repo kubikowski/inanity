@@ -1,18 +1,18 @@
 
 :root {
-	// Light Mode [Light]
+	// Light Theme [Light]
 	--light-theme-background: white;
 	--light-theme-accent: whitesmoke;
 	--light-theme-disabled: lightgrey;
 	--light-theme-contrast: rgba(0, 0, 0, 0.87);
 
-	// Dark Mode [Dracula]
+	// Dark Theme [Dracula]
 	--dark-theme-background: #282a36;
 	--dark-theme-accent: #44475a;
 	--dark-theme-disabled: #6272a4;
 	--dark-theme-contrast: #f8f8f2;
 
-	// Blue Theme Palette [Aqua]
+	// Blue Palette [Aqua]
 	--blue-theme-lightest: #51d4ff;
 	--blue-theme-lighter: #1ab4f5;
 	--blue-theme-light: #00b3ee;
@@ -21,7 +21,7 @@
 	--blue-theme-darker: #047ec5;
 	--blue-theme-darkest: #036ea6;
 
-	// Green Theme Palette [Moss]
+	// Green Palette [Moss]
 	--green-theme-lightest: #70ee7a;
 	--green-theme-lighter: #3cd070;
 	--green-theme-light: #50c878;
@@ -30,7 +30,7 @@
 	--green-theme-darker: #009060;
 	--green-theme-darkest: #00755e;
 
-	// Orange Theme Palette [Combustion]
+	// Orange Palette [Combustion]
 	--orange-theme-lightest: #ffe808;
 	--orange-theme-lighter: #ffcc00;
 	--orange-theme-light: #ffa812;
