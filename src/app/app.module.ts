@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { SettingsComponent } from './app-header/settings/settings.component';
 import { DyslexicTextComponent } from './shared/dyslexic-text/dyslexic-text.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
 	declarations: [
@@ -42,6 +43,7 @@ import { DyslexicTextComponent } from './shared/dyslexic-text/dyslexic-text.comp
 		MatToolbarModule,
 		ReactiveFormsModule,
 		FormsModule,
+		MatSidenavModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent]

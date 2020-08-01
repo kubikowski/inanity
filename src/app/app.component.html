@@ -1,31 +1,40 @@
 <main>
-	<app-header></app-header>
-	<mat-card>
-		<mat-card-header>
-			<mat-icon>emoji_food_beverage</mat-icon>
-			<mat-card-title>
-				<dyslexic-text [text]="'Project Stack'"></dyslexic-text>
-			</mat-card-title>
-		</mat-card-header>
-	</mat-card>
-	<mat-card>
-		<mat-card-header>
-			<mat-icon>album</mat-icon>
-			<mat-card-title>
-				<dyslexic-text [text]="'gong'" [suffix]="'.io'"></dyslexic-text>
-			</mat-card-title>
-		</mat-card-header>
-		<mat-card-content>
-			<img mat-card-image src="https://images.reverb.com/image/upload/s--h6GEum9o--/f_auto,t_large/v1580782954/kxhgkqs4mfgopbbpg43b.jpg"
-				 alt="a picture of my actual gong">
-			<p>
-				<dyslexic-text [text]="'The gong is real. It is a real gong.'"></dyslexic-text>
-			</p>
-			<p>
-				<dyslexic-text [text]="'When you hit the gong, it sends a message to an arduino listener that strikes the gong.'"></dyslexic-text>
-			</p>
-		</mat-card-content>
-	</mat-card>
+	<app-header [sidenav]="sidenav"></app-header>
+
+	<mat-sidenav-container>
+		<mat-sidenav #sidenav [mode]="'over'">
+			<p>I am the captain</p>
+		</mat-sidenav>
+
+		<mat-sidenav-content>
+			<mat-card>
+				<mat-card-header>
+					<mat-icon>emoji_food_beverage</mat-icon>
+					<mat-card-title>
+						<dyslexic-text [text]="'Project Stack'"></dyslexic-text>
+					</mat-card-title>
+				</mat-card-header>
+			</mat-card>
+			<mat-card>
+				<mat-card-header>
+					<mat-icon>album</mat-icon>
+					<mat-card-title>
+						<dyslexic-text [text]="'gong'" [suffix]="'.io'"></dyslexic-text>
+					</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					<img mat-card-image src="https://images.reverb.com/image/upload/s--h6GEum9o--/f_auto,t_large/v1580782954/kxhgkqs4mfgopbbpg43b.jpg"
+						 alt="a picture of my actual gong">
+					<p>
+						<dyslexic-text [text]="'The gong is real. It is a real gong.'"></dyslexic-text>
+					</p>
+					<p>
+						<dyslexic-text [text]="'When you hit the gong, it sends a message to an arduino listener that strikes the gong.'"></dyslexic-text>
+					</p>
+				</mat-card-content>
+			</mat-card>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
 </main>
 
 <router-outlet></router-outlet>

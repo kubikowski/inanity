@@ -1,17 +1,27 @@
 :host {
 	main {
-		display: grid;
-		grid-template:
-			[row1-start] "header header" auto [row1-end]
-			[row2-start] "sidebar main" 1fr [row2-end]
-			/ 38% auto;
+		display: flex;
+		flex-flow: column nowrap;
 
+		mat-sidenav-container {
+			color: var(--theme-color-contrast);
+			background-color: var(--theme-color-light);
+			background-image: linear-gradient(to top, var(--theme-color-background), var(--theme-color-lightest));
+
+			mat-sidenav {
+				width: 15rem;
+			}
+
+			mat-sidenav-content {
+				display: grid;
+				grid-template: [row1-start] "col1" "col2" auto [row1-end] / 38% 1fr;
+			}
+		}
+	}
+
+	main, mat-sidenav-container, mat-sidenav-content {
 		height: 100%;
 		width: 100%;
 		overflow: hidden;
-
-		color: var(--theme-color-contrast);
-		background-color: var(--theme-color-light);
-		background-image: linear-gradient(to top, var(--theme-color-background), var(--theme-color-lightest));
 	}
 }
