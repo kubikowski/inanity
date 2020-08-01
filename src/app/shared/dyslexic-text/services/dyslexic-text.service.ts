@@ -1,38 +1,36 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class DyslexicTextService {
 
-	// Document
-	body = document.body;
+	private enabled: boolean;
+	private amount: number;
 
 	constructor() {
-		// Get Initial Value
+		// Get Initial Values
 		const enabled = JSON.parse(localStorage.getItem('dyslexic-text')) ?? true;
+		const amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 5;
 
-		// Initialize Enabled Value
+		// Initialize Values
 		this.setEnabled(enabled);
+		this.setAmount(amount);
 	}
 
 	getEnabled(): boolean {
-		return this.body.classList.contains('dyslexic-text');
+		return this.enabled;
 	}
 
 	setEnabled(enabled: boolean): void {
-		enabled
-			? this.enableGlobally()
-			: this.disableGlobally();
+		this.enabled = enabled;
+		localStorage.setItem('dyslexic-text', String(enabled));
 	}
 
-	enableGlobally(): void {
-		this.body.classList.add('dyslexic-text');
-		localStorage.setItem('dyslexic-text', 'true');
+	getAmount(): number {
+		return this.amount;
 	}
 
-	disableGlobally(): void {
-		this.body.classList.remove('dyslexic-text');
-		localStorage.setItem('dyslexic-text', 'false');
+	setAmount(amount: number): void {
+		this.amount = amount;
+		localStorage.setItem('dyslexia-amount', String(amount));
 	}
 }

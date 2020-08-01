@@ -3,7 +3,6 @@ import { ColorTheme } from '../../shared/colors/models/color-theme.model';
 import { ColorPalette } from '../../shared/colors/models/color-palette.model';
 import { ColorsService } from '../../shared/colors/services/colors.service';
 import { DyslexicTextService } from '../../shared/dyslexic-text/services/dyslexic-text.service';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
 	selector: 'settings',
@@ -12,23 +11,24 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 })
 export class SettingsComponent implements OnInit {
 
-// Color Themes
+	// Color Themes
 	colorThemes = ColorTheme.getThemes();
 
 	// Color Palettes
 	colorPalettes = ColorPalette.getPalettes();
 
-	// Dyslexic Text Enabled
-	dyslexicText = true;
+	// Dyslexic Text
+	dyslexicTextEnabled = true;
+	dyslexiaAmount = 5;
 
 	constructor(private colorsService: ColorsService,
 				private dyslexicTextService: DyslexicTextService) {
 	}
 
 	ngOnInit(): void {
-		this.dyslexicText = this.dyslexicTextService.getEnabled();
+		this.dyslexicTextEnabled = this.dyslexicTextService.getEnabled();
+		this.dyslexiaAmount = this.dyslexicTextService.getAmount();
 	}
-
 
 	toggleTheme(theme: ColorTheme, event: Event): void {
 		event.stopPropagation();
@@ -40,12 +40,11 @@ export class SettingsComponent implements OnInit {
 		this.colorsService.togglePalette(palette);
 	}
 
-	toggleDyslexicText(event: Event | MatCheckboxChange): void {
-		if (event instanceof Event) {
-			event.stopPropagation();
-		}
-
-		this.dyslexicTextService.setEnabled(this.dyslexicText);
+	toggleDyslexicTextEnabled(): void {
+		this.dyslexicTextService.setEnabled(this.dyslexicTextEnabled);
 	}
 
+	setDyslexiaAmount(): void {
+		this.dyslexicTextService.setAmount(10 - this.dyslexiaAmount);
+	}
 }

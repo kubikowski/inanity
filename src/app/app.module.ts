@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 // Custom
@@ -37,6 +38,7 @@ import { DyslexicTextComponent } from './shared/dyslexic-text/dyslexic-text.comp
 		MatDividerModule,
 		MatIconModule,
 		MatMenuModule,
+		MatSliderModule,
 		MatToolbarModule,
 		ReactiveFormsModule,
 		FormsModule,
