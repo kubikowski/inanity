@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AppThemePickerComponent } from './app-theme-picker.component';
+import { SettingsComponent } from './settings.component';
 
-describe('AppThemePickerComponent', () => {
-	let component: AppThemePickerComponent;
-	let fixture: ComponentFixture<AppThemePickerComponent>;
+describe('SettingsComponent', () => {
+	let component: SettingsComponent;
+	let fixture: ComponentFixture<SettingsComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [AppThemePickerComponent]
+			declarations: [SettingsComponent]
 		})
 			.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(AppThemePickerComponent);
+		fixture = TestBed.createComponent(SettingsComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

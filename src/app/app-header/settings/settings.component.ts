@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ColorTheme } from './models/color-theme.model';
-import { ColorPalette } from './models/color-palette.model';
-import { ColorsService } from './services/colors.service';
-import { DyslexicTextService } from '../dyslexic-text/services/dyslexic-text.service';
-import { FormControl } from '@angular/forms';
+import { ColorTheme } from '../../shared/colors/models/color-theme.model';
+import { ColorPalette } from '../../shared/colors/models/color-palette.model';
+import { ColorsService } from '../../shared/colors/services/colors.service';
+import { DyslexicTextService } from '../../shared/dyslexic-text/services/dyslexic-text.service';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
-	selector: 'app-theme-picker',
-	templateUrl: './app-theme-picker.component.html',
-	styleUrls: ['./app-theme-picker.component.scss']
+	selector: 'settings',
+	templateUrl: './settings.component.html',
+	styleUrls: ['./settings.component.scss']
 })
-export class AppThemePickerComponent implements OnInit {
+export class SettingsComponent implements OnInit {
 
-	// Color Themes
+// Color Themes
 	colorThemes = ColorTheme.getThemes();
 
 	// Color Palettes
@@ -48,4 +47,5 @@ export class AppThemePickerComponent implements OnInit {
 
 		this.dyslexicTextService.setEnabled(this.dyslexicText);
 	}
+
 }
