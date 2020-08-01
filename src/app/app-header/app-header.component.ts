@@ -16,4 +16,9 @@ export class AppHeaderComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
+
+	toggleSidenav(event: Event): void {
+		event.currentTarget.blur();
+		this.sidenav.toggle();
+	}
 }
