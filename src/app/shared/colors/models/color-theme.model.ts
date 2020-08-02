@@ -30,8 +30,8 @@ export class ColorTheme {
 
 	public static getThemes(): ColorTheme[] {
 		const themes: {themeName: string, displayName: string}[] = [
-			{themeName: 'light', displayName: 'Light'},
-			{themeName: 'dark', displayName: 'Dark'},
+			{ themeName: 'light', displayName: 'Light' },
+			{ themeName: 'dark', displayName: 'Dark' },
 		];
 
 		return themes.map(theme => ColorTheme.from(theme.themeName, theme.displayName));

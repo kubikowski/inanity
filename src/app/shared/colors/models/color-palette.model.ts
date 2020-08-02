@@ -39,9 +39,10 @@ export class ColorPalette {
 
 	public static getPalettes(): ColorPalette[] {
 		const palettes: {paletteName: string, displayName: string}[] = [
-			{paletteName: 'blue', displayName: 'Aqua'},
-			{paletteName: 'green', displayName: 'Moss'},
-			{paletteName: 'orange', displayName: 'Combustion'},
+			{ paletteName: 'blue', displayName: 'Aqua' },
+			{ paletteName: 'green', displayName: 'Moss' },
+			{ paletteName: 'pink', displayName: 'Flamingo' },
+			{ paletteName: 'orange', displayName: 'Combustion' },
 		];
 
 		return palettes.map(palette => ColorPalette.from(palette.paletteName, palette.displayName));
