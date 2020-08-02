@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -20,7 +21,7 @@ import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { SettingsComponent } from './app-header/settings/settings.component';
 import { DyslexicTextComponent } from './shared/dyslexic-text/dyslexic-text.component';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { GongComponent } from './pages/gong/gong.component';
 
 @NgModule({
 	declarations: [
@@ -28,6 +29,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 		AppHeaderComponent,
 		SettingsComponent,
 		DyslexicTextComponent,
+		GongComponent,
 	],
 	imports: [
 		AppRoutingModule,
@@ -39,11 +41,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 		MatDividerModule,
 		MatIconModule,
 		MatMenuModule,
+		MatSidenavModule,
 		MatSliderModule,
 		MatToolbarModule,
 		ReactiveFormsModule,
 		FormsModule,
-		MatSidenavModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent]

@@ -11,11 +11,6 @@
 			mat-sidenav {
 				width: 15rem;
 			}
-
-			mat-sidenav-content {
-				display: grid;
-				grid-template: [row1-start] "col1" "col2" auto [row1-end] / 38% 1fr;
-			}
 		}
 	}
 
