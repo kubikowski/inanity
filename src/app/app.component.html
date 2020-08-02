@@ -1,15 +1,14 @@
-<main>
-	<app-header [sidenav]="sidenav"></app-header>
 
-	<mat-sidenav-container>
-		<mat-sidenav #sidenav [mode]="'over'">
-			<p>
-				<dyslexic-text [text]="'I am the captain now'"></dyslexic-text>
-			</p>
-		</mat-sidenav>
+<app-header [sidenav]="sidenav"></app-header>
 
-		<mat-sidenav-content>
-			<router-outlet></router-outlet>
-		</mat-sidenav-content>
-	</mat-sidenav-container>
-</main>
+<mat-sidenav-container>
+	<mat-sidenav #sidenav [mode]="'over'">
+		<p>
+			<dyslexic-text [text]="'I am the captain now'"></dyslexic-text>
+		</p>
+	</mat-sidenav>
+
+	<mat-sidenav-content>
+		<router-outlet></router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container>

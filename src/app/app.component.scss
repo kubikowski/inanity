@@ -1,22 +1,21 @@
 :host {
-	main {
-		display: flex;
-		flex-flow: column nowrap;
+	display: flex;
+	flex-flow: column nowrap;
 
-		mat-sidenav-container {
-			color: var(--theme-color-contrast);
-			background-color: var(--theme-color-light);
-			background-image: linear-gradient(to top, var(--theme-color-background), var(--theme-color-lightest));
+	mat-sidenav-container {
+		color: var(--theme-color-contrast);
+		background-color: var(--theme-color-light);
+		background-image: linear-gradient(to top, var(--theme-color-background), var(--theme-color-lightest));
 
-			mat-sidenav {
-				width: 15rem;
-			}
+		mat-sidenav {
+			width: 15rem;
 		}
 	}
-
-	main, mat-sidenav-container, mat-sidenav-content {
-		height: 100%;
-		width: 100%;
-		overflow: hidden;
-	}
 }
+
+:host, mat-sidenav-container, mat-sidenav-content {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
