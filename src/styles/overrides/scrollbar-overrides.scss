@@ -12,7 +12,7 @@
 
 	&::-webkit-scrollbar-track {
 		border-radius: 0.5rem;
-		background-color: var(--theme-color-accent);
+		background-color: transparent;
 	}
 
 	&::-webkit-scrollbar-thumb {
@@ -21,12 +21,16 @@
 		box-shadow: inset 0 0 0 var(--theme-color-contrast);
 		transition: box-shadow 200ms;
 
-		&:active {
+		&:hover {
 			box-shadow: inset 0 0 1px var(--theme-color-contrast);
+		}
+
+		&:active {
+			box-shadow: inset 0 0 2px var(--theme-color-contrast);
 		}
 	}
 
 	// Firefox Scrollbar Overrides
-	scrollbar-color: var(--theme-color-disabled) var(--theme-color-accent);
+	scrollbar-color: var(--theme-color-disabled) transparent;
 	scrollbar-width: thin;
 }
