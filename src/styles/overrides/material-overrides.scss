@@ -1,7 +1,10 @@
 
 mat-card {
 	margin: 5rem;
-	height: calc(100% - 12.5rem);
+	min-width: 300px;
+	max-height: calc(100% - 12.5rem);
+	min-height: 100px;
+	flex-grow: 1;
 	overflow: hidden auto;
 
 	mat-card-header {
