@@ -21,6 +21,7 @@ import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { SettingsComponent } from './app-header/settings/settings.component';
 import { DyslexicTextComponent } from './shared/dyslexic-text/dyslexic-text.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { GongComponent } from './pages/gong/gong.component';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { GongComponent } from './pages/gong/gong.component';
 		AppHeaderComponent,
 		SettingsComponent,
 		DyslexicTextComponent,
+		PageNotFoundComponent,
 		GongComponent,
 	],
 	imports: [

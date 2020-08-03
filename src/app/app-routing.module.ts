@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GongComponent } from './pages/gong/gong.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
-const routes: Routes = [{
+const routes: Routes = [
+	{
 		path: '',
 		redirectTo: '/gong',
 		pathMatch: 'full'
 	}, {
 		path: 'gong',
 		component: GongComponent,
-	// }, {
-	// 	path: '**',
-	// 	component: PageNotFoundComponent
+	}, {
+		path: '**',
+		component: PageNotFoundComponent,
 	},
 ];
 
