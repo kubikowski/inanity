@@ -1,4 +1,5 @@
-<mat-card>
+<mat-card [routerLink]="[config.route]" routerLinkActive="active"
+		  (click)="toggleSidenav($event)">
 	<mat-card-header>
 		<mat-card-title>
 			{{ config.title }}

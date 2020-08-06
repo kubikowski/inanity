@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavigationConfig } from './models/navigation-config.model';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
 	selector: 'app-sidebar',
@@ -7,6 +8,9 @@ import { NavigationConfig } from './models/navigation-config.model';
 	styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+
+	@Input()
+	sidenav: MatSidenav;
 
 	navigationConfigs: NavigationConfig[];
 

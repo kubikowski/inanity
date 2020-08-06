@@ -2,10 +2,15 @@
 	padding: 1rem 1rem 0;
 
 	mat-card {
+		cursor: pointer;
 		background-color: var(--theme-color-lighter);
 
-		&.selected {
+		&:hover, &:active {
 			background-color: var(--theme-color-light);
+		}
+
+		&.active {
+			background-color: var(--theme-color-default);
 		}
 	}
 }
