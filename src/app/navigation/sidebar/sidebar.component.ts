@@ -19,6 +19,7 @@ export class SidebarComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.navigationConfigs = [
+			NavigationConfig.from('About', 'wheel', 'about'),
 			NavigationConfig.from('Gong', 'gong', 'gong'),
 			NavigationConfig.from('404', 'wheel', 'get-got'),
 		];
