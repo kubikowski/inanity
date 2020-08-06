@@ -4,8 +4,8 @@
 
 	mat-sidenav-container {
 		color: var(--theme-color-contrast);
-		background-color: var(--theme-color-light);
-		background-image: linear-gradient(to top, var(--theme-color-background), var(--theme-color-lightest));
+		background-color: var(--theme-color-lightest);
+		background-image: linear-gradient(to top, var(--theme-color-background), transparent);
 
 		mat-sidenav {
 			width: 15rem;
