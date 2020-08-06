@@ -18,6 +18,6 @@
 
 :not(.default-transition) {
 	transition:
-		color 250ms,
-		background-color 250ms;
+		color 250ms cubic-bezier(.3642, 0, .6358, 1),
+		background-color 250ms cubic-bezier(.3642, 0, .6358, 1);
 }
