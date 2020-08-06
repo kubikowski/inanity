@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationConfig } from './models/navigation-config.model';
 
 @Component({
 	selector: 'app-sidebar',
@@ -7,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
+	navigationConfigs: NavigationConfig[];
+
 	constructor() {
 	}
 
 	ngOnInit(): void {
+		this.navigationConfigs = [
+			NavigationConfig.from('Gong', 'gong', 'gong'),
+			NavigationConfig.from('404', 'wheel', 'get-got'),
+		];
 	}
 
 }

@@ -1,0 +1,11 @@
+:host {
+	padding: 1rem 1rem 0;
+
+	mat-card {
+		background-color: var(--theme-color-lighter);
+
+		&.selected {
+			background-color: var(--theme-color-light);
+		}
+	}
+}
