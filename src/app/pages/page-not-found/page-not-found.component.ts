@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
 	selector: 'app-page-not-found',
@@ -7,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-	constructor() {
+	@ViewChild('wheelIcon')
+	wheelIcon: ElementRef;
+
+	constructor(private http: HttpClient) {
 	}
 
 	ngOnInit(): void {
+		this.http.get('assets/svg/wheel.svg', { responseType: 'text' })
+			.subscribe(data => {
+				this.wheelIcon.nativeElement.innerHTML = data as unknown as SVGElement;
+			});
 	}
-
 }
