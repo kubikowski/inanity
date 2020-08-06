@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ColorTheme } from '../../shared/colors/models/color-theme.model';
-import { ColorPalette } from '../../shared/colors/models/color-palette.model';
-import { ColorsService } from '../../shared/colors/services/colors.service';
-import { DyslexicTextService } from '../../shared/dyslexic-text/services/dyslexic-text.service';
+import { ColorTheme } from '../../../shared/colors/models/color-theme.model';
+import { ColorPalette } from '../../../shared/colors/models/color-palette.model';
+import { ColorsService } from '../../../shared/colors/services/colors.service';
+import { DyslexicTextService } from '../../../shared/dyslexic-text/services/dyslexic-text.service';
 
 @Component({
 	selector: 'settings',
