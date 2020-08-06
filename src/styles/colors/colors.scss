@@ -15,3 +15,9 @@
 	--theme-color-darker: var(--blue-theme-darker);
 	--theme-color-darkest: var(--blue-theme-darkest);
 }
+
+:not(.default-transition) {
+	transition:
+		color 250ms,
+		background-color 250ms;
+}
