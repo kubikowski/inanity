@@ -16,8 +16,8 @@
 	--theme-color-darkest: var(--blue-theme-darkest);
 }
 
-:not(.default-transition) {
-	transition:
-		color 250ms,
-		background-color 250ms;
+:not(.default-transition):not(.custom-transition) {
+	transition-property: color, text-shadow, background-color, border-color, box-shadow, fill;
+	transition-duration: 250ms;
+	transition-timing-function: cubic-bezier(.3642, 0, .6358, 1);
 }
