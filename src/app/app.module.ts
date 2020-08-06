@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 // Material Components
 import { MatButtonModule } from '@angular/material/button';
@@ -39,6 +40,7 @@ import { GongComponent } from './pages/gong/gong.component';
 		AppRoutingModule,
 		BrowserModule,
 		BrowserAnimationsModule,
+		HttpClientModule,
 		MatButtonModule,
 		MatCardModule,
 		MatCheckboxModule,
