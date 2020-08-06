@@ -12,12 +12,12 @@ export class ColorsService {
 	style = document.documentElement.style;
 
 	// Color Themes
-	rootTheme = ColorTheme.getRootTheme();
-	colorThemes = ColorTheme.getThemes();
+	RootTheme = ColorTheme.RootTheme;
+	colorThemes = ColorTheme.Themes;
 
 	// Color Palettes
-	rootPalette = ColorPalette.getRootPalette();
-	colorPalettes = ColorPalette.getPalettes();
+	rootPalette = ColorPalette.RootPalette;
+	colorPalettes = ColorPalette.Palettes;
 
 	constructor() {
 		// Get Initial Theme and Palette
@@ -64,8 +64,8 @@ export class ColorsService {
 	}
 
 	setTheme(theme: ColorTheme): void {
-		Object.entries(this.rootTheme).forEach(([key, value]) => {
-			this.style.setProperty( value, `var(${theme[key]})`);
+		Object.entries(this.RootTheme).forEach(([key, cssVariable]) => {
+			this.style.setProperty(cssVariable, theme[key]);
 		});
 	}
 
@@ -94,8 +94,8 @@ export class ColorsService {
 
 	setPalette(palette: ColorPalette): void {
 		const computedPalette = this.getComputedPalette(palette);
-		Object.entries(this.rootPalette).forEach(([key, value]) => {
-			this.style.setProperty( value, `var(${computedPalette[key]})`);
+		Object.entries(this.rootPalette).forEach(([key, cssVariable]) => {
+			this.style.setProperty(cssVariable, computedPalette[key]);
 		});
 	}
 }

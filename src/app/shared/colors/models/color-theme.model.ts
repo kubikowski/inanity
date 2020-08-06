@@ -8,32 +8,33 @@ export class ColorTheme {
 		public displayName?: string,
 	) { }
 
-	public static from(themeName: string, displayName: string): ColorTheme {
-		return new ColorTheme(
-			`--${themeName}-theme-background`,
-			`--${themeName}-theme-accent`,
-			`--${themeName}-theme-disabled`,
-			`--${themeName}-theme-contrast`,
-			`${themeName}-theme`,
-			displayName,
-		);
-	}
+	public static readonly RootTheme = new ColorTheme(
+		'--theme-color-background',
+		'--theme-color-accent',
+		'--theme-color-disabled',
+		'--theme-color-contrast',
+	);
 
-	public static getRootTheme(): ColorTheme {
-		return new ColorTheme(
-			'--theme-color-background',
-			'--theme-color-accent',
-			'--theme-color-disabled',
-			'--theme-color-contrast',
-		);
-	}
+	public static readonly LightTheme = new ColorTheme(
+		'#ffffff',
+		'#f5f5f5',
+		'#d3d3d3',
+		'rgba(0, 0, 0, 0.87)',
+		'light-theme',
+		'Light',
+	);
 
-	public static getThemes(): ColorTheme[] {
-		const themes: {themeName: string, displayName: string}[] = [
-			{ themeName: 'light', displayName: 'Light' },
-			{ themeName: 'dark', displayName: 'Dark' },
-		];
+	public static readonly DarkTheme = new ColorTheme(
+		'#212121',
+		'#424242',
+		'#636363',
+		'#ffffff',
+		'dark-theme',
+		'Dark',
+	);
 
-		return themes.map(theme => ColorTheme.from(theme.themeName, theme.displayName));
-	}
+	public static readonly Themes = [
+		ColorTheme.LightTheme,
+		ColorTheme.DarkTheme,
+	];
 }
