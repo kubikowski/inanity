@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SvgService } from '../../shared/svg/services/svg.service';
-import { IconName } from '../../shared/svg/models/icon-name.enum';
+import { IconFile } from '../../shared/svg/models/icon-file.enum';
 import { Observable } from 'rxjs';
 import { SubSink } from 'subsink';
 import { filter } from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class PageNotFoundComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.wheelIconElement$ = this.svgService.getIcon(IconName.WHEEL);
+		this.wheelIconElement$ = this.svgService.getIcon(IconFile.WHEEL);
 
 		this.subscriptions.sink = this.wheelIconElement$
 			.pipe(filter(element => typeof this.wheelIconRef !== 'undefined'))
