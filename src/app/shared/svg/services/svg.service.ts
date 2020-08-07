@@ -8,7 +8,7 @@ import { IconFile } from '../models/icon-file.enum';
 @Injectable({ providedIn: 'root' })
 export class SvgService {
 
-	private icons: Map<IconName, SVGIcon>;
+	private icons: Map<IconName, SVGIcon> = new Map<IconName, SVGIcon>();
 
 	public readonly WheelIcon = new SVGIcon(IconName.WHEEL, IconFile.WHEEL);
 	public readonly GongIcon = new SVGIcon(IconName.GONG, IconFile.GONG);
@@ -19,7 +19,20 @@ export class SvgService {
 		});
 	}
 
-	getIconByName(iconName: IconName): Observable<SVGElement> {
-		return this.icons.get(iconName).element$;
+	getIcon(iconName: IconName): Observable<SVGElement> {
+		const icon = this.icons[iconName];
+
+		if (!icon.requested) {
+			this.requestIconElement(icon);
+		}
+
+		return icon.element$;
+	}
+
+	requestIconElement(icon: SVGIcon): void {
+		this.http.get(`assets/svg/${icon.fileName}`, { responseType: 'text' })
+			.subscribe(iconElement => {
+				icon.element = iconElement as unknown as SVGElement;
+			});
 	}
 }
