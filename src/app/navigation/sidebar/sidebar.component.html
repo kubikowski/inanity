@@ -1,1 +1,3 @@
-<p>sidebar works!</p>
+<sidebar-item *ngFor="let config of navigationConfigs"
+			  [config]="config" [sidenav]="sidenav">
+</sidebar-item>
