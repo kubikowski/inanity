@@ -3,10 +3,10 @@
 
 	mat-card {
 		cursor: pointer;
-		background-color: var(--theme-color-lighter);
+		background-color: var(--theme-color-lightest);
 
 		&:hover, &:active {
-			background-color: var(--theme-color-light);
+			background-color: var(--theme-color-lighter);
 		}
 
 		&.active {
