@@ -4,7 +4,9 @@
 	</mat-card-header>
 
 	<mat-card-content>
-		<svg #wheelIconRef></svg>
+		<svg [attr.viewBox]="wheelIcon.viewBox">
+			<use [attr.xlink:href]="wheelIcon.href"></use>
+		</svg>
 		<br><br>
 		<p>Well, this is completely unacceptable.</p>
 		<p>Spin the wheel to fire one of the schmucks wrote this.</p>

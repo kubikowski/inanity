@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavigationConfig } from './models/navigation-config.model';
 import { MatSidenav } from '@angular/material/sidenav';
-import { IconFile } from '../../shared/svg/models/icon-file.enum';
+import { SVGIcon } from '../../shared/svg/models/svgicon.model';
 
 @Component({
 	selector: 'app-sidebar',
@@ -20,9 +20,9 @@ export class SidebarComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.navigationConfigs = [
-			NavigationConfig.from('About', IconFile.WHEEL, 'about'),
-			NavigationConfig.from('Gong',  IconFile.GONG, 'gong'),
-			NavigationConfig.from('404', IconFile.WHEEL, 'get-got'),
+			NavigationConfig.from('About', SVGIcon.Wheel, 'about'),
+			NavigationConfig.from('Gong',  SVGIcon.Gong, 'gong'),
+			NavigationConfig.from('404', SVGIcon.Wheel, 'get-got'),
 		];
 	}
 
