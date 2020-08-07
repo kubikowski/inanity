@@ -1,4 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
+import { IconName } from './icon-name.enum';
+import { IconFile } from './icon-file.enum';
 
 export class SVGIcon {
 	private readonly elementSubject: BehaviorSubject<SVGElement>;
@@ -7,8 +9,8 @@ export class SVGIcon {
 	public requested: boolean;
 
 	public constructor(
-		public iconName: string,
-		public fileName: string,
+		public readonly iconName: IconName,
+		public readonly fileName: IconFile,
 	) {
 		this.elementSubject = new BehaviorSubject<SVGElement>(null);
 		this.element$ = this.elementSubject.asObservable();

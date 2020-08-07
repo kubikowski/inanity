@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
 import { SVGIcon } from '../models/svgicon.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { IconName } from '../models/icon-name.enum';
+import { IconFile } from '../models/icon-file.enum';
 
 @Injectable({ providedIn: 'root' })
 export class SvgService {
 
-	private icons: Map<string, SVGIcon>;
+	private icons: Map<IconName, SVGIcon>;
 
-	public readonly WheelIcon = new SVGIcon(
-		'wheel-icon',
-		'wheel.svg',
-	);
-	public readonly GongIcon = new SVGIcon(
-		'gong-icon',
-		'gong.svg',
-	);
+	public readonly WheelIcon = new SVGIcon(IconName.WHEEL, IconFile.WHEEL);
+	public readonly GongIcon = new SVGIcon(IconName.GONG, IconFile.GONG);
 
 	constructor(private http: HttpClient) {
 		[this.WheelIcon, this.GongIcon].forEach(icon => {
@@ -23,7 +19,7 @@ export class SvgService {
 		});
 	}
 
-	getIconByName(iconName: string): Observable<SVGElement> {
+	getIconByName(iconName: IconName): Observable<SVGElement> {
 		return this.icons.get(iconName).element$;
 	}
 }
