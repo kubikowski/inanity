@@ -22,7 +22,6 @@ export class PageNotFoundComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.wheelIconElement$ = this.svgService.getIcon(IconFile.WHEEL);
-
 		this.subscriptions.sink = this.wheelIconElement$
 			.pipe(filter(element => typeof this.wheelIconRef !== 'undefined'))
 			.subscribe(element => this.wheelIconRef.nativeElement.innerHTML = element);

@@ -17,9 +17,12 @@ export class SvgService {
 
 	getIcon(fileName: IconFile): Observable<SVGElement> {
 		const icon = this.icons.get(fileName);
+
 		if (!icon.requested) {
 			this.requestIconElement(icon);
+			icon.requested = true;
 		}
+
 		return icon.element$;
 	}
 

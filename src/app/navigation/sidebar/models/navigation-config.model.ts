@@ -1,11 +1,13 @@
+import { IconFile } from '../../../shared/svg/models/icon-file.enum';
+
 export class NavigationConfig {
 	private constructor(
 		public title: string,
-		public iconName: string,
+		public iconFile: IconFile,
 		public route: string,
 	) { }
 
-	public static from(title: string, iconName: string, route: string): NavigationConfig {
-		return new NavigationConfig(title, iconName, route);
+	public static from(title: string, iconFile: IconFile, route: string): NavigationConfig {
+		return new NavigationConfig(title, iconFile, route);
 	}
 }
