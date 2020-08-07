@@ -4,8 +4,8 @@
 	</mat-card-header>
 
 	<mat-card-content>
-		<svg viewBox="0 0 793 756">
-			<use xlink:href="assets/svg/wheel.svg#wheel-icon"></use>
+		<svg [attr.viewBox]="wheelIcon.viewBox">
+			<use [attr.xlink:href]="wheelIcon.href"></use>
 		</svg>
 		<br><br>
 		<p>Well, this is completely unacceptable.</p>
