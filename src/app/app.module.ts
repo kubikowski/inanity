@@ -21,7 +21,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SettingsComponent } from './navigation/header/settings/settings.component';
 import { SidebarComponent } from './navigation/sidebar/sidebar.component';
-import { SidebarButtonComponent } from './navigation/sidebar/sidebar-button/sidebar-button.component';
+import { SidebarItemComponent } from './navigation/sidebar/sidebar-item/sidebar-item.component';
 import { DyslexicTextComponent } from './shared/dyslexic-text/dyslexic-text.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { GongComponent } from './pages/gong/gong.component';
@@ -35,7 +35,7 @@ import { GongComponent } from './pages/gong/gong.component';
 		DyslexicTextComponent,
 		PageNotFoundComponent,
 		GongComponent,
-		SidebarButtonComponent,
+		SidebarItemComponent,
 	],
 	imports: [
 		AppRoutingModule,

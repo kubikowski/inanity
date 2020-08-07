@@ -3,11 +3,11 @@ import { NavigationConfig } from '../models/navigation-config.model';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
-	selector: 'sidebar-button',
-	templateUrl: './sidebar-button.component.html',
-	styleUrls: ['./sidebar-button.component.scss']
+	selector: 'sidebar-item',
+	templateUrl: './sidebar-item.component.html',
+	styleUrls: ['./sidebar-item.component.scss']
 })
-export class SidebarButtonComponent implements OnInit {
+export class SidebarItemComponent implements OnInit {
 
 	@Input('config')
 	config: NavigationConfig;
