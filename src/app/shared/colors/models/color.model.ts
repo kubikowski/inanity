@@ -32,9 +32,8 @@ export class Color {
 	 */
 	private static getRgbColorValues(colorString: string): number[] {
 		const [colorValesString] = /[\d|\.+?\,?\ *]+/.exec(colorString);
-		return colorValesString
-			.split(',')
-			.map(value => parseFloat(value.trim()));
+		return colorValesString.split(',')
+			.map(value => parseFloat(value));
 	}
 
 	/** Gets the RGB color values from an Hex color string
