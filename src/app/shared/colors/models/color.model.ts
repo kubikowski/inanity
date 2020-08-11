@@ -26,6 +26,7 @@ export class Color {
 		}
 	}
 
+	/** Infers the ColorType of colorString from its leading characters */
 	private static getColorType(colorString: string): ColorType {
 		if (colorString.startsWith('rgb')) {
 			return ColorType.RGB;
