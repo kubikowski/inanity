@@ -8,16 +8,16 @@ export class Color {
 		public alpha: number,
 	) { }
 
-	from(red: number, green: number, blue: number, alpha = 255): Color {
+	public static from(red: number, green: number, blue: number, alpha = 255): Color {
 		return new Color(red, green, blue, alpha);
 	}
 
-	fromString(colorString: string): Color {
+	public static fromString(colorString: string): Color {
 		const [red, green, blue, alpha] = this.getColorValues(colorString);
 		return this.from(red, green, blue, alpha);
 	}
 
-	getColorValues(colorString: string): number[] {
+	private static getColorValues(colorString: string): number[] {
 		switch (this.getColorType(colorString)) {
 			case ColorType.RGB:
 				return this.getRgbColorValues(colorString);
@@ -26,7 +26,7 @@ export class Color {
 		}
 	}
 
-	getColorType(colorString: string): ColorType {
+	private static getColorType(colorString: string): ColorType {
 		if (colorString.startsWith('rgb')) {
 			return ColorType.RGB;
 		} else if (colorString.startsWith('#')) {
@@ -38,7 +38,7 @@ export class Color {
 	 * Handles both RGB and RGBA strings
 	 * @return [red, green, blue, alpha?]
 	 */
-	getRgbColorValues(colorString: string): number[] {
+	private static getRgbColorValues(colorString: string): number[] {
 		const [colorValesString] = /[\d|\.+?\,?\ *]+/.exec(colorString);
 		return colorValesString
 			.split(',')
@@ -49,7 +49,7 @@ export class Color {
 	 * Handles #FFF, #FFFF, #FFFFFF, & #FFFFFFFF type Hex strings
 	 * @return [red, green, blue, alpha?]
 	 */
-	getHexColorValues(colorString: string): number[] {
+	private static getHexColorValues(colorString: string): number[] {
 		const [hexValuesString] = /[\d|a-f|A-F+?]+/.exec(colorString);
 		switch (hexValuesString.length) {
 			case 3:
@@ -77,7 +77,7 @@ export class Color {
 		}
 	}
 
-	toString(color: Color): string {
+	public static toString(color: Color): string {
 		const { red, green, blue, alpha } = color;
 		return (alpha === 255)
 			? `rgb(${red}, ${green}, ${blue})`
