@@ -1,5 +1,3 @@
-import { ColorType } from './color-type.enum';
-
 export class Color {
 	private constructor(
 		public red: number,
@@ -17,21 +15,14 @@ export class Color {
 		return this.from(red, green, blue, alpha);
 	}
 
+	/** Infers the Color Type of colorString from its leading characters
+	 * @return result of the respective get{Color Type}ColorValues method
+	 */
 	private static getColorValues(colorString: string): number[] {
-		switch (this.getColorType(colorString)) {
-			case ColorType.RGB:
-				return this.getRgbColorValues(colorString);
-			case ColorType.HEX:
-				return this.getHexColorValues(colorString);
-		}
-	}
-
-	/** Infers the ColorType of colorString from its leading characters */
-	private static getColorType(colorString: string): ColorType {
 		if (colorString.startsWith('rgb')) {
-			return ColorType.RGB;
+			return this.getRgbColorValues(colorString);
 		} else if (colorString.startsWith('#')) {
-			return ColorType.HEX;
+			return this.getHexColorValues(colorString);
 		}
 	}
 
