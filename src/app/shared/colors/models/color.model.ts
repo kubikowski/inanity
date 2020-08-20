@@ -6,6 +6,7 @@ export class Color {
 		public alpha: number,
 	) { }
 
+	/** region Static Factory Methods */
 	public static from(red: number, green: number, blue: number, alpha = 255): Color {
 		return new Color(red, green, blue, alpha);
 	}
@@ -67,6 +68,7 @@ export class Color {
 				.map(value => parseInt(value, 16));
 		}
 	}
+	/** endregion Static Factory Methods */
 
 	/** Object.toString() override */
 	public toString(): string {
