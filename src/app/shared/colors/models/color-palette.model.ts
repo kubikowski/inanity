@@ -76,17 +76,20 @@ export class ColorPalette {
 		ColorPalette.OrangePalette,
 	];
 
-	public static getInverse(colorPalette: ColorPalette): ColorPalette {
+	/** Inverse the palette's values, so that the darkest color becomes the lightest and so on.
+	 * @return - a new ColorPalette with inverse values
+	 */
+	public getInverse(): ColorPalette {
 		return new ColorPalette(
-			colorPalette.colorDarkest,
-			colorPalette.colorDarker,
-			colorPalette.colorDark,
-			colorPalette.colorDefault,
-			colorPalette.colorLight,
-			colorPalette.colorLighter,
-			colorPalette.colorLightest,
-			colorPalette.paletteName,
-			colorPalette.displayName,
+			this.darkestColor,
+			this.darkerColor,
+			this.darkColor,
+			this.defaultColor,
+			this.lightColor,
+			this.lighterColor,
+			this.lightestColor,
+			this.paletteName,
+			this.displayName,
 		);
 	}
 }

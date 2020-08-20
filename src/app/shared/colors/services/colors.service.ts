@@ -85,7 +85,7 @@ export class ColorsService {
 	getComputedPalette(palette: ColorPalette): ColorPalette {
 		switch (this.getThemeFromBody().themeName) {
 			case 'dark-theme':
-				return ColorPalette.getInverse(palette);
+				return palette.getInverse();
 			case 'light-theme':
 			default:
 				return palette;
