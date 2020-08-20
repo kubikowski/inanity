@@ -12,13 +12,9 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 
 	subscriptions = new SubSink();
 
-	@Input()
-	text: string;
-
-	@Input()
-	prefix?: string = '';
-	@Input()
-	suffix?: string = '';
+	@Input() text: string = '';
+	@Input() prefix: string = '';
+	@Input() suffix: string = '';
 
 	defaultWords: string[];
 	dyslexicWordCombinations: string[][] = [];

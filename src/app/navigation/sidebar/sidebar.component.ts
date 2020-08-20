@@ -10,8 +10,7 @@ import { SVGIcon } from '../../shared/svg/models/svgicon.model';
 })
 export class SidebarComponent implements OnInit {
 
-	@Input()
-	sidenav: MatSidenav;
+	@Input() sidenav: MatSidenav;
 
 	navigationConfigs: NavigationConfig[];
 
