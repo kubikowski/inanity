@@ -68,8 +68,9 @@ export class Color {
 		}
 	}
 
-	public static toString(color: Color): string {
-		const { red, green, blue, alpha } = color;
+	/** Object.toString() override */
+	public toString(): string {
+		const { red, green, blue, alpha } = this;
 		return (alpha === 255)
 			? `rgb(${red}, ${green}, ${blue})`
 			: `rgba(${red}, ${green}, ${blue}, ${alpha})`;
