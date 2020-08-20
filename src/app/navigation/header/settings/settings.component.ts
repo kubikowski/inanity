@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ColorTheme } from '../../../shared/colors/models/color-theme.model';
-import { ColorPalette } from '../../../shared/colors/models/color-palette.model';
+import { ColorTheme } from '../../../shared/colors/models/color-themes/color-theme.model';
+import { ColorThemes } from '../../../shared/colors/models/color-themes/color-themes.constant';
+import { ColorPalette } from '../../../shared/colors/models/color-palettes/color-palette.model';
+import { ColorPalettes } from '../../../shared/colors/models/color-palettes/color-palettes.constant';
 import { ColorsService } from '../../../shared/colors/services/colors.service';
 import { DyslexicTextService } from '../../../shared/dyslexic-text/services/dyslexic-text.service';
 
@@ -12,10 +14,10 @@ import { DyslexicTextService } from '../../../shared/dyslexic-text/services/dysl
 export class SettingsComponent implements OnInit {
 
 	// Color Themes
-	readonly colorThemes = ColorTheme.Themes;
+	readonly colorThemes = ColorThemes;
 
 	// Color Palettes
-	readonly colorPalettes = ColorPalette.Palettes;
+	readonly colorPalettes = ColorPalettes;
 
 	// Dyslexic Text
 	dyslexicTextEnabled = true;
