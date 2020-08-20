@@ -32,7 +32,7 @@ $custom-typography: mat-typography-config(
  * These methods mimic the result of the mat-palette function
  * The resulting palettes, however, contain css member values as defined in colors.scss
  */
-@function rational-palette($default, $lighter, $darker, $contrast) {
+@function inanity-palette($default, $lighter, $darker, $contrast: var(--theme-color-contrast)) {
 	$palette: (
 		default: $default,
 		lighter: $lighter,
@@ -46,26 +46,15 @@ $custom-typography: mat-typography-config(
 	@return $palette;
 }
 
-// from Lighter Backgrounds with Darker Contrasts
-@function rational-light-palette($default, $lighter, $darker) {
-	@return rational-palette($default, $lighter, $darker, var(--dark-text-color));
-}
-
-// from Darker Backgrounds with Lighter Contrasts
-@function rational-dark-palette($default, $lighter, $darker) {
-	@return rational-palette($default, $lighter, $darker, var(--light-text-color));
-}
-
-
 // Inanity Primary Theme (based off of the Theme Colors)
-$inanity-primary-theme: rational-dark-palette(
+$inanity-primary-theme: inanity-palette(
 	var(--theme-color-default),
 	var(--theme-color-light),
 	var(--theme-color-dark),
 );
 
 // Inanity Accent Theme (based off the App & Tile Background Colors)
-$inanity-accent-theme: rational-light-palette(
+$inanity-accent-theme: inanity-palette(
 	var(--theme-color-background),
 	var(--theme-color-accent),
 	var(--theme-color-disabled),

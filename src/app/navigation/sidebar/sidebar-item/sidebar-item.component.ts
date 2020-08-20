@@ -9,11 +9,8 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class SidebarItemComponent implements OnInit {
 
-	@Input('config')
-	config: NavigationConfig;
-
-	@Input()
-	sidenav: MatSidenav;
+	@Input() config: NavigationConfig;
+	@Input() sidenav: MatSidenav;
 
 	constructor() {
 	}

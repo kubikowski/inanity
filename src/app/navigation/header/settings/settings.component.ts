@@ -21,9 +21,10 @@ export class SettingsComponent implements OnInit {
 	dyslexicTextEnabled = true;
 	dyslexiaAmount = 10;
 
-	constructor(private colorsService: ColorsService,
-				private dyslexicTextService: DyslexicTextService) {
-	}
+	constructor(
+		private colorsService: ColorsService,
+		private dyslexicTextService: DyslexicTextService,
+	) { }
 
 	ngOnInit(): void {
 		this.dyslexicTextEnabled = this.dyslexicTextService.getEnabled();
