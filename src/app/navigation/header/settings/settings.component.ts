@@ -12,10 +12,10 @@ import { DyslexicTextService } from '../../../shared/dyslexic-text/services/dysl
 export class SettingsComponent implements OnInit {
 
 	// Color Themes
-	colorThemes = ColorTheme.Themes;
+	readonly colorThemes = ColorTheme.Themes;
 
 	// Color Palettes
-	colorPalettes = ColorPalette.Palettes;
+	readonly colorPalettes = ColorPalette.Palettes;
 
 	// Dyslexic Text
 	dyslexicTextEnabled = true;

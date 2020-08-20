@@ -39,7 +39,7 @@ export class ColorTheme extends BaseColorTheme {
 	public static readonly Themes = [
 		ColorTheme.LightTheme,
 		ColorTheme.DarkTheme,
-	];
+	] as const;
 
 	/** region colorString getters & setters */
 	get colorBackground(): string {

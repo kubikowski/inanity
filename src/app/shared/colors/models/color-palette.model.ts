@@ -77,7 +77,7 @@ export class ColorPalette extends BaseColorPalette {
 		ColorPalette.GreenPalette,
 		ColorPalette.PinkPalette,
 		ColorPalette.OrangePalette,
-	];
+	] as const;
 
 	/** Inverse the palette's values, so that the darkest color becomes the lightest and so on.
 	 * @return - a new ColorPalette with inverse values
