@@ -1,8 +1,8 @@
 import { BaseColorPalette } from './base-color-palette.model';
-import { Color } from './color.model';
+import { Color } from '../color.model';
 
 export class ColorPalette extends BaseColorPalette {
-	private constructor(
+	public constructor(
 		private lightestColor: Color,
 		private lighterColor: Color,
 		private lightColor: Color,
@@ -23,61 +23,6 @@ export class ColorPalette extends BaseColorPalette {
 			darkestColor.toString(),
 		);
 	}
-
-	public static readonly BluePalette = new ColorPalette(
-		Color.fromString('#51d4ff'),
-		Color.fromString('#1ab4f5'),
-		Color.fromString('#00b3ee'),
-		Color.fromString('#039ddd'),
-		Color.fromString('#0487cc'),
-		Color.fromString('#047ec5'),
-		Color.fromString('#036ea6'),
-		'blue-palette',
-		'Aqua',
-	);
-
-	public static readonly GreenPalette = new ColorPalette(
-		Color.fromString('#70ee7a'),
-		Color.fromString('#3cd070'),
-		Color.fromString('#50c878'),
-		Color.fromString('#3cb371'),
-		Color.fromString('#00a86b'),
-		Color.fromString('#009060'),
-		Color.fromString('#00755e'),
-		'green-palette',
-		'Moss',
-	);
-
-	public static readonly PinkPalette = new ColorPalette(
-		Color.fromString('#fdb4c8'),
-		Color.fromString('#fda1ba'),
-		Color.fromString('#fc8eac'),
-		Color.fromString('#fb7b9e'),
-		Color.fromString('#fa4274'),
-		Color.fromString('#f92e66'),
-		Color.fromString('#d4063e'),
-		'pink-palette',
-		'Flamingo',
-	);
-
-	public static readonly OrangePalette = new ColorPalette(
-		Color.fromString('#ffe808'),
-		Color.fromString('#ffcc00'),
-		Color.fromString('#ffa812'),
-		Color.fromString('#ff7f00'),
-		Color.fromString('#f94d00'),
-		Color.fromString('#e62020'),
-		Color.fromString('#c90016'),
-		'orange-palette',
-		'Combustion',
-	);
-
-	public static readonly Palettes = [
-		ColorPalette.BluePalette,
-		ColorPalette.GreenPalette,
-		ColorPalette.PinkPalette,
-		ColorPalette.OrangePalette,
-	] as const;
 
 	/** Inverse the palette's values, so that the darkest color becomes the lightest and so on.
 	 * @return - a new ColorPalette with inverse values
@@ -102,7 +47,8 @@ export class ColorPalette extends BaseColorPalette {
 	}
 
 	set colorLightest(colorLightest: string) {
-		this.lightestColor = Color.fromString(colorLightest);
+		if (colorLightest !== null)
+			this.lightestColor = Color.fromString(colorLightest);
 	}
 
 	get colorLighter(): string {
@@ -110,7 +56,8 @@ export class ColorPalette extends BaseColorPalette {
 	}
 
 	set colorLighter(colorLighter: string) {
-		this.lighterColor = Color.fromString(colorLighter);
+		if (colorLighter !== null)
+			this.lighterColor = Color.fromString(colorLighter);
 	}
 
 	get colorLight(): string {
@@ -118,7 +65,8 @@ export class ColorPalette extends BaseColorPalette {
 	}
 
 	set colorLight(colorLight: string) {
-		this.lightColor = Color.fromString(colorLight);
+		if (colorLight !== null)
+			this.lightColor = Color.fromString(colorLight);
 	}
 
 	get colorDefault(): string {
@@ -126,7 +74,8 @@ export class ColorPalette extends BaseColorPalette {
 	}
 
 	set colorDefault(colorDefault: string) {
-		this.defaultColor = Color.fromString(colorDefault);
+		if (colorDefault !== null)
+			this.defaultColor = Color.fromString(colorDefault);
 	}
 
 	get colorDark(): string {
@@ -134,7 +83,8 @@ export class ColorPalette extends BaseColorPalette {
 	}
 
 	set colorDark(colorDark: string) {
-		this.darkColor = Color.fromString(colorDark);
+		if (colorDark !== null)
+			this.darkColor = Color.fromString(colorDark);
 	}
 
 	get colorDarker(): string {
@@ -142,7 +92,8 @@ export class ColorPalette extends BaseColorPalette {
 	}
 
 	set colorDarker(colorDarker: string) {
-		this.darkerColor = Color.fromString(colorDarker);
+		if (colorDarker !== null)
+			this.darkerColor = Color.fromString(colorDarker);
 	}
 
 	get colorDarkest(): string {
@@ -150,7 +101,8 @@ export class ColorPalette extends BaseColorPalette {
 	}
 
 	set colorDarkest(colorDarkest: string) {
-		this.darkestColor = Color.fromString(colorDarkest);
+		if (colorDarkest !== null)
+			this.darkestColor = Color.fromString(colorDarkest);
 	}
 	/** endregion colorString getters & setters */
 }
