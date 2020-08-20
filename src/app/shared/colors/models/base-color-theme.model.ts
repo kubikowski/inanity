@@ -6,7 +6,7 @@ export class BaseColorTheme {
 		public colorContrast: string,
 	) { }
 
-	public static readonly RootTheme = new BaseColorTheme(
+	public static readonly CssThemeVariables = new BaseColorTheme(
 		'--theme-color-background',
 		'--theme-color-accent',
 		'--theme-color-disabled',

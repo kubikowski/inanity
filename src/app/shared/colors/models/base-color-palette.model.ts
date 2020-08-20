@@ -9,7 +9,7 @@ export class BaseColorPalette {
 		public colorDarkest: string,
 	) { }
 
-	public static readonly RootPalette = new BaseColorPalette(
+	public static readonly CssPaletteVariables = new BaseColorPalette(
 		'--theme-color-lightest',
 		'--theme-color-lighter',
 		'--theme-color-light',

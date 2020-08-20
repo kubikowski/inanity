@@ -14,11 +14,11 @@ export class ColorsService {
 	style = document.documentElement.style;
 
 	// Color Themes
-	RootTheme = BaseColorTheme.RootTheme;
+	CssThemeVariables = BaseColorTheme.CssThemeVariables;
 	colorThemes = ColorTheme.Themes;
 
 	// Color Palettes
-	rootPalette = BaseColorPalette.RootPalette;
+	CssPaletteVariables = BaseColorPalette.CssPaletteVariables;
 	colorPalettes = ColorPalette.Palettes;
 
 	constructor() {
@@ -66,7 +66,7 @@ export class ColorsService {
 	}
 
 	setTheme(theme: ColorTheme): void {
-		Object.entries(this.RootTheme).forEach(([key, cssVariable]) => {
+		Object.entries(this.CssThemeVariables).forEach(([key, cssVariable]) => {
 			this.style.setProperty(cssVariable, theme[key]);
 		});
 	}
@@ -96,7 +96,7 @@ export class ColorsService {
 
 	setPalette(palette: ColorPalette): void {
 		const computedPalette = this.getComputedPalette(palette);
-		Object.entries(this.rootPalette).forEach(([key, cssVariable]) => {
+		Object.entries(this.CssPaletteVariables).forEach(([key, cssVariable]) => {
 			this.style.setProperty(cssVariable, computedPalette[key]);
 		});
 	}
