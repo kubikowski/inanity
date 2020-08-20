@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { BaseColorTheme } from '../models/base-color-theme.model';
 import { ColorTheme } from '../models/color-theme.model';
+import { BaseColorPalette } from '../models/base-color-palette.model';
 import { ColorPalette } from '../models/color-palette.model';
 
 @Injectable({
@@ -12,11 +14,11 @@ export class ColorsService {
 	style = document.documentElement.style;
 
 	// Color Themes
-	RootTheme = ColorTheme.RootTheme;
+	RootTheme = BaseColorTheme.RootTheme;
 	colorThemes = ColorTheme.Themes;
 
 	// Color Palettes
-	rootPalette = ColorPalette.RootPalette;
+	rootPalette = BaseColorPalette.RootPalette;
 	colorPalettes = ColorPalette.Palettes;
 
 	constructor() {
