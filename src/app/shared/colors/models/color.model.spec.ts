@@ -59,7 +59,7 @@ describe('Color', () => {
 		expect(toString).toBe('rgb(255, 255, 255)');
 	});
 
-	it('should return "white" -> "rgb(255, 255, 255)"', () => {
+	it('should return "navajowhite" -> "rgb(255, 222, 173)"', () => {
 		const toString = Color.fromString('navajowhite').toString();
 		expect(toString).toBe('rgb(255, 222, 173)');
 	});
