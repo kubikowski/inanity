@@ -1,5 +1,7 @@
 import * as ColorName from 'color-name';
 
+export class InvalidColorError extends Error {}
+
 export class Color {
 	private constructor(
 		public red: number,
@@ -29,7 +31,7 @@ export class Color {
 		} else if (ColorName[colorString] instanceof Array){
 			return ColorName[colorString];
 		} else {
-			this.throwColorString(colorString);
+			throw new InvalidColorError(colorString);
 		}
 	}
 
@@ -39,8 +41,14 @@ export class Color {
 	 */
 	private static getRgbColorValues(colorString: string): number[] {
 		const [colorValesString] = /[\d|\.+?\,?\ *]+/.exec(colorString);
-		return colorValesString.split(',')
+		const colorValues = colorValesString.split(',')
 			.map(value => parseFloat(value));
+
+		if (colorValues.length === 3 || colorValues.length === 4) {
+			return colorValues;
+		} else {
+			throw new InvalidColorError(colorString);
+		}
 	}
 
 	/** Gets the RGB color values from an Hex color string
@@ -63,7 +71,7 @@ export class Color {
 				return [red, green, blue, alpha];
 			}
 			default:
-				this.throwColorString(colorString);
+				throw new InvalidColorError(colorString);
 		}
 
 		function getSingleHexColorValues(hexString: string): number[] {
@@ -75,10 +83,6 @@ export class Color {
 			return hexString.match(/.{1,2}/g)
 				.map(value => parseInt(value, 16));
 		}
-	}
-
-	private static throwColorString(colorString: string): Error {
-		throw new Error(`Unsupported Color: ${colorString}`);
 	}
 	/** endregion Static Factory Methods */
 

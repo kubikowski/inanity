@@ -1,4 +1,4 @@
-import { Color } from './color.model';
+import { Color, InvalidColorError } from './color.model';
 
 describe('Color', () => {
 
@@ -66,14 +66,22 @@ describe('Color', () => {
 	/** endregion */
 
 	/** region Test Invalid Input */
+	it('should catch "rgba(0, 0, 0, 0, 0)"', () => {
+		const invalidColor = 'rgba(0, 0, 0, 0, 0)';
+		expect(() => Color.fromString(invalidColor))
+			.toThrow(new InvalidColorError(invalidColor));
+	});
+
 	it('should catch "#FFFFF"', () => {
-		const expectError = () => Color.fromString('#FFFFF');
-		expect(expectError).toThrowError(/Unsupported Color/);
+		const invalidColor = '#FFFFF';
+		expect(() => Color.fromString(invalidColor))
+			.toThrow(new InvalidColorError(invalidColor));
 	});
 
 	it('should catch "navajo white"', () => {
-		const expectError = () => Color.fromString('navajo white');
-		expect(expectError).toThrowError(/Unsupported Color/);
+		const invalidColor = 'navajo white';
+		expect(() => Color.fromString(invalidColor))
+			.toThrow(new InvalidColorError(invalidColor));
 	});
 	/** endregion */
 });
