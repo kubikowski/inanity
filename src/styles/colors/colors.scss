@@ -1,19 +1,19 @@
-// Base Color Palettes
-@import 'color-themes';
-
 :root {
-	--theme-color-background: var(--light-theme-background);
-	--theme-color-accent: var(--light-theme-accent);
-	--theme-color-disabled: var(--light-theme-disabled);
-	--theme-color-contrast: var(--light-theme-contrast);
+	// Light Theme Default Values
+	--theme-color-background: white;
+	--theme-color-accent: whitesmoke;
+	--theme-color-disabled: lightgrey;
+	--theme-color-contrast: rgba(0, 0, 0, 0.87);
 
-	--theme-color-lightest: var(--blue-theme-lightest);
-	--theme-color-lighter: var(--blue-theme-lighter);
-	--theme-color-light: var(--blue-theme-light);
-	--theme-color-default: var(--blue-theme-default);
-	--theme-color-dark: var(--blue-theme-dark);
-	--theme-color-darker: var(--blue-theme-darker);
-	--theme-color-darkest: var(--blue-theme-darkest);
+	// Blue Palette Default Values
+	--theme-color-lightest: #51d4ff;
+	--theme-color-lighter: #1ab4f5;
+	--theme-color-light: #00b3ee;
+	--theme-color-default: #039ddd;
+	--theme-color-dark: #0487cc;
+	--theme-color-darker: #047ec5;
+	--theme-color-darkest: #036ea6;
+	--theme-color-selected: rgba(3, 157, 221, 0.25);
 }
 
 :not(.default-transition):not(.custom-transition) {
