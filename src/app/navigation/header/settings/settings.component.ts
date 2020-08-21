@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ColorTheme } from '../../../shared/colors/models/color-themes/color-theme.model';
 import { ColorThemes } from '../../../shared/colors/models/color-themes/color-themes.constant';
 import { ColorPalette } from '../../../shared/colors/models/color-palettes/color-palette.model';
@@ -9,7 +9,8 @@ import { DyslexicTextService } from '../../../shared/dyslexic-text/services/dysl
 @Component({
 	selector: 'settings',
 	templateUrl: './settings.component.html',
-	styleUrls: ['./settings.component.scss']
+	styleUrls: ['./settings.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent implements OnInit {
 
