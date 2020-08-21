@@ -52,4 +52,28 @@ describe('Color', () => {
 		expect(toString).toBe('rgba(0, 221, 0, 187)');
 	});
 	/** endregion */
+
+	/** region Test fromString & toString with Named Colors */
+	it('should return "white" -> "rgb(255, 255, 255)"', () => {
+		const toString = Color.fromString('white').toString();
+		expect(toString).toBe('rgb(255, 255, 255)');
+	});
+
+	it('should return "white" -> "rgb(255, 255, 255)"', () => {
+		const toString = Color.fromString('navajowhite').toString();
+		expect(toString).toBe('rgb(255, 222, 173)');
+	});
+	/** endregion */
+
+	/** region Test Invalid Input */
+	it('should catch "#FFFFF"', () => {
+		const expectError = () => Color.fromString('#FFFFF');
+		expect(expectError).toThrowError(/Unsupported Color/);
+	});
+
+	it('should catch "navajo white"', () => {
+		const expectError = () => Color.fromString('navajo white');
+		expect(expectError).toThrowError(/Unsupported Color/);
+	});
+	/** endregion */
 });

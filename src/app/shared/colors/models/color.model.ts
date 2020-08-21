@@ -1,3 +1,5 @@
+import * as ColorName from 'color-name';
+
 export class Color {
 	private constructor(
 		public red: number,
@@ -24,6 +26,10 @@ export class Color {
 			return this.getRgbColorValues(colorString);
 		} else if (colorString.startsWith('#')) {
 			return this.getHexColorValues(colorString);
+		} else if (ColorName[colorString] instanceof Array){
+			return ColorName[colorString];
+		} else {
+			this.throwColorString(colorString);
 		}
 	}
 
@@ -56,6 +62,8 @@ export class Color {
 				const [alpha, red, green, blue] = getDoubleHexColorValues(hexValuesString);
 				return [red, green, blue, alpha];
 			}
+			default:
+				this.throwColorString(colorString);
 		}
 
 		function getSingleHexColorValues(hexString: string): number[] {
@@ -67,6 +75,10 @@ export class Color {
 			return hexString.match(/.{1,2}/g)
 				.map(value => parseInt(value, 16));
 		}
+	}
+
+	private static throwColorString(colorString: string): Error {
+		throw new Error(`Unsupported Color: ${colorString}`);
 	}
 	/** endregion Static Factory Methods */
 
