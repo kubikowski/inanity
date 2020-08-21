@@ -77,4 +77,35 @@ export class Color {
 			? `rgb(${red}, ${green}, ${blue})`
 			: `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 	}
+
+	/** Creates a new Color from the original with an overlaid alpha value
+	 * @param alpha - new alpha value
+	 */
+	public withAlpha(alpha: number): Color {
+		const { red, green, blue } = this;
+		return Color.from(red, green, blue, alpha);
+	}
+
+	/** Creates an opaque Color from this color (with alpha) over the theme background color.
+	 * @param backgroundColor - the theme background color, (if provided, it's alpha will be ignored)
+	 */
+	public imposeOn(backgroundColor: Color): Color {
+		const alphaFloat = this.getAlphaFloatValue();
+
+		return Color.from(
+			calculateTargetHue(backgroundColor.red, this.red, alphaFloat),
+			calculateTargetHue(backgroundColor.green, this.green, alphaFloat),
+			calculateTargetHue(backgroundColor.blue, this.blue, alphaFloat),
+		);
+
+		function calculateTargetHue(backgroundHue: number, foregroundHue: number, alpha: number): number {
+			return Math.floor(((1 - alpha) * backgroundHue) + (alpha * foregroundHue));
+		}
+	}
+
+	private getAlphaFloatValue(): number {
+		return (this.alpha > 1)
+			? this.alpha / 255
+			: this.alpha;
+	}
 }

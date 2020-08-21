@@ -7,15 +7,10 @@ export class ColorTheme extends BaseColorTheme {
 		private accentColor: Color,
 		private disabledColor: Color,
 		private contrastColor: Color,
-		public themeName?: string,
-		public displayName?: string,
+		public themeName: string,
+		public displayName: string,
 	) {
-		super(
-			backgroundColor.toString(),
-			accentColor.toString(),
-			disabledColor.toString(),
-			contrastColor.toString(),
-		);
+		super(null, null, null, null);
 	}
 
 	/** region colorString getters & setters */
@@ -24,7 +19,8 @@ export class ColorTheme extends BaseColorTheme {
 	}
 
 	set colorBackground(colorBackground: string) {
-		this.backgroundColor = Color.fromString(colorBackground);
+		if (colorBackground !== null)
+			this.backgroundColor = Color.fromString(colorBackground);
 	}
 
 	get colorAccent(): string {
@@ -32,7 +28,8 @@ export class ColorTheme extends BaseColorTheme {
 	}
 
 	set colorAccent(colorAccent: string) {
-		this.accentColor = Color.fromString(colorAccent);
+		if (colorAccent !== null)
+			this.accentColor = Color.fromString(colorAccent);
 	}
 
 	get colorDisabled(): string {
@@ -40,7 +37,8 @@ export class ColorTheme extends BaseColorTheme {
 	}
 
 	set colorDisabled(colorDisabled: string) {
-		this.disabledColor = Color.fromString(colorDisabled);
+		if (colorDisabled !== null)
+			this.disabledColor = Color.fromString(colorDisabled);
 	}
 
 	get colorContrast(): string {
@@ -48,7 +46,8 @@ export class ColorTheme extends BaseColorTheme {
 	}
 
 	set colorContrast(colorContrast: string) {
-		this.contrastColor = Color.fromString(colorContrast);
+		if (colorContrast !== null)
+			this.contrastColor = Color.fromString(colorContrast);
 	}
 	/** endregion colorString getters & setters */
 }

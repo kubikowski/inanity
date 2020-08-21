@@ -13,15 +13,7 @@ export class ColorPalette extends BaseColorPalette {
 		public paletteName: string,
 		public displayName: string,
 	) {
-		super(
-			lightestColor.toString(),
-			lighterColor.toString(),
-			lightColor.toString(),
-			defaultColor.toString(),
-			darkColor.toString(),
-			darkerColor.toString(),
-			darkestColor.toString(),
-		);
+		super(null, null, null, null, null, null, null, null);
 	}
 
 	/** Inverse the palette's values, so that the darkest color becomes the lightest and so on.
@@ -104,5 +96,11 @@ export class ColorPalette extends BaseColorPalette {
 		if (colorDarkest !== null)
 			this.darkestColor = Color.fromString(colorDarkest);
 	}
+
+	get colorSelected(): string {
+		return this.defaultColor.withAlpha(0.25).toString();
+	}
+
+	set colorSelected(colorSelected: string) { }
 	/** endregion colorString getters & setters */
 }
