@@ -11,9 +11,12 @@ const routes: Routes = [
 		path: 'gong',
 		loadChildren: () => import('./pages/gong/gong.module').then(m => m.GongModule),
 	}, {
+		path: 'malbolge',
+		loadChildren: () => import('./pages/malbolge/malbolge.module').then(m => m.MalbolgeModule),
+	}, {
 		path: '**',
 		component: PageNotFoundComponent,
-	},
+	}
 ];
 
 @NgModule({

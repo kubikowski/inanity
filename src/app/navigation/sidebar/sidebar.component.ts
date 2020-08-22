@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
 		this.navigationConfigs = [
 			NavigationConfig.from('About', WheelIcon, 'about'),
 			NavigationConfig.from('Gong', GongIcon, 'gong'),
-			NavigationConfig.from('404', OniIcon, 'get-got'),
+			NavigationConfig.from('Malbolge', OniIcon, 'malbolge'),
 		];
 	}
 
