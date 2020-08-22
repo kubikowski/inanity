@@ -8,11 +8,12 @@ export class InvalidColorString extends Error {
 }
 
 export class Color {
+	/** Constructs Immutable Color Object */
 	private constructor(
-		public red: number,
-		public green: number,
-		public blue: number,
-		public alpha: number,
+		public readonly red: number,
+		public readonly green: number,
+		public readonly blue: number,
+		public readonly alpha: number,
 	) { }
 
 	/* region Static Factory Methods */
