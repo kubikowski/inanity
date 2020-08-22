@@ -1,4 +1,4 @@
-import { SVGIcon } from '../../../shared/svg/models/svgicon.model';
+import { SVGIcon } from '../../../shared/svg/svg-icon.model';
 
 export class NavigationConfig {
 	private constructor(

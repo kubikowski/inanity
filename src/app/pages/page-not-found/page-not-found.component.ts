@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SVGIcon } from '../../shared/svg/models/svgicon.model';
+import { WheelIcon } from '../../shared/svg/svg-icons.constant';
 
 @Component({
 	selector: 'app-page-not-found',
@@ -8,7 +8,7 @@ import { SVGIcon } from '../../shared/svg/models/svgicon.model';
 })
 export class PageNotFoundComponent implements OnInit {
 
-	wheelIcon = SVGIcon.Wheel;
+	readonly WheelIcon = WheelIcon;
 
 	constructor() {
 	}
