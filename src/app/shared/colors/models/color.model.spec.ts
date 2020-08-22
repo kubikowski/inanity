@@ -66,6 +66,11 @@ describe('Color', () => {
 		const toString = Color.fromString('navajowhite').toString();
 		expect(toString).toBe('rgb(255, 222, 173)');
 	});
+
+	it('should return "transparent" -> "rgba(0, 0, 0, 0)"', () => {
+		const toString = Color.fromString('transparent').toString();
+		expect(toString).toBe('rgba(0, 0, 0, 0)');
+	});
 	/** endregion */
 
 	/** region Test Invalid Input */

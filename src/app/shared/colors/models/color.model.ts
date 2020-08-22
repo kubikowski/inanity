@@ -61,10 +61,8 @@ export class Color {
 			return this.getRgbColorValues(colorString);
 		} else if (colorString.startsWith('#')) {
 			return this.getHexColorValues(colorString);
-		} else if (ColorName[colorString] instanceof Array){
-			return ColorName[colorString];
 		} else {
-			throw new InvalidColorString(colorString);
+			return this.getNamedColorValues(colorString);
 		}
 	}
 
@@ -117,6 +115,21 @@ export class Color {
 		function getDoubleHexColorValues(hexString: string): number[] {
 			return hexString.match(/.{1,2}/g)
 				.map(value => parseInt(value, 16));
+		}
+	}
+
+	/** Gets the RGBA color values from an HTML named color string
+	 * @return [red, green, blue, alpha?]
+	 * @throws InvalidColorString
+	 * @see https://github.com/colorjs/color-name
+	 */
+	private static getNamedColorValues(colorString: string): number[] | undefined {
+		if (ColorName[colorString] instanceof Array) {
+			return ColorName[colorString];
+		} else if (colorString === 'transparent') {
+			return [0, 0, 0, 0];
+		} else {
+			throw new InvalidColorString(colorString);
 		}
 	}
 	/* endregion Static Factory Methods */
