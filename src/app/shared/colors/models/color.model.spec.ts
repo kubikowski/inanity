@@ -8,19 +8,24 @@ describe('Color', () => {
 		expect(toString).toBe('rgb(128, 128, 128)');
 	});
 
-	it('should return "rgba(255,255, 255,  255,)" -> "rgb(255, 255, 255)"', () => {
-		const toString = Color.fromString('rgba(255,255, 255,  255)').toString();
+	it('should return "rgba(255,255, 255,  1)" -> "rgb(255, 255, 255)"', () => {
+		const toString = Color.fromString('rgba(255,255, 255,  1)').toString();
 		expect(toString).toBe('rgb(255, 255, 255)');
 	});
 
-	it('should return "rgba(1, 2, 3, 4)" -> "rgba(1, 2, 3, 4)"', () => {
-		const toString = Color.fromString('rgba(1, 2, 3, 4)').toString();
-		expect(toString).toBe('rgba(1, 2, 3, 4)');
+	it('should return "rgba(1, 2, 3, 0.4)" -> "rgba(1, 2, 3, 0.4)"', () => {
+		const toString = Color.fromString('rgba(1, 2, 3, 0.4)').toString();
+		expect(toString).toBe('rgba(1, 2, 3, 0.4)');
 	});
 
 	it('should return "rgba(0, 0, 0, 0.87)" -> "rgba(0, 0, 0, 0.87)"', () => {
 		const toString = Color.fromString('rgba(0, 0, 0, 0.87)').toString();
 		expect(toString).toBe('rgba(0, 0, 0, 0.87)');
+	});
+
+	it('should return "rgb(0, 0.1, 256)" -> "rgb(0, 0, 255)"', () => {
+		const toString = Color.fromString('rgb(0, 0.1, 256)').toString();
+		expect(toString).toBe('rgb(0, 0, 255)');
 	});
 	/** endregion */
 
@@ -35,9 +40,9 @@ describe('Color', () => {
 		expect(toString).toBe('rgb(0, 0, 0)');
 	});
 
-	it('should return "#C000" -> "rgba(0, 0, 0, 204)"', () => {
+	it('should return "#C000" -> "rgba(0, 0, 0, 0.8)"', () => {
 		const toString = Color.fromString('#C000').toString();
-		expect(toString).toBe('rgba(0, 0, 0, 204)');
+		expect(toString).toBe('rgba(0, 0, 0, 0.8)');
 	});
 
 	it('should return "#012345" -> "rgb(1, 35, 69)"', () => {
@@ -45,9 +50,9 @@ describe('Color', () => {
 		expect(toString).toBe('rgb(1, 35, 69)');
 	});
 
-	it('should return "#BB00DD00" -> "rgba(0, 221, 0, 187)"', () => {
-		const toString = Color.fromString('#BB00DD00').toString();
-		expect(toString).toBe('rgba(0, 221, 0, 187)');
+	it('should return "#CC00DD00" -> "rgba(0, 221, 0, 0.8)"', () => {
+		const toString = Color.fromString('#CC00DD00').toString();
+		expect(toString).toBe('rgba(0, 221, 0, 0.8)');
 	});
 	/** endregion */
 

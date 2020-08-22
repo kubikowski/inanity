@@ -15,9 +15,30 @@ export class Color {
 		public alpha: number,
 	) { }
 
-	/** region Static Factory Methods */
-	private static from(red: number, green: number, blue: number, alpha = 255): Color {
-		return new Color(red, green, blue, alpha);
+	/* region Static Factory Methods */
+
+	/** Static Factory Constructor from pixel intensities and opacity
+	 * @param red - int in range(0, 255) representing the red pixel intensity
+	 * @param green - int in range(0, 255) representing the green pixel intensity
+	 * @param blue - int in range(0, 255) representing the blue pixel intensity
+	 * @param alpha - float in range(0, 1) representing opacity, default = 1
+	 * @return a new Color object
+	 */
+	private static from(red: number, green: number, blue: number, alpha = 1): Color {
+		return new Color(
+			scrubHue(red),
+			scrubHue(green),
+			scrubHue(blue),
+			scrubAlpha(alpha),
+		);
+
+		function scrubHue(rawHue: number): number {
+			return Math.round(Math.min(Math.max(rawHue, 0), 255));
+		}
+
+		function scrubAlpha(rawAlpha: number): number {
+			return Math.min(Math.max(rawAlpha, 0), 1);
+		}
 	}
 
 	/** Constructs a Color from an input colorString, as it would be used in CSS
@@ -76,13 +97,13 @@ export class Color {
 				return getSingleHexColorValues(hexValuesString);
 			case 4: {
 				const [alpha, red, green, blue] = getSingleHexColorValues(hexValuesString);
-				return [red, green, blue, alpha];
+				return [red, green, blue, alpha / 255];
 			}
 			case 6:
 				return getDoubleHexColorValues(hexValuesString);
 			case 8: {
 				const [alpha, red, green, blue] = getDoubleHexColorValues(hexValuesString);
-				return [red, green, blue, alpha];
+				return [red, green, blue, alpha / 255];
 			}
 			default:
 				throw new InvalidColorString(colorString);
@@ -98,14 +119,16 @@ export class Color {
 				.map(value => parseInt(value, 16));
 		}
 	}
-	/** endregion Static Factory Methods */
+	/* endregion Static Factory Methods */
 
-	/** Object.toString() override
+	/* region Object Prototype Methods */
+
+	/** Color object.toString() override
 	 * @return an RGB type colorString
 	 */
 	public toString(): string {
 		const { red, green, blue, alpha } = this;
-		return (alpha === 255)
+		return (alpha === 1)
 			? `rgb(${red}, ${green}, ${blue})`
 			: `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 	}
@@ -119,27 +142,20 @@ export class Color {
 		return Color.from(red, green, blue, alpha);
 	}
 
-	/** Creates an opaque Color from this color (with alpha) over the theme background color.
+	/** Creates a new opaque Color from this color (with alpha) imposed on a background color.
 	 * @param backgroundColor - the theme background color, (if provided, it's alpha will be ignored)
 	 * @return a new Color object
 	 */
 	public imposeOn(backgroundColor: Color): Color {
-		const alphaFloat = this.getAlphaFloatValue();
-
 		return Color.from(
-			calculateTargetHue(backgroundColor.red, this.red, alphaFloat),
-			calculateTargetHue(backgroundColor.green, this.green, alphaFloat),
-			calculateTargetHue(backgroundColor.blue, this.blue, alphaFloat),
+			calculateTargetHue(backgroundColor.red, this.red, this.alpha),
+			calculateTargetHue(backgroundColor.green, this.green, this.alpha),
+			calculateTargetHue(backgroundColor.blue, this.blue, this.alpha),
 		);
 
 		function calculateTargetHue(backgroundHue: number, foregroundHue: number, alpha: number): number {
-			return Math.floor(((1 - alpha) * backgroundHue) + (alpha * foregroundHue));
+			return ((1 - alpha) * backgroundHue) + (alpha * foregroundHue);
 		}
 	}
-
-	private getAlphaFloatValue(): number {
-		return (this.alpha > 1)
-			? this.alpha / 255
-			: this.alpha;
-	}
+	/* endregion Object Prototype Methods */
 }
