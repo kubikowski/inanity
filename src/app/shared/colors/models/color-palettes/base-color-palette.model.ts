@@ -8,6 +8,7 @@ export class BaseColorPalette {
 		public readonly colorDarker: string,
 		public readonly colorDarkest: string,
 		public readonly colorSelected: string,
+		public readonly colorSelectedOpaque: string,
 	) { }
 
 	public static readonly CssPaletteVariables = new BaseColorPalette(
@@ -19,5 +20,6 @@ export class BaseColorPalette {
 		'--theme-color-darker',
 		'--theme-color-darkest',
 		'--theme-color-selected',
+		'--theme-color-selected-opaque',
 	);
 }

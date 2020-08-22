@@ -4,6 +4,7 @@
 	--theme-color-accent: whitesmoke;
 	--theme-color-disabled: lightgrey;
 	--theme-color-contrast: rgba(0, 0, 0, 0.87);
+	--theme-color-hover: rgba(0, 0, 0, 0.15);
 
 	// Blue Palette Default Values
 	--theme-color-lightest: #51d4ff;
@@ -14,6 +15,7 @@
 	--theme-color-darker: #047ec5;
 	--theme-color-darkest: #036ea6;
 	--theme-color-selected: rgba(3, 157, 221, 0.25);
+	--theme-color-selected-opaque: rgb(192, 231, 247);
 }
 
 :not(.default-transition):not(.custom-transition) {

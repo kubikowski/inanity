@@ -4,6 +4,7 @@ export class BaseColorTheme {
 		public readonly colorAccent: string,
 		public readonly colorDisabled: string,
 		public readonly colorContrast: string,
+		public readonly colorHover: string,
 	) { }
 
 	public static readonly CssThemeVariables = new BaseColorTheme(
@@ -11,5 +12,6 @@ export class BaseColorTheme {
 		'--theme-color-accent',
 		'--theme-color-disabled',
 		'--theme-color-contrast',
+		'--theme-color-hover',
 	);
 }

@@ -1,5 +1,6 @@
 import { BaseColorPalette } from './base-color-palette.model';
 import { Color } from '../color.model';
+import { LightTheme, DarkTheme } from '../color-themes/color-themes.constant';
 
 export class ColorPalette extends BaseColorPalette {
 	public constructor(
@@ -10,8 +11,11 @@ export class ColorPalette extends BaseColorPalette {
 		private readonly darkColor: Color,
 		private readonly darkerColor: Color,
 		private readonly darkestColor: Color,
+
 		public readonly paletteName: string,
 		public readonly displayName: string,
+
+		private readonly theme = LightTheme,
 	) {
 		super(
 			lightestColor.toString(),
@@ -21,7 +25,9 @@ export class ColorPalette extends BaseColorPalette {
 			darkColor.toString(),
 			darkerColor.toString(),
 			darkestColor.toString(),
+
 			defaultColor.withAlpha(0.25).toString(),
+			defaultColor.withAlpha(0.25).imposeOn(theme.backgroundColor).toString(),
 		);
 	}
 
@@ -39,6 +45,7 @@ export class ColorPalette extends BaseColorPalette {
 			this.lightestColor,
 			this.paletteName,
 			this.displayName,
+			DarkTheme,
 		);
 	}
 }
