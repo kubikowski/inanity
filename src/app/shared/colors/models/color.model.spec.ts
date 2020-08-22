@@ -1,28 +1,26 @@
-import { Color, InvalidColorError } from './color.model';
+import { Color, InvalidColorString } from './color.model';
 
 describe('Color', () => {
 
-	/** region Test static factory constructors */
-	it('should construct Color from', () => {
-		const color = Color.from(255, 255, 255);
-		expect(color).toBeTruthy();
-	});
-
-	it('should construct Color fromString', () => {
-		const color = Color.fromString('#FFF');
-		expect(color).toBeTruthy();
-	});
-	/** endregion */
-
 	/** region Test fromString & toString with RGB types */
-	it('should return "rgba(255,255,255)" -> "rgb(255, 255, 255)"', () => {
-		const toString = Color.fromString('rgba(255,255,255)').toString();
+	it('should return "rgb(128, 128, 128)" -> "rgb(128, 128, 128)"', () => {
+		const toString = Color.fromString('rgb(128, 128, 128)').toString();
+		expect(toString).toBe('rgb(128, 128, 128)');
+	});
+
+	it('should return "rgba(255,255, 255,  255,)" -> "rgb(255, 255, 255)"', () => {
+		const toString = Color.fromString('rgba(255,255, 255,  255)').toString();
 		expect(toString).toBe('rgb(255, 255, 255)');
 	});
 
 	it('should return "rgba(1, 2, 3, 4)" -> "rgba(1, 2, 3, 4)"', () => {
 		const toString = Color.fromString('rgba(1, 2, 3, 4)').toString();
 		expect(toString).toBe('rgba(1, 2, 3, 4)');
+	});
+
+	it('should return "rgba(0, 0, 0, 0.87)" -> "rgba(0, 0, 0, 0.87)"', () => {
+		const toString = Color.fromString('rgba(0, 0, 0, 0.87)').toString();
+		expect(toString).toBe('rgba(0, 0, 0, 0.87)');
 	});
 	/** endregion */
 
@@ -69,19 +67,25 @@ describe('Color', () => {
 	it('should catch "rgba(0, 0, 0, 0, 0)"', () => {
 		const invalidColor = 'rgba(0, 0, 0, 0, 0)';
 		expect(() => Color.fromString(invalidColor))
-			.toThrow(new InvalidColorError(invalidColor));
+			.toThrow(new InvalidColorString(invalidColor));
 	});
 
 	it('should catch "#FFFFF"', () => {
 		const invalidColor = '#FFFFF';
 		expect(() => Color.fromString(invalidColor))
-			.toThrow(new InvalidColorError(invalidColor));
+			.toThrow(new InvalidColorString(invalidColor));
 	});
 
 	it('should catch "navajo white"', () => {
 		const invalidColor = 'navajo white';
 		expect(() => Color.fromString(invalidColor))
-			.toThrow(new InvalidColorError(invalidColor));
+			.toThrow(new InvalidColorString(invalidColor));
+	});
+
+	it('should catch "hsl(197.6, 97.3%, 43.9%)"', () => {
+		const invalidColor = 'hsl(197.6, 97.3%, 43.9%)';
+		expect(() => Color.fromString(invalidColor))
+			.toThrow(new InvalidColorString(invalidColor));
 	});
 	/** endregion */
 });

@@ -1,6 +1,11 @@
 import * as ColorName from 'color-name';
 
-export class InvalidColorError extends Error {}
+export class InvalidColorString extends Error {
+	constructor(message?: string) {
+		super(message);
+		this.name = 'Invalid Color String';
+	}
+}
 
 export class Color {
 	private constructor(
@@ -11,10 +16,16 @@ export class Color {
 	) { }
 
 	/** region Static Factory Methods */
-	public static from(red: number, green: number, blue: number, alpha = 255): Color {
+	private static from(red: number, green: number, blue: number, alpha = 255): Color {
 		return new Color(red, green, blue, alpha);
 	}
 
+	/** Constructs a Color from an input colorString, as it would be used in CSS
+	 * @param colorString - Can be of RGB or Hex types, or an HTML named color.
+	 *                <br/> Note: HSL types are specifically unsupported.
+	 * @return a new Color object
+	 * @throws InvalidColorString
+	 */
 	public static fromString(colorString: string): Color {
 		const [red, green, blue, alpha] = this.getColorValues(colorString);
 		return this.from(red, green, blue, alpha);
@@ -22,6 +33,7 @@ export class Color {
 
 	/** Infers the Color Type of colorString from its leading characters
 	 * @return result of the respective get{Color Type}ColorValues method
+	 * @throws InvalidColorString
 	 */
 	private static getColorValues(colorString: string): number[] {
 		if (colorString.startsWith('rgb')) {
@@ -31,13 +43,14 @@ export class Color {
 		} else if (ColorName[colorString] instanceof Array){
 			return ColorName[colorString];
 		} else {
-			throw new InvalidColorError(colorString);
+			throw new InvalidColorString(colorString);
 		}
 	}
 
 	/** Gets the RGB color values from an RBG color string
 	 * Handles both RGB and RGBA strings
 	 * @return [red, green, blue, alpha?]
+	 * @throws InvalidColorString
 	 */
 	private static getRgbColorValues(colorString: string): number[] {
 		const [colorValesString] = /[\d|\.+?\,?\ *]+/.exec(colorString);
@@ -47,13 +60,14 @@ export class Color {
 		if (colorValues.length === 3 || colorValues.length === 4) {
 			return colorValues;
 		} else {
-			throw new InvalidColorError(colorString);
+			throw new InvalidColorString(colorString);
 		}
 	}
 
 	/** Gets the RGB color values from an Hex color string
 	 * Handles #FFF, #FFFF, #FFFFFF, & #FFFFFFFF type Hex strings
 	 * @return [red, green, blue, alpha?]
+	 * @throws InvalidColorString
 	 */
 	private static getHexColorValues(colorString: string): number[] {
 		const [hexValuesString] = /[\d|a-f|A-F+?]+/.exec(colorString);
@@ -71,7 +85,7 @@ export class Color {
 				return [red, green, blue, alpha];
 			}
 			default:
-				throw new InvalidColorError(colorString);
+				throw new InvalidColorString(colorString);
 		}
 
 		function getSingleHexColorValues(hexString: string): number[] {
@@ -86,7 +100,9 @@ export class Color {
 	}
 	/** endregion Static Factory Methods */
 
-	/** Object.toString() override */
+	/** Object.toString() override
+	 * @return an RGB type colorString
+	 */
 	public toString(): string {
 		const { red, green, blue, alpha } = this;
 		return (alpha === 255)
@@ -96,6 +112,7 @@ export class Color {
 
 	/** Creates a new Color from the original with an overlaid alpha value
 	 * @param alpha - new alpha value
+	 * @return a new Color object
 	 */
 	public withAlpha(alpha: number): Color {
 		const { red, green, blue } = this;
@@ -104,6 +121,7 @@ export class Color {
 
 	/** Creates an opaque Color from this color (with alpha) over the theme background color.
 	 * @param backgroundColor - the theme background color, (if provided, it's alpha will be ignored)
+	 * @return a new Color object
 	 */
 	public imposeOn(backgroundColor: Color): Color {
 		const alphaFloat = this.getAlphaFloatValue();
