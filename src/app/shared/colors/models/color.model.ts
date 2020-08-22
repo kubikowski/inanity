@@ -16,7 +16,6 @@ export class Color {
 	) { }
 
 	/* region Static Factory Methods */
-
 	/** Static Factory Constructor from pixel intensities and opacity
 	 * @param red - int in range(0, 255) representing the red pixel intensity
 	 * @param green - int in range(0, 255) representing the green pixel intensity
@@ -69,7 +68,7 @@ export class Color {
 	}
 
 	/** Gets the RGB color values from an RBG color string
-	 * Handles both RGB and RGBA strings
+	 * <br/> Handles both RGB and RGBA strings
 	 * @return [red, green, blue, alpha?]
 	 * @throws InvalidColorString
 	 */
@@ -86,7 +85,7 @@ export class Color {
 	}
 
 	/** Gets the RGB color values from an Hex color string
-	 * Handles #FFF, #FFFF, #FFFFFF, & #FFFFFFFF type Hex strings
+	 * <br/> Handles #FFF, #FFFF, #FFFFFF, & #FFFFFFFF type Hex strings
 	 * @return [red, green, blue, alpha?]
 	 * @throws InvalidColorString
 	 */
@@ -122,7 +121,6 @@ export class Color {
 	/* endregion Static Factory Methods */
 
 	/* region Object Prototype Methods */
-
 	/** Color object.toString() override
 	 * @return an RGB type colorString
 	 */
