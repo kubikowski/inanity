@@ -73,7 +73,7 @@ export class Color {
 	 * @throws InvalidColorString
 	 */
 	private static getRgbColorValues(colorString: string): number[] {
-		const [colorValesString] = /[\d|\.+?\,?\ *]+/.exec(colorString);
+		const [colorValesString] = /[\d.+?, *]+/.exec(colorString);
 		const colorValues = colorValesString.split(',')
 			.map(value => parseFloat(value));
 
@@ -90,7 +90,7 @@ export class Color {
 	 * @throws InvalidColorString
 	 */
 	private static getHexColorValues(colorString: string): number[] {
-		const [hexValuesString] = /[\d|a-f|A-F+?]+/.exec(colorString);
+		const [hexValuesString] = /[\da-fA-F+?]+/.exec(colorString);
 		switch (hexValuesString.length) {
 			case 3:
 				return getSingleHexColorValues(hexValuesString);
