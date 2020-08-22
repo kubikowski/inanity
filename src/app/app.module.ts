@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { NavigationModule } from './navigation/navigation.module';
 import { SharedModule } from './shared/shared.module';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { GongModule } from './pages/gong/gong.module';
 
 @NgModule({
 	declarations: [
@@ -23,9 +22,6 @@ import { GongModule } from './pages/gong/gong.module';
 
 		NavigationModule,
 		SharedModule,
-
-		// pages
-		GongModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent]
