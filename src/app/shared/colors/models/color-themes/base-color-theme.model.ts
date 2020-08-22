@@ -1,9 +1,9 @@
 export class BaseColorTheme {
 	protected constructor(
-		public colorBackground: string,
-		public colorAccent: string,
-		public colorDisabled: string,
-		public colorContrast: string,
+		public readonly colorBackground: string,
+		public readonly colorAccent: string,
+		public readonly colorDisabled: string,
+		public readonly colorContrast: string,
 	) { }
 
 	public static readonly CssThemeVariables = new BaseColorTheme(

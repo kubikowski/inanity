@@ -1,13 +1,13 @@
 export class BaseColorPalette {
 	protected constructor(
-		public colorLightest: string,
-		public colorLighter: string,
-		public colorLight: string,
-		public colorDefault: string,
-		public colorDark: string,
-		public colorDarker: string,
-		public colorDarkest: string,
-		public colorSelected: string,
+		public readonly colorLightest: string,
+		public readonly colorLighter: string,
+		public readonly colorLight: string,
+		public readonly colorDefault: string,
+		public readonly colorDark: string,
+		public readonly colorDarker: string,
+		public readonly colorDarkest: string,
+		public readonly colorSelected: string,
 	) { }
 
 	public static readonly CssPaletteVariables = new BaseColorPalette(
