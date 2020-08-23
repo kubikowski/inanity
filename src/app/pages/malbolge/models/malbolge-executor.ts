@@ -1,6 +1,6 @@
 import { MaxTenTrit, TenTrit } from './data-structures/ternary.model';
 import { getCrazyLoop } from './lookup/crazy-lookup.constant';
-import { negativeIndexReadonlyArrayProxy } from './data-structures/negative-index-array.proxy';
+import { ReadonlyArrayProxy } from './data-structures/negative-index-array.proxy';
 
 export class MalbolgeExecutor {
 	/** Stores the memory and each of the registers used to execute a malbolge program.
@@ -12,7 +12,7 @@ export class MalbolgeExecutor {
 	 * 			  the location it points to is used for the data manipulation commands.
 	 */
 	public constructor(
-		public vm: ReadonlyArray<TenTrit> = negativeIndexReadonlyArrayProxy(Array(MaxTenTrit).fill(TenTrit.create())),
+		public vm: ReadonlyArray<TenTrit> = ReadonlyArrayProxy(Array.from({ length: MaxTenTrit }, () => TenTrit.create())),
 		public a: number = 0,
 		public c: number = 0,
 		public d: number = 0,

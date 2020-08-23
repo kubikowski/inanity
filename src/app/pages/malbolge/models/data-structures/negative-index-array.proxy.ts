@@ -1,5 +1,5 @@
 
-export function negativeIndexReadonlyArrayProxy<T>(array: ReadonlyArray<T>): ReadonlyArray<T> {
+export function ReadonlyArrayProxy<T>(array: ReadonlyArray<T>): ReadonlyArray<T> {
 	return new Proxy(array, {
 		has(target: T[], property: PropertyKey): boolean {
 			return Reflect.has(target, property);
@@ -11,7 +11,7 @@ export function negativeIndexReadonlyArrayProxy<T>(array: ReadonlyArray<T>): Rea
 	});
 }
 
-export function negativeIndexArrayProxy<T>(array: Array<T>): Array<T> {
+export function ArrayProxy<T>(array: Array<T>): Array<T> {
 	return new Proxy(array, {
 		has(target: T[], property: PropertyKey): boolean {
 			return Reflect.has(target, property);
