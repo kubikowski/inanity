@@ -19,23 +19,30 @@ export const MaxTenTrit = 59049;
 export class TenTrit extends Array<Trit> {
 	private constructor(tentrit: TT = Array<Trit>(10).fill(0 as Trit) as TT) {
 		super(...tentrit);
-		Object.setPrototypeOf(this, Object.create(TenTrit.prototype));
 	}
 
-	public static fromValue(value: number): TenTrit {
-		const tenTrit = new TenTrit();
-		for (let i = 0; i < 10; i++) {
-			tenTrit[9 - i] = value % 3 as Trit;
-			value = Math.floor(value / 3);
-		}
+	static create(): TenTrit {
+		return Object.create(TenTrit.prototype);
+	}
+
+	static fromValue(value: number): TenTrit {
+		const tenTrit = TenTrit.create();
+		tenTrit.value = value;
 		return tenTrit;
 	}
 
-	public static toValue(tenTrit: TenTrit): number {
+	get value(): number {
 		let value = 0;
 		for (let i = 0; i < 10; i++) {
-			value = value + (tenTrit[i] * Math.pow(3, 9 - i));
+			value = value + (this[i] * Math.pow(3, 9 - i));
 		}
 		return value;
+	}
+
+	set value(value: number) {
+		for (let i = 0; i < 10; i++) {
+			this[9 - i] = value % 3 as Trit;
+			value = Math.floor(value / 3);
+		}
 	}
 }
