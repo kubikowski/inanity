@@ -15,11 +15,11 @@ describe('Ternaries', () => {
 		expect(TenTrit.fromValue(MaxTenTrit - 1).value).toBe(MaxTenTrit - 1);
 	});
 
-	it('should return MaxTenTrit -> 1', () => {
+	it('should return MaxTenTrit -> 0', () => {
 		expect(TenTrit.fromValue(MaxTenTrit).value).toBe(0);
 	});
 
-	it('should return MaxTenTrit + 50 -> MaxTenTrit + 50', () => {
+	it('should return MaxTenTrit + 50 -> 50', () => {
 		expect(TenTrit.fromValue(MaxTenTrit + 50).value).toBe(50);
 	});
 	/** endregion */
