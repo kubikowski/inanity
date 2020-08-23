@@ -45,4 +45,19 @@ export class TenTrit extends Array<Trit> {
 			value = Math.floor(value / 3);
 		}
 	}
+
+	setFromTenTrit(tenTrit: TenTrit): void {
+		for (let i = 0; i < 10; i++) {
+			this[i] = tenTrit[i];
+		}
+	}
+
+	equals(tenTrit: TenTrit): boolean {
+		for (let i = 0; i < 10; i++) {
+			if (this[i] !== tenTrit[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

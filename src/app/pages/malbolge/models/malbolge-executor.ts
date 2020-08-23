@@ -1,6 +1,5 @@
-import { MaxTenTrit, TenTrit, Trit } from './ternary.model';
-import { CrazyLookup } from './lookup/crazy-lookup.constant';
-import { EncipherLookup } from './lookup/encipher-lookup.constant';
+import { MaxTenTrit, TenTrit } from './ternary.model';
+import { getCrazyLoop } from './lookup/crazy-lookup.constant';
 
 export class MalbolgeExecutor {
 	/** Stores the memory and each of the registers used to execute a malbolge program.
@@ -17,14 +16,6 @@ export class MalbolgeExecutor {
 		public c: number = 0,
 		public d: number = 0,
 	) { }
-
-	public static crazy(trit1: Trit, trit2: Trit): Trit {
-		return CrazyLookup[trit1][trit2];
-	}
-
-	public static encipher(input: number): number {
-		return EncipherLookup[input % 94];
-	}
 
 	public loadProgram(program: string): void {
 		const strippedProgramValues: ReadonlyArray<number> = program
@@ -45,8 +36,15 @@ export class MalbolgeExecutor {
 		}
 
 		// Fill the remaining memory by the crazy operator.
+		const crazyLoop = getCrazyLoop(this.vm[strippedProgramValues.length - 2], this.vm[strippedProgramValues.length - 1]);
+		let crazyLoopIndex = 2;
+
 		for (let j = strippedProgramValues.length; j < MaxTenTrit; j++) {
-			this.vm[j].value = 0;
+			if (crazyLoopIndex >= crazyLoop.length)
+				crazyLoopIndex = 0;
+
+			this.vm[j].setFromTenTrit(crazyLoop[crazyLoopIndex]);
+			crazyLoopIndex++;
 		}
 	}
 }
