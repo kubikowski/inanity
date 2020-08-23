@@ -1,6 +1,6 @@
 import { MaxTenTrit, MemorySlot, Trit } from './ternary.model';
 import { CrazyLookup } from './lookup/crazy-lookup.constant';
-import { EncryptionLookup } from './lookup/encryption-lookup.constant';
+import { EncipherLookup } from './lookup/encipher-lookup.constant';
 
 export class MalbolgeExecutor {
 	/** Stores the memory and each of the registers used to execute a malbolge program.
@@ -23,6 +23,10 @@ export class MalbolgeExecutor {
 	}
 
 	public static encipher(input: number): number {
-		return EncryptionLookup[input % 94];
+		return EncipherLookup[input % 94];
+	}
+
+	public loadProgram(program: string): void {
+		const strippedProgram = program.replace(/\s/g, '');
 	}
 }
