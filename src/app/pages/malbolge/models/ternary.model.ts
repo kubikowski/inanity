@@ -14,8 +14,7 @@ export const MaxTenTrit = 59049;
 export class MemorySlot {
 	private tritValue: TenTrit;
 	public constructor(
-		public address: number,
-		public value: number,
+		public value: number = 0,
 	) { }
 
 	static getValueFromTenTrit(tenTrit: TenTrit): number {
