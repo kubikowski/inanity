@@ -1,5 +1,5 @@
-import { Trit, TenTrit } from '../data-structures/ternary.model';
-import { NegativeIndexArrayHandler } from '../data-structures/negative-index-array.proxy';
+import { TenTrit, Trit } from '../data-structures/ternary.model';
+import { negativeIndexArrayProxy } from '../data-structures/negative-index-array.proxy';
 
 const CrazyLookup: ReadonlyArray<ReadonlyArray<Trit>> = [
 	[ 1, 0, 0 ],
@@ -20,7 +20,7 @@ export function tenCrazy(tenTrit1: TenTrit, tenTrit2: TenTrit): TenTrit {
 }
 
 export function getCrazyLoop(tentrit1: TenTrit, tentrit2: TenTrit): Array<TenTrit> {
-	const loop = new Proxy([tentrit1, tentrit2], NegativeIndexArrayHandler);
+	const loop = negativeIndexArrayProxy([tentrit1, tentrit2]);
 	let next = tenCrazy(loop[loop.length - 2], loop[loop.length - 1]);
 	while (!next.equals(tentrit1)) {
 		loop.push(next);

@@ -1,10 +1,8 @@
 import { MaxTenTrit, TenTrit } from './data-structures/ternary.model';
 import { getCrazyLoop } from './lookup/crazy-lookup.constant';
-import { NegativeIndexArrayHandler } from './data-structures/negative-index-array.proxy';
+import { negativeIndexReadonlyArrayProxy } from './data-structures/negative-index-array.proxy';
 
 export class MalbolgeExecutor {
-	public vmproxy: ReadonlyArray<TenTrit>;
-
 	/** Stores the memory and each of the registers used to execute a malbolge program.
 	 * @param vm - The memory space on which the program is loaded and executed.
 	 * @param a - accumulator, set to the value written by all
@@ -14,13 +12,11 @@ export class MalbolgeExecutor {
 	 * 			  the location it points to is used for the data manipulation commands.
 	 */
 	public constructor(
-		public vm: ReadonlyArray<TenTrit> = Array(MaxTenTrit).fill(TenTrit.create()),
+		public vm: ReadonlyArray<TenTrit> = negativeIndexReadonlyArrayProxy(Array(MaxTenTrit).fill(TenTrit.create())),
 		public a: number = 0,
 		public c: number = 0,
 		public d: number = 0,
-	) {
-		this.vmproxy = new Proxy(vm, NegativeIndexArrayHandler);
-	}
+	) { }
 
 	public loadProgram(program: string): void {
 		const strippedProgramValues: ReadonlyArray<number> = program
@@ -41,7 +37,7 @@ export class MalbolgeExecutor {
 		}
 
 		// Fill the remaining memory by the crazy operator.
-		const crazyLoop = getCrazyLoop(this.vmproxy[strippedProgramValues.length - 2], this.vm[strippedProgramValues.length - 1]);
+		const crazyLoop = getCrazyLoop(this.vm[strippedProgramValues.length - 2], this.vm[strippedProgramValues.length - 1]);
 		let crazyLoopIndex = 2;
 
 		for (let j = strippedProgramValues.length; j < MaxTenTrit; j++) {
