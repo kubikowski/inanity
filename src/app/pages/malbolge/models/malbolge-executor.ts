@@ -1,4 +1,4 @@
-import { MaxTenTrit, TenTrit } from './ternary.model';
+import { MaxTenTrit, TenTrit } from './data-structures/ternary.model';
 import { getCrazyLoop } from './lookup/crazy-lookup.constant';
 
 export class MalbolgeExecutor {

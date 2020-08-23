@@ -1,4 +1,4 @@
-import { Trit, TenTrit } from '../ternary.model';
+import { Trit, TenTrit } from '../data-structures/ternary.model';
 
 const CrazyLookup: ReadonlyArray<ReadonlyArray<Trit>> = [
 	[ 1, 0, 0 ],
