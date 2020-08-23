@@ -1,5 +1,4 @@
-import { MaxTenTrit, Trit } from './ternary.model';
-import { MemorySlot } from './memory-slot';
+import { MaxTenTrit, TenTrit, Trit } from './ternary.model';
 import { CrazyLookup } from './lookup/crazy-lookup.constant';
 import { EncipherLookup } from './lookup/encipher-lookup.constant';
 
@@ -13,7 +12,7 @@ export class MalbolgeExecutor {
 	 * 			  the location it points to is used for the data manipulation commands.
 	 */
 	public constructor(
-		public vm: ReadonlyArray<MemorySlot> = Array(MaxTenTrit).fill(new MemorySlot()),
+		public vm: ReadonlyArray<TenTrit> = Array(MaxTenTrit).fill(TenTrit.create()),
 		public a: number = 0,
 		public c: number = 0,
 		public d: number = 0,
@@ -38,16 +37,16 @@ export class MalbolgeExecutor {
 		}
 
 		// Initialise all memory values to 0
-		this.vm.forEach(memorySlot => memorySlot.setValue(0));
+		this.vm.forEach(memorySlot => memorySlot.value = 0);
 
 		// Fill the beginning memory with the stripped program
 		for (let i = 0; i < strippedProgramValues.length; i++) {
-			this.vm[i].setValue(strippedProgramValues[i]);
+			this.vm[i].value = strippedProgramValues[i];
 		}
 
 		// Fill the remaining memory by the crazy operator.
 		for (let j = strippedProgramValues.length; j < MaxTenTrit; j++) {
-			this.vm[j].setValue(0);
+			this.vm[j].value = 0;
 		}
 	}
 }

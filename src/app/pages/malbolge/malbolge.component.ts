@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MalbolgeExecutor } from './models/malbolge-executor';
 
 @Component({
 	selector: 'app-malbolge',
@@ -7,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MalbolgeComponent implements OnInit {
 
+	private executor = new MalbolgeExecutor();
+
 	constructor() {
 	}
 
 	ngOnInit(): void {
+		this.executor.loadProgram('');
+
+		console.log(this.executor);
 	}
 
 }
