@@ -22,7 +22,7 @@ export class MalbolgeExecutor {
 		const strippedProgramValues: ReadonlyArray<number> = program
 			.replace(/\s/g, '')
 			.split('')
-			.map(char => Number(char));
+			.map(char => char.charCodeAt(0));
 
 		if (strippedProgramValues.length > MaxTenTrit) {
 			throw new Error(`The input program is larger than Malbolge is designed to handle.`);

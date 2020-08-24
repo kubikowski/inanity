@@ -14,6 +14,7 @@ export class MalbolgeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		// this.executor.loadProgram('(=<`#9]~6ZY32Vx/4Rs+0No-&Jk)"Fh}|Bcy?`=*z]Kw%oG4UUS0/@-ejc(:\'8dc');
 		this.executor.loadProgram('');
 
 		console.log(this.executor);

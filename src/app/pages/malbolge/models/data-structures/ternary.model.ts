@@ -17,8 +17,8 @@ export const MaxTenTrit = 59049;
  * is used in malbolge as the functional equivalent of a byte
  */
 export class TenTrit extends Array<Trit> {
-	private constructor(tentrit: TT = Array<Trit>(10).fill(0 as Trit) as TT) {
-		super(...tentrit);
+	private constructor(tenTrit: TT = Array<Trit>(10).fill(0 as Trit) as TT) {
+		super(...tenTrit);
 	}
 
 	static create(): TenTrit {
@@ -28,6 +28,12 @@ export class TenTrit extends Array<Trit> {
 	static fromValue(value: number): TenTrit {
 		const tenTrit = TenTrit.create();
 		tenTrit.value = value;
+		return tenTrit;
+	}
+
+	static fromTenTrit(original: TenTrit | TT): TenTrit {
+		const tenTrit = TenTrit.create();
+		tenTrit.setFromTenTrit(original);
 		return tenTrit;
 	}
 
@@ -46,13 +52,13 @@ export class TenTrit extends Array<Trit> {
 		}
 	}
 
-	setFromTenTrit(tenTrit: TenTrit): void {
+	setFromTenTrit(tenTrit: TenTrit | TT): void {
 		for (let i = 0; i < 10; i++) {
 			this[i] = tenTrit[i];
 		}
 	}
 
-	equals(tenTrit: TenTrit): boolean {
+	equals(tenTrit: TenTrit | TT): boolean {
 		for (let i = 0; i < 10; i++) {
 			if (this[i] !== tenTrit[i]) {
 				return false;
