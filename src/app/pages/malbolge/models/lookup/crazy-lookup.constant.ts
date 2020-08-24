@@ -1,22 +1,22 @@
-import { TenTrit, Trit } from '../data-structures/ternary.model';
+import { TenTrit, trit } from '../data-structures/ternary.model';
 import { ArrayProxy } from '../data-structures/negative-index-array.proxy';
 
-const CrazyLookup: ReadonlyArray<ReadonlyArray<Trit>> = [
+const CrazyLookup: ReadonlyArray<ReadonlyArray<trit>> = [
 	[ 1, 0, 0 ],
 	[ 1, 0, 2 ],
 	[ 2, 2, 1 ]
 ];
 
-export function crazy(trit1: Trit, trit2: Trit): Trit {
+export function crazy(trit1: trit, trit2: trit): trit {
 	return CrazyLookup[trit1][trit2];
 }
 
-export function tenCrazy(tenTrit1: TenTrit, tenTrit2: TenTrit): TenTrit {
-	const tenTrit = TenTrit.create();
+export function tenCrazy(tentrit1: TenTrit, tentrit2: TenTrit): TenTrit {
+	const tentrit = TenTrit.create();
 	for (let i = 0; i < 10; i++) {
-		tenTrit[i] = crazy(tenTrit1[i], tenTrit2[i]);
+		tentrit[i] = crazy(tentrit1[i], tentrit2[i]);
 	}
-	return tenTrit;
+	return tentrit;
 }
 
 export function getCrazyLoop(tentrit1: TenTrit, tentrit2: TenTrit): Array<TenTrit> {
