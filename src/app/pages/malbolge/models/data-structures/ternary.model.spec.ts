@@ -4,7 +4,11 @@ describe('Ternaries', () => {
 
 	/** region Test fromValue & toValue */
 	it('should create instance of TenTrit', () => {
-		expect(TenTrit.fromValue(0)).toBeInstanceOf(TenTrit);
+		expect(TenTrit.fromTenTrit([ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])).toBeInstanceOf(TenTrit);
+	});
+
+	it('should return [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 ] -> MaxTenTrit - 1', () => {
+		expect(TenTrit.fromTenTrit([ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 ]).value).toBe(MaxTenTrit - 1);
 	});
 
 	it('should return 5 -> 5', () => {
