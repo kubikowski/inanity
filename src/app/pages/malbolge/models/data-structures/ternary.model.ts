@@ -60,6 +60,14 @@ export class TenTrit extends Array<trit> {
 		}
 	}
 
+	rotateRight(): void {
+		const temp = this[9];
+		for (let i = 9; i > 0; i--) {
+			this[i] = this[i - 1];
+		}
+		this[0] = temp;
+	}
+
 	equals(tentrit: TenTrit | TT): boolean {
 		for (let i = 0; i < 10; i++) {
 			if (this[i] !== tentrit[i]) {

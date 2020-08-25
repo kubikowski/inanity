@@ -48,4 +48,19 @@ export class MalbolgeExecutor {
 			crazyLoopIndex++;
 		}
 	}
+
+	public step(): void {
+		const instruction = (this.c + this.vm[this.c].value) % 94;
+		switch (instruction) {
+			case 4:		/* (jmp [d]) */
+			case 5:		/* (out a) */
+			case 23:	/* (in a) */
+			case 39:	/* (rotr [d]), (mov a, [d]) */
+			case 40:	/* (mov d, [d]) */
+			case 62:	/* (crz [d], a), (mov a, [d]) */
+			case 81:	/* (end) */
+			case 68:	/* (nop) */
+			default:	/* (nop) */
+		}
+	}
 }
