@@ -38,7 +38,7 @@ export class MalbolgeExecutor {
 
 		// Fill the remaining memory by the crazy operator.
 		const crazyLoop = getCrazyLoop(this.vm[strippedProgramValues.length - 2], this.vm[strippedProgramValues.length - 1]);
-		let crazyLoopIndex = 2;
+		let crazyLoopIndex = 0;
 
 		for (let j = strippedProgramValues.length; j < MaxTenTrit; j++) {
 			if (crazyLoopIndex >= crazyLoop.length)

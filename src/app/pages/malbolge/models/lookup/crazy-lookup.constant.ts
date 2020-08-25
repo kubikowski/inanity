@@ -20,11 +20,12 @@ export function tenCrazy(tentrit1: TenTrit, tentrit2: TenTrit): TenTrit {
 }
 
 export function getCrazyLoop(tentrit1: TenTrit, tentrit2: TenTrit): Array<TenTrit> {
-	const loop = ArrayProxy([tentrit1, tentrit2]);
-	let next = tenCrazy(loop[loop.length - 2], loop[loop.length - 1]);
-	while (!next.equals(tentrit1)) {
-		loop.push(next);
-		next = tenCrazy(loop[loop.length - 2], loop[loop.length - 1]);
+	const first = tenCrazy(tentrit1, tentrit2);
+	const second = tenCrazy(tentrit2, first);
+	const loop = ArrayProxy([first, second]);
+
+	while (loop.length < 12) {
+		loop.push(tenCrazy(loop[loop.length - 2], loop[loop.length - 1]));
 	}
 	return loop;
 }
