@@ -1,8 +1,11 @@
-import { MaxTenTrit, TenTrit } from './data-structures/ternary.model';
-import { getCrazyLoop } from './lookup/crazy-lookup.constant';
-import { ReadonlyArrayProxy } from './data-structures/negative-index-array.proxy';
+import { Injectable } from '@angular/core';
+import { MaxTenTrit, TenTrit } from '../models/data-structures/ternary.model';
+import { ReadonlyArrayProxy } from '../models/data-structures/negative-index-array.proxy';
+import { getCrazyLoop } from '../models/lookup/crazy-lookup.constant';
 
-export class MalbolgeExecutor {
+@Injectable({ providedIn: 'any' })
+export class MalbolgeExecutorService {
+
 	/** Stores the memory and each of the registers used to execute a malbolge program.
 	 * @param vm - The memory space on which the program is loaded and executed.
 	 * @param a - accumulator, set to the value written by all
@@ -11,12 +14,12 @@ export class MalbolgeExecutor {
 	 * @param d - data pointer, automatically incremented after each instruction,
 	 * 			  the location it points to is used for the data manipulation commands.
 	 */
-	public constructor(
-		public vm: ReadonlyArray<TenTrit> = ReadonlyArrayProxy(Array.from({ length: MaxTenTrit }, () => TenTrit.create())),
-		public a: number = 0,
-		public c: number = 0,
-		public d: number = 0,
-	) { }
+	public vm: ReadonlyArray<TenTrit> = ReadonlyArrayProxy(Array.from({ length: MaxTenTrit }, () => TenTrit.create()));
+	public a = 0;
+	public c = 0;
+	public d = 0;
+
+	public constructor() { }
 
 	public loadProgram(program: string): void {
 		const strippedProgramValues: ReadonlyArray<number> = program

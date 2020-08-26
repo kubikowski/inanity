@@ -30,7 +30,6 @@ describe('Ternaries', () => {
 		it('should return MaxTenTrit + 50 -> 50', () => {
 			expect(TenTrit.fromValue(MaxTenTrit + 50).value).toBe(50);
 		});
-		/** endregion */
 	});
 
 	describe('Object Methods', () => {

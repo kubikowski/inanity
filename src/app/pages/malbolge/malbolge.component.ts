@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { MalbolgeExecutor } from './models/malbolge-executor';
+import { MalbolgeExecutorService } from './services/malbolge-executor.service';
 
 @Component({
 	selector: 'app-malbolge',
 	templateUrl: './malbolge.component.html',
-	styleUrls: [ './malbolge.component.scss' ]
+	styleUrls: [ './malbolge.component.scss' ],
+	providers: [ MalbolgeExecutorService ],
 })
 export class MalbolgeComponent implements OnInit {
 
-	private executor = new MalbolgeExecutor();
-
-	constructor() {
+	constructor(private executor: MalbolgeExecutorService) {
 	}
 
 	ngOnInit(): void {
