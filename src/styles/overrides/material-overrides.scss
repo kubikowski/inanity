@@ -10,3 +10,23 @@ body.light-theme, body.dark-theme {
 		background-image: linear-gradient(to top, var(--theme-color-selected), transparent);
 	}
 }
+
+.mat-accordion {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+mat-expansion-panel.mat-expansion-panel {
+	display: flex;
+	flex-flow: column nowrap;
+	min-height: 3em;
+
+	.mat-expansion-panel-header {
+		min-height: 3em;
+	}
+
+	.mat-expansion-panel-content {
+		overflow: hidden auto;
+		max-height: 100%;
+	}
+}

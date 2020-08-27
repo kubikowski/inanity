@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MalbolgeExecutorService } from './services/malbolge-executor.service';
+import { OniIcon } from 'src/app/shared/svg/svg-icons.constant';
 
 @Component({
-	selector: 'app-malbolge',
+	selector: 'malbolge',
 	templateUrl: './malbolge.component.html',
-	styleUrls: [ './malbolge.component.scss' ],
+	styleUrls: [ './malbolge.component.scss', './../page.component.scss' ],
 	providers: [ MalbolgeExecutorService ],
 })
 export class MalbolgeComponent implements OnInit {
+
+	OniIcon = OniIcon;
 
 	constructor(private executor: MalbolgeExecutorService) {
 	}

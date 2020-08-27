@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -27,6 +28,7 @@ import { DyslexicTextService } from './dyslexic-text/services/dyslexic-text.serv
 		MatCardModule,
 		MatCheckboxModule,
 		MatDividerModule,
+		MatExpansionModule,
 		MatIconModule,
 		MatMenuModule,
 		MatSidenavModule,
@@ -42,6 +44,7 @@ import { DyslexicTextService } from './dyslexic-text/services/dyslexic-text.serv
 		MatCardModule,
 		MatCheckboxModule,
 		MatDividerModule,
+		MatExpansionModule,
 		MatIconModule,
 		MatMenuModule,
 		MatSidenavModule,
