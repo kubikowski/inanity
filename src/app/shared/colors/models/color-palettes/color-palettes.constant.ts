@@ -49,9 +49,22 @@ export const OrangePalette = new ColorPalette(
 	'Combustion',
 );
 
+export const TanPalette = new ColorPalette(
+	Color.fromString('#f5e1a4'), // Pantone 7401 C
+	Color.fromString('#fcd299'), // Pantone 7507 C
+	Color.fromString('#b58150'), // Pantone 729 C
+	Color.fromString('#c66e4e'), // Pantone 7618 C
+	Color.fromString('#b46a55'), // Pantone 7522 C
+	Color.fromString('#785135'), // Pantone 7568 C
+	Color.fromString('#623b2a'), // Pantone 477 C
+	'tan-palette',
+	'Clay',
+);
+
 export const ColorPalettes = [
 	BluePalette,
 	GreenPalette,
 	PinkPalette,
 	OrangePalette,
+	TanPalette,
 ] as const;
