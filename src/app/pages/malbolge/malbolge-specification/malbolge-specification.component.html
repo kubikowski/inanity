@@ -98,6 +98,95 @@
 				repetitively.</p>
 			</mat-expansion-panel>
 
+			<mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						Commands
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<mat-divider></mat-divider>
+
+				<p>When the interpreter tries to execute a program, it first checks to
+				see if the current instruction is a graphical ASCII character (33
+				through 126).  If it is, it subtracts 33 from it, adds C to it, mods it
+				by 94, then uses the result as an index into the following table of 94
+				characters:</p>
+
+<!--				<p>+b(29e*j1VMEKLyC})8&m#~W>qxdRp0wkrUo[D7,XTcA"lI</p>-->
+<!--				<p>.v% &#123 gJh4G\-=O@5`_3i &#60 ?Z';FNQuY]szf$!BS/|t:Pn6^Ha</p>-->
+
+				<p>It then checks it against the characters listed below, and performs an
+				appropriate action.</p>
+
+				<p>If the result is not one of the characters listed below, it is treated
+				as a nop.  If the original character is not graphic ASCII, the program
+				is immediately ended.</p>
+
+				<p>When the interpreter parses the input file, it checks each non-
+				whitespace character with the process above.  If any result is not one
+				of the eight characters below, the file will be rejected.</p>
+
+				<p>After the instruction is executed, 33 is subtracted from the instruction
+				at C, and the result is used as an index in the table below.  The new
+				character is then placed at C, and then C is incremented.</p>
+
+<!--				<p>5z]&gqtyfr$(we4 &#123 WP)H-Zn,[%\3dL+Q;>U!pJS72FhOA1C</p>-->
+<!--				<p>B6v^=I_0/8|jsb9m<.TVac`uY*MK'X~xDl}REokN:#?G"i@</p>-->
+
+				<p>j</p>
+					<p>sets the data pointer to the value in the cell pointed to by the
+					current data pointer.</p>
+
+				<p>i</p>
+					<p>sets the code pointer to the value in the cell pointed to be the
+					current data pointer.</p>
+
+				<p>*</p>
+					<p>rotates the trinary value of the cell pointed to by D to the right 1.
+					The least significant trit becomes the most significant trit, and all
+					others move one position to the left.</p>
+
+				<p>p</p>
+					<p>performs a tritwise "op" on the value pointed to by D with the
+					contents of A.  The op (don't look for pattern, it's not there) is:</p>
+
+				<p>        | A trit:</p>
+				<p>________|_0__1__2_</p>
+				<p>      0 | 1  0  0</p>
+				<p>  *D  1 | 1  0  2</p>
+				<p> trit 2 | 2  2  1</p>
+
+
+
+				<p>Di-trits:</p>
+				<p>    00 01 02 10 11 12 20 21 22</p>
+
+				<p>00  04 03 03 01 00 00 01 00 00</p>
+				<p>01  04 03 05 01 00 02 01 00 02</p>
+				<p>02  05 05 04 02 02 01 02 02 01</p>
+				<p>10  04 03 03 01 00 00 07 06 06</p>
+				<p>11  04 03 05 01 00 02 07 06 08</p>
+				<p>12  05 05 04 02 02 01 08 08 07</p>
+				<p>20  07 06 06 07 06 06 04 03 03</p>
+				<p>21  07 06 08 07 06 08 04 03 05</p>
+				<p>22  08 08 07 08 08 07 05 05 04</p>
+
+				<p><</p>
+				<p>reads an ASCII value from the stdin and converts it to Trinary, then
+				stores it in A.  10 (line feed) is considered 'newline', and
+				2222222222t (59048 dec.) is EOF.</p>
+
+				<p>/</p>
+				<p>converts the value in A to ASCII and writes it to stdout.  Writing
+				10 is a newline.</p>
+
+				<p>v</p>
+				<p>indicates a full stop for the machine.</p>
+
+				<p>o</p>
+				<p>does nothing, except increment C and D, as all other instructions do.</p>
+			</mat-expansion-panel>
+
 		</mat-accordion>
 	</mat-card-content>
 </mat-card>
