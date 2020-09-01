@@ -67,9 +67,14 @@ describe('Color', () => {
 			expect(toString).toBe('rgb(255, 222, 173)');
 		});
 
-		it('should return "transparent" -> "rgba(0, 0, 0, 0)"', () => {
+		it('should return "transparent" -> "transparent"', () => {
 			const toString = Color.fromString('transparent').toString();
-			expect(toString).toBe('rgba(0, 0, 0, 0)');
+			expect(toString).toBe('transparent');
+		});
+
+		it('should return "rgb(1, 2, 3, 0.0)" -> "transparent"', () => {
+			const toString = Color.fromString('rgb(1, 2, 3, 0.0)').toString();
+			expect(toString).toBe('transparent');
 		});
 	});
 

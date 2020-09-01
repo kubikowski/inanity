@@ -140,9 +140,14 @@ export class Color {
 	 */
 	public toString(): string {
 		const { red, green, blue, alpha } = this;
-		return (alpha === 1)
-			? `rgb(${red}, ${green}, ${blue})`
-			: `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+		switch (alpha) {
+			case 0:
+				return 'transparent';
+			case 1:
+				return `rgb(${red}, ${green}, ${blue})`;
+			default:
+				return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+		}
 	}
 
 	/** Creates a new Color from the original with an overlaid alpha value
