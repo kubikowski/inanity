@@ -72,14 +72,23 @@ export class Color {
 	 * @throws InvalidColorString
 	 */
 	private static getRgbColorValues(colorString: string): number[] {
-		const [colorValesString] = /[\d.+?, *]+/.exec(colorString);
+		const [colorValesString] = /[\d%.+?, *]+/.exec(colorString);
 		const colorValues = colorValesString.split(',')
-			.map(value => parseFloat(value));
+			.map((value, index) => convertToNumber(value, index));
 
 		if (colorValues.length === 3 || colorValues.length === 4) {
 			return colorValues;
 		} else {
 			throw new InvalidColorString(colorString);
+		}
+
+		function convertToNumber(colorValueString: string, index: number): number {
+			if (colorValueString.includes('%')) {
+				const rawPercentage = parseFloat(colorValueString) / 100;
+				return (index < 3) ? rawPercentage * 255 : rawPercentage;
+			} else {
+				return parseFloat(colorValueString);
+			}
 		}
 	}
 

@@ -27,6 +27,16 @@ describe('Color', () => {
 			const toString = Color.fromString('rgb(0, 1.1, 256)').toString();
 			expect(toString).toBe('rgb(0, 1, 255)');
 		});
+
+		it('should return "rgb(0%, 50%, 100%)" -> "rgb(0, 128, 255)"', () => {
+			const toString = Color.fromString('rgb(0%, 50%, 100%)').toString();
+			expect(toString).toBe('rgb(0, 128, 255)');
+		});
+
+		it('should return "rgba(6.25%, 12.5%, 25%, 50%)" -> "rgba(16, 32, 64, 0.5)"', () => {
+			const toString = Color.fromString('rgba(6.25%, 12.5%, 25%, 50%)').toString();
+			expect(toString).toBe('rgba(16, 32, 64, 0.5)');
+		});
 	});
 
 	describe('Hex Types', () => {
