@@ -136,7 +136,7 @@ export class Color {
 
 	/* region Object Prototype Methods */
 	/** Color object.toString() override
-	 * @return an RGB type colorString
+	 * @return an RGB type colorString or 'transparent' for colors with opacity 0
 	 */
 	public toString(): string {
 		const { red, green, blue, alpha } = this;
