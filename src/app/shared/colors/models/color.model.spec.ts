@@ -113,4 +113,28 @@ describe('Color', () => {
 				.toThrow(new InvalidColorString(invalidColor));
 		});
 	});
+
+	describe('Object Prototype Methods', () => {
+		it('should return "rgb(127, 128, 129)".withAlpha(0.5) -> "rgba(127, 128, 129, 0.5)"', () => {
+			const toString = Color.fromString('rgb(127, 128, 129)').withAlpha(0.5).toString();
+			expect(toString).toBe('rgba(127, 128, 129, 0.5)');
+		});
+
+		it('should return "rgba(0, 1, 2, 0.87)".withAlpha(1) -> "rgb(0, 1, 2)"', () => {
+			const toString = Color.fromString('rgba(0, 1, 2, 0.87)').withAlpha(1).toString();
+			expect(toString).toBe('rgb(0, 1, 2)');
+		});
+
+		it('should return "rgb(3, 157, 221)".imposeOn("white") -> "rgb(3, 157, 221)"', () => {
+			const backgroundColor = Color.fromString('white');
+			const foregroundColor = Color.fromString('rgb(3, 157, 221)');
+			expect(foregroundColor.imposeOn(backgroundColor).toString()).toBe('rgb(3, 157, 221)');
+		});
+
+		it('should return "rgb(3, 157, 221, 0.5)".imposeOn("black") -> "rgb(2, 79, 111)"', () => {
+			const backgroundColor = Color.fromString('black');
+			const foregroundColor = Color.fromString('rgb(3, 157, 221, 0.5)');
+			expect(foregroundColor.imposeOn(backgroundColor).toString()).toBe('rgb(2, 79, 111)');
+		});
+	});
 });
