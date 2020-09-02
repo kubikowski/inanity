@@ -131,9 +131,9 @@ describe('Color', () => {
 			expect(foregroundColor.imposeOn(backgroundColor).toString()).toBe('rgb(3, 157, 221)');
 		});
 
-		it('should return "rgb(3, 157, 221, 0.5)".imposeOn("black") -> "rgb(2, 79, 111)"', () => {
+		it('should return "rgba(3, 157, 221, 0.5)".imposeOn("black") -> "rgb(2, 79, 111)"', () => {
 			const backgroundColor = Color.fromString('black');
-			const foregroundColor = Color.fromString('rgb(3, 157, 221, 0.5)');
+			const foregroundColor = Color.fromString('rgba(3, 157, 221, 0.5)');
 			expect(foregroundColor.imposeOn(backgroundColor).toString()).toBe('rgb(2, 79, 111)');
 		});
 	});
