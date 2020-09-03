@@ -3,6 +3,11 @@ name: Jasmine Unit Tests
 
 on: [push, pull_request]
 
+defaults:
+  run:
+    shell: pwsh
+    working-directory: ./
+
 jobs:
   jasmine:
     runs-on: windows-latest
