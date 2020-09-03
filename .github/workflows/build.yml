@@ -23,13 +23,13 @@ jobs:
                 run: npm install
 
             -   name: Lint
-                run: npm run lint
+                run: ng lint
 
             -   name: Build
-                run: npm run build -- --prod
+                run: ng build --prod
 
             -   name: Test
-                run: npm test -- --configuration=ci
+                run: ng test --configuration=ci
 
 #            -   name: E2E
-#                run: npm run e2e -- --configuration=ci
+#                run: ng e2e --configuration=ci
