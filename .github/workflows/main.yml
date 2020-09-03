@@ -1,7 +1,7 @@
 
-name: Jasmine Unit Tests
+name: Buid & Test
 
-on: push
+on: [push]
 
 defaults:
   run:
@@ -9,13 +9,24 @@ defaults:
     working-directory: ./
 
 jobs:
-  jasmine:
+  build:
+
     runs-on: windows-latest
+
     strategy:
       matrix:
-        node: [latest]
-        npm: [latest]
+        node: [12.x]
+
     steps:
       - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm install
+
       - name: Runs the Jasmine Tests
         run: ng test --no-watch --no-progress --browsers=ChromeHeadless
+        
