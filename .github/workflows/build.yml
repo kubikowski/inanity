@@ -11,6 +11,8 @@ jobs:
 
             -   name: Cache Node Modules
                 uses: actions/cache@v2
+                env:
+                    cache-name: cache-node-modules
                 with:
                     path: node_modules
                     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
