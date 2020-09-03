@@ -136,5 +136,11 @@ describe('Color', () => {
 			const foregroundColor = Color.fromString('rgba(3, 157, 221, 0.5)');
 			expect(foregroundColor.imposeOn(backgroundColor).toString()).toBe('rgb(2, 79, 111)');
 		});
+
+		it('should return "transparent".imposeOn("rgb(198, 110, 78)") -> "rgb(198, 110, 78)"', () => {
+			const backgroundColor = Color.fromString('rgb(198, 110, 78)');
+			const foregroundColor = Color.fromString('transparent');
+			expect(foregroundColor.imposeOn(backgroundColor).toString()).toBe('rgb(198, 110, 78)');
+		});
 	});
 });
