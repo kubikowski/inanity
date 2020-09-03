@@ -1,7 +1,7 @@
 
 name: Jasmine Unit Tests
 
-on: [push, pull_request]
+on: push
 
 defaults:
   run:
@@ -13,7 +13,8 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        node: [12]
+        node: [latest]
+        npm: [latest]
     steps:
       - uses: actions/checkout@v2
       - name: Runs the Jasmine Tests
