@@ -1,0 +1,12 @@
+
+name: Jasmine Unit Tests
+
+on: [push, pull_request]
+
+jobs:
+  jasmine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: ng test --no-watch --no-progress --browsers=ChromeHeadless
