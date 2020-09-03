@@ -20,16 +20,16 @@ jobs:
                         ${{ runner.OS }}-
 
             -   name: Install dependencies
-                run: npm install @angular/cli
+                run: npm install
 
             -   name: Lint
-                run: ng lint
+                run: npm lint
 
             -   name: Build
-                run: ng build --prod
+                run: npm build -- --prod
 
             -   name: Test
-                run: ng test --configuration=ci
+                run: npm test -- --configuration=ci
 
 #            -   name: E2E
-#                run: ng e2e --configuration=ci
+#                run: npm e2e -- --configuration=ci
