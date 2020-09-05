@@ -1,0 +1,63 @@
+name: Bump Version & Deploy Production
+
+on:
+    push:
+        branches: [ master ]
+
+jobs:
+    bump-version:
+        name: "Bump Version on master"
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+
+            -   name: "cat package.json"
+                run: cat ./package.json
+
+            -   name: Automated Version Bump
+                uses: phips28/gh-action-bump-version@v7.1.0
+                with:
+                    repoToken: "${{ secrets.GITHUB_TOKEN }}"
+
+            -   name: "cat package.json"
+                run: cat ./package.json
+
+#    deploy-production:
+#        name: "Deploy Production"
+#        runs-on: ubuntu-latest
+#
+#        steps:
+#            -   name: Cache Node Modules
+#                uses: actions/cache@v2
+#                env:
+#                    cache-name: cache-node-modules
+#                with:
+#                    path: node_modules
+#                    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+#                    restore-keys: |
+#                        ${{ runner.OS }}-build-${{ env.cache-name }}-
+#                        ${{ runner.OS }}-build-
+#                        ${{ runner.OS }}-
+#
+#            -   name: Install dependencies
+#                run: npm install
+#
+#            -   name: Build Production
+#                run: npm run build --prod
+#
+#            -   name: Deploy to Firebase Hosting
+#                # You may pin to the exact commit or the version.
+#                # uses: FirebaseExtended/action-hosting-deploy@b20f265add35c71fae53f7f5906107be81cb88dd
+#                uses: FirebaseExtended/action-hosting-deploy@v0
+#                with:
+#                  # The GITHUB_TOKEN secret
+#                  repoToken: # optional
+#                  # Firebase service account JSON
+#                  firebaseServiceAccount:
+#                  # How long should a preview live? See the preview channels docs for options
+#                  expires: # optional, default is 7d
+#                  # The project to deploy to. If you leave this blank, make sure you check in a .firebaserc file
+#                  projectId: # optional
+#                  # The preview channel id to deploy to. If you leave this blank, an channel id will be auto-generated per branch or PR
+#                  channelId: # optional
