@@ -1,8 +1,9 @@
 name: Bump Version & Deploy Production
 
-on:
-    push:
-        branches: [ master ]
+on: [ push ]
+#on:
+#    push:
+#        branches: [ master ]
 
 jobs:
     bump-version:
