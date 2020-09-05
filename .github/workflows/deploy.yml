@@ -6,8 +6,8 @@ on: [ push ]
 #        branches: [ master ]
 
 jobs:
-    bump-version:
-        name: "Bump Version"
+    deploy-production:
+        name: "Deploy Production"
         runs-on: ubuntu-latest
 
         steps:
@@ -16,11 +16,6 @@ jobs:
             -   name: Automated Version Bump
                 uses: phips28/gh-action-bump-version@v7.1.0
 
-    deploy-production:
-        name: "Deploy Production"
-        runs-on: ubuntu-latest
-
-        steps:
             -   name: Cache Node Modules
                 uses: actions/cache@v2
                 env:
