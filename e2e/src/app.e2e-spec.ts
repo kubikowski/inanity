@@ -6,11 +6,17 @@ describe('workspace-project App', () => {
 
 	beforeEach(() => {
 		page = new AppPage();
+		// browser.waitForAngularEnabled(false);
 	});
 
-	it('should display welcome message', () => {
+	it('should display app-root', () => {
 		page.navigateTo();
-		expect(page.getTitleText()).toEqual('inanity app is running!');
+		expect(page.getAppRoot().isDisplayed()).toBeTruthy();
+	});
+
+	it('should display header title', () => {
+		page.navigateTo();
+		expect(page.getTitleText()).toEqual('inanity');
 	});
 
 	afterEach(async () => {
