@@ -60,6 +60,11 @@
 									"maximumError": "10kb"
 								}
 							]
+						},
+						"ci": {
+							"aot": false,
+							"assets": [],
+							"sourceMap": false
 						}
 					}
 				},
@@ -98,6 +103,7 @@
 					},
 					"configurations": {
 						"ci": {
+							"sourceMap": false,
 							"watch": false,
 							"progress": false,
 							"browsers": "ChromeHeadlessCI"
