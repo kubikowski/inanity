@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -15,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ColorsService } from './colors/services/colors.service';
 import { DyslexicTextComponent } from './dyslexic-text/dyslexic-text.component';
 import { DyslexicTextService } from './dyslexic-text/services/dyslexic-text.service';
+import { SvgIconService } from './svg/svg-icon.service';
 
 @NgModule({
 	declarations: [
@@ -38,6 +41,7 @@ import { DyslexicTextService } from './dyslexic-text/services/dyslexic-text.serv
 	exports: [
 		CommonModule,
 		RouterModule,
+		HttpClientModule,
 		MatButtonModule,
 		MatCardModule,
 		MatCheckboxModule,
@@ -55,6 +59,7 @@ import { DyslexicTextService } from './dyslexic-text/services/dyslexic-text.serv
 	providers: [
 		ColorsService,
 		DyslexicTextService,
+		SvgIconService,
 	],
 })
 export class SharedModule {

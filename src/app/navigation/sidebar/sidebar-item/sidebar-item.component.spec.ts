@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SidebarItemComponent } from './sidebar-item.component';
 import { NavigationConfig } from '../models/navigation-config.model';
-import { WheelIcon } from '../../../shared/svg/svg-icons.constant';
+import { SvgIcon } from '../../../shared/svg/svg-icon.enum';
 
 describe('SidebarItemComponent', () => {
 	let component: SidebarItemComponent;
@@ -18,7 +18,7 @@ describe('SidebarItemComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(SidebarItemComponent);
 		component = fixture.componentInstance;
-		component.config = NavigationConfig.from('About', WheelIcon, 'about');
+		component.config = NavigationConfig.from('About', SvgIcon.WHEEL, 'about');
 		fixture.detectChanges();
 	});
 

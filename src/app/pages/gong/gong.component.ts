@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GongIcon } from '../../shared/svg/svg-icons.constant';
+import { SvgIcon } from '../../shared/svg/svg-icon.enum';
 
 @Component({
 	selector: 'gong',
@@ -8,7 +8,8 @@ import { GongIcon } from '../../shared/svg/svg-icons.constant';
 })
 export class GongComponent implements OnInit {
 
-	readonly GongIcon = GongIcon;
+	readonly StackIcon = SvgIcon.STACK;
+	readonly GongIcon = SvgIcon.GONG;
 
 	constructor() {
 	}
