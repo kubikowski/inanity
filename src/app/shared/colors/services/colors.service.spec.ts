@@ -18,20 +18,24 @@ describe('ColorsService', () => {
 
 	const BUFFER_TIME = 50;
 
+	/** must be encapsulated by a fakeAsync */
 	function setDarkTheme(): void {
-		fakeAsync(() => {
-			colorsService.toggleTheme(DarkTheme);
-			theme = DarkTheme;
-			tick(BUFFER_TIME);
-		});
+		colorsService.toggleTheme(DarkTheme);
+
+		theme = DarkTheme;
+		palette = palette.getInverse();
+
+		tick(BUFFER_TIME);
 	}
 
+	/** must be encapsulated by a fakeAsync */
 	function setGreenPalette(): void {
-		fakeAsync(() => {
-			colorsService.togglePalette(GreenPalette);
-			palette = GreenPalette;
-			tick(BUFFER_TIME);
-		});
+		colorsService.togglePalette(GreenPalette);
+
+		palette = (theme.themeName === LightTheme.themeName)
+			? GreenPalette : GreenPalette.getInverse();
+
+		tick(BUFFER_TIME);
 	}
 
 	beforeEach(() => {
@@ -56,15 +60,15 @@ describe('ColorsService', () => {
 			expect(localStorage.getItem('palette')).toBe(palette.paletteName);
 		});
 
-		it('should update "theme": "dark-theme" in localstorage', () => {
+		it('should update "theme": "dark-theme" in localstorage', fakeAsync(() => {
 			setDarkTheme();
 			expect(localStorage.getItem('theme')).toBe(theme.themeName);
-		});
+		}));
 
-		it('should update "palette": "green-palette" in localstorage', () => {
+		it('should update "palette": "green-palette" in localstorage', fakeAsync(() => {
 			setGreenPalette();
 			expect(localStorage.getItem('palette')).toBe(palette.paletteName);
-		});
+		}));
 	});
 
 	describe('Body Theme Class', () => {
@@ -72,10 +76,10 @@ describe('ColorsService', () => {
 			expect(body.classList.contains(theme.themeName)).toBeTruthy();
 		});
 
-		it('should update "dark-theme" class on body', () => {
+		it('should update "dark-theme" class on body', fakeAsync(() => {
 			setDarkTheme();
 			expect(body.classList.contains(theme.themeName)).toBeTruthy();
-		});
+		}));
 	});
 
 	describe('CSS Variables', () => {
@@ -91,18 +95,25 @@ describe('ColorsService', () => {
 			});
 		});
 
-		it('should update theme css values on toggleTheme', () => {
+		it('should update theme css values on toggleTheme', fakeAsync(() => {
 			setDarkTheme();
 			Object.entries(BaseColorTheme.CssThemeVariables).forEach(([key, cssVariable]) => {
 				expect(style.getPropertyValue(cssVariable)).toBe(theme[key]);
 			});
-		});
+		}));
 
-		it('should update palette css values on togglePalette', () => {
+		it('should update palette css values on togglePalette', fakeAsync(() => {
 			setGreenPalette();
 			Object.entries(BaseColorPalette.CssPaletteVariables).forEach(([key, cssVariable]) => {
 				expect(style.getPropertyValue(cssVariable)).toBe(palette[key]);
 			});
-		});
+		}));
+
+		it('should update inverse palette css values on toggleTheme', fakeAsync(() => {
+			setDarkTheme();
+			Object.entries(BaseColorPalette.CssPaletteVariables).forEach(([key, cssVariable]) => {
+				expect(style.getPropertyValue(cssVariable)).toBe(palette[key]);
+			});
+		}));
 	});
 });
