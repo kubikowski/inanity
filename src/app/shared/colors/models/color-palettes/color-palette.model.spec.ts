@@ -93,4 +93,53 @@ describe('Color Palette', () => {
 			expect(colorSelectedOpaque).toBe('rgb(192, 231, 247)');
 		});
 	});
+
+	describe('ColorPalette.getInverse()', () => {
+		const bluePaletteInverse = BluePalette.getInverse();
+
+		it('should contain correct colorLightest', () => {
+			const { colorLightest } = bluePaletteInverse;
+			expect(colorLightest).toBe('rgb(3, 110, 166)');
+		});
+
+		it('should contain correct colorLighter', () => {
+			const { colorLighter } = bluePaletteInverse;
+			expect(colorLighter).toBe('rgb(4, 126, 197)');
+		});
+
+		it('should contain correct colorLight', () => {
+			const { colorLight } = bluePaletteInverse;
+			expect(colorLight).toBe('rgb(4, 135, 204)');
+		});
+
+		it('should contain correct colorDefault', () => {
+			const { colorDefault } = bluePaletteInverse;
+			expect(colorDefault).toBe('rgb(3, 157, 221)');
+		});
+
+		it('should contain correct colorDark', () => {
+			const { colorDark } = bluePaletteInverse;
+			expect(colorDark).toBe('rgb(0, 179, 238)');
+		});
+
+		it('should contain correct colorDarker', () => {
+			const { colorDarker } = bluePaletteInverse;
+			expect(colorDarker).toBe('rgb(26, 180, 245)');
+		});
+
+		it('should contain correct colorDarkest', () => {
+			const { colorDarkest } = bluePaletteInverse;
+			expect(colorDarkest).toBe('rgb(81, 212, 255)');
+		});
+
+		it('should contain correct colorSelected', () => {
+			const { colorSelected } = bluePaletteInverse;
+			expect(colorSelected).toBe('rgba(3, 157, 221, 0.25)');
+		});
+
+		it('should contain correct colorSelectedOpaque', () => {
+			const { colorSelectedOpaque } = bluePaletteInverse;
+			expect(colorSelectedOpaque).toBe('rgb(26, 64, 80)');
+		});
+	});
 });
