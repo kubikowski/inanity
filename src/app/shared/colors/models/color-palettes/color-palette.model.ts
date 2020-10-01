@@ -4,13 +4,13 @@ import { LightTheme, DarkTheme } from '../color-themes/color-themes.constant';
 
 export class ColorPalette extends BaseColorPalette {
 	public constructor(
-		private readonly lightestColor: Color,
-		private readonly lighterColor: Color,
-		private readonly lightColor: Color,
-		private readonly defaultColor: Color,
-		private readonly darkColor: Color,
-		private readonly darkerColor: Color,
-		private readonly darkestColor: Color,
+		public readonly lightestColor: Color,
+		public readonly lighterColor: Color,
+		public readonly lightColor: Color,
+		public readonly defaultColor: Color,
+		public readonly darkColor: Color,
+		public readonly darkerColor: Color,
+		public readonly darkestColor: Color,
 
 		public readonly paletteName: string,
 		public readonly displayName: string,
