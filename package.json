@@ -7,6 +7,7 @@
 		"watch": "ng build --watch",
 		"serve": "ng serve",
 		"test": "ng test",
+		"test-ci": "ng test --configuration=ci",
 		"test-code-coverage": "ng test --code-coverage",
 		"lint": "ng lint",
 		"e2e": "ng e2e"
