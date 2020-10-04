@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GongComponent } from './gong.component';
+import { SharedModule } from '../../shared/shared.module';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 describe('GongComponent', () => {
 	let component: GongComponent;
@@ -8,7 +10,11 @@ describe('GongComponent', () => {
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [GongComponent]
+			imports: [
+				SharedModule,
+				MatIconTestingModule
+			],
+			declarations: [ GongComponent ],
 		})
 			.compileComponents();
 	}));
