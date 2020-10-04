@@ -1,9 +1,8 @@
 name: CI
-
+on: [ push ]
 jobs:
     test:
         name: Lint, Build, & Test
-        on: [ push ]
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
@@ -31,10 +30,8 @@ jobs:
 
     deploy-production:
         name: Bump Version & Deploy Production
-        on:
-            push:
-                branches: [ master ]
         needs: test
+        if: github.ref == 'refs/heads/master'
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
