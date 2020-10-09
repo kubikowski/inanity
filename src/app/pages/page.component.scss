@@ -7,10 +7,6 @@ mat-card {
 	overflow: hidden auto;
 
 	mat-card-header {
-		height: 0;
-		position: -webkit-sticky; /* Safari */
-		position: sticky;
-		top: 1rem;
 		align-items: center;
 
 		.mat-icon {

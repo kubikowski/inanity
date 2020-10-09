@@ -5,6 +5,16 @@
 	}
 }
 
+.mat-card-header .mat-card-title {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+
+.mat-card-header-text {
+	width: 100%;
+}
+
 body.light-theme, body.dark-theme {
 	mat-card.mat-card {
 		background-image: linear-gradient(to top, var(--theme-color-selected), transparent);
