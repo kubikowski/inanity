@@ -8,9 +8,17 @@
 		</mat-card-title>
 	</mat-card-header>
 	<mat-card-content>
-		<p>
-			<dyslexic-text [text]="'I am a software engineer in upstate New York.'"></dyslexic-text>
-		</p>
+
+		<mat-card>
+			<mat-card-content>
+				<div>&#123;</div>
+				<div><dyslexic-text [text]="'name: Nathaniel Holden'"></dyslexic-text></div>
+				<div><dyslexic-text [text]="'title: Software Engineer'"></dyslexic-text></div>
+				<div><dyslexic-text [text]="'location: Upstate New York'"></dyslexic-text></div>
+				<div>&#125;</div>
+			</mat-card-content>
+		</mat-card>
+
 		<p>
 			<dyslexic-text [text]="'When you hit the gong, it sends a message to an arduino listener that strikes the gong.'"></dyslexic-text>
 		</p>
