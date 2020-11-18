@@ -1,4 +1,5 @@
 import * as ColorName from 'color-name';
+import { clamp } from '../../functions/clamp/clamp.function';
 
 export class InvalidColorString extends Error {
 	constructor(message?: string) {
@@ -33,11 +34,11 @@ export class Color {
 		);
 
 		function scrubHue(rawHue: number): number {
-			return Math.round(Math.min(Math.max(rawHue, 0), 255));
+			return Math.round(clamp(0, rawHue, 255));
 		}
 
 		function scrubAlpha(rawAlpha: number): number {
-			return Math.min(Math.max(rawAlpha, 0), 1);
+			return clamp(0, rawAlpha, 1);
 		}
 	}
 
