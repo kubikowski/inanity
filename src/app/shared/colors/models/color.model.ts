@@ -1,4 +1,5 @@
 import * as ColorName from 'color-name';
+import { clamp } from '../../functions/clamp/clamp.function';
 
 export class InvalidColorString extends Error {
 	constructor(message?: string) {
@@ -33,11 +34,11 @@ export class Color {
 		);
 
 		function scrubHue(rawHue: number): number {
-			return Math.round(Math.min(Math.max(rawHue, 0), 255));
+			return Math.round(clamp(0, rawHue, 255));
 		}
 
 		function scrubAlpha(rawAlpha: number): number {
-			return Math.min(Math.max(rawAlpha, 0), 1);
+			return clamp(0, rawAlpha, 1);
 		}
 	}
 
@@ -72,14 +73,23 @@ export class Color {
 	 * @throws InvalidColorString
 	 */
 	private static getRgbColorValues(colorString: string): number[] {
-		const [colorValesString] = /[\d.+?, *]+/.exec(colorString);
+		const [colorValesString] = /[\d%.+?, *]+/.exec(colorString);
 		const colorValues = colorValesString.split(',')
-			.map(value => parseFloat(value));
+			.map((value, index) => convertToNumber(value, index));
 
 		if (colorValues.length === 3 || colorValues.length === 4) {
 			return colorValues;
 		} else {
 			throw new InvalidColorString(colorString);
+		}
+
+		function convertToNumber(colorValueString: string, index: number): number {
+			if (colorValueString.includes('%')) {
+				const rawPercentage = parseFloat(colorValueString) / 100;
+				return (index < 3) ? rawPercentage * 255 : rawPercentage;
+			} else {
+				return parseFloat(colorValueString);
+			}
 		}
 	}
 
@@ -136,13 +146,18 @@ export class Color {
 
 	/* region Object Prototype Methods */
 	/** Color object.toString() override
-	 * @return an RGB type colorString
+	 * @return an RGB type colorString or 'transparent' for colors with opacity 0
 	 */
 	public toString(): string {
 		const { red, green, blue, alpha } = this;
-		return (alpha === 1)
-			? `rgb(${red}, ${green}, ${blue})`
-			: `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+		switch (alpha) {
+			case 0:
+				return 'transparent';
+			case 1:
+				return `rgb(${red}, ${green}, ${blue})`;
+			default:
+				return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+		}
 	}
 
 	/** Creates a new Color from the original with an overlaid alpha value

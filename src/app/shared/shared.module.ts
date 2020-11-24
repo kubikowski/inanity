@@ -11,11 +11,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ColorsService } from './colors/services/colors.service';
-import { DyslexicTextComponent } from './dyslexic-text/dyslexic-text.component';
-import { DyslexicTextService } from './dyslexic-text/services/dyslexic-text.service';
+import { ColorsService } from 'src/app/shared/colors/services/colors.service';
+import { DyslexicTextComponent } from 'src/app/shared/dyslexic-text/dyslexic-text.component';
+import { DyslexicTextService } from 'src/app/shared/dyslexic-text/services/dyslexic-text.service';
+import { SvgIconService } from 'src/app/shared/svg/svg-icon.service';
+import { MaterialModule } from 'src/app/shared/material.module';
 
 @NgModule({
 	declarations: [
@@ -36,6 +39,7 @@ import { DyslexicTextService } from './dyslexic-text/services/dyslexic-text.serv
 		MatToolbarModule,
 		ReactiveFormsModule,
 		FormsModule,
+		MaterialModule,
 	],
 	exports: [
 		CommonModule,
@@ -50,14 +54,16 @@ import { DyslexicTextService } from './dyslexic-text/services/dyslexic-text.serv
 		MatSidenavModule,
 		MatSliderModule,
 		MatToolbarModule,
+		HttpClientModule,
 		ReactiveFormsModule,
 		FormsModule,
-
 		DyslexicTextComponent,
+		MaterialModule,
 	],
 	providers: [
 		ColorsService,
 		DyslexicTextService,
+		SvgIconService,
 	],
 })
 export class SharedModule {

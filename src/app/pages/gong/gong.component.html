@@ -1,6 +1,6 @@
 <mat-card class="project-stack">
 	<mat-card-header>
-		<mat-icon>emoji_food_beverage</mat-icon>
+		<mat-icon [svgIcon]="StackIcon"></mat-icon>
 		<mat-card-title>
 			<dyslexic-text [text]="'Project Stack'"></dyslexic-text>
 		</mat-card-title>
@@ -9,9 +9,7 @@
 
 <mat-card>
 	<mat-card-header>
-		<svg [attr.viewBox]="GongIcon.viewBox">
-			<use [attr.xlink:href]="GongIcon.href"></use>
-		</svg>
+		<mat-icon [svgIcon]="GongIcon"></mat-icon>
 		<mat-card-title>
 			<dyslexic-text [text]="'gong'" [suffix]="'.io'"></dyslexic-text>
 		</mat-card-title>

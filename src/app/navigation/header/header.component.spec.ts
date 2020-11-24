@@ -1,14 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
+import { NavigationModule } from '../navigation.module';
+import { SharedModule } from '../../shared/shared.module';
 
-describe('AppHeaderComponent', () => {
+describe('HeaderComponent', () => {
 	let component: HeaderComponent;
 	let fixture: ComponentFixture<HeaderComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [HeaderComponent]
+			imports: [
+				NavigationModule,
+				SharedModule,
+			],
+			declarations: [ HeaderComponent ],
 		})
 			.compileComponents();
 	}));

@@ -1,16 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { NavigationModule } from './navigation/navigation.module';
+import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [
-				RouterTestingModule
+				BrowserAnimationsModule,
+				RouterTestingModule,
+				NavigationModule,
+				SharedModule,
 			],
-			declarations: [
-				AppComponent
-			],
+			declarations: [ AppComponent ],
 		}).compileComponents();
 	}));
 
@@ -25,5 +29,4 @@ describe('AppComponent', () => {
 		const app = fixture.componentInstance;
 		expect(app.title).toEqual('inanity');
 	});
-
 });

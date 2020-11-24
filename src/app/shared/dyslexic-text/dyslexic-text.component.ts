@@ -12,9 +12,9 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 
 	subscriptions = new SubSink();
 
-	@Input() text: string = '';
-	@Input() prefix: string = '';
-	@Input() suffix: string = '';
+	@Input() text = '';
+	@Input() prefix = '';
+	@Input() suffix = '';
 
 	defaultWords: string[];
 	dyslexicWordCombinations: string[][] = [];
@@ -57,7 +57,7 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 		const dyslexicWordCombinations: string[] = [];
 
 		if (word.length > 3) {
-			let orderedLetters: string[] = word.split('');
+			const orderedLetters: string[] = word.split('');
 
 			const firstLetter = orderedLetters.shift();
 			const lastLetter = orderedLetters.pop();
