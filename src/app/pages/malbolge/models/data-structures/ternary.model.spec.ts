@@ -4,7 +4,7 @@ describe('Ternaries', () => {
 
 	describe('Construction & toValue', () => {
 		it('should create instance of TenTrit', () => {
-			expect(TenTrit.create()).toBeInstanceOf(TenTrit);
+			expect(TenTrit.default()).toBeInstanceOf(TenTrit);
 		});
 
 		it('should return [0000000000] -> 0', () => {

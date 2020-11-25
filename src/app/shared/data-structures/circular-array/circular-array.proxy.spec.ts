@@ -1,6 +1,6 @@
 import { CircularArray, ReadonlyCircularArray } from './circular-array.proxy';
 
-describe('Negative Index Array Proxies', () => {
+describe('Circular Array Proxies', () => {
 
 	describe('Array Proxy', () => {
 		it('should get [0] at [0]', () => {
@@ -34,7 +34,7 @@ describe('Negative Index Array Proxies', () => {
 		});
 	});
 
-	describe('Readonly Array Proxy', () => {
+	describe('Readonly Circular Array Proxy', () => {
 		it('should get [0] as [0]', () => {
 			const array: ReadonlyArray<string> = Array('a', 'b', 'c');
 			const arrayProxy: ReadonlyArray<string> = ReadonlyCircularArray(array);
