@@ -11,6 +11,13 @@
 		.mat-card-content {
 			max-height: 100%;
 			display: flex;
+
+			section {
+				h2 {
+					border-bottom: solid 1px var(--theme-color-contrast);
+					margin: 0;
+				}
+			}
 		}
 	}
 }
