@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SidebarItemComponent } from './sidebar-item.component';
 import { NavigationConfig } from '../models/navigation-config.model';
@@ -11,7 +11,7 @@ describe('SidebarItemComponent', () => {
 	let component: SidebarItemComponent;
 	let fixture: ComponentFixture<SidebarItemComponent>;
 
-	beforeEach(async(() => {
+	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
 			imports: [
 				RouterTestingModule,
