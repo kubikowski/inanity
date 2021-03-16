@@ -24,7 +24,7 @@
 		"@angular/platform-browser": "~11.2.5",
 		"@angular/platform-browser-dynamic": "~11.2.5",
 		"@angular/router": "~11.2.5",
-		"rxjs": "~6.5.5",
+		"rxjs": "~6.6.6",
 		"subsink": "^1.0.1",
 		"tslib": "^2.0.0",
 		"zone.js": "~0.10.3"
