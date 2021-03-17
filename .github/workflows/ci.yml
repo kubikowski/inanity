@@ -38,11 +38,11 @@ jobs:
         steps:
             -   uses: actions/checkout@v2
                 with:
-                    token: ${{ secrets.GITHUB_TOKEN }}
+                    token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
             -   name: Automated Version Bump
                 uses: phips28/gh-action-bump-version@master
                 env:
-                    GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}                    
+                    GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
             -   name: Cache Node Modules
                 uses: actions/cache@v2
                 env:
