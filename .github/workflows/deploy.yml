@@ -1,5 +1,11 @@
-name: CI
-on: [ push ]
+name: Bump Version & Deploy
+on:
+    push:
+        branches:
+            -   master
+        paths-ignore:
+            -   'package.json'
+            -   'package-lock.json'
 jobs:
     test:
         name: Lint, Build, & Test
@@ -29,11 +35,9 @@ jobs:
                 run: npm test -- --configuration=ci
 #            -   name: E2E
 #                run: npm run e2e -- --configuration=ci
-
-    deploy-production:
-        name: Bump Version & Deploy Production
+    bump-version:
+        name: Bump Version
         needs: test
-        if: github.ref == 'refs/heads/master'
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
@@ -43,6 +47,14 @@ jobs:
                 uses: phips28/gh-action-bump-version@master
                 env:
                     GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
+    deploy:
+        name: Deploy
+        needs: bump-version
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+                with:
+                    token: ${{ secrets.GITHUB_TOKEN }}
             -   name: Cache Node Modules
                 uses: actions/cache@v2
                 env:
