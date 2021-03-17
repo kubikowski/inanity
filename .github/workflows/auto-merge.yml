@@ -12,4 +12,4 @@ jobs:
         with:
           target: minor
           command: squash
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.ACTIONS_TOKEN }}
