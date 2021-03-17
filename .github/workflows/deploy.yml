@@ -1,0 +1,78 @@
+name: Bump Version & Deploy
+on:
+    push:
+        branches:
+            -   master
+        paths-ignore:
+            -   'package.json'
+            -   'package-lock.json'
+jobs:
+    test:
+        name: Lint, Build, & Test
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+                with:
+                    token: ${{ secrets.GITHUB_TOKEN }}
+            -   name: Cache Node Modules
+                uses: actions/cache@v2
+                env:
+                    cache-name: cache-node-modules
+                with:
+                    path: node_modules
+                    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                    restore-keys: |
+                        ${{ runner.OS }}-build-${{ env.cache-name }}-
+                        ${{ runner.OS }}-build-
+                        ${{ runner.OS }}-
+            -   name: Install dependencies
+                run: npm install
+            -   name: Lint
+                run: npm run lint
+            -   name: Build
+                run: npm run build -- --configuration=ci
+            -   name: Test
+                run: npm test -- --configuration=ci
+#            -   name: E2E
+#                run: npm run e2e -- --configuration=ci
+    bump-version:
+        name: Bump Version
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+                with:
+                    token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
+            -   name: Automated Version Bump
+                uses: phips28/gh-action-bump-version@master
+                env:
+                    GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
+    deploy:
+        name: Deploy
+        needs: bump-version
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+                with:
+                    token: ${{ secrets.GITHUB_TOKEN }}
+            -   name: Cache Node Modules
+                uses: actions/cache@v2
+                env:
+                    cache-name: cache-node-modules
+                with:
+                    path: node_modules
+                    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                    restore-keys: |
+                        ${{ runner.OS }}-build-${{ env.cache-name }}-
+                        ${{ runner.OS }}-build-
+                        ${{ runner.OS }}-
+            -   name: Install dependencies
+                run: npm install
+            -   name: Build Production
+                run: npm run build -- --prod
+            -   name: Deploy to Firebase Hosting
+                uses: w9jds/firebase-action@master
+                with:
+                    args: deploy --only hosting
+                env:
+                    FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
