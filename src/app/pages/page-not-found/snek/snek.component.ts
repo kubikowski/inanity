@@ -18,6 +18,7 @@ export class SnekComponent implements OnInit {
 	public readonly snek$: Observable<Snek>;
 
 	constructor() {
+		this.snekGrid.attachSnek(this.snek);
 	}
 
 	ngOnInit(): void {

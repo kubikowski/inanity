@@ -1,7 +1,9 @@
 import { SnekGridNodeType } from './snek-grid-node-type.enum';
+import { SnekNode } from './snek-node.model';
 
 export class SnekGridNode {
 	private _type: SnekGridNodeType;
+	private _snekNode: SnekNode;
 
 	private _up: SnekGridNode;
 	private _down: SnekGridNode;
@@ -21,5 +23,10 @@ export class SnekGridNode {
 		this._down = down;
 		this._left = left;
 		this._right = right;
+	}
+
+	public attachSnekNode(snekNode: SnekNode): void {
+		this._snekNode = snekNode;
+		this._type = SnekGridNodeType.SNEK;
 	}
 }

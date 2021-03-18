@@ -23,7 +23,7 @@ export class SnekNode {
 
 	public addHead(head: SnekNode): void {
 		if (this._parent instanceof SnekNode) {
-			console.error('hydra');
+			console.error('hydra', this);
 		}
 
 		this._parent = head;
@@ -31,7 +31,7 @@ export class SnekNode {
 
 	public removeTail(): void {
 		if (!(this._child instanceof SnekNode)) {
-			console.error('ouroboros');
+			console.error('ouroboros', this);
 		}
 
 		this._child = null;

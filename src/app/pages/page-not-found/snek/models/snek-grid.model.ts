@@ -1,3 +1,4 @@
+import { Snek } from './snek.model';
 import { SnekGridNode } from './snek-grid-node.model';
 
 export class SnekGrid {
@@ -39,5 +40,13 @@ export class SnekGrid {
 		} else {
 			return this._grid[height][width];
 		}
+	}
+
+	public attachSnek(snek: Snek): void {
+		const headHeight = Math.floor(this._height / 2);
+		const headWidth = Math.floor((this._width - snek.length) / 2);
+
+		this.at(headWidth, headHeight)
+			.attachSnekNode(snek.head);
 	}
 }
