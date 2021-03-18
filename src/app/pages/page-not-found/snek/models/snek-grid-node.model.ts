@@ -8,7 +8,7 @@ export class SnekGridNode {
 	private _left: SnekGridNode;
 	private _right: SnekGridNode;
 
-	constructor() {
+	private constructor() {
 		this._type = SnekGridNodeType.BLANK;
 	}
 
