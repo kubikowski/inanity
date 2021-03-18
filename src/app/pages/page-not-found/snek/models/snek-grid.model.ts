@@ -1,7 +1,7 @@
-import {SnekGridLocation} from './snek-grid-location.model';
+import { SnekGridNode } from './snek-grid-node.model';
 
 export class SnekGrid {
-	private readonly _grid: ReadonlyArray<ReadonlyArray<SnekGridLocation>>;
+	private readonly _grid: ReadonlyArray<ReadonlyArray<SnekGridNode>>;
 
 	private constructor(
 		private readonly _width: number,
@@ -9,15 +9,15 @@ export class SnekGrid {
 	) {
 		this._grid = Array.from(Array(_height),
 			() => Array.from(Array(_width),
-				() => SnekGridLocation.new()));
-		this.initializeGridLocations();
+				() => SnekGridNode.new()));
+		this.initializeGridNodes();
 	}
 
 	public static new(width: number, height: number): SnekGrid {
 		return new SnekGrid(width, height);
 	}
 
-	public get grid(): ReadonlyArray<ReadonlyArray<SnekGridLocation>> {
+	public get grid(): ReadonlyArray<ReadonlyArray<SnekGridNode>> {
 		return this._grid;
 	}
 
@@ -29,7 +29,7 @@ export class SnekGrid {
 		return this._height;
 	}
 
-	public at(width: number, height: number): SnekGridLocation {
+	public at(width: number, height: number): SnekGridNode {
 		if (width < 0 || width > this._width || height < 0 || height > this._height) {
 			return null;
 		} else {
@@ -37,7 +37,7 @@ export class SnekGrid {
 		}
 	}
 
-	private initializeGridLocations(): void {
+	private initializeGridNodes(): void {
 		this._grid.forEach((gridRow, height) => {
 			gridRow.forEach((gridLocation, width) => {
 				const up = this.at(width - 1, height - 2);

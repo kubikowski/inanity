@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {SnekComponent} from './snek.component';
+import { SnekComponent } from './snek.component';
 
 describe('SnekComponent', () => {
 	let component: SnekComponent;
