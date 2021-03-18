@@ -1,0 +1,26 @@
+:host {
+	.snek-grid {
+		display: flex;
+		flex-flow: column nowrap;
+		border: solid 2px var(--theme-color-disabled);
+		border-radius: 5px;
+	}
+
+	.snek-grid-row {
+		display: flex;
+		flex-flow: row nowrap;
+	}
+
+	.snek-grid-location {
+		width: 20px;
+		height: 20px;
+	}
+
+	.location-content {
+		width: 16px;
+		height: 16px;
+		background-color: var(--theme-color-darkest);
+		border-radius: 50%;
+		margin: 2px;
+	}
+}

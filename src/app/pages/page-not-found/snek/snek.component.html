@@ -1,1 +1,14 @@
-<p>snek works!</p>
+<section class="snek-grid" *ngIf="snekGrid$ | async as snekGrid else noSnekSnek">
+	<div class="snek-grid-row" *ngFor="let snekGridRow of snekGrid.grid">
+		<div class="snek-grid-location" *ngFor="let snekGridLocation of snekGridRow">
+			<div class="location-content">
+
+			</div>
+			<div [style.background-color]="'var(--tile-background-color)'"></div>
+		</div>
+	</div>
+</section>
+
+<ng-template #noSnekSnek>
+	<section>No Snek Snek...</section>
+</ng-template>
