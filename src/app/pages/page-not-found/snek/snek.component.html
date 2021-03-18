@@ -1,10 +1,11 @@
 <section class="snek-grid" *ngIf="snekGrid$ | async as snekGrid else noSnekSnek">
 	<div class="snek-grid-row" *ngFor="let snekGridRow of snekGrid.grid">
-		<div class="snek-grid-location" *ngFor="let snekGridLocation of snekGridRow">
-			<div class="location-content">
-
-			</div>
-			<div [style.background-color]="'var(--tile-background-color)'"></div>
+		<div class="snek-grid-node" *ngFor="let snekGridNode of snekGridRow">
+			<ng-container [ngSwitch]="snekGridNode.type">
+				<div *ngSwitchCase="SnekGridNodeType.SNEK" [style.background-color]="'var(--theme-color-default)'"></div>
+				<div *ngSwitchCase="SnekGridNodeType.FUD" [style.background-color]="'var(--theme-color-darkest)'"></div>
+				<div *ngSwitchCase="SnekGridNodeType.BLANK" [style.background-color]="'var(--theme-color-background)'"></div>
+			</ng-container>
 		</div>
 	</div>
 </section>
