@@ -1,20 +1,33 @@
 import { SnekGridNode } from './snek-grid-node.model';
+import { inverseDirection, SnekDirection } from './snek-direction.enum';
 
 export class SnekNode {
 	private _snekGridNode: SnekGridNode;
-
 	private _parent: SnekNode;
 	private _child: SnekNode;
+	private _parentDirection: SnekDirection;
+	private _childDirection: SnekDirection;
 
 	private constructor(
 		child: SnekNode,
+		direction: SnekDirection,
 	) {
 		this._parent = null;
+		this._parentDirection = null;
+
 		this._child = child;
+		this._childDirection = inverseDirection(direction);
+		if (this._child instanceof SnekNode) {
+			this._child.addHead(this);
+		}
 	}
 
-	public static new(child: SnekNode): SnekNode {
-		return new SnekNode(child);
+	public static initialHead(): SnekNode {
+		return new SnekNode(null, null);
+	}
+
+	public static newHead(child: SnekNode, direction: SnekDirection): SnekNode {
+		return new SnekNode(child, direction);
 	}
 
 	public attachSnekGridNode(snekGridNode: SnekGridNode): void {
@@ -39,6 +52,7 @@ export class SnekNode {
 		}
 
 		this._parent = head;
+		this._parentDirection = inverseDirection(head._childDirection);
 	}
 
 	public removeTail(): void {
@@ -47,5 +61,6 @@ export class SnekNode {
 		}
 
 		this._child = null;
+		this._childDirection = null;
 	}
 }

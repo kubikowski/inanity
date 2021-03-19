@@ -1,3 +1,4 @@
+import { SnekDirection } from './snek-direction.enum';
 import { SnekNode } from './snek-node.model';
 
 export class Snek {
@@ -8,12 +9,11 @@ export class Snek {
 	private constructor(
 		length: number
 	) {
-		this._head = SnekNode.new(null);
-		this._tail = this._head;
+		this._head = this._tail = SnekNode.initialHead();
 		this._length = 1;
 
 		for (let i = 1; i < length; i++) {
-			this.addHead();
+			this.addHead(SnekDirection.RIGHT);
 		}
 	}
 
@@ -33,10 +33,8 @@ export class Snek {
 		return this._length;
 	}
 
-	public addHead(): void {
-		const newHead = SnekNode.new(this._head);
-		this._head.addHead(newHead);
-		this._head = newHead;
+	public addHead(direction: SnekDirection): void {
+		this._head = SnekNode.newHead(this._head, direction);
 		this._length++;
 	}
 

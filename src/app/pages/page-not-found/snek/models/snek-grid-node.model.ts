@@ -5,7 +5,6 @@ import { SnekDirection } from './snek-direction.enum';
 export class SnekGridNode {
 	private _type: SnekGridNodeType;
 	private _snekNode: SnekNode;
-
 	private _up: SnekGridNode;
 	private _down: SnekGridNode;
 	private _left: SnekGridNode;
@@ -52,6 +51,8 @@ export class SnekGridNode {
 				return this._left;
 			case SnekDirection.RIGHT:
 				return this._right;
+			default:
+				console.error('you are going nowhere:', direction);
 		}
 	}
 }
