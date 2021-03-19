@@ -20,41 +20,40 @@ export class SnekGrid {
 		return new SnekGrid(width, height);
 	}
 
-	public get grid(): ReadonlyArray<ReadonlyArray<SnekGridNode>> {
-		return this._grid;
-	}
-
 	private initializeGridNodes(): void {
 		this._grid.forEach((gridRow, height) => {
 			gridRow.forEach((gridLocation, width) => {
-				const up = this.at(width - 1, height - 2);
-				const down = this.at(width - 1, height);
-				const left = this.at(width - 2, height - 1);
-				const right = this.at(width, height - 1);
+				const up = this.at(width, height - 1);
+				const down = this.at(width, height + 1);
+				const left = this.at(width - 1, height);
+				const right = this.at(width + 1, height);
 				gridLocation.initialize(up, down, left, right);
 			});
 		});
 	}
 
-	private at(width: number, height: number): SnekGridNode {
-		if (width < 0 || width >= this._width || height < 0 || height >= this._height) {
-			return null;
-		} else {
-			return this._grid[height][width];
+	public attachSnek(snek: Snek): void {
+		let currentGridNode = this.at(1, Math.floor(this._height / 2));
+		let currentSnekNode = snek.tail;
+
+		while (currentSnekNode instanceof SnekNode) {
+			currentGridNode.attachSnekNode(currentSnekNode);
+			currentSnekNode.attachSnekGridNode(currentGridNode);
+
+			currentGridNode = currentGridNode.next(SnekDirection.RIGHT);
+			currentSnekNode = currentSnekNode.parent;
 		}
 	}
 
-	public attachSnek(snek: Snek): void {
-		const headHeight = Math.floor(this._height / 2);
-		const headWidth = Math.floor((this._width - snek.length) / 2);
+	public get grid(): ReadonlyArray<ReadonlyArray<SnekGridNode>> {
+		return this._grid;
+	}
 
-		let currentGridNode = this.at(headWidth, headHeight);
-		let currentSnekNode = snek.head;
-
-		while (currentSnekNode.child instanceof SnekNode) {
-			currentGridNode.attachSnekNode(currentSnekNode);
-			currentGridNode = currentGridNode.next(SnekDirection.RIGHT);
-			currentSnekNode = currentSnekNode.child;
+	private at(width: number, height: number): SnekGridNode {
+		if (width >= 0 && width < this._width && height >= 0 && height < this._height) {
+			return this._grid[height][width];
+		} else {
+			return null;
 		}
 	}
 }

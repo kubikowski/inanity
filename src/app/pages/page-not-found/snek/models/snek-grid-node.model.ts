@@ -34,6 +34,14 @@ export class SnekGridNode {
 		this._type = SnekGridNodeType.SNEK;
 	}
 
+	get type(): SnekGridNodeType {
+		return this._type;
+	}
+
+	get snekNode(): SnekNode {
+		return this._snekNode;
+	}
+
 	public next(direction: SnekDirection): SnekGridNode {
 		switch (direction) {
 			case SnekDirection.UP:
@@ -45,10 +53,5 @@ export class SnekGridNode {
 			case SnekDirection.RIGHT:
 				return this._right;
 		}
-	}
-
-
-	get type(): SnekGridNodeType {
-		return this._type;
 	}
 }

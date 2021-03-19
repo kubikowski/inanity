@@ -1,4 +1,8 @@
+import { SnekGridNode } from './snek-grid-node.model';
+
 export class SnekNode {
+	private _snekGridNode: SnekGridNode;
+
 	private _parent: SnekNode;
 	private _child: SnekNode;
 
@@ -11,6 +15,14 @@ export class SnekNode {
 
 	public static new(child: SnekNode): SnekNode {
 		return new SnekNode(child);
+	}
+
+	public attachSnekGridNode(snekGridNode: SnekGridNode): void {
+		if (this._snekGridNode instanceof SnekGridNode) {
+			console.error('snek den', this);
+		}
+
+		this._snekGridNode = snekGridNode;
 	}
 
 	get parent(): SnekNode {
