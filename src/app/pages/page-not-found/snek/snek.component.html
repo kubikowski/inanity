@@ -4,7 +4,7 @@
 			<ng-container [ngSwitch]="snekGridNode.type">
 				<div *ngSwitchCase="SnekGridNodeType.SNEK" [style.background-color]="'var(--theme-color-default)'"></div>
 				<div *ngSwitchCase="SnekGridNodeType.FUD" [style.background-color]="'var(--theme-color-darkest)'"></div>
-				<div *ngSwitchCase="SnekGridNodeType.BLANK" [style.background-color]="'var(--theme-color-background)'"></div>
+				<div *ngSwitchDefault></div>
 			</ng-container>
 		</div>
 	</div>

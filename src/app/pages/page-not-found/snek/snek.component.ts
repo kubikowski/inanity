@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class SnekComponent implements OnInit {
 
-	@Observed() private snekGrid: SnekGrid = SnekGrid.new(10, 10);
+	@Observed() private snekGrid: SnekGrid = SnekGrid.new(35, 25);
 	public readonly snekGrid$: Observable<SnekGrid>;
 
 	@Observed() private snek: Snek = Snek.new(3);
@@ -22,9 +22,6 @@ export class SnekComponent implements OnInit {
 
 	constructor() {
 		this.snekGrid.attachSnek(this.snek);
-
-		console.log(this.snekGrid);
-		console.log(this.snek);
 	}
 
 	ngOnInit(): void {

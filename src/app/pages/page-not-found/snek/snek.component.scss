@@ -1,25 +1,32 @@
 :host {
-	.snek-grid {
+	> .snek-grid {
 		display: flex;
 		flex-flow: column nowrap;
+		background-color: var(--theme-color-background);
 		border: solid 2px var(--theme-color-disabled);
 		border-radius: 5px;
-	}
+		overflow: hidden;
 
-	.snek-grid-row {
-		display: flex;
-		flex-flow: row nowrap;
-	}
+		> .snek-grid-row {
+			display: flex;
+			flex-flow: row nowrap;
 
-	.snek-grid-node {
-		width: 20px;
-		height: 20px;
+			&:nth-child(2n) > .snek-grid-node:nth-child(2n),
+			&:nth-child(2n + 1) > .snek-grid-node:nth-child(2n + 1) {
+				background-color: var(--theme-color-accent);
+			}
 
-		> div {
-			width: 16px;
-			height: 16px;
-			border-radius: 50%;
-			margin: 2px;
+			> .snek-grid-node {
+				width: 20px;
+				height: 20px;
+
+				> div {
+					width: 16px;
+					height: 16px;
+					border-radius: 50%;
+					margin: 2px;
+				}
+			}
 		}
 	}
 }
