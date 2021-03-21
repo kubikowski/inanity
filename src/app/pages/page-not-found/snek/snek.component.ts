@@ -1,11 +1,11 @@
-import {Component, HostListener, OnDestroy} from '@angular/core';
-import {Observable, of, Subscription} from 'rxjs';
-import {timer} from 'rxjs/internal/observable/timer';
-import {Observed} from 'src/app/shared/decorators/observed.decorator';
-import {SnekDirection} from 'src/app/pages/page-not-found/snek/models/snek-direction.enum';
-import {SnekGame} from 'src/app/pages/page-not-found/snek/models/snek-game.model';
-import {SnekGridNodeType} from 'src/app/pages/page-not-found/snek/models/snek-grid-node-type.enum';
-import {catchError, tap} from 'rxjs/operators';
+import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Observable, of, Subscription } from 'rxjs';
+import { timer } from 'rxjs/internal/observable/timer';
+import { catchError, tap } from 'rxjs/operators';
+import { Observed } from 'src/app/shared/decorators/observed.decorator';
+import { SnekDirection } from 'src/app/pages/page-not-found/snek/models/snek-direction.enum';
+import { SnekGame } from 'src/app/pages/page-not-found/snek/models/snek-game.model';
+import { SnekGridNodeType } from 'src/app/pages/page-not-found/snek/models/snek-grid-node-type.enum';
 
 @Component({
 	selector: 'snek',
@@ -14,6 +14,7 @@ import {catchError, tap} from 'rxjs/operators';
 })
 export class SnekComponent implements OnDestroy {
 	private subscription: Subscription;
+	private playing = false;
 
 	@Observed() private snekGame = SnekGame.new(35, 25);
 	public readonly snekGame$: Observable<SnekGame>;
@@ -58,9 +59,10 @@ export class SnekComponent implements OnDestroy {
 	}
 
 	private play(): void {
-		if (!(this.subscription instanceof Subscription)) {
+		if (!this.playing) {
+			this.playing = true;
 			console.log('subscribed');
-			this.subscription = timer(150, 150)
+			this.subscription = timer(100, 100)
 				.pipe(tap(() => this.snekGame.snek.move()),
 					catchError(error => {
 						this.reset();
@@ -71,8 +73,11 @@ export class SnekComponent implements OnDestroy {
 	}
 
 	private pause(): void {
-		console.log('unsubscribed');
-		this.subscription.unsubscribe();
+		if (this.playing) {
+			this.playing = false;
+			console.log('unsubscribed');
+			this.subscription.unsubscribe();
+		}
 	}
 
 	private reset(): void {
