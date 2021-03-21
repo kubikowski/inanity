@@ -1,7 +1,7 @@
 import { Snek } from './snek.model';
 import { SnekGridNode } from './snek-grid-node.model';
 
-export class SnekGrid {
+export class SnekGame {
 	private readonly _grid: ReadonlyArray<ReadonlyArray<SnekGridNode>>;
 	private readonly _snek: Snek;
 
@@ -18,8 +18,8 @@ export class SnekGrid {
 		this._snek = Snek.new(3, tailGridNode);
 	}
 
-	public static new(width: number, height: number): SnekGrid {
-		return new SnekGrid(width, height);
+	public static new(width: number, height: number): SnekGame {
+		return new SnekGame(width, height);
 	}
 
 	private initializeGridNodes(): void {

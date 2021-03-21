@@ -19,11 +19,38 @@
 			> .snek-grid-node {
 				width: 20px;
 				height: 20px;
+				position: relative;
 
-				> div {
+				> .snek {
+					background-color: var(--theme-color-default);
+					width: 16px;
+					height: 20px;
+					border-radius: 0 0 50% 50%;
+					margin: 0 2px;
+					display: none;
+					position: absolute;
+					top: 0;
+					left: 0;
+
+					&.up, &.down, &.left, &.right {
+						display: block;
+					}
+					&.right {
+						transform: rotate(90deg);
+					}
+					&.down {
+						transform: rotate(180deg);
+					}
+					&.left {
+						transform: rotate(270deg);
+					}
+				}
+
+				> .fud {
+					background-color: var(--theme-color-darkest);
 					width: 16px;
 					height: 16px;
-					border-radius: 50%;
+					border-radius: 25%;
 					margin: 2px;
 				}
 			}

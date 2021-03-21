@@ -1,8 +1,8 @@
 export enum SnekDirection {
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
+	UP = 'up',
+	DOWN = 'down',
+	LEFT = 'left',
+	RIGHT = 'right',
 }
 
 export function inverseDirection(direction: SnekDirection): SnekDirection {

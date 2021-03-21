@@ -1,10 +1,15 @@
-<section class="snek-grid" *ngIf="snekGrid$ | async as snekGrid else noSnekSnek">
-	<div class="snek-grid-row" *ngFor="let snekGridRow of snekGrid.grid">
+<section class="snek-grid" *ngIf="snekGame$ | async as snekGame else noSnekSnek">
+	<div class="snek-grid-row" *ngFor="let snekGridRow of snekGame.grid">
 		<div class="snek-grid-node" *ngFor="let snekGridNode of snekGridRow">
 			<ng-container [ngSwitch]="snekGridNode.type">
-				<div *ngSwitchCase="SnekGridNodeType.SNEK" [style.background-color]="'var(--theme-color-default)'"></div>
-				<div *ngSwitchCase="SnekGridNodeType.FUD" [style.background-color]="'var(--theme-color-darkest)'"></div>
-				<div *ngSwitchDefault></div>
+				<ng-container *ngSwitchCase="SnekGridNodeType.SNEK">
+					<div class="snek" [ngClass]="snekGridNode.snekNode.parentDirection"></div>
+					<div class="snek" [ngClass]="snekGridNode.snekNode.childDirection"></div>
+				</ng-container>
+				<ng-container *ngSwitchCase="SnekGridNodeType.FUD">
+					<div class="fud"></div>
+				</ng-container>
+<!--				<div *ngSwitchDefault></div>-->
 			</ng-container>
 		</div>
 	</div>

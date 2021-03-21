@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
-import { Snek } from 'src/app/pages/page-not-found/snek/models/snek.model';
-import { SnekGrid } from 'src/app/pages/page-not-found/snek/models/snek-grid.model';
+import { SnekGame } from 'src/app/pages/page-not-found/snek/models/snek-game.model';
 import { SnekGridNodeType } from 'src/app/pages/page-not-found/snek/models/snek-grid-node-type.enum';
 import { Observable } from 'rxjs';
 import { timer } from 'rxjs/internal/observable/timer';
@@ -15,14 +14,14 @@ import { SubSink } from 'subsink';
 export class SnekComponent implements OnInit {
 	private readonly subscriptions = new SubSink();
 
-	@Observed() private snekGrid: SnekGrid = SnekGrid.new(35, 25);
-	public readonly snekGrid$: Observable<SnekGrid>;
+	@Observed() private snekGame: SnekGame = SnekGame.new(35, 25);
+	public readonly snekGame$: Observable<SnekGame>;
 
 	public readonly SnekGridNodeType = SnekGridNodeType;
 
 	constructor() {
 		this.subscriptions.sink = timer(200, 200)
-			.subscribe(() => this.snekGrid.snek.move());
+			.subscribe(() => this.snekGame.snek.move());
 	}
 
 	ngOnInit(): void {
