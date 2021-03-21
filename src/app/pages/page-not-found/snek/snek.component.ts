@@ -62,7 +62,7 @@ export class SnekComponent implements OnDestroy {
 		if (!this.playing) {
 			this.playing = true;
 			this.subscription = timer(100, 100)
-				.pipe(tap(() => this.snekGame.snek.move()),
+				.pipe(tap(() => this.snekGame.snekLegs()),
 					catchError(error => {
 						this.reset();
 						return of(error.message);

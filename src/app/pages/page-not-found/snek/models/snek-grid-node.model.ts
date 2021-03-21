@@ -10,12 +10,15 @@ export class SnekGridNode {
 	private _left: SnekGridNode;
 	private _right: SnekGridNode;
 
-	private constructor() {
+	private constructor(
+		private _width: number,
+		private _height: number,
+	) {
 		this._type = SnekGridNodeType.BLANK;
 	}
 
-	public static new(): SnekGridNode {
-		return new SnekGridNode();
+	public static new(width: number, height: number): SnekGridNode {
+		return new SnekGridNode(width, height);
 	}
 
 	public initialize(up: SnekGridNode, down: SnekGridNode, left: SnekGridNode, right: SnekGridNode): void {
@@ -30,17 +33,14 @@ export class SnekGridNode {
 		this._type = SnekGridNodeType.SNEK;
 	}
 
+	public attachFud(): void {
+		this.detachSnekNode();
+		this._type = SnekGridNodeType.FUD;
+	}
+
 	public detachSnekNode(): void {
 		this._snekNode = null;
 		this._type = SnekGridNodeType.BLANK;
-	}
-
-	get type(): SnekGridNodeType {
-		return this._type;
-	}
-
-	get snekNode(): SnekNode {
-		return this._snekNode;
 	}
 
 	public next(direction: SnekDirection): SnekGridNode {
@@ -56,5 +56,21 @@ export class SnekGridNode {
 			default:
 				console.error('you are going nowhere:', direction);
 		}
+	}
+
+	get type(): SnekGridNodeType {
+		return this._type;
+	}
+
+	get snekNode(): SnekNode {
+		return this._snekNode;
+	}
+
+	get width(): number {
+		return this._width;
+	}
+
+	get height(): number {
+		return this._height;
 	}
 }

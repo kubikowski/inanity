@@ -28,25 +28,7 @@ export class Snek {
 		return new Snek(length, tailGridNode);
 	}
 
-	get head(): SnekNode {
-		return this._head;
-	}
-
-	get tail(): SnekNode {
-		return this._tail;
-	}
-
-	get length(): number {
-		return this._length;
-	}
-
-	set direction(direction: SnekDirection) {
-		if (this._currentDirection !== inverseDirection(direction)) {
-			this._nextDirection = direction;
-		}
-	}
-
-	public move(): void {
+	public legs(): boolean {
 		this._currentDirection = this._nextDirection;
 		const nextSnekGridNode = this._head.snekGridNode.next(this._nextDirection);
 
@@ -58,10 +40,10 @@ export class Snek {
 			case SnekGridNodeType.BLANK:
 				this.addHead();
 				this.removeTail();
-				break;
+				return false;
 			case SnekGridNodeType.FUD:
 				this.addHead();
-				break;
+				return true;
 			case SnekGridNodeType.SNEK:
 				throw new Error('hit yourself');
 		}
@@ -79,5 +61,15 @@ export class Snek {
 		newTail.removeTail();
 		this._tail = newTail;
 		this._length--;
+	}
+
+	get length(): number {
+		return this._length;
+	}
+
+	set direction(direction: SnekDirection) {
+		if (this._currentDirection !== inverseDirection(direction)) {
+			this._nextDirection = direction;
+		}
 	}
 }
