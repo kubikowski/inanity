@@ -2,7 +2,6 @@
 	> .snek-grid {
 		display: flex;
 		flex-flow: column nowrap;
-		background-color: var(--theme-color-background);
 		border: solid 2px var(--theme-color-disabled);
 		border-radius: 5px;
 		overflow: hidden;
@@ -17,6 +16,7 @@
 			}
 
 			> .snek-grid-node {
+				background-color: var(--theme-color-background);
 				width: 20px;
 				height: 20px;
 				position: relative;
