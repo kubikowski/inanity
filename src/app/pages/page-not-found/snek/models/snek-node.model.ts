@@ -2,16 +2,23 @@ import { SnekGridNode } from './snek-grid-node.model';
 import { inverseDirection, SnekDirection } from './snek-direction.enum';
 
 export class SnekNode {
-	private _snekGridNode: SnekGridNode;
+	private readonly _snekGridNode: SnekGridNode;
 	private _parent: SnekNode;
 	private _child: SnekNode;
 	private _parentDirection: SnekDirection;
 	private _childDirection: SnekDirection;
 
 	private constructor(
+		snekGridNode: SnekGridNode,
 		child: SnekNode,
 		direction: SnekDirection,
 	) {
+		if (this._snekGridNode instanceof SnekGridNode) {
+			console.error('snek den', this);
+		}
+		this._snekGridNode = snekGridNode;
+		snekGridNode.attachSnekNode(this);
+
 		this._parent = null;
 		this._parentDirection = null;
 
@@ -22,20 +29,12 @@ export class SnekNode {
 		}
 	}
 
-	public static initialHead(): SnekNode {
-		return new SnekNode(null, null);
+	public static initialHead(snekGridNode: SnekGridNode): SnekNode {
+		return new SnekNode(snekGridNode, null, null);
 	}
 
-	public static newHead(child: SnekNode, direction: SnekDirection): SnekNode {
-		return new SnekNode(child, direction);
-	}
-
-	public attachSnekGridNode(snekGridNode: SnekGridNode): void {
-		if (this._snekGridNode instanceof SnekGridNode) {
-			console.error('snek den', this);
-		}
-
-		this._snekGridNode = snekGridNode;
+	public static newHead(snekGridNode: SnekGridNode, child: SnekNode, direction: SnekDirection): SnekNode {
+		return new SnekNode(snekGridNode, child, direction);
 	}
 
 	get snekGridNode(): SnekGridNode {

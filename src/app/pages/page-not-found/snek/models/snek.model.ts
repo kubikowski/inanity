@@ -11,9 +11,10 @@ export class Snek {
 	private _nextDirection: SnekDirection;
 
 	private constructor(
-		length: number
+		length: number,
+		tailGridNode: SnekGridNode,
 	) {
-		this._head = this._tail = SnekNode.initialHead();
+		this._head = this._tail = SnekNode.initialHead(tailGridNode);
 		this._length = 1;
 		this._currentDirection = SnekDirection.RIGHT;
 		this._nextDirection = SnekDirection.RIGHT;
@@ -23,8 +24,8 @@ export class Snek {
 		}
 	}
 
-	public static new(length): Snek {
-		return new Snek(length);
+	public static new(length, tailGridNode): Snek {
+		return new Snek(length, tailGridNode);
 	}
 
 	get head(): SnekNode {
@@ -67,13 +68,15 @@ export class Snek {
 	}
 
 	private addHead(): void {
-		this._head = SnekNode.newHead(this._head, this._nextDirection);
+		const nextSnekGridNode = this._head.snekGridNode.next(this._nextDirection);
+		this._head = SnekNode.newHead(nextSnekGridNode, this._head, this._nextDirection);
 		this._length++;
 	}
 
 	private removeTail(): void {
+		this._tail.snekGridNode.detachSnekNode();
 		const newTail = this._tail.parent;
-		this._tail.removeTail();
+		newTail.removeTail();
 		this._tail = newTail;
 		this._length--;
 	}

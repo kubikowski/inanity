@@ -18,16 +18,11 @@ export class SnekComponent implements OnInit {
 	@Observed() private snekGrid: SnekGrid = SnekGrid.new(35, 25);
 	public readonly snekGrid$: Observable<SnekGrid>;
 
-	@Observed() private snek: Snek = Snek.new(3);
-	public readonly snek$: Observable<Snek>;
-
 	public readonly SnekGridNodeType = SnekGridNodeType;
 
 	constructor() {
-		this.snekGrid.attachSnek(this.snek);
-
-		this.subscriptions.sink = timer(2000, 2000)
-			.subscribe(() => this.snek.move());
+		this.subscriptions.sink = timer(200, 200)
+			.subscribe(() => this.snekGrid.snek.move());
 	}
 
 	ngOnInit(): void {

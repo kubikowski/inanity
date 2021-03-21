@@ -1,10 +1,9 @@
 import { Snek } from './snek.model';
 import { SnekGridNode } from './snek-grid-node.model';
-import { SnekDirection } from './snek-direction.enum';
-import { SnekNode } from './snek-node.model';
 
 export class SnekGrid {
 	private readonly _grid: ReadonlyArray<ReadonlyArray<SnekGridNode>>;
+	private readonly _snek: Snek;
 
 	private constructor(
 		private readonly _width: number,
@@ -14,6 +13,9 @@ export class SnekGrid {
 			(row, height) => Array.from(Array(_width),
 				(node, width) => SnekGridNode.new(width, height)));
 		this.initializeGridNodes();
+
+		const tailGridNode = this.at(1, Math.floor(this._height / 2));
+		this._snek = Snek.new(3, tailGridNode);
 	}
 
 	public static new(width: number, height: number): SnekGrid {
@@ -32,16 +34,11 @@ export class SnekGrid {
 		});
 	}
 
-	public attachSnek(snek: Snek): void {
-		let currentGridNode = this.at(1, Math.floor(this._height / 2));
-		let currentSnekNode = snek.tail;
-
-		while (currentSnekNode instanceof SnekNode) {
-			currentGridNode.attachSnekNode(currentSnekNode);
-			currentSnekNode.attachSnekGridNode(currentGridNode);
-
-			currentGridNode = currentGridNode.next(SnekDirection.RIGHT);
-			currentSnekNode = currentSnekNode.parent;
+	private at(width: number, height: number): SnekGridNode {
+		if (width >= 0 && width < this._width && height >= 0 && height < this._height) {
+			return this._grid[height][width];
+		} else {
+			return null;
 		}
 	}
 
@@ -49,11 +46,7 @@ export class SnekGrid {
 		return this._grid;
 	}
 
-	private at(width: number, height: number): SnekGridNode {
-		if (width >= 0 && width < this._width && height >= 0 && height < this._height) {
-			return this._grid[height][width];
-		} else {
-			return null;
-		}
+	public get snek(): Snek {
+		return this._snek;
 	}
 }
