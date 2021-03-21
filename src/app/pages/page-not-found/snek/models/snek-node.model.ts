@@ -38,12 +38,24 @@ export class SnekNode {
 		this._snekGridNode = snekGridNode;
 	}
 
+	get snekGridNode(): SnekGridNode {
+		return this._snekGridNode;
+	}
+
 	get parent(): SnekNode {
 		return this._parent;
 	}
 
 	get child(): SnekNode {
 		return this._child;
+	}
+
+	get parentDirection(): SnekDirection {
+		return this._parentDirection;
+	}
+
+	get childDirection(): SnekDirection {
+		return this._childDirection;
 	}
 
 	public addHead(head: SnekNode): void {
