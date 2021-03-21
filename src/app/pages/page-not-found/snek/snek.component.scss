@@ -26,7 +26,6 @@
 					width: 16px;
 					height: 20px;
 					border-radius: 0 0 50% 50%;
-					margin: 0 2px;
 					display: none;
 					position: absolute;
 					top: 0;
@@ -35,11 +34,18 @@
 					&.up, &.down, &.left, &.right {
 						display: block;
 					}
+					&.up {
+						margin-top: -2px;
+						margin-left: 2px;
+					}
 					&.right {
 						transform: rotate(90deg);
+						margin-left: 4px;
 					}
 					&.down {
 						transform: rotate(180deg);
+						margin-top: 2px;
+						margin-left: 2px;
 					}
 					&.left {
 						transform: rotate(270deg);
