@@ -14,7 +14,7 @@ export class SnekNode {
 		direction: SnekDirection,
 	) {
 		if (this._snekGridNode instanceof SnekGridNode) {
-			console.error('snek den', this);
+			throw new Error('out of bounds');
 		}
 		this._snekGridNode = snekGridNode;
 		snekGridNode.attachSnekNode(this);
@@ -59,7 +59,7 @@ export class SnekNode {
 
 	public addHead(head: SnekNode): void {
 		if (this._parent instanceof SnekNode) {
-			console.error('hydra', this);
+			throw new Error('hydra');
 		}
 
 		this._parent = head;
@@ -68,7 +68,7 @@ export class SnekNode {
 
 	public removeTail(): void {
 		if (!(this._child instanceof SnekNode)) {
-			console.error('ouroboros', this);
+			throw new Error('ouroboros');
 		}
 
 		this._child = null;

@@ -61,7 +61,6 @@ export class SnekComponent implements OnDestroy {
 	private play(): void {
 		if (!this.playing) {
 			this.playing = true;
-			console.log('subscribed');
 			this.subscription = timer(100, 100)
 				.pipe(tap(() => this.snekGame.snek.move()),
 					catchError(error => {
@@ -75,7 +74,6 @@ export class SnekComponent implements OnDestroy {
 	private pause(): void {
 		if (this.playing) {
 			this.playing = false;
-			console.log('unsubscribed');
 			this.subscription.unsubscribe();
 		}
 	}

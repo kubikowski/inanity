@@ -10,8 +10,8 @@ export class SnekGame {
 		private readonly _height: number,
 	) {
 		this._grid = Array.from(Array(_height),
-			(row, height) => Array.from(Array(_width),
-				(node, width) => SnekGridNode.new(width, height)));
+			() => Array.from(Array(_width),
+				() => SnekGridNode.new()));
 		this.initializeGridNodes();
 
 		const tailGridNode = this.at(1, Math.floor(this._height / 2));

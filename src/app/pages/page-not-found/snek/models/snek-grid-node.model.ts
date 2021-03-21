@@ -1,6 +1,6 @@
-import {SnekGridNodeType} from './snek-grid-node-type.enum';
-import {SnekNode} from './snek-node.model';
-import {SnekDirection} from './snek-direction.enum';
+import { SnekGridNodeType } from './snek-grid-node-type.enum';
+import { SnekNode } from './snek-node.model';
+import { SnekDirection } from './snek-direction.enum';
 
 export class SnekGridNode {
 	private _type: SnekGridNodeType;
@@ -10,15 +10,12 @@ export class SnekGridNode {
 	private _left: SnekGridNode;
 	private _right: SnekGridNode;
 
-	private constructor(
-		private _width: number,
-		private _height: number,
-	) {
+	private constructor() {
 		this._type = SnekGridNodeType.BLANK;
 	}
 
-	public static new(width: number, height: number): SnekGridNode {
-		return new SnekGridNode(width, height);
+	public static new(): SnekGridNode {
+		return new SnekGridNode();
 	}
 
 	public initialize(up: SnekGridNode, down: SnekGridNode, left: SnekGridNode, right: SnekGridNode): void {
