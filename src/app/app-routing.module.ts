@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
 	{
@@ -12,7 +11,7 @@ const routes: Routes = [
 		loadChildren: () => import('./pages/gong/gong.module').then(m => m.GongModule),
 	}, {
 		path: '**',
-		component: PageNotFoundComponent,
+		loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule),
 	},
 ];
 
