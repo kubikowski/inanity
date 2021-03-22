@@ -16,12 +16,19 @@ export class SnekComponent implements OnDestroy {
 	private subscription: Subscription;
 	private playing = false;
 
-	@Observed() private snekGame = SnekGame.new(35, 25);
+	@Observed() private snekGame: SnekGame;
 	public readonly snekGame$: Observable<SnekGame>;
 
+	public readonly width = 35;
+	public readonly height = 25;
+	public readonly initialSnekLength = 3;
 	public readonly SnekGridNodeType = SnekGridNodeType;
+	private _highScore: number;
 
-	constructor() {}
+	constructor() {
+		this.snekGame = SnekGame.new(this.width, this.height, this.initialSnekLength);
+		this._highScore = JSON.parse(localStorage.getItem('snek-high-score')) ?? 0;
+	}
 
 	@HostListener('document:keydown', [ '$event' ])
 	private keyDown(keyboardEvent: KeyboardEvent): void {
@@ -80,9 +87,19 @@ export class SnekComponent implements OnDestroy {
 
 	private reset(): void {
 		this.pause();
-		const length = this.snekGame.snek.length;
-		console.log('new high score: ' + length);
-		this.snekGame = SnekGame.new(35, 25);
+		this.highScore = this.snekGame.snek.length - this.initialSnekLength;
+		this.snekGame = SnekGame.new(this.width, this.height, this.initialSnekLength);
+	}
+
+	public get highScore(): number {
+		return this._highScore;
+	}
+
+	public set highScore(highScore: number) {
+		if (highScore > this._highScore) {
+			this._highScore = highScore;
+			localStorage.setItem('snek-high-score', `${ highScore }`);
+		}
 	}
 
 	ngOnDestroy(): void {

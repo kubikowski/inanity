@@ -1,4 +1,4 @@
-<section class="snek-grid" *ngIf="snekGame$ | async as snekGame else noSnekSnek">
+<section class="snek-grid" *ngIf="snekGame$ | async as snekGame">
 	<div class="snek-grid-row" *ngFor="let snekGridRow of snekGame.grid">
 		<div class="snek-grid-node" *ngFor="let snekGridNode of snekGridRow">
 			<ng-container [ngSwitch]="snekGridNode.type">
@@ -9,12 +9,13 @@
 				<ng-container *ngSwitchCase="SnekGridNodeType.FUD">
 					<div class="fud"></div>
 				</ng-container>
-<!--				<div *ngSwitchDefault></div>-->
 			</ng-container>
 		</div>
 	</div>
 </section>
-
-<ng-template #noSnekSnek>
-	<section>No Snek Snek...</section>
-</ng-template>
+<section class="results" *ngIf="snekGame$ | async as snekGame">
+	<mat-icon>spa</mat-icon>
+	<span>{{ snekGame.snek.length - initialSnekLength }}</span>
+	<mat-icon>star</mat-icon>
+	<span>{{ highScore }}</span>
+</section>

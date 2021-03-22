@@ -63,3 +63,13 @@
 		}
 	}
 }
+
+.results {
+	display: flex;
+
+	span {
+		font-size: 1.5rem;
+		font-weight: bold;
+		padding-right: 2rem;
+	}
+}

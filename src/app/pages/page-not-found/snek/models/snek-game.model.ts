@@ -10,6 +10,7 @@ export class SnekGame {
 	private constructor(
 		private readonly _width: number,
 		private readonly _height: number,
+		initialSnekLength: number,
 	) {
 		this._grid = Array.from(Array(_height),
 			(row, height) => Array.from(Array(_width),
@@ -17,13 +18,13 @@ export class SnekGame {
 		this.initializeGridNodes();
 
 		const tailGridNode = this.at(1, Math.floor(this._height / 2));
-		this._snek = Snek.new(3, tailGridNode);
+		this._snek = Snek.new(initialSnekLength, tailGridNode);
 
 		this.spawnFud();
 	}
 
-	public static new(width: number, height: number): SnekGame {
-		return new SnekGame(width, height);
+	public static new(width: number, height: number, initialSnekLength: number): SnekGame {
+		return new SnekGame(width, height, initialSnekLength);
 	}
 
 	private initializeGridNodes(): void {
