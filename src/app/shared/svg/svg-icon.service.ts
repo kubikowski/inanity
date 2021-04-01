@@ -9,9 +9,11 @@ export class SvgIconService {
 	constructor(
 		private matIconRegistry: MatIconRegistry,
 		private domSanitizer: DomSanitizer,
-	) { }
+	) {
+		this.registerIcons();
+	}
 
-	public registerIcons(): void {
+	private registerIcons(): void {
 		const iconKeys = Object.values(SvgIcon);
 
 		iconKeys.forEach(key => {
