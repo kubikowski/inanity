@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { SnekComponent } from './snek.component';
 
 describe('SnekComponent', () => {
@@ -8,7 +8,8 @@ describe('SnekComponent', () => {
 
 	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
-			declarations: [SnekComponent]
+			imports: [ MatDialogModule ],
+			declarations: [ SnekComponent ],
 		})
 			.compileComponents();
 	}));
