@@ -1,4 +1,5 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Observable, of, Subscription } from 'rxjs';
 import { timer } from 'rxjs/internal/observable/timer';
 import { catchError, tap } from 'rxjs/operators';
@@ -15,6 +16,7 @@ import { SnekGridNodeType } from 'src/app/pages/page-not-found/snek/models/snek-
 export class SnekComponent implements OnDestroy {
 	private subscription: Subscription;
 	private playing = false;
+	private paused = false;
 
 	@Observed() private snekGame: SnekGame;
 	public readonly snekGame$: Observable<SnekGame>;
@@ -25,13 +27,23 @@ export class SnekComponent implements OnDestroy {
 	public readonly SnekGridNodeType = SnekGridNodeType;
 	private _highScore: number;
 
-	constructor() {
+	constructor(
+		public dialog: MatDialog,
+	) {
 		this.snekGame = SnekGame.new(this.width, this.height, this.initialSnekLength);
 		this._highScore = JSON.parse(localStorage.getItem('snek-high-score')) ?? 0;
 	}
 
+	ngOnDestroy(): void {
+		this.pause();
+	}
+
 	@HostListener('document:keydown', [ '$event' ])
 	private keyDown(keyboardEvent: KeyboardEvent): void {
+		if (this.paused) {
+			return;
+		}
+
 		switch (keyboardEvent.key) {
 			case 'w':
 			case 'ArrowUp':
@@ -53,15 +65,6 @@ export class SnekComponent implements OnDestroy {
 				this.play();
 				this.snekGame.snek.direction = SnekDirection.RIGHT;
 				break;
-			case 'Escape':
-				this.pause();
-				break;
-			case 'p':
-			case 'Space':
-				(this.subscription instanceof Subscription)
-					? this.pause()
-					: this.play();
-				break;
 		}
 	}
 
@@ -71,24 +74,39 @@ export class SnekComponent implements OnDestroy {
 			this.subscription = timer(100, 100)
 				.pipe(tap(() => this.snekGame.snekLegs()),
 					catchError(error => {
-						this.reset();
+						this.gameOver();
 						return of(error.message);
 					}))
 				.subscribe();
 		}
 	}
 
+	private gameOver(): void {
+		this.pause();
+		const score = this.snekGame.snek.length - this.initialSnekLength;
+		const dialogRef = this.dialog.open(
+			SnekResultsComponent,
+			{
+				width: '300px',
+				data: {
+					score,
+					highScore: this._highScore,
+				}
+			});
+
+		dialogRef.afterClosed().subscribe(() => {
+			this.snekGame = SnekGame.new(this.width, this.height, this.initialSnekLength);
+			this.highScore = score;
+			this.paused = false;
+		});
+	}
+
 	private pause(): void {
+		this.paused = true;
 		if (this.playing) {
 			this.playing = false;
 			this.subscription.unsubscribe();
 		}
-	}
-
-	private reset(): void {
-		this.pause();
-		this.highScore = this.snekGame.snek.length - this.initialSnekLength;
-		this.snekGame = SnekGame.new(this.width, this.height, this.initialSnekLength);
 	}
 
 	public get highScore(): number {
@@ -101,8 +119,25 @@ export class SnekComponent implements OnDestroy {
 			localStorage.setItem('snek-high-score', `${ highScore }`);
 		}
 	}
+}
 
-	ngOnDestroy(): void {
-		this.pause();
+@Component({
+	selector: 'snek-results',
+	template: `
+		<h1>{{ newHighScore ? 'Congratulations!' : 'woof' }}</h1>
+		<h4 *ngIf="newHighScore">New High Score: <b>{{ results.score }}</b></h4>
+		<h4 *ngIf="!newHighScore">you lost with <b>{{ results.score }}</b> points</h4>
+		<footer style="width: 100%; display: flex; flex-flow: row-reverse nowrap">
+			<button mat-flat-button color="primary" [mat-dialog-close]>yup</button>
+		</footer>
+	`,
+})
+export class SnekResultsComponent {
+	public readonly newHighScore: boolean;
+
+	constructor(
+		@Inject(MAT_DIALOG_DATA) public results: { score: number, highScore: number },
+	) {
+		this.newHighScore = results.score > results.highScore;
 	}
 }
