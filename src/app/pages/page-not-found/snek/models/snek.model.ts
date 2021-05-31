@@ -24,7 +24,7 @@ export class Snek {
 		}
 	}
 
-	public static new(length, tailGridNode): Snek {
+	public static new(length: number, tailGridNode: SnekGridNode): Snek {
 		return new Snek(length, tailGridNode);
 	}
 
