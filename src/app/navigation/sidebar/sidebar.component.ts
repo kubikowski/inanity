@@ -25,4 +25,8 @@ export class SidebarComponent implements OnInit {
 		];
 	}
 
+	toggleSidenav(event: Event): void {
+		(event.currentTarget as HTMLElement).blur();
+		this.sidenav.toggle();
+	}
 }
