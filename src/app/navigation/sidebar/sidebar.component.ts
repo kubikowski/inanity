@@ -1,23 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationConfig } from './models/navigation-config.model';
-import { MatSidenav } from '@angular/material/sidenav';
 import { SvgIcon } from '../../shared/svg/svg-icon.enum';
+import { NavigationService } from '../navigation.service';
 
 @Component({
 	selector: 'app-sidebar',
 	templateUrl: './sidebar.component.html',
 	styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
+	public readonly navigationConfigs: NavigationConfig[];
 
-	@Input() sidenav: MatSidenav;
-
-	navigationConfigs: NavigationConfig[];
-
-	constructor() {
-	}
-
-	ngOnInit(): void {
+	constructor(
+		private navigationService: NavigationService,
+	) {
 		this.navigationConfigs = [
 			NavigationConfig.from('About', SvgIcon.WHEEL, 'about'),
 			NavigationConfig.from('Gong', SvgIcon.GONG, 'gong'),
@@ -25,8 +21,8 @@ export class SidebarComponent implements OnInit {
 		];
 	}
 
-	toggleSidenav(event: Event): void {
+	public toggleSidenav(event: Event): void {
 		(event.currentTarget as HTMLElement).blur();
-		this.sidenav.toggle();
+		this.navigationService.toggle();
 	}
 }
