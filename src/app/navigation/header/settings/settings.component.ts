@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ColorTheme } from '../../../shared/colors/models/color-themes/color-theme.model';
 import { ColorThemes } from '../../../shared/colors/models/color-themes/color-themes.constant';
 import { ColorPalette } from '../../../shared/colors/models/color-palettes/color-palette.model';
