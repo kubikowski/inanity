@@ -1,5 +1,5 @@
-import { ColorTheme } from './color-theme.model';
-import { Color } from '../color.model';
+import { ColorTheme } from 'src/app/shared/colors/models/color-themes/color-theme.model';
+import { Color } from 'src/app/shared/colors/models/color.model';
 
 export const LightTheme = new ColorTheme(
 	Color.fromString('white'),

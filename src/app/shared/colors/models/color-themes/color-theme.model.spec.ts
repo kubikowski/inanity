@@ -1,5 +1,5 @@
-import { LightTheme } from './color-themes.constant';
-import { Color } from '../color.model';
+import { LightTheme } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
+import { Color } from 'src/app/shared/colors/models/color.model';
 
 describe('Color Theme', () => {
 

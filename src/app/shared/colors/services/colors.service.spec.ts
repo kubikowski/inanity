@@ -1,11 +1,11 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { ColorsService } from './colors.service';
-import { DarkTheme, LightTheme } from '../models/color-themes/color-themes.constant';
-import { BluePalette, GreenPalette } from '../models/color-palettes/color-palettes.constant';
-import { BaseColorTheme } from '../models/color-themes/base-color-theme.model';
-import { BaseColorPalette } from '../models/color-palettes/base-color-palette.model';
-import { ColorTheme } from '../models/color-themes/color-theme.model';
-import { ColorPalette } from '../models/color-palettes/color-palette.model';
+import { BaseColorPalette } from 'src/app/shared/colors/models/color-palettes/base-color-palette.model';
+import { ColorPalette } from 'src/app/shared/colors/models/color-palettes/color-palette.model';
+import { BluePalette, GreenPalette } from 'src/app/shared/colors/models/color-palettes/color-palettes.constant';
+import { BaseColorTheme } from 'src/app/shared/colors/models/color-themes/base-color-theme.model';
+import { ColorTheme } from 'src/app/shared/colors/models/color-themes/color-theme.model';
+import { DarkTheme, LightTheme } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
+import { ColorsService } from 'src/app/shared/colors/services/colors.service';
 
 describe('ColorsService', () => {
 	let colorsService: ColorsService;
@@ -23,7 +23,7 @@ describe('ColorsService', () => {
 		colorsService.theme = DarkTheme;
 
 		theme = DarkTheme;
-		palette = palette.getInverse();
+		palette = palette.inverse(DarkTheme);
 
 		tick(BUFFER_TIME);
 	}
@@ -32,8 +32,9 @@ describe('ColorsService', () => {
 	function setGreenPalette(): void {
 		colorsService.palette = GreenPalette;
 
-		palette = (theme.themeName === LightTheme.themeName)
-			? GreenPalette : GreenPalette.getInverse();
+		palette = (theme === LightTheme)
+			? GreenPalette
+			: GreenPalette.inverse(theme);
 
 		tick(BUFFER_TIME);
 	}

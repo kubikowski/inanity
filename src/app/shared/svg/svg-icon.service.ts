@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
-import { SvgIcon } from './svg-icon.enum';
+import { DomSanitizer } from '@angular/platform-browser';
+import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 
 @Injectable({ providedIn: 'root' })
 export class SvgIconService {
