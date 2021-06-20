@@ -1,7 +1,7 @@
-import { Snek } from './snek.model';
-import { SnekGridNode } from './snek-grid-node.model';
-import { SnekDirection } from './snek-direction.enum';
-import { SnekGridNodeType } from './snek-grid-node-type.enum';
+import { SnekDirection } from 'src/app/pages/page-not-found/snek/models/snek-direction.enum';
+import { SnekGridNodeType } from 'src/app/pages/page-not-found/snek/models/snek-grid-node-type.enum';
+import { SnekGridNode } from 'src/app/pages/page-not-found/snek/models/snek-grid-node.model';
+import { Snek } from 'src/app/pages/page-not-found/snek/models/snek.model';
 
 export class SnekGame {
 	private readonly _grid: ReadonlyArray<ReadonlyArray<SnekGridNode>>;

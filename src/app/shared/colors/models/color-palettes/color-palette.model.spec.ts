@@ -1,5 +1,6 @@
-import { Color } from '../color.model';
-import { BluePalette } from './color-palettes.constant';
+import { Color } from 'src/app/shared/colors/models/color.model';
+import { BluePalette } from 'src/app/shared/colors/models/color-palettes/color-palettes.constant';
+import { DarkTheme } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
 
 describe('Color Palette', () => {
 
@@ -95,7 +96,7 @@ describe('Color Palette', () => {
 	});
 
 	describe('ColorPalette.getInverse()', () => {
-		const bluePaletteInverse = BluePalette.getInverse();
+		const bluePaletteInverse = BluePalette.inverse(DarkTheme);
 
 		it('should contain correct colorLightest', () => {
 			const { colorLightest } = bluePaletteInverse;

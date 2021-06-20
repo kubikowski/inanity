@@ -1,17 +1,18 @@
-import { Component, HostListener, Inject, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Observable, of, Subscription } from 'rxjs';
 import { timer } from 'rxjs/internal/observable/timer';
 import { catchError, tap } from 'rxjs/operators';
-import { Observed } from 'src/app/shared/decorators/observed.decorator';
 import { SnekDirection } from 'src/app/pages/page-not-found/snek/models/snek-direction.enum';
 import { SnekGame } from 'src/app/pages/page-not-found/snek/models/snek-game.model';
 import { SnekGridNodeType } from 'src/app/pages/page-not-found/snek/models/snek-grid-node-type.enum';
+import { Observed } from 'src/app/shared/decorators/observed.decorator';
 
 @Component({
 	selector: 'snek',
 	templateUrl: './snek.component.html',
-	styleUrls: ['./snek.component.scss']
+	styleUrls: [ './snek.component.scss' ],
+	// changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SnekComponent implements OnDestroy {
 	private subscription: Subscription;

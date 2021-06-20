@@ -1,15 +1,15 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { DyslexicTextService } from './services/dyslexic-text.service';
-import { SubSink } from 'subsink';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { timer } from 'rxjs/internal/observable/timer';
+import { DyslexicTextService } from 'src/app/shared/dyslexic-text/services/dyslexic-text.service';
+import { SubSink } from 'subsink';
 
 @Component({
 	selector: 'dyslexic-text',
 	templateUrl: './dyslexic-text.component.html',
-	styleUrls: ['./dyslexic-text.component.scss']
+	styleUrls: [ './dyslexic-text.component.scss' ],
+	// changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DyslexicTextComponent implements OnInit, OnDestroy {
-
 	subscriptions = new SubSink();
 
 	@Input() text = '';
@@ -38,7 +38,7 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 		this.subscriptions.unsubscribe();
 	}
 
-	setDefaultWords(): void {
+	private setDefaultWords(): void {
 		this.defaultWords = this.text
 			.split(' ')
 			.map(searchTerm => searchTerm.trim())
@@ -47,13 +47,13 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 		this.outputWords = [...this.defaultWords];
 	}
 
-	generateDyslexicWords(): void {
+	private generateDyslexicWords(): void {
 		this.defaultWords.forEach(word => {
 			this.dyslexicWordCombinations.push(this.generateDyslexicWordCombinations(word));
 		});
 	}
 
-	generateDyslexicWordCombinations(word: string): string[] {
+	private generateDyslexicWordCombinations(word: string): string[] {
 		const dyslexicWordCombinations: string[] = [];
 
 		if (word.length > 3) {
@@ -83,14 +83,14 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 		return dyslexicWordCombinations;
 	}
 
-	getNewDyslexicWordByIndex(wordIndex: number): void {
-		this.outputWords[wordIndex] = this.dyslexicTextService.getEnabled()
+	private getNewDyslexicWordByIndex(wordIndex: number): void {
+		this.outputWords[wordIndex] = this.dyslexicTextService.isEnabled
 			? this.getNewDyslexicWord(this.defaultWords[wordIndex], this.dyslexicWordCombinations[wordIndex])
 			: this.defaultWords[wordIndex];
 	}
 
-	getNewDyslexicWord(defaultWord: string, dyslexicWordCombinations: string[]): string {
-		const combinationIndex = Math.floor(Math.random() * dyslexicWordCombinations.length * this.dyslexicTextService.getAmount());
+	private getNewDyslexicWord(defaultWord: string, dyslexicWordCombinations: string[]): string {
+		const combinationIndex = Math.floor(Math.random() * dyslexicWordCombinations.length * this.dyslexicTextService.amount);
 		return dyslexicWordCombinations[combinationIndex] ?? defaultWord;
 	}
 }

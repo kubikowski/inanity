@@ -1,6 +1,7 @@
-import { BaseColorPalette } from './base-color-palette.model';
-import { Color } from '../color.model';
-import { LightTheme, DarkTheme } from '../color-themes/color-themes.constant';
+import { BaseColorPalette } from 'src/app/shared/colors/models/color-palettes/base-color-palette.model';
+import { Color } from 'src/app/shared/colors/models/color.model';
+import { LightTheme } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
+import { ColorTheme } from 'src/app/shared/colors/models/color-themes/color-theme.model';
 
 export class ColorPalette extends BaseColorPalette {
 	public constructor(
@@ -15,7 +16,7 @@ export class ColorPalette extends BaseColorPalette {
 		public readonly paletteName: string,
 		public readonly displayName: string,
 
-		private readonly theme = LightTheme,
+		public readonly theme = LightTheme,
 	) {
 		super(
 			lightestColor.toString(),
@@ -31,10 +32,13 @@ export class ColorPalette extends BaseColorPalette {
 		);
 	}
 
-	/** Inverse the palette's values, so that the darkest color becomes the lightest and so on.
+	/**
+	 * Inverse the palette's values, so that the darkest color becomes the lightest and so on.
+	 *
+	 * @param theme - the new ColorTheme to base generated palette variables on.
 	 * @return - a new ColorPalette with inverse values
 	 */
-	public getInverse(): ColorPalette {
+	public inverse(theme: ColorTheme): ColorPalette {
 		return new ColorPalette(
 			this.darkestColor,
 			this.darkerColor,
@@ -45,7 +49,7 @@ export class ColorPalette extends BaseColorPalette {
 			this.lightestColor,
 			this.paletteName,
 			this.displayName,
-			DarkTheme,
+			theme,
 		);
 	}
 }

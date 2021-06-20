@@ -1,5 +1,5 @@
-import { ColorPalette } from './color-palette.model';
-import { Color } from '../color.model';
+import { ColorPalette } from 'src/app/shared/colors/models/color-palettes/color-palette.model';
+import { Color } from 'src/app/shared/colors/models/color.model';
 
 export const BluePalette = new ColorPalette(
 	Color.fromString('#51d4ff'),

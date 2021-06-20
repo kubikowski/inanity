@@ -1,4 +1,4 @@
-import { Color, InvalidColorString } from './color.model';
+import { Color, InvalidColorString } from 'src/app/shared/colors/models/color.model';
 
 describe('Color', () => {
 

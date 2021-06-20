@@ -1,78 +1,109 @@
 import { Injectable } from '@angular/core';
-import { BaseColorTheme } from '../models/color-themes/base-color-theme.model';
-import { ColorTheme } from '../models/color-themes/color-theme.model';
-import { ColorThemes, LightTheme } from '../models/color-themes/color-themes.constant';
-import { BaseColorPalette } from '../models/color-palettes/base-color-palette.model';
-import { ColorPalette } from '../models/color-palettes/color-palette.model';
-import { ColorPalettes, BluePalette } from '../models/color-palettes/color-palettes.constant';
+import { BaseColorPalette } from 'src/app/shared/colors/models/color-palettes/base-color-palette.model';
+import { ColorPalette } from 'src/app/shared/colors/models/color-palettes/color-palette.model';
+import { BluePalette, ColorPalettes } from 'src/app/shared/colors/models/color-palettes/color-palettes.constant';
+import { BaseColorTheme } from 'src/app/shared/colors/models/color-themes/base-color-theme.model';
+import { ColorTheme } from 'src/app/shared/colors/models/color-themes/color-theme.model';
+import { ColorThemes, LightTheme } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class ColorsService {
-	// Document
-	private readonly body = document.body;
-	private readonly style = document.documentElement.style;
 
-	private theme: ColorTheme;
-	private palette: ColorPalette;
+	private _theme: ColorTheme;
+	private _palette: ColorPalette;
 
 	constructor() {
-		// Get Initial Theme and Palette
-		this.theme = this.getThemeFromName(localStorage.getItem('theme')) ?? LightTheme;
-		this.palette = this.getPaletteFromName(localStorage.getItem('palette')) ?? BluePalette;
+		this._theme = ColorsService.localStorageTheme;
+		this._palette = ColorsService.localStoragePalette;
 
-		// Initialize Body ClassList
-		this.body.classList.add(this.theme.themeName);
-
-		// Initialize Theme and Palette
-		this.toggleTheme(this.theme);
-		this.togglePalette(this.palette);
+		this.theme = this._theme;
+		this.palette = this._palette;
 	}
 
-	public toggleTheme(theme: ColorTheme): void {
-		this.theme = theme;
-		this.body.classList.remove('light-theme', 'dark-theme');
-		this.body.classList.add(theme.themeName);
+	// region public accessors
+	public get theme(): ColorTheme {
+		return this._theme;
+	}
+
+	public set theme(theme: ColorTheme) {
+		this._theme = theme;
+
+		ColorsService.localStorageTheme = theme;
+		ColorsService.documentBodyThemeClass = theme;
+		ColorsService.cssThemeVariables = theme;
+
+		ColorsService.cssPaletteVariables = this.computedPalette;
+	}
+
+	public get palette(): ColorPalette {
+		return this._palette;
+	}
+
+	public set palette(palette: ColorPalette) {
+		this._palette = palette;
+
+		ColorsService.localStoragePalette = palette;
+
+		ColorsService.cssPaletteVariables = this.computedPalette;
+	}
+
+	private get computedPalette(): ColorPalette {
+		return (this._palette.theme.themeName !== this._theme.themeName)
+			? this._palette.inverse(this._theme)
+			: this._palette;
+	}
+	// endregion public accessors
+
+	// region theme handling
+	private static get localStorageTheme(): ColorTheme {
+		const themeName = localStorage.getItem('theme');
+
+		return ColorThemes.find(colorTheme => colorTheme.themeName === themeName)
+			?? LightTheme;
+	}
+
+	private static set localStorageTheme(theme: ColorTheme) {
 		localStorage.setItem('theme', theme.themeName);
-
-		this.setTheme(theme);
-		this.setPalette(this.palette);
 	}
 
-	public togglePalette(palette: ColorPalette): void {
-		this.palette = palette;
+	private static set documentBodyThemeClass(theme: ColorTheme) {
+		const themeNames = ColorThemes.map(colorTheme => colorTheme.themeName);
+
+		document.body.classList.remove(...themeNames);
+		document.body.classList.add(theme.themeName);
+	}
+
+	private static set cssThemeVariables(theme: ColorTheme) {
+		const cssThemeEntries = Object.entries(BaseColorTheme.CssThemeVariables);
+
+		cssThemeEntries.forEach(([ themeKey, cssVariableName ]) => {
+			const cssVariableValue = theme[themeKey];
+
+			document.documentElement.style.setProperty(cssVariableName, cssVariableValue);
+		});
+	}
+	// endregion theme handling
+
+	// region palette handling
+	private static get localStoragePalette(): ColorPalette {
+		const paletteName = localStorage.getItem('palette');
+
+		return ColorPalettes.find(colorPalette => colorPalette.paletteName === paletteName)
+			?? BluePalette;
+	}
+
+	private static set localStoragePalette(palette: ColorPalette) {
 		localStorage.setItem('palette', palette.paletteName);
-
-		this.setPalette(palette);
 	}
 
-	private getThemeFromName(themeName: string): ColorTheme {
-		return ColorThemes.find(colorTheme => colorTheme.themeName === themeName);
-	}
+	private static set cssPaletteVariables(palette: ColorPalette) {
+		const cssPaletteEntries = Object.entries(BaseColorPalette.CssPaletteVariables);
 
-	private setTheme(theme: ColorTheme): void {
-		Object.entries(BaseColorTheme.CssThemeVariables).forEach(([key, cssVariable]) => {
-			this.style.setProperty(cssVariable, theme[key]);
+		cssPaletteEntries.forEach(([ paletteKey, cssVariableName ]) => {
+			const cssVariableValue = palette[paletteKey];
+
+			document.documentElement.style.setProperty(cssVariableName, cssVariableValue);
 		});
 	}
-
-	private getPaletteFromName(paletteName: string): ColorPalette {
-		return ColorPalettes.find(colorPalette => colorPalette.paletteName === paletteName);
-	}
-
-	private setPalette(palette: ColorPalette): void {
-		const computedPalette = this.getComputedPalette(palette);
-		Object.entries(BaseColorPalette.CssPaletteVariables).forEach(([key, cssVariable]) => {
-			this.style.setProperty(cssVariable, computedPalette[key]);
-		});
-	}
-
-	private getComputedPalette(palette: ColorPalette): ColorPalette {
-		switch (this.theme.themeName) {
-			case 'dark-theme':
-				return palette.getInverse();
-			case 'light-theme':
-			default:
-				return palette;
-		}
-	}
+	// endregion palette handling
 }
