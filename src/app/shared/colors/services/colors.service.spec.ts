@@ -40,7 +40,9 @@ describe('ColorsService', () => {
 	}
 
 	beforeEach(() => {
-		TestBed.configureTestingModule({});
+		TestBed.configureTestingModule({
+			providers: [ ColorsService ],
+		});
 		colorsService = TestBed.inject(ColorsService);
 
 		theme = LightTheme;
