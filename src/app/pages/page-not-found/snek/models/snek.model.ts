@@ -1,7 +1,7 @@
-import { inverseDirection, SnekDirection } from './snek-direction.enum';
-import { SnekNode } from './snek-node.model';
-import { SnekGridNode } from './snek-grid-node.model';
-import { SnekGridNodeType } from './snek-grid-node-type.enum';
+import { inverseDirection, SnekDirection } from 'src/app/pages/page-not-found/snek/models/snek-direction.enum';
+import { SnekGridNodeType } from 'src/app/pages/page-not-found/snek/models/snek-grid-node-type.enum';
+import { SnekGridNode } from 'src/app/pages/page-not-found/snek/models/snek-grid-node.model';
+import { SnekNode } from 'src/app/pages/page-not-found/snek/models/snek-node.model';
 
 export class Snek {
 	private _head: SnekNode;

@@ -1,5 +1,5 @@
-import { SnekGridNode } from './snek-grid-node.model';
-import { inverseDirection, SnekDirection } from './snek-direction.enum';
+import { inverseDirection, SnekDirection } from 'src/app/pages/page-not-found/snek/models/snek-direction.enum';
+import { SnekGridNode } from 'src/app/pages/page-not-found/snek/models/snek-grid-node.model';
 
 export class SnekNode {
 	private readonly _snekGridNode: SnekGridNode;

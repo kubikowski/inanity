@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GongRoutingModule } from './gong-routing.module';
-import { GongComponent } from './gong.component';
-import { SharedModule } from '../../shared/shared.module';
+import { NgModule } from '@angular/core';
+import { GongRoutingModule } from 'src/app/pages/gong/gong-routing.module';
+import { GongComponent } from 'src/app/pages/gong/gong.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
 	declarations: [

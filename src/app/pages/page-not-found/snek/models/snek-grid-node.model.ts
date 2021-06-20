@@ -1,6 +1,6 @@
-import { SnekGridNodeType } from './snek-grid-node-type.enum';
-import { SnekNode } from './snek-node.model';
-import { SnekDirection } from './snek-direction.enum';
+import { SnekDirection } from 'src/app/pages/page-not-found/snek/models/snek-direction.enum';
+import { SnekGridNodeType } from 'src/app/pages/page-not-found/snek/models/snek-grid-node-type.enum';
+import { SnekNode } from 'src/app/pages/page-not-found/snek/models/snek-node.model';
 
 export class SnekGridNode {
 	private _type: SnekGridNodeType;

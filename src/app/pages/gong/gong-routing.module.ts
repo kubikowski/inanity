@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GongComponent } from './gong.component';
+import { GongComponent } from 'src/app/pages/gong/gong.component';
 
 const routes: Routes = [
 	{
