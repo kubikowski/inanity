@@ -33,12 +33,12 @@ export class SettingsComponent implements OnInit {
 
 	toggleTheme(theme: ColorTheme, event: Event): void {
 		event.stopPropagation();
-		this.colorsService.toggleTheme(theme);
+		this.colorsService.theme = theme;
 	}
 
 	togglePalette(palette: ColorPalette, event: Event): void {
 		event.stopPropagation();
-		this.colorsService.togglePalette(palette);
+		this.colorsService.palette = palette;
 	}
 
 	toggleDyslexicTextEnabled(): void {

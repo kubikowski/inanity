@@ -20,6 +20,7 @@ export class DyslexicTextService {
 
 	public set isEnabled(isEnabled: boolean) {
 		this._isEnabled = isEnabled;
+
 		localStorage.setItem('dyslexic-text', String(isEnabled));
 	}
 
@@ -29,6 +30,7 @@ export class DyslexicTextService {
 
 	public set amount(amount: number) {
 		this._amount = amount;
+
 		localStorage.setItem('dyslexia-amount', String(amount));
 	}
 }

@@ -20,7 +20,7 @@ describe('ColorsService', () => {
 
 	/** must be encapsulated by a fakeAsync */
 	function setDarkTheme(): void {
-		colorsService.toggleTheme(DarkTheme);
+		colorsService.theme = DarkTheme;
 
 		theme = DarkTheme;
 		palette = palette.getInverse();
@@ -30,7 +30,7 @@ describe('ColorsService', () => {
 
 	/** must be encapsulated by a fakeAsync */
 	function setGreenPalette(): void {
-		colorsService.togglePalette(GreenPalette);
+		colorsService.palette = GreenPalette;
 
 		palette = (theme.themeName === LightTheme.themeName)
 			? GreenPalette : GreenPalette.getInverse();
@@ -47,8 +47,8 @@ describe('ColorsService', () => {
 	});
 
 	afterEach(() => {
-		colorsService.toggleTheme(LightTheme);
-		colorsService.togglePalette(BluePalette);
+		colorsService.theme = LightTheme;
+		colorsService.palette = BluePalette;
 	});
 
 	describe('LocalStorage', () => {
