@@ -1,11 +1,12 @@
-import { Component, Input } from '@angular/core';
-import { NavigationConfig } from '../models/navigation-config.model';
-import { NavigationService } from '../../navigation.service';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { NavigationService } from 'src/app/navigation/navigation.service';
+import { NavigationConfig } from 'src/app/navigation/sidebar/models/navigation-config.model';
 
 @Component({
 	selector: 'sidebar-item',
 	templateUrl: './sidebar-item.component.html',
-	styleUrls: ['./sidebar-item.component.scss']
+	styleUrls: [ './sidebar-item.component.scss' ],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarItemComponent {
 	@Input() config: NavigationConfig;

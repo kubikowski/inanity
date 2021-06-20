@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { MaterialModule } from 'src/app/shared/material.module';
 
-import { ColorsService } from './colors/services/colors.service';
-import { DyslexicTextComponent } from './dyslexic-text/dyslexic-text.component';
-import { DyslexicTextService } from './dyslexic-text/services/dyslexic-text.service';
-import { SvgIconService } from './svg/svg-icon.service';
-import { MaterialModule } from './material.module';
+import { ColorsService } from 'src/app/shared/colors/services/colors.service';
+import { DyslexicTextComponent } from 'src/app/shared/dyslexic-text/dyslexic-text.component';
+import { DyslexicTextService } from 'src/app/shared/dyslexic-text/services/dyslexic-text.service';
+import { SvgIconService } from 'src/app/shared/svg/svg-icon.service';
 
 @NgModule({
 	declarations: [

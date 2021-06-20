@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { DyslexicTextService } from './services/dyslexic-text.service';
-import { SubSink } from 'subsink';
 import { timer } from 'rxjs/internal/observable/timer';
+import { DyslexicTextService } from 'src/app/shared/dyslexic-text/services/dyslexic-text.service';
+import { SubSink } from 'subsink';
 
 @Component({
 	selector: 'dyslexic-text',

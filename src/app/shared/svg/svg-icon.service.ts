@@ -3,7 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class SvgIconService {
 
 	constructor(

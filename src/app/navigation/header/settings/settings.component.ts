@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ColorTheme } from '../../../shared/colors/models/color-themes/color-theme.model';
-import { ColorThemes } from '../../../shared/colors/models/color-themes/color-themes.constant';
-import { ColorPalette } from '../../../shared/colors/models/color-palettes/color-palette.model';
-import { ColorPalettes } from '../../../shared/colors/models/color-palettes/color-palettes.constant';
-import { ColorsService } from '../../../shared/colors/services/colors.service';
-import { DyslexicTextService } from '../../../shared/dyslexic-text/services/dyslexic-text.service';
+import { ColorPalette } from 'src/app/shared/colors/models/color-palettes/color-palette.model';
+import { ColorPalettes } from 'src/app/shared/colors/models/color-palettes/color-palettes.constant';
+import { ColorTheme } from 'src/app/shared/colors/models/color-themes/color-theme.model';
+import { ColorThemes } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
+import { ColorsService } from 'src/app/shared/colors/services/colors.service';
+import { DyslexicTextService } from 'src/app/shared/dyslexic-text/services/dyslexic-text.service';
 
 @Component({
 	selector: 'settings',
@@ -17,7 +17,6 @@ export class SettingsComponent implements OnInit {
 	public readonly colorThemes = ColorThemes;
 	public readonly colorPalettes = ColorPalettes;
 
-	// Dyslexic Text
 	public dyslexicTextEnabled = true;
 	public dyslexiaAmount = 10;
 
@@ -31,21 +30,22 @@ export class SettingsComponent implements OnInit {
 		this.dyslexiaAmount = this.dyslexicTextService.amount;
 	}
 
-	toggleTheme(theme: ColorTheme, event: Event): void {
+	public toggleTheme(theme: ColorTheme, event: Event): void {
 		event.stopPropagation();
 		this.colorsService.theme = theme;
 	}
 
-	togglePalette(palette: ColorPalette, event: Event): void {
+	public togglePalette(palette: ColorPalette, event: Event): void {
 		event.stopPropagation();
 		this.colorsService.palette = palette;
 	}
 
-	toggleDyslexicTextEnabled(): void {
+	public toggleDyslexicTextEnabled(): void {
 		this.dyslexicTextService.isEnabled = this.dyslexicTextEnabled;
 	}
 
-	setDyslexiaAmount(): void {
+	// Todo: this is definitely broken.
+	public setDyslexiaAmount(): void {
 		this.dyslexicTextService.amount = 20 - this.dyslexiaAmount;
 	}
 }
