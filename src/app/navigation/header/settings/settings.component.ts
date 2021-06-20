@@ -9,20 +9,17 @@ import { DyslexicTextService } from '../../../shared/dyslexic-text/services/dysl
 @Component({
 	selector: 'settings',
 	templateUrl: './settings.component.html',
-	styleUrls: ['./settings.component.scss'],
+	styleUrls: [ './settings.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent implements OnInit {
 
-	// Color Themes
-	readonly colorThemes = ColorThemes;
-
-	// Color Palettes
-	readonly colorPalettes = ColorPalettes;
+	public readonly colorThemes = ColorThemes;
+	public readonly colorPalettes = ColorPalettes;
 
 	// Dyslexic Text
-	dyslexicTextEnabled = true;
-	dyslexiaAmount = 10;
+	public dyslexicTextEnabled = true;
+	public dyslexiaAmount = 10;
 
 	constructor(
 		private colorsService: ColorsService,
@@ -30,8 +27,8 @@ export class SettingsComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this.dyslexicTextEnabled = this.dyslexicTextService.getEnabled();
-		this.dyslexiaAmount = this.dyslexicTextService.getAmount();
+		this.dyslexicTextEnabled = this.dyslexicTextService.isEnabled;
+		this.dyslexiaAmount = this.dyslexicTextService.amount;
 	}
 
 	toggleTheme(theme: ColorTheme, event: Event): void {
@@ -45,10 +42,10 @@ export class SettingsComponent implements OnInit {
 	}
 
 	toggleDyslexicTextEnabled(): void {
-		this.dyslexicTextService.setEnabled(this.dyslexicTextEnabled);
+		this.dyslexicTextService.isEnabled = this.dyslexicTextEnabled;
 	}
 
 	setDyslexiaAmount(): void {
-		this.dyslexicTextService.setAmount(20 - this.dyslexiaAmount);
+		this.dyslexicTextService.amount = 20 - this.dyslexiaAmount;
 	}
 }

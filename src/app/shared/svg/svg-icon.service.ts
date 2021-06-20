@@ -16,11 +16,12 @@ export class SvgIconService {
 	private registerIcons(): void {
 		const iconKeys = Object.values(SvgIcon);
 
-		iconKeys.forEach(key => {
-			this.matIconRegistry.addSvgIcon(
-				key,
-				this.domSanitizer.bypassSecurityTrustResourceUrl(`assets/svg/${key}.svg`),
-			);
-		});
+		iconKeys.forEach(iconKey => this.registerIcon(iconKey));
+	}
+
+	private registerIcon(iconKey: string): void {
+		const iconUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(`assets/svg/${ iconKey }.svg`);
+
+		this.matIconRegistry.addSvgIcon(iconKey, iconUrl);
 	}
 }
