@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HeaderComponent } from 'src/app/navigation/header/header.component';
 import { SettingsComponent } from 'src/app/navigation/header/settings/settings.component';
-import { NavigationService } from 'src/app/navigation/navigation.service';
 import { SidebarItemComponent } from 'src/app/navigation/sidebar/sidebar-item/sidebar-item.component';
 import { SidebarComponent } from 'src/app/navigation/sidebar/sidebar.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -24,9 +23,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 		SidebarComponent,
 		SidebarItemComponent,
 	],
-	providers: [
-		NavigationService,
-	]
 })
 export class NavigationModule {
 }

@@ -7,7 +7,7 @@ import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 	selector: 'app-sidebar',
 	templateUrl: './sidebar.component.html',
 	styleUrls: [ './sidebar.component.scss' ],
-	// changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
 	public readonly navigationConfigs: ReadonlyArray<NavigationConfig>;

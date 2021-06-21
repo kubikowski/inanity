@@ -4,7 +4,7 @@ import { ColorPalettes } from 'src/app/shared/colors/models/color-palettes/color
 import { ColorTheme } from 'src/app/shared/colors/models/color-themes/color-theme.model';
 import { ColorThemes } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
 import { ColorsService } from 'src/app/shared/colors/services/colors.service';
-import { DyslexicTextService } from 'src/app/shared/dyslexic-text/services/dyslexic-text.service';
+import { DyslexicTextService } from 'src/app/shared/dyslexic-text/dyslexic-text.service';
 
 @Component({
 	selector: 'settings',
@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.dyslexicTextEnabled = this.dyslexicTextService.isEnabled;
-		this.dyslexiaAmount = this.dyslexicTextService.amount;
+		this.dyslexiaAmount = 20 - this.dyslexicTextService.amount;
 	}
 
 	public toggleTheme(theme: ColorTheme, event: Event): void {
@@ -44,7 +44,6 @@ export class SettingsComponent implements OnInit {
 		this.dyslexicTextService.isEnabled = this.dyslexicTextEnabled;
 	}
 
-	// Todo: this is definitely broken.
 	public setDyslexiaAmount(): void {
 		this.dyslexicTextService.amount = 20 - this.dyslexiaAmount;
 	}

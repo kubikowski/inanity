@@ -1,34 +1,45 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { timer } from 'rxjs/internal/observable/timer';
-import { DyslexicTextService } from 'src/app/shared/dyslexic-text/services/dyslexic-text.service';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { Observed } from 'src/app/shared/decorators/observed.decorator';
+import { DyslexicTextService } from 'src/app/shared/dyslexic-text/dyslexic-text.service';
 import { SubSink } from 'subsink';
 
 @Component({
 	selector: 'dyslexic-text',
-	templateUrl: './dyslexic-text.component.html',
-	styleUrls: [ './dyslexic-text.component.scss' ],
-	// changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '{{ outputText$ | async }}',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DyslexicTextComponent implements OnInit, OnDestroy {
-	subscriptions = new SubSink();
+	private readonly subscriptions = new SubSink();
 
 	@Input() text = '';
-	@Input() prefix = '';
-	@Input() suffix = '';
 
-	defaultWords: string[];
-	dyslexicWordCombinations: string[][] = [];
+	private inputWords: string[];
+	private inputDelimiters: string[];
 
-	outputWords: string[];
+	private dyslexicWordCombinations: string[][] = [];
+
+	@Observed() private outputWords: string[] = [];
+	private readonly outputWords$: Observable<string[]>;
+	public readonly outputText$: Observable<string>;
 
 	constructor(private dyslexicTextService: DyslexicTextService) {
+		this.outputText$ = this.outputWords$
+			.pipe(
+				map(outputWords => outputWords
+					.map((outputWord, index) => outputWord + (this.inputDelimiters[index] ?? ''))
+					.join('')),
+				distinctUntilChanged(),
+			);
 	}
 
 	ngOnInit(): void {
 		this.setDefaultWords();
 		this.generateDyslexicWords();
 
-		for (let wordIndex = 0; wordIndex < this.defaultWords.length; wordIndex++) {
+		for (let wordIndex = 0; wordIndex < this.inputWords.length; wordIndex++) {
 			this.subscriptions.sink = timer(2000, 1500 + Math.floor(Math.random() * 1000))
 				.subscribe(() => this.getNewDyslexicWordByIndex(wordIndex));
 		}
@@ -39,16 +50,20 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 	}
 
 	private setDefaultWords(): void {
-		this.defaultWords = this.text
-			.split(' ')
-			.map(searchTerm => searchTerm.trim())
-			.filter(searchTerm => searchTerm.length !== 0);
+		const splitText = this.text
+			.split(/\b/);
 
-		this.outputWords = [...this.defaultWords];
+		this.inputWords = splitText
+			.filter((ignored, index) => index % 2 === 0);
+
+		this.inputDelimiters = splitText
+			.filter((ignored, index) => index % 2 === 1);
+
+		this.outputWords = [ ...this.inputWords ];
 	}
 
 	private generateDyslexicWords(): void {
-		this.defaultWords.forEach(word => {
+		this.inputWords.forEach(word => {
 			this.dyslexicWordCombinations.push(this.generateDyslexicWordCombinations(word));
 		});
 	}
@@ -84,9 +99,11 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 	}
 
 	private getNewDyslexicWordByIndex(wordIndex: number): void {
-		this.outputWords[wordIndex] = this.dyslexicTextService.isEnabled
-			? this.getNewDyslexicWord(this.defaultWords[wordIndex], this.dyslexicWordCombinations[wordIndex])
-			: this.defaultWords[wordIndex];
+		const outputWord = this.dyslexicTextService.isEnabled
+			? this.getNewDyslexicWord(this.inputWords[wordIndex], this.dyslexicWordCombinations[wordIndex])
+			: this.inputWords[wordIndex];
+
+		this.outputWords = [ ...this.outputWords.slice(0, wordIndex), outputWord, ...this.outputWords.slice(wordIndex + 1) ];
 	}
 
 	private getNewDyslexicWord(defaultWord: string, dyslexicWordCombinations: string[]): string {
