@@ -17,6 +17,7 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 
 	private inputWords: string[];
 	private delimiters: string[];
+	private startsWithWord: boolean;
 
 	@Observed() private outputWords: string[] = [];
 	private readonly outputWords$: Observable<string[]>;
@@ -49,6 +50,7 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 
 		this.inputWords = splitText.filter((text) => /\b/.test(text));
 		this.delimiters = splitText.filter((text) => !/\b/.test(text));
+		this.startsWithWord = /\b/.test(splitText[0]);
 
 		this.outputWords = [ ...this.inputWords ];
 	}
@@ -65,10 +67,8 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	}
 
 	private getOutputText(outputWords: string[]): string {
-		const startsWithWord = outputWords.length > this.delimiters.length;
-
-		const primaryArray = startsWithWord ? outputWords : this.delimiters;
-		const secondaryArray = startsWithWord ? this.delimiters : outputWords;
+		const primaryArray = this.startsWithWord ? outputWords : this.delimiters;
+		const secondaryArray = this.startsWithWord ? this.delimiters : outputWords;
 
 		return primaryArray
 			.map((primaryString, index) => primaryString + (secondaryArray[index] ?? ''))
