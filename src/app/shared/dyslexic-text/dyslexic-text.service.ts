@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DyslexicWord } from 'src/app/shared/dyslexic-text/models/dyslexic-word.model';
 
 @Injectable({ providedIn: 'root' })
 export class DyslexicTextService {
@@ -59,31 +60,8 @@ export class DyslexicTextService {
 	}
 
 	private static generateCombinations(word: string): readonly string[] {
-		const combinations: string[] = [];
+		const dyslexicWord = DyslexicWord.from(word);
 
-		if (word.length > 3) {
-			const orderedLetters: string[] = word.split('');
-
-			const firstLetter = orderedLetters.shift();
-			const lastLetter = orderedLetters.pop();
-			const middleLetters = orderedLetters.join('');
-
-			// Number of steps to move each letter
-			for (let distance = 0; distance < middleLetters.length - 1; distance++) {
-
-				// Moving Letter Index
-				for (let letterIndex = 0; letterIndex < middleLetters.length - distance - 1; letterIndex++) {
-					const startingLetters = middleLetters.slice(0, letterIndex);
-					const forwardLetter = middleLetters.charAt(letterIndex);
-					const backwardLetters = middleLetters.slice(letterIndex + 1, letterIndex + distance + 2);
-					const endingLetters = middleLetters.slice(letterIndex + distance + 2);
-
-					const result = firstLetter + startingLetters + backwardLetters + forwardLetter + endingLetters + lastLetter;
-					combinations.push(result);
-				}
-			}
-		}
-
-		return combinations;
+		return dyslexicWord.combinations;
 	}
 }
