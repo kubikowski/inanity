@@ -6,7 +6,7 @@ import { BaseColorTheme } from 'src/app/shared/colors/models/color-themes/base-c
 import { ColorTheme } from 'src/app/shared/colors/models/color-themes/color-theme.model';
 import { ColorThemes, LightTheme } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ColorsService {
 
 	private _theme: ColorTheme;
