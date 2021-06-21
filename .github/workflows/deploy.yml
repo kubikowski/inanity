@@ -69,7 +69,7 @@ jobs:
             -   name: Install dependencies
                 run: npm install
             -   name: Build Production
-                run: npm run build -- --prod
+                run: npm run build -- --configuration=production
             -   name: Deploy to Firebase Hosting
                 uses: w9jds/firebase-action@master
                 with:
