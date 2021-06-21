@@ -11,8 +11,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 	],
 	imports: [
 		CommonModule,
-		SharedModule,
 		SnekModule,
+		SharedModule,
 	],
 	exports: [
 		PageNotFoundRoutingModule,

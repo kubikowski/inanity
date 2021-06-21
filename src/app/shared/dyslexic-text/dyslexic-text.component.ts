@@ -10,16 +10,14 @@ import { SubSink } from 'subsink';
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DyslexicTextComponent implements OnInit, OnDestroy {
-	subscriptions = new SubSink();
+	private readonly subscriptions = new SubSink();
 
 	@Input() text = '';
-	@Input() prefix = '';
-	@Input() suffix = '';
 
-	defaultWords: string[];
-	dyslexicWordCombinations: string[][] = [];
+	private defaultWords: string[];
+	private dyslexicWordCombinations: string[][] = [];
 
-	outputWords: string[];
+	public outputWords: string[];
 
 	constructor(private dyslexicTextService: DyslexicTextService) {
 	}
@@ -40,11 +38,9 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 
 	private setDefaultWords(): void {
 		this.defaultWords = this.text
-			.split(' ')
-			.map(searchTerm => searchTerm.trim())
-			.filter(searchTerm => searchTerm.length !== 0);
+			.split(/\b/);
 
-		this.outputWords = [...this.defaultWords];
+		this.outputWords = [ ...this.defaultWords ];
 	}
 
 	private generateDyslexicWords(): void {
