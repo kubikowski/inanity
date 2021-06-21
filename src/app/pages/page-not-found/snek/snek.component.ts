@@ -12,7 +12,7 @@ import { Observed } from 'src/app/shared/decorators/observed.decorator';
 	selector: 'snek',
 	templateUrl: './snek.component.html',
 	styleUrls: [ './snek.component.scss' ],
-	// changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SnekComponent implements OnDestroy {
 	private subscription: Subscription;

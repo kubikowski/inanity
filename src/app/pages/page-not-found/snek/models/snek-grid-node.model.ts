@@ -1,21 +1,24 @@
+import { Observable } from 'rxjs';
 import { SnekDirection } from 'src/app/pages/page-not-found/snek/models/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/pages/page-not-found/snek/models/snek-grid-node-type.enum';
 import { SnekNode } from 'src/app/pages/page-not-found/snek/models/snek-node.model';
+import { Observed } from 'src/app/shared/decorators/observed.decorator';
 
 export class SnekGridNode {
-	private _type: SnekGridNodeType;
-	private _snekNode: SnekNode;
+	@Observed() public type = SnekGridNodeType.BLANK;
+	@Observed() private snekNode: SnekNode = null;
 	private _up: SnekGridNode;
 	private _down: SnekGridNode;
 	private _left: SnekGridNode;
 	private _right: SnekGridNode;
 
+	public readonly type$: Observable<SnekGridNodeType>;
+	public readonly snekNode$: Observable<SnekNode>;
+
 	private constructor(
 		private _width: number,
 		private _height: number,
-	) {
-		this._type = SnekGridNodeType.BLANK;
-	}
+	) { }
 
 	public static new(width: number, height: number): SnekGridNode {
 		return new SnekGridNode(width, height);
@@ -29,18 +32,18 @@ export class SnekGridNode {
 	}
 
 	public attachSnekNode(snekNode: SnekNode): void {
-		this._snekNode = snekNode;
-		this._type = SnekGridNodeType.SNEK;
+		this.snekNode = snekNode;
+		this.type = SnekGridNodeType.SNEK;
 	}
 
 	public attachFud(): void {
 		this.detachSnekNode();
-		this._type = SnekGridNodeType.FUD;
+		this.type = SnekGridNodeType.FUD;
 	}
 
 	public detachSnekNode(): void {
-		this._snekNode = null;
-		this._type = SnekGridNodeType.BLANK;
+		this.snekNode = null;
+		this.type = SnekGridNodeType.BLANK;
 	}
 
 	public next(direction: SnekDirection): SnekGridNode {
@@ -56,14 +59,6 @@ export class SnekGridNode {
 			default:
 				console.error('you are going nowhere:', direction);
 		}
-	}
-
-	get type(): SnekGridNodeType {
-		return this._type;
-	}
-
-	get snekNode(): SnekNode {
-		return this._snekNode;
 	}
 
 	get width(): number {
