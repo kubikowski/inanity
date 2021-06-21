@@ -17,7 +17,7 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	@Input() text = '';
 
 	private inputWords: string[];
-	private inputDelimiters: string[];
+	private delimiters: string[];
 
 	@Observed() private outputWords: string[] = [];
 	private readonly outputWords$: Observable<string[]>;
@@ -26,9 +26,7 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	constructor(private dyslexicTextService: DyslexicTextService) {
 		this.outputText$ = this.outputWords$
 			.pipe(
-				map(outputWords => outputWords
-					.map((outputWord, index) => outputWord + (this.inputDelimiters[index] ?? ''))
-					.join('')),
+				map(outputWords => this.getOutputText(outputWords)),
 				distinctUntilChanged(),
 			);
 	}
@@ -47,14 +45,10 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	}
 
 	private setDefaultWords(): void {
-		const splitText = this.text
-			.split(/\b/);
+		const splitText = this.text.split(/\b/);
 
-		this.inputWords = splitText
-			.filter((ignored, index) => index % 2 === 0);
-
-		this.inputDelimiters = splitText
-			.filter((ignored, index) => index % 2 === 1);
+		this.inputWords = splitText.filter((text) => /\b/.test(text));
+		this.delimiters = splitText.filter((text) => !/\b/.test(text));
 
 		this.outputWords = [ ...this.inputWords ];
 	}
@@ -64,5 +58,16 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 		const outputWord = this.dyslexicTextService.getDyslexicWord(inputWord);
 
 		this.outputWords = [ ...this.outputWords.slice(0, wordIndex), outputWord, ...this.outputWords.slice(wordIndex + 1) ];
+	}
+
+	private getOutputText(outputWords: string[]): string {
+		const startsWithWord = outputWords.length > this.delimiters.length;
+
+		const primaryArray = startsWithWord ? outputWords : this.delimiters;
+		const secondaryArray = startsWithWord ? this.delimiters : outputWords;
+
+		return primaryArray
+			.map((primaryString, index) => primaryString + (secondaryArray[index] ?? ''))
+			.join('');
 	}
 }
