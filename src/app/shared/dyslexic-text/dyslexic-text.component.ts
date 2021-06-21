@@ -32,11 +32,12 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	}
 
 	ngOnChanges(): void {
+		this.subscriptions.unsubscribe();
 		this.setDefaultWords();
 
 		for (let wordIndex = 0; wordIndex < this.inputWords.length; wordIndex++) {
 			this.subscriptions.sink = timer(2000, 1500 + Math.floor(Math.random() * 1000))
-				.subscribe(() => this.getNewDyslexicWordByIndex(wordIndex));
+				.subscribe(() => this.setDyslexicWordByIndex(wordIndex));
 		}
 	}
 
@@ -53,11 +54,15 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 		this.outputWords = [ ...this.inputWords ];
 	}
 
-	private getNewDyslexicWordByIndex(wordIndex: number): void {
+	private setDyslexicWordByIndex(wordIndex: number): void {
 		const inputWord = this.inputWords[wordIndex];
 		const outputWord = this.dyslexicTextService.getDyslexicWord(inputWord);
 
-		this.outputWords = [ ...this.outputWords.slice(0, wordIndex), outputWord, ...this.outputWords.slice(wordIndex + 1) ];
+		this.outputWords = [
+			...this.outputWords.slice(0, wordIndex),
+			outputWord,
+			...this.outputWords.slice(wordIndex + 1),
+		];
 	}
 
 	private getOutputText(outputWords: string[]): string {
