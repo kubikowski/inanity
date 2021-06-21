@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { timer } from 'rxjs/internal/observable/timer';
 import { distinctUntilChanged, map } from 'rxjs/operators';
@@ -11,15 +11,13 @@ import { SubSink } from 'subsink';
 	template: '{{ outputText$ | async }}',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DyslexicTextComponent implements OnInit, OnDestroy {
+export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	private readonly subscriptions = new SubSink();
 
 	@Input() text = '';
 
 	private inputWords: string[];
 	private inputDelimiters: string[];
-
-	private dyslexicWordCombinations: string[][] = [];
 
 	@Observed() private outputWords: string[] = [];
 	private readonly outputWords$: Observable<string[]>;
@@ -35,9 +33,8 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 			);
 	}
 
-	ngOnInit(): void {
+	ngOnChanges(): void {
 		this.setDefaultWords();
-		this.generateDyslexicWords();
 
 		for (let wordIndex = 0; wordIndex < this.inputWords.length; wordIndex++) {
 			this.subscriptions.sink = timer(2000, 1500 + Math.floor(Math.random() * 1000))
@@ -62,52 +59,10 @@ export class DyslexicTextComponent implements OnInit, OnDestroy {
 		this.outputWords = [ ...this.inputWords ];
 	}
 
-	private generateDyslexicWords(): void {
-		this.inputWords.forEach(word => {
-			this.dyslexicWordCombinations.push(this.generateDyslexicWordCombinations(word));
-		});
-	}
-
-	private generateDyslexicWordCombinations(word: string): string[] {
-		const dyslexicWordCombinations: string[] = [];
-
-		if (word.length > 3) {
-			const orderedLetters: string[] = word.split('');
-
-			const firstLetter = orderedLetters.shift();
-			const lastLetter = orderedLetters.pop();
-
-			const remainingLetters = orderedLetters.join('');
-
-			// Number of steps to move each letter
-			for (let distance = 0; distance < remainingLetters.length - 1; distance++) {
-
-				// Moving Letter Index
-				for (let letterIndex = 0; letterIndex < remainingLetters.length - distance - 1; letterIndex++) {
-					const startingLetters = remainingLetters.slice(0, letterIndex);
-					const forwardLetter = remainingLetters.charAt(letterIndex);
-					const backwardLetters = remainingLetters.slice(letterIndex + 1, letterIndex + distance + 2);
-					const endingLetters = remainingLetters.slice(letterIndex + distance + 2);
-
-					const result = firstLetter + startingLetters + backwardLetters + forwardLetter + endingLetters + lastLetter;
-					dyslexicWordCombinations.push(result);
-				}
-			}
-		}
-
-		return dyslexicWordCombinations;
-	}
-
 	private getNewDyslexicWordByIndex(wordIndex: number): void {
-		const outputWord = this.dyslexicTextService.isEnabled
-			? this.getNewDyslexicWord(this.inputWords[wordIndex], this.dyslexicWordCombinations[wordIndex])
-			: this.inputWords[wordIndex];
+		const inputWord = this.inputWords[wordIndex];
+		const outputWord = this.dyslexicTextService.getDyslexicWord(inputWord);
 
 		this.outputWords = [ ...this.outputWords.slice(0, wordIndex), outputWord, ...this.outputWords.slice(wordIndex + 1) ];
-	}
-
-	private getNewDyslexicWord(defaultWord: string, dyslexicWordCombinations: string[]): string {
-		const combinationIndex = Math.floor(Math.random() * dyslexicWordCombinations.length * this.dyslexicTextService.amount);
-		return dyslexicWordCombinations[combinationIndex] ?? defaultWord;
 	}
 }
