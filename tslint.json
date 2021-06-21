@@ -42,15 +42,7 @@
       false
     ],
     "member-ordering": [
-      true,
-      {
-        "order": [
-          "static-field",
-          "instance-field",
-          "static-method",
-          "instance-method"
-        ]
-      }
+      false
     ],
     "no-console": [
       true,
