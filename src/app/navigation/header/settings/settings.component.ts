@@ -4,7 +4,7 @@ import { ColorPalettes } from 'src/app/shared/colors/models/color-palettes/color
 import { ColorTheme } from 'src/app/shared/colors/models/color-themes/color-theme.model';
 import { ColorThemes } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
 import { ColorsService } from 'src/app/shared/colors/services/colors.service';
-import { DyslexicTextService } from 'src/app/shared/dyslexic-text/services/dyslexic-text.service';
+import { DyslexicTextService } from 'src/app/shared/dyslexic-text/dyslexic-text.service';
 
 @Component({
 	selector: 'settings',

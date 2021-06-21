@@ -3,13 +3,12 @@ import { Observable } from 'rxjs';
 import { timer } from 'rxjs/internal/observable/timer';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
-import { DyslexicTextService } from 'src/app/shared/dyslexic-text/services/dyslexic-text.service';
+import { DyslexicTextService } from 'src/app/shared/dyslexic-text/dyslexic-text.service';
 import { SubSink } from 'subsink';
 
 @Component({
 	selector: 'dyslexic-text',
-	templateUrl: './dyslexic-text.component.html',
-	styleUrls: [ './dyslexic-text.component.scss' ],
+	template: '{{ outputText$ | async }}',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DyslexicTextComponent implements OnInit, OnDestroy {
