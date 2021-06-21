@@ -6,3 +6,5 @@ updates:
       interval: "daily"
       time: "08:00"
       timezone: "America/New_York"
+    labels:
+      - "type: Dependencies :arrow_up:"
