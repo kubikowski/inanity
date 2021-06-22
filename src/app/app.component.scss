@@ -2,18 +2,18 @@
 	display: flex;
 	flex-flow: column nowrap;
 
-	mat-sidenav-container {
+	.mat-sidenav-container {
 		color: var(--theme-color-contrast);
 		background-color: var(--theme-color-lightest);
 		background-image: linear-gradient(to top, var(--theme-color-background), transparent);
 
-		mat-sidenav {
+		.mat-sidenav {
 			width: 17.5rem;
 		}
 	}
 }
 
-:host, mat-sidenav-container, mat-sidenav-content {
+:host, .mat-sidenav-container, .mat-sidenav-content {
 	height: 100%;
 	width: 100%;
 	overflow: hidden;

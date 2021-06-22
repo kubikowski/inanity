@@ -1,4 +1,4 @@
-mat-card {
+.mat-card {
 	margin: 3rem;
 	min-width: 300px;
 	max-height: calc(100% - 12.5rem);
@@ -6,7 +6,7 @@ mat-card {
 	flex-grow: 1;
 	overflow: hidden auto;
 
-	mat-card-header {
+	.mat-card-header {
 		height: 0;
 		position: -webkit-sticky; /* Safari */
 		position: sticky;
