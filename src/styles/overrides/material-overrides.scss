@@ -4,3 +4,24 @@
 		margin: 0 .5rem;
 	}
 }
+
+.mat-accordion {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+mat-expansion-panel.mat-expansion-panel {
+	display: flex;
+	flex-flow: column nowrap;
+	min-height: 3em;
+
+	.mat-expansion-panel-header {
+		min-height: 3em;
+		font-weight: 600;
+	}
+
+	.mat-expansion-panel-content {
+		overflow: hidden auto;
+		max-height: 100%;
+	}
+}

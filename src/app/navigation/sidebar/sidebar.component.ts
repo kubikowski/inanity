@@ -27,7 +27,7 @@ export class SidebarComponent {
 		return [
 			NavigationConfig.from('About', SvgIcon.WHEEL, 'about'),
 			NavigationConfig.from('Gong', SvgIcon.GONG, 'gong'),
-			NavigationConfig.from('404', SvgIcon.ONI, 'get-got'),
+			NavigationConfig.from('Malbolge', SvgIcon.ONI, 'malbolge'),
 		];
 	}
 }
