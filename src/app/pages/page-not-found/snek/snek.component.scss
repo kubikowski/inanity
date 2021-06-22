@@ -2,7 +2,7 @@
 	> .snek-grid {
 		display: flex;
 		flex-flow: column nowrap;
-		border: solid 2px var(--theme-color-disabled);
+		border: solid 2px var(--disabled-background-color);
 		border-radius: 5px;
 		overflow: hidden;
 
@@ -12,17 +12,17 @@
 
 			&:nth-child(2n) > .snek-grid-node:nth-child(2n),
 			&:nth-child(2n + 1) > .snek-grid-node:nth-child(2n + 1) {
-				background-color: var(--theme-color-accent);
+				background-color: var(--accent-background-color);
 			}
 
 			> .snek-grid-node {
-				background-color: var(--theme-color-background);
+				background-color: var(--default-background-color);
 				width: 20px;
 				height: 20px;
 				position: relative;
 
 				> .snek {
-					background-color: var(--theme-color-default);
+					background-color: var(--default-theme-color);
 					width: 16px;
 					height: 20px;
 					border-radius: 0 0 50% 50%;
@@ -53,7 +53,7 @@
 				}
 
 				> .fud {
-					background-color: var(--theme-color-darkest);
+					background-color: var(--darkest-theme-color);
 					width: 16px;
 					height: 16px;
 					border-radius: 25%;

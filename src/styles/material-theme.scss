@@ -32,7 +32,7 @@ $custom-typography: mat.define-typography-config(
  * These methods mimic the result of the mat-palette function
  * The resulting palettes, however, contain css member values as defined in colors.scss
  */
-@function inanity-palette($default, $lighter, $darker, $contrast: var(--theme-color-contrast)) {
+@function inanity-palette($default, $lighter, $darker, $contrast: var(--dark-text-color)) {
 	$palette: (
 		default: $default,
 		lighter: $lighter,
@@ -48,16 +48,16 @@ $custom-typography: mat.define-typography-config(
 
 // Inanity Primary Theme (based off of the Theme Colors)
 $inanity-primary-theme: inanity-palette(
-	var(--theme-color-default),
-	var(--theme-color-light),
-	var(--theme-color-dark),
+	var(--default-theme-color),
+	var(--light-theme-color),
+	var(--dark-theme-color),
 );
 
 // Inanity Accent Theme (based off the App & Tile Background Colors)
 $inanity-accent-theme: inanity-palette(
-	var(--theme-color-background),
-	var(--theme-color-accent),
-	var(--theme-color-disabled),
+	var(--default-background-color),
+	var(--accent-background-color),
+	var(--disabled-background-color),
 );
 
 // Inanity Warning Theme (currently the Angular Material default)

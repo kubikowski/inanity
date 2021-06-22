@@ -7,19 +7,21 @@ export class BaseColorPalette {
 		public readonly colorDark: string,
 		public readonly colorDarker: string,
 		public readonly colorDarkest: string,
-		public readonly colorSelected: string,
-		public readonly colorSelectedOpaque: string,
+
+		public readonly colorSelectedBackground: string,
+		public readonly colorSelectedBackgroundTransparent: string,
 	) { }
 
 	public static readonly CssPaletteVariables = new BaseColorPalette(
-		'--theme-color-lightest',
-		'--theme-color-lighter',
-		'--theme-color-light',
-		'--theme-color-default',
-		'--theme-color-dark',
-		'--theme-color-darker',
-		'--theme-color-darkest',
-		'--theme-color-selected',
-		'--theme-color-selected-opaque',
+		'--lightest-theme-color',
+		'--lighter-theme-color',
+		'--light-theme-color',
+		'--default-theme-color',
+		'--dark-theme-color',
+		'--darker-theme-color',
+		'--darkest-theme-color',
+
+		'--selected-background-color',
+		'--selected-background-color-transparent',
 	);
 }
