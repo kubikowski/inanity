@@ -1,4 +1,4 @@
-import { TenTrit, trit } from '../data-structures/ternary.model';
+import { TenTrit, trit } from 'src/app/pages/malbolge/models/data-structures/ternary.model';
 import { CircularArray } from 'src/app/shared/data-structures/circular-array/circular-array.proxy';
 
 const CrazyLookup: ReadonlyArray<ReadonlyArray<trit>> = [
@@ -13,9 +13,11 @@ export function crazy(trit1: trit, trit2: trit): trit {
 
 export function tenCrazy(tentrit1: TenTrit, tentrit2: TenTrit): TenTrit {
 	const tentrit = TenTrit.default();
+
 	for (let i = 0; i < 10; i++) {
 		tentrit[i] = crazy(tentrit1[i], tentrit2[i]);
 	}
+
 	return tentrit;
 }
 
@@ -24,6 +26,7 @@ export function getCrazyLoop(tentrit1: TenTrit, tentrit2: TenTrit): Array<TenTri
 	const second = tenCrazy(tentrit2, first);
 
 	const loop = CircularArray(Array.from({ 0: first, 1: second, length: 12 }));
+
 	for (let index = 2; index < loop.length; index++) {
 		loop[index] = tenCrazy(loop[index - 2], loop[index - 1]);
 	}

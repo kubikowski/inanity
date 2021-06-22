@@ -7,7 +7,7 @@
 	width: 100%;
 	overflow: auto;
 
-	mat-card {
+	.mat-card {
 		min-width: 300px;
 		flex-grow: 1;
 	}
@@ -16,7 +16,7 @@
 		flex-basis: 15%;
 	}
 
-	mat-icon {
+	.mat-icon {
 		order: -1;
 		height: 2.5rem;
 		width: 2.5rem;

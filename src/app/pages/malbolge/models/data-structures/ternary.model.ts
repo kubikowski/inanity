@@ -29,23 +29,23 @@ export class TenTrit extends Array<trit> {
 		return Object.create(TenTrit.prototype);
 	}
 
-	static default(): TenTrit {
+	public static default(): TenTrit {
 		return this.fromValue(0);
 	}
 
-	static fromValue(value: number): TenTrit {
+	public static fromValue(value: number): TenTrit {
 		const tentrit = TenTrit.create();
 		tentrit.value = value;
 		return tentrit;
 	}
 
-	static fromTenTrit(original: TenTrit | TT): TenTrit {
+	public static fromTenTrit(original: TenTrit | TT): TenTrit {
 		const tentrit = TenTrit.create();
 		tentrit.setFromTenTrit(original);
 		return tentrit;
 	}
 
-	get value(): number {
+	public get value(): number {
 		let value = 0;
 		for (let i = 0; i < 10; i++) {
 			value = value + (this[i] * Math.pow(3, 9 - i));
@@ -53,20 +53,20 @@ export class TenTrit extends Array<trit> {
 		return value;
 	}
 
-	set value(value: number) {
+	public set value(value: number) {
 		for (let i = 0; i < 10; i++) {
 			this[9 - i] = value % 3 as trit;
 			value = Math.floor(value / 3);
 		}
 	}
 
-	setFromTenTrit(tentrit: TenTrit | TT): void {
+	public setFromTenTrit(tentrit: TenTrit | TT): void {
 		for (let i = 0; i < 10; i++) {
 			this[i] = tentrit[i];
 		}
 	}
 
-	rotateRight(): void {
+	public rotateRight(): void {
 		const temp = this[9];
 		for (let i = 9; i > 0; i--) {
 			this[i] = this[i - 1];
@@ -74,7 +74,7 @@ export class TenTrit extends Array<trit> {
 		this[0] = temp;
 	}
 
-	equals(tentrit: TenTrit | TT): boolean {
+	public equals(tentrit: TenTrit | TT): boolean {
 		for (let i = 0; i < 10; i++) {
 			if (this[i] !== tentrit[i]) {
 				return false;

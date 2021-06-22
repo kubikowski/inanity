@@ -1,11 +1,11 @@
 :host {
-	> mat-card {
+	> .mat-card {
 		max-width: 800px;
-		margin: 5rem auto;
+		margin: 3rem auto;
 
 		> .mat-card-header {
 
-			> mat-icon {
+			> .mat-icon {
 				order: -1;
 				height: 2.5rem;
 				width: 2.5rem;
@@ -17,7 +17,7 @@
 			}
 		}
 
-		> mat-card-content {
+		> .mat-card-content {
 			display: flex;
 			flex-flow: column nowrap;
 			align-items: center;

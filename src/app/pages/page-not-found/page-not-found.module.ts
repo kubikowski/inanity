@@ -16,7 +16,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 	],
 	exports: [
 		PageNotFoundRoutingModule,
-		PageNotFoundComponent,
 	],
 })
 export class PageNotFoundModule {
