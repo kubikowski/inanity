@@ -1,5 +1,5 @@
 mat-card {
-	margin: 5rem;
+	margin: 3rem;
 	min-width: 300px;
 	max-height: calc(100% - 12.5rem);
 	min-height: 100px;
@@ -17,5 +17,9 @@ mat-card {
 			order: -1;
 			font-size: 2rem;
 		}
+	}
+
+	.mat-card-image {
+		margin: -1em;
 	}
 }

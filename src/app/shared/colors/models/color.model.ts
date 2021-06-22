@@ -11,10 +11,10 @@ export class InvalidColorString extends Error {
 export class Color {
 	/** Constructs Immutable Color Object */
 	private constructor(
-		public readonly red: number,
-		public readonly green: number,
-		public readonly blue: number,
-		public readonly alpha: number,
+		private readonly red: number,
+		private readonly green: number,
+		private readonly blue: number,
+		private readonly alpha: number,
 	) { }
 
 	/* region Static Factory Methods */

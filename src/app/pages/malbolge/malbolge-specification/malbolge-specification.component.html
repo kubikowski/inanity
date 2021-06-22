@@ -1,0 +1,234 @@
+<mat-card class="malbolge-specification">
+	<mat-card-content>
+		<mat-accordion class="example-headers-align">
+
+			<mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						Malboge Specification
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<mat-divider></mat-divider>
+				<p>
+					I hereby relinquish any and all copyright on this language,
+					documentation, and interpreter; Malbolge is officially public domain.
+				</p>
+				<mat-divider [inset]="true"></mat-divider>
+				<p>Malbolge</p>
+				<p>'98, Ben Olmstead</p>
+			</mat-expansion-panel>
+
+			<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						Introduction
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<mat-divider></mat-divider>
+				<p>
+					It was noticed that, in the field of esoteric programming languages,
+					there was a particular and surprising void: no programming language
+					known to the author was specifically designed to be difficult to program
+					in.
+				</p>
+				<p>
+					Certainly, there were languages which were difficult to write in, and
+					far more were difficult to read (see: Befunge, False, TWDL, RUBE...).
+					But even INTERCAL and BrainF***, the two kings of mental torment, were
+					designed with other goals: INTERCAL to have nothing in common with any
+					major programming language, and BrainF*** to be a very tiny, yet still
+					Turing-complete, language.
+				</p>
+				<p>
+					INTERCAL's constructs are certainly tortuous, but they are all too
+					flexible; you can, for instance, quite easily assign any number to a
+					variable with a single statement.
+				</p>
+				<p>
+					BrainF*** is lacking the flexibility which is INTERCAL's major weakness,
+					but it fails in that its constructs are far, far too intuitive.
+					Certainly, there are only 8 instructions, none of which take any
+					arguments--but it is quite easy to determine how to use those
+					instructions.  Subtract 8 from the current number?  With a simple
+					'--------' you are done!  This kind of simple answer was unacceptable to
+					the author.
+				</p>
+				<p>
+					Hence the author created Malbolge.  It borrows from machine, BrainF***,
+					and tri-INTERCAL, but put together in a unique way.  It was designed to
+					be difficult to use, and so it is.  It is designed to be
+					incomprehensible, and so it is.
+				</p>
+				<p>
+					So far, no Malbolge programs have been written.  Thus, we cannot give an
+					example.
+				</p>
+				<p>
+					"Malbolge" is the name of Dante's Eighth Circle of Hell, in which
+					practitioners of deception (seducers, flatterers, simonists, thieves,
+					hypocrites, and so on) spend eternity.
+				</p>
+			</mat-expansion-panel>
+
+			<mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						Environment
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<mat-divider></mat-divider>
+				<p>
+					The environment is, roughly, that of a primitive trinary CPU.  Both code
+					and data share the same space (the machine's memory segment), and there
+					are three registers.  Machine words are ten trits (trinary digits) wide,
+					giving a maximum possible value of 59048 (all numbers are unsigned).
+					Memory space is exactly 59049 words long.
+				</p>
+				<p>
+					The three registers are A, C, and D.  A is the accumulator, used for
+					data manipulation.  A is implicitly set to the value written by all
+					write operations on memory.  (Standard I/O, a distinctly non-chip-level
+					feature, is done directly with the A register.)
+				</p>
+				<p>
+					C is the code pointer.  It is automatically incremented after each
+					instruction, and points the instruction being executed.
+				</p>
+				<p>
+					D is the data pointer.  It, too, is automatically incremented after each
+					instruction, but the location it points to is used for the data
+					manipulation commands.
+				</p>
+				<p>All registers begin with the value 0.</p>
+				<p>
+					When the interpreter loads the program, it ignores all whitespace.  If
+					it encounters anything that is not one of an instruction and is not
+					whitespace, it will give an error, otherwise it loads the file, one non-
+					whitespace character per cell, into memory.  Cells which are not
+					initialized are set by performing op on the previous two cells
+					repetitively.
+				</p>
+			</mat-expansion-panel>
+
+			<mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						Commands
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<mat-divider></mat-divider>
+				<p>
+					When the interpreter tries to execute a program, it first checks to
+					see if the current instruction is a graphical ASCII character (33
+					through 126).  If it is, it subtracts 33 from it, adds C to it, mods it
+					by 94, then uses the result as an index into the following table of 94
+					characters:
+				</p>
+				<p>
+					<code>+b(29e*j1VMEKLyC})8&m#~W&#62;qxdRp0wkrUo[D7,XTcA"lI</code><br>
+					<code>.v%&#123;gJh4G\-=O@5`_3i&#60;?Z';FNQuY]szf$!BS/|t:Pn6^Ha</code><br>
+				</p>
+				<p>
+					It then checks it against the characters listed below, and performs an
+					appropriate action.
+				</p>
+				<p>
+					If the result is not one of the characters listed below, it is treated
+					as a nop.  If the original character is not graphic ASCII, the program
+					is immediately ended.
+				</p>
+				<p>
+					When the interpreter parses the input file, it checks each non-
+					whitespace character with the process above.  If any result is not one
+					of the eight characters below, the file will be rejected.
+				</p>
+				<p>
+					After the instruction is executed, 33 is subtracted from the instruction
+					at C, and the result is used as an index in the table below.  The new
+					character is then placed at C, and then C is incremented.
+				</p>
+				<p>
+					<code>5z]&gqtyfr$(we4&#123;WP)H-Zn,[%\3dL+Q;>U!pJS72FhOA1C</code><br>
+					<code>B6v^=I_0/8|jsb9m<.TVac`uY*MK'X~xDl}REokN:#?G"i@</code><br>
+				</p>
+				<section>
+					<h2>j 0x106</h2>
+					<p>
+						sets the data pointer to the value in the cell pointed to by the
+						current data pointer.
+					</p>
+				</section>
+				<section>
+					<h2>i 0x105</h2>
+					<p>
+						sets the code pointer to the value in the cell pointed to be the
+						current data pointer.
+					</p>
+				</section>
+				<section>
+					<h2>* 0x42</h2>
+					<p>
+						rotates the trinary value of the cell pointed to by D to the right 1.
+						The least significant trit becomes the most significant trit, and all
+						others move one position to the left.
+					</p>
+				</section>
+				<section>
+					<h2>p 0x112</h2>
+					<p>
+						performs a tritwise "op" on the value pointed to by D with the
+						contents of A.  The op (don't look for pattern, it's not there) is:
+					</p>
+				</section>
+				<p>
+					<code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;A&nbsp;trit:&nbsp;</code><br>
+					<code>________|_0__1__2_</code><br>
+					<code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;|&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;</code><br>
+					<code>&nbsp;&nbsp;*D&nbsp;&nbsp;1&nbsp;|&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;2&nbsp;</code><br>
+					<code>&nbsp;trit&nbsp;2&nbsp;|&nbsp;2&nbsp;&nbsp;2&nbsp;&nbsp;1&nbsp;</code><br>
+				</p>
+				<p>Di-trits:</p>
+				<p>
+					<code>__|_00_01_02_10_11_12_20_21_22</code><br>
+					<code>00| 11 10 10 01 00 00 01 00 00</code><br>
+					<code>01| 11 10 12 01 00 02 01 00 02</code><br>
+					<code>02| 12 12 11 02 02 01 02 02 01</code><br>
+					<code>10| 11 10 10 01 00 00 21 20 20</code><br>
+					<code>11| 11 10 12 01 00 02 21 20 22</code><br>
+					<code>12| 12 12 11 02 02 01 22 22 21</code><br>
+					<code>20| 21 20 20 21 20 20 11 10 10</code><br>
+					<code>21| 21 20 22 21 20 22 11 10 12</code><br>
+					<code>22| 22 22 21 22 22 21 12 12 11</code><br>
+				</p>
+				<section>
+					<h2>< 0x60</h2>
+					<p>
+						reads an ASCII value from the stdin and converts it to Trinary, then
+						stores it in A.  10 (line feed) is considered 'newline', and
+						2222222222t (59048 dec.) is EOF.
+					</p>
+				</section>
+				<section>
+					<h2>/ 0x47</h2>
+					<p>
+						converts the value in A to ASCII and writes it to stdout.  Writing
+						10 is a newline.
+					</p>
+				</section>
+				<section>
+					<h2>v 0x118</h2>
+					<p>
+						indicates a full stop for the machine.
+					</p>
+				</section>
+				<section>
+					<h2>o 0x111</h2>
+					<p>
+						does nothing, except increment C and D, as all other instructions do.
+					</p>
+				</section>
+			</mat-expansion-panel>
+
+		</mat-accordion>
+	</mat-card-content>
+</mat-card>
