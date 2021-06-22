@@ -3,4 +3,17 @@
 	flex-flow: column nowrap;
 	height: 100%;
 	overflow: hidden auto;
+
+	.mat-toolbar {
+		justify-content: space-between;
+
+		> span {
+			color: var(--default-text-color);
+			font-weight: lighter;
+			line-height: 2.5rem;
+			background-color: var(--hover-background-color);
+			border-radius: 0.5rem;
+			padding: 0 0.75rem;
+		}
+	}
 }
