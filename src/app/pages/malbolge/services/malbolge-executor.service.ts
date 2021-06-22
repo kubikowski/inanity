@@ -11,7 +11,7 @@ import { ReadonlyCircularArray } from 'src/app/shared/data-structures/circular-a
  * @param d - data pointer, automatically incremented after each instruction,
  * 			  the location it points to is used for the data manipulation commands.
  */
-@Injectable({ providedIn: 'any' })
+@Injectable()
 export class MalbolgeExecutorService {
 
 	public vm: ReadonlyArray<TenTrit> = ReadonlyCircularArray(Array.from({ length: MaxTenTrit }, () => TenTrit.default()));

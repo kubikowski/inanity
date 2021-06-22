@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
 	selector: 'malbolge-specification',
 	templateUrl: './malbolge-specification.component.html',
-	styleUrls: [ './malbolge-specification.component.scss', './../../page.component.scss'  ]
+	styleUrls: [ './malbolge-specification.component.scss', './../../page.component.scss'  ],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MalbolgeSpecificationComponent implements OnInit {
+export class MalbolgeSpecificationComponent {
 
-	step = 1;
+	public step = 1;
 
 	constructor() {
 	}
 
-	ngOnInit(): void {
-	}
-
-	setStep(index: number): void {
+	public setStep(index: number): void {
 		this.step = index;
 	}
 }

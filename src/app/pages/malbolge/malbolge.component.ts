@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { MalbolgeExecutorService } from './services/malbolge-executor.service';
-import { SvgIcon } from '../../shared/svg/svg-icon.enum';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MalbolgeExecutorService } from 'src/app/pages/malbolge/services/malbolge-executor.service';
+import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 
 @Component({
 	selector: 'malbolge',
 	templateUrl: './malbolge.component.html',
 	styleUrls: [ './malbolge.component.scss', './../page.component.scss' ],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ MalbolgeExecutorService ],
 })
-export class MalbolgeComponent implements OnInit {
+export class MalbolgeComponent {
+	public readonly OniIcon = SvgIcon.ONI;
 
-	readonly OniIcon = SvgIcon.ONI;
-
-	constructor(private executor: MalbolgeExecutorService) {
-	}
-
-	ngOnInit(): void {
+	constructor(
+		private executor: MalbolgeExecutorService,
+	) {
 		this.executor.loadProgram('(=<`#9]~6ZY32Vx/4Rs+0No-&Jk)"Fh}|Bcy?`=*z]Kw%oG4UUS0/@-ejc(:\'8dc');
 
 		// console.log(this.executor);

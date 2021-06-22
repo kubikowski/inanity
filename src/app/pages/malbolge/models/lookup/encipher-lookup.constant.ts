@@ -1,4 +1,4 @@
-const EncipherLookup: ReadonlyArray<number> = [
+const EncipherLookup = [
 	57, 109, 60, 46, 84, 86, 97, 99, 96, 117,
 	89, 42, 77, 75, 39, 88, 126, 120, 68, 108,
 	125, 82, 69, 111, 107, 78, 58, 35, 63, 71,
@@ -9,7 +9,7 @@ const EncipherLookup: ReadonlyArray<number> = [
 	74, 83, 55, 50, 70, 104, 79, 65, 49, 67,
 	66, 54, 118, 94, 61, 73, 95, 48, 47, 56,
 	124, 106, 115, 98
-];
+] as const;
 
 export function encipher(input: number): number {
 	return EncipherLookup[input % 94];
