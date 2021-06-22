@@ -4,16 +4,17 @@ html, body {
 }
 
 body {
+	color: var(--default-text-color);
 	margin: 0;
 }
 
 
 a {
-	color: var(--theme-color-default);
+	color: var(--default-theme-color);
 	text-decoration: none;
 
 	&:hover {
-		color: var(--theme-color-darker);
+		color: var(--darker-theme-color);
 	}
 }
 

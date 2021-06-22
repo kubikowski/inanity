@@ -19,6 +19,7 @@ export class ColorPalette extends BaseColorPalette {
 		public readonly theme = LightTheme,
 	) {
 		super(
+			/* Palette Colors */
 			lightestColor.toString(),
 			lighterColor.toString(),
 			lightColor.toString(),
@@ -27,8 +28,9 @@ export class ColorPalette extends BaseColorPalette {
 			darkerColor.toString(),
 			darkestColor.toString(),
 
-			defaultColor.withAlpha(0.25).toString(),
-			defaultColor.withAlpha(0.25).imposeOn(theme.backgroundColor).toString(),
+			/* Selected Background Colors */
+			defaultColor.withAlpha(0.15).imposeOn(theme.defaultBackgroundColor).toString(),
+			defaultColor.withAlpha(0.15).toString(),
 		);
 	}
 

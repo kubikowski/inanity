@@ -19,7 +19,7 @@
 <mat-menu #themes="matMenu">
 	<button mat-menu-item *ngFor="let colorTheme of colorThemes"
 			(click)="toggleTheme(colorTheme, $event)">
-		<mat-icon [style.color]="colorTheme.colorBackground">stars</mat-icon>
+		<mat-icon [style.color]="colorTheme.colorDefaultBackground">stars</mat-icon>
 		{{ colorTheme.displayName }}
 	</button>
 </mat-menu>
