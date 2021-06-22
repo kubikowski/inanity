@@ -5,12 +5,6 @@
 	}
 }
 
-body.light-theme, body.dark-theme {
-	mat-card.mat-card {
-		background-image: linear-gradient(to top, var(--theme-color-selected), transparent);
-	}
-}
-
 .mat-accordion {
 	display: flex;
 	flex-flow: column nowrap;

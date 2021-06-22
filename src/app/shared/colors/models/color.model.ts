@@ -1,5 +1,5 @@
 import * as ColorName from 'color-name';
-import { clamp } from '../../functions/clamp/clamp.function';
+import { clamp } from 'src/app/shared/functions/clamp/clamp.function';
 
 export class InvalidColorString extends Error {
 	constructor(message?: string) {

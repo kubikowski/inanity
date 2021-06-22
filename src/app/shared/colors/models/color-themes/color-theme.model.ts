@@ -1,5 +1,5 @@
-import { BaseColorTheme } from './base-color-theme.model';
-import { Color } from '../color.model';
+import { BaseColorTheme } from 'src/app/shared/colors/models/color-themes/base-color-theme.model';
+import { Color } from 'src/app/shared/colors/models/color.model';
 
 export class ColorTheme extends BaseColorTheme {
 	public constructor(

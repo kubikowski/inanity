@@ -1,25 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NavigationConfig } from '../models/navigation-config.model';
-import { MatSidenav } from '@angular/material/sidenav';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { NavigationService } from 'src/app/navigation/navigation.service';
+import { NavigationConfig } from 'src/app/navigation/sidebar/models/navigation-config.model';
 
 @Component({
 	selector: 'sidebar-item',
 	templateUrl: './sidebar-item.component.html',
-	styleUrls: ['./sidebar-item.component.scss']
+	styleUrls: [ './sidebar-item.component.scss' ],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SidebarItemComponent implements OnInit {
-
+export class SidebarItemComponent {
 	@Input() config: NavigationConfig;
-	@Input() sidenav: MatSidenav;
 
-	constructor() {
+	constructor(private navigationService: NavigationService) {
 	}
 
-	ngOnInit(): void {
-	}
-
-	toggleSidenav(event: Event): void {
+	public toggleSidenav(event: Event): void {
 		(event.currentTarget as HTMLElement).blur();
-		this.sidenav.toggle();
+		this.navigationService.toggle();
 	}
 }

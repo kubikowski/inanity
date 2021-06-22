@@ -1,23 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NavigationService } from 'src/app/navigation/navigation.service';
 
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.scss']
+	styleUrls: [ './header.component.scss' ],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-	@Input() sidenav: MatSidenav;
-
-	constructor() {
+	constructor(private navigationService: NavigationService) {
 	}
 
-	ngOnInit(): void {
-	}
-
-	toggleSidenav(event: Event): void {
+	public toggleSidenav(event: Event): void {
 		(event.currentTarget as HTMLElement).blur();
-		this.sidenav.toggle();
+		this.navigationService.toggle();
 	}
 }

@@ -17,6 +17,11 @@ a {
 	}
 }
 
-mat-icon {
+.mat-icon {
 	fill: currentColor;
+
+	> svg {
+		width: auto;
+		max-width: 100%;
+	}
 }

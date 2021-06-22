@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
 	{
@@ -15,12 +14,12 @@ const routes: Routes = [
 		loadChildren: () => import('./pages/malbolge/malbolge.module').then(m => m.MalbolgeModule),
 	}, {
 		path: '**',
-		component: PageNotFoundComponent,
-	}
+		loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule),
+	},
 ];
 
 @NgModule({
-	imports: [ RouterModule.forRoot(routes) ],
+	imports: [ RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }) ],
 	exports: [ RouterModule ],
 })
 export class AppRoutingModule {

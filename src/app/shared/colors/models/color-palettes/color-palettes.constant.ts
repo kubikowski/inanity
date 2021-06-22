@@ -1,5 +1,5 @@
-import { ColorPalette } from './color-palette.model';
-import { Color } from '../color.model';
+import { ColorPalette } from 'src/app/shared/colors/models/color-palettes/color-palette.model';
+import { Color } from 'src/app/shared/colors/models/color.model';
 
 export const BluePalette = new ColorPalette(
 	Color.fromString('#51d4ff'),
@@ -37,6 +37,18 @@ export const PinkPalette = new ColorPalette(
 	'Flamingo',
 );
 
+export const RedPalette = new ColorPalette(
+	Color.fromString('#f4364c'), // Pantone 1787 C
+	Color.fromString('#ef3340'), // Pantone Red 032 C
+	Color.fromString('#d50032'), // Pantone 199 C
+	Color.fromString('#cd001a'), // Pantone 3546 C
+	Color.fromString('#b80f0a'),
+	Color.fromString('#9b111e'),
+	Color.fromString('#7e0b02'),
+	'red-palette',
+	'Crimson',
+);
+
 export const OrangePalette = new ColorPalette(
 	Color.fromString('#ffe808'),
 	Color.fromString('#ffcc00'),
@@ -65,6 +77,7 @@ export const ColorPalettes = [
 	BluePalette,
 	GreenPalette,
 	PinkPalette,
+	RedPalette,
 	OrangePalette,
 	TanPalette,
 ] as const;
