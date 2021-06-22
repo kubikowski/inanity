@@ -14,7 +14,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 	],
 	exports: [
 		GongRoutingModule,
-		GongComponent,
 	],
 })
 export class GongModule {
