@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
+import { ExternalSvgIcon } from 'src/app/shared/svg/external-svg-icon.enum';
+import { InternalSvgIcon } from 'src/app/shared/svg/internal-svg-icon.enum';
 
 @Injectable({ providedIn: 'root' })
 export class SvgIconService {
@@ -10,18 +11,29 @@ export class SvgIconService {
 		private matIconRegistry: MatIconRegistry,
 		private domSanitizer: DomSanitizer,
 	) {
-		this.registerIcons();
+		this.registerInternalIcons();
+		this.registerExternalIcons();
 	}
 
-	private registerIcons(): void {
-		const iconKeys = Object.values(SvgIcon);
+	private registerInternalIcons(): void {
+		const iconEntries = Object.entries(InternalSvgIcon);
 
-		iconKeys.forEach(iconKey => this.registerIcon(iconKey));
+		iconEntries.forEach(([ iconKey, iconLocation ]) => {
+			const iconUrl = `assets/svg/${ iconLocation }.svg`;
+
+			this.registerIcon(iconKey, iconUrl);
+		});
 	}
 
-	private registerIcon(iconKey: string): void {
-		const iconUrl = `assets/svg/${ iconKey }.svg`;
+	private registerExternalIcons(): void {
+		const iconEntries = Object.entries(ExternalSvgIcon);
 
+		iconEntries.forEach(([ iconKey, iconUrl ]) => {
+			this.registerIcon(iconKey, iconUrl);
+		});
+	}
+
+	private registerIcon(iconKey: string, iconUrl: string): void {
 		const safeResourceUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(iconUrl);
 
 		this.matIconRegistry.addSvgIcon(iconKey, safeResourceUrl);
