@@ -7,7 +7,7 @@
 	.mat-toolbar {
 		justify-content: space-between;
 
-		> span {
+		> .title-wrapper {
 			color: var(--default-text-color);
 			font-weight: lighter;
 			line-height: 2.5rem;
@@ -15,5 +15,22 @@
 			border-radius: 0.5rem;
 			padding: 0 0.75rem;
 		}
+
+		> .github-wrapper {
+			display: flex;
+			flex-flow: column nowrap;
+			width: 100%;
+			padding-left: 0.5rem;
+			font-weight: lighter;
+			font-size: 1rem;
+			line-height: 1rem;
+		}
+	}
+
+	.nav-items {
+		flex: 1;
+		display: flex;
+		flex-flow: column nowrap;
+		overflow: hidden auto;
 	}
 }
