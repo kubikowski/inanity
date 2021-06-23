@@ -20,8 +20,10 @@ export class SvgIconService {
 	}
 
 	private registerIcon(iconKey: string): void {
-		const iconUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(`assets/svg/${ iconKey }.svg`);
+		const iconUrl = `assets/svg/${ iconKey }.svg`;
 
-		this.matIconRegistry.addSvgIcon(iconKey, iconUrl);
+		const safeResourceUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(iconUrl);
+
+		this.matIconRegistry.addSvgIcon(iconKey, safeResourceUrl);
 	}
 }
