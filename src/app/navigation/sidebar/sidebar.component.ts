@@ -25,7 +25,7 @@ export class SidebarComponent {
 
 	private static get navigationItems(): ReadonlyArray<NavigationConfig> {
 		return [
-			NavigationConfig.from('About', SvgIcon.WHEEL, 'about'),
+			NavigationConfig.from('About', SvgIcon.GOAT, 'about'),
 			NavigationConfig.from('Gong', SvgIcon.GONG, 'gong'),
 			NavigationConfig.from('404', SvgIcon.ONI, 'get-got'),
 		];

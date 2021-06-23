@@ -2,7 +2,7 @@
 	> .snek-grid {
 		display: flex;
 		flex-flow: column nowrap;
-		border: solid 2px var(--disabled-background-color);
+		border: solid 2px var(--border-color);
 		border-radius: 5px;
 		overflow: hidden;
 
