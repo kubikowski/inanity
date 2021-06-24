@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Observable, of, Subscription } from 'rxjs';
-import { timer } from 'rxjs/internal/observable/timer';
+import { Observable, of, Subscription, timer } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { SnekDirection } from 'src/app/pages/not-found/snek/models/snek-direction.enum';
 import { SnekGame } from 'src/app/pages/not-found/snek/models/snek-game.model';
