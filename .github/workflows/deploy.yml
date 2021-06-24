@@ -58,7 +58,7 @@ jobs:
                 with:
                     token: ${{ secrets.GITHUB_TOKEN }}
                     fetch-depth: 2
-            -   run: git checkout HEAD^
+            -   run: git pull
             -   name: Cache Node Modules
                 uses: actions/cache@v2
                 env:
