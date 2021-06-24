@@ -47,6 +47,8 @@ jobs:
                 uses: phips28/gh-action-bump-version@master
                 env:
                     GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
+                with:
+                    tag-prefix: 'v'
     deploy:
         name: Deploy
         needs: bump-version
@@ -55,6 +57,8 @@ jobs:
             -   uses: actions/checkout@v2
                 with:
                     token: ${{ secrets.GITHUB_TOKEN }}
+                    fetch-depth: 2
+            -   run: git checkout HEAD^
             -   name: Cache Node Modules
                 uses: actions/cache@v2
                 env:
