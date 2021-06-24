@@ -47,7 +47,7 @@
 							],
 							"optimization": true,
 							"outputHashing": "all",
-							"namedChunks": false,
+							"namedChunks": true,
 							"extractLicenses": true,
 							"vendorChunk": false,
 							"buildOptimizer": true,

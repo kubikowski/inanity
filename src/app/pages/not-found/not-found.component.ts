@@ -3,11 +3,11 @@ import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 
 @Component({
 	selector: 'app-page-not-found',
-	templateUrl: './page-not-found.component.html',
-	styleUrls: [ './page-not-found.component.scss', './../page.component.scss' ],
+	templateUrl: './not-found.component.html',
+	styleUrls: [ './not-found.component.scss', '../page.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageNotFoundComponent {
+export class NotFoundComponent {
 
 	readonly WheelIcon = SvgIcon.WHEEL;
 

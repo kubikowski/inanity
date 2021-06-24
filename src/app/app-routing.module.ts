@@ -11,7 +11,7 @@ const routes: Routes = [
 		loadChildren: () => import('./pages/gong/gong.module').then(m => m.GongModule),
 	}, {
 		path: '**',
-		loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule),
+		loadChildren: () => import('src/app/pages/not-found/not-found.module').then(m => m.NotFoundModule),
 	},
 ];
 
