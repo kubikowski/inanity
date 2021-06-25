@@ -6,6 +6,7 @@ import { Snek } from 'src/app/pages/not-found/snek/models/snek.model';
 export class SnekGame {
 	private readonly _grid: ReadonlyArray<ReadonlyArray<SnekGridNode>>;
 	private readonly _snek: Snek;
+	private _fudNode: SnekGridNode = null;
 
 	private constructor(
 		private readonly _width: number,
@@ -46,8 +47,8 @@ export class SnekGame {
 	}
 
 	private spawnFud(): void {
-		this.findBlankGridNode()
-			.attachFud();
+		this._fudNode = this.findBlankGridNode();
+		this._fudNode.attachFud();
 	}
 
 	private findBlankGridNode(): SnekGridNode {
@@ -82,5 +83,9 @@ export class SnekGame {
 
 	public get snek(): Snek {
 		return this._snek;
+	}
+
+	public get fudNode(): SnekGridNode {
+		return this._fudNode;
 	}
 }

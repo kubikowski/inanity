@@ -19,5 +19,5 @@
 	<mat-icon>spa</mat-icon>
 	<span>{{ snekGame.snek.length - initialSnekLength }}</span>
 	<mat-icon>star</mat-icon>
-	<span>{{ highScore }}</span>
+	<span>{{ highScore$ | async }}</span>
 </section>

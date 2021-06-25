@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { SnekComponent, SnekResultsComponent } from 'src/app/pages/not-found/snek/snek.component';
+import { SnekResultsComponent } from 'src/app/pages/not-found/snek/snek-results/snek-results.component';
+import { SnekComponent } from 'src/app/pages/not-found/snek/snek.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
 	declarations: [
@@ -12,13 +11,10 @@ import { SnekComponent, SnekResultsComponent } from 'src/app/pages/not-found/sne
 	],
 	imports: [
 		CommonModule,
-		MatButtonModule,
-		MatDialogModule,
-		MatIconModule,
+		SharedModule,
 	],
 	exports: [
 		SnekComponent,
-		SnekResultsComponent,
 	],
 })
 export class SnekModule {

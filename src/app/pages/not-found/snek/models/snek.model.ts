@@ -63,11 +63,15 @@ export class Snek {
 		this._length--;
 	}
 
-	get length(): number {
+	public get head(): SnekNode {
+		return this._head;
+	}
+
+	public get length(): number {
 		return this._length;
 	}
 
-	set direction(direction: SnekDirection) {
+	public set direction(direction: SnekDirection) {
 		if (this._currentDirection !== inverseDirection(direction)) {
 			this._nextDirection = direction;
 		}

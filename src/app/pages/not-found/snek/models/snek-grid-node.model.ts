@@ -16,8 +16,8 @@ export class SnekGridNode {
 	public readonly snekNode$: Observable<SnekNode>;
 
 	private constructor(
-		private _width: number,
-		private _height: number,
+		public readonly width: number,
+		public readonly height: number,
 	) { }
 
 	public static new(width: number, height: number): SnekGridNode {
@@ -59,13 +59,5 @@ export class SnekGridNode {
 			default:
 				console.error('you are going nowhere:', direction);
 		}
-	}
-
-	get width(): number {
-		return this._width;
-	}
-
-	get height(): number {
-		return this._height;
 	}
 }
