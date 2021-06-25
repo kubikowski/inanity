@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
 import { SnekDirection } from 'src/app/pages/not-found/snek/models/snek-direction.enum';
-import { SnekService } from 'src/app/pages/not-found/snek/services/snek.service';
+import { SnekStateService } from 'src/app/pages/not-found/snek/services/snek-state.service';
 
 @Injectable()
 export class SnekInputListenerService implements OnDestroy {
@@ -8,7 +8,7 @@ export class SnekInputListenerService implements OnDestroy {
 
 	constructor(
 		private renderer: Renderer2,
-		private snekService: SnekService,
+		private snekStateService: SnekStateService,
 	) {
 		this.listenerUnsubscribeCallback =
 			this.renderer.listen('document', 'keydown', this.handleKeyDown.bind(this));
@@ -19,7 +19,7 @@ export class SnekInputListenerService implements OnDestroy {
 	}
 
 	private handleKeyDown(keyboardEvent: KeyboardEvent): void {
-		if (this.snekService.paused) {
+		if (this.snekStateService.paused) {
 			return;
 		}
 
@@ -44,7 +44,7 @@ export class SnekInputListenerService implements OnDestroy {
 	}
 
 	private changeDirection(direction: SnekDirection): void {
-		this.snekService.play();
-		this.snekService.snekGame.snek.direction = direction;
+		this.snekStateService.play();
+		this.snekStateService.snekGame.snek.direction = direction;
 	}
 }

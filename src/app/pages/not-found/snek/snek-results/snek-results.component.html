@@ -3,7 +3,7 @@
 </h1>
 
 <h4>
-	{{ newHighScore ? 'New High Score:' : 'you lost with' }}
+	{{ newHighScore ? 'new high score:' : 'you lost with:' }}
 	<b>{{ results.score }}</b>
 	points
 </h4>
@@ -11,6 +11,6 @@
 <footer>
 	<button mat-flat-button color="primary"
 			[mat-dialog-close]>
-		yup
+		{{ newHighScore ? 'noice' : 'woof' }}
 	</button>
 </footer>

@@ -5,7 +5,7 @@ import { SnekGridNodeType } from 'src/app/pages/not-found/snek/models/snek-grid-
 import { SnekDialogService } from 'src/app/pages/not-found/snek/services/snek-dialog.service';
 import { SnekInputListenerService } from 'src/app/pages/not-found/snek/services/snek-input-listener.service';
 import { SnekStatisticsService } from 'src/app/pages/not-found/snek/services/snek-statistics.service';
-import { SnekService } from 'src/app/pages/not-found/snek/services/snek.service';
+import { SnekStateService } from 'src/app/pages/not-found/snek/services/snek-state.service';
 
 @Component({
 	selector: 'snek',
@@ -13,7 +13,7 @@ import { SnekService } from 'src/app/pages/not-found/snek/services/snek.service'
 	styleUrls: [ './snek.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		SnekService,
+		SnekStateService,
 		SnekDialogService,
 		SnekInputListenerService,
 		SnekStatisticsService,
@@ -27,13 +27,13 @@ export class SnekComponent {
 	public readonly initialSnekLength: number;
 
 	constructor(
-		private snekService: SnekService,
+		private snekStateService: SnekStateService,
 		private snekDialogService: SnekDialogService,
 		private snekInputListenerService: SnekInputListenerService,
 		private snekStatisticsService: SnekStatisticsService,
 	) {
-		this.snekGame$ = this.snekService.snekGame$;
-		this.highScore$ = this.snekService.highScore$;
-		this.initialSnekLength = this.snekService.initialSnekLength;
+		this.snekGame$ = this.snekStateService.snekGame$;
+		this.highScore$ = this.snekStateService.highScore$;
+		this.initialSnekLength = this.snekStateService.initialSnekLength;
 	}
 }

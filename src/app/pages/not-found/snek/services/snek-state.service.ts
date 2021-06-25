@@ -3,12 +3,11 @@ import { Observable, of, Subscription, timer } from 'rxjs';
 import { catchError, map, scan, tap } from 'rxjs/operators';
 import { SnekGameState } from 'src/app/pages/not-found/snek/models/snek-game-state.model';
 import { SnekGame } from 'src/app/pages/not-found/snek/models/snek-game.model';
-import { SnekDialogService } from 'src/app/pages/not-found/snek/services/snek-dialog.service';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
 
 @Injectable()
-export class SnekService implements OnDestroy {
-	private subscription: Subscription;
+export class SnekStateService implements OnDestroy {
+	private gameCounterSubscription: Subscription;
 	public playing = false;
 	public paused = false;
 
@@ -25,19 +24,23 @@ export class SnekService implements OnDestroy {
 	@Observed() public gameState: SnekGameState = null;
 	public readonly gameState$: Observable<SnekGameState>;
 
-	constructor(
-		private snekDialogService: SnekDialogService,
-	) {
+	@Observed({ type: 'subject' }) private gameOver: void = null;
+	public readonly gameOver$: Observable<void>;
+
+	constructor() {
 		this.resetSnekGame();
 	}
 
 	ngOnDestroy(): void {
-		this.pause();
+		this.stopGame();
 	}
 
-	private resetSnekGame(): void {
+	public resetSnekGame(): void {
+		SnekStateService.localStorageHighScore = (this.snekGame?.snek.length ?? this.initialSnekLength) - this.initialSnekLength;
+
 		this.snekGame = SnekGame.new(this.width, this.height, this.initialSnekLength);
-		this.highScore = SnekService.localStorageHighScore;
+		this.highScore = SnekStateService.localStorageHighScore;
+
 		this.paused = false;
 	}
 
@@ -48,38 +51,29 @@ export class SnekService implements OnDestroy {
 		}
 	}
 
-	private pause(): void {
-		this.paused = true;
-
-		if (this.playing) {
-			this.playing = false;
-			this.subscription.unsubscribe();
-		}
-	}
-
 	private startGame(): void {
-		this.subscription = timer(100, 100)
+		this.gameCounterSubscription = timer(100, 100)
 			.pipe(
 				tap(() => this.snekGame.snekLegs()),
 				scan((ignoredAcc, ignoredVal, gameCounter) => gameCounter),
 				map(gameCounter => SnekGameState.from(this.snekGame, gameCounter)),
 				tap(gameState => this.gameState = gameState),
 				catchError(error => {
-					this.gameOver();
+					this.stopGame();
 					return of(error.message);
 				}),
 			).subscribe();
 	}
 
-	private gameOver(): void {
-		this.pause();
-		const score = this.snekGame.snek.length - this.initialSnekLength;
+	private stopGame(): void {
+		this.paused = true;
 
-		this.snekDialogService.results(score, this.highScore)
-			.subscribe(() => {
-				SnekService.localStorageHighScore = score;
-				this.resetSnekGame();
-			});
+		if (this.playing) {
+			this.playing = false;
+			this.gameCounterSubscription.unsubscribe();
+
+			this.gameOver = null;
+		}
 	}
 
 	private static get localStorageHighScore(): number {

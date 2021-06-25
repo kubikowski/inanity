@@ -16,4 +16,21 @@ export class SnekGameState {
 
 		return new SnekGameState(headNode, fudNode, snekLength, gameCounter);
 	}
+
+	public toConsoleFormat(): ThisType<SnekGameState> {
+		const { headNode, fudNode, snekLength, gameCounter } = this;
+
+		return {
+			headNode: {
+				width: headNode.width,
+				height: headNode.height,
+			},
+			fudNode: {
+				width: fudNode.width,
+				height: fudNode.height,
+			},
+			snekLength,
+			gameCounter,
+		};
+	}
 }
