@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, scan, tap } from 'rxjs/operators';
+import { SnekGameState } from 'src/app/pages/not-found/snek/models/snek-game-state.model';
 import { SnekGame } from 'src/app/pages/not-found/snek/models/snek-game.model';
 import { SnekDialogService } from 'src/app/pages/not-found/snek/services/snek-dialog.service';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
@@ -21,6 +22,9 @@ export class SnekService implements OnDestroy {
 	@Observed() public highScore: number;
 	public readonly highScore$: Observable<number>;
 
+	@Observed() public gameState: SnekGameState = null;
+	public readonly gameState$: Observable<SnekGameState>;
+
 	constructor(
 		private snekDialogService: SnekDialogService,
 	) {
@@ -31,51 +35,59 @@ export class SnekService implements OnDestroy {
 		this.pause();
 	}
 
-	public resetSnekGame(): void {
+	private resetSnekGame(): void {
 		this.snekGame = SnekGame.new(this.width, this.height, this.initialSnekLength);
-		this.highScore = this.localStorageHighScore;
+		this.highScore = SnekService.localStorageHighScore;
 		this.paused = false;
 	}
 
 	public play(): void {
 		if (!this.playing) {
 			this.playing = true;
-			this.subscription = timer(100, 100)
-				.pipe(tap(() => this.snekGame.snekLegs()),
-					catchError(error => {
-						this.gameOver();
-						return of(error.message);
-					}))
-				.subscribe();
+			this.startGame();
 		}
-	}
-
-	private gameOver(): void {
-		this.pause();
-		const score = this.snekGame.snek.length - this.initialSnekLength;
-
-		const resultsDialog = this.snekDialogService.results(score, this.highScore);
-
-		resultsDialog.subscribe(() => {
-			this.localStorageHighScore = score;
-			this.resetSnekGame();
-		});
 	}
 
 	private pause(): void {
 		this.paused = true;
+
 		if (this.playing) {
 			this.playing = false;
 			this.subscription.unsubscribe();
 		}
 	}
 
-	public get localStorageHighScore(): number {
+	private startGame(): void {
+		this.subscription = timer(100, 100)
+			.pipe(
+				tap(() => this.snekGame.snekLegs()),
+				scan((ignoredAcc, ignoredVal, gameCounter) => gameCounter),
+				map(gameCounter => SnekGameState.from(this.snekGame, gameCounter)),
+				tap(gameState => this.gameState = gameState),
+				catchError(error => {
+					this.gameOver();
+					return of(error.message);
+				}),
+			).subscribe();
+	}
+
+	private gameOver(): void {
+		this.pause();
+		const score = this.snekGame.snek.length - this.initialSnekLength;
+
+		this.snekDialogService.results(score, this.highScore)
+			.subscribe(() => {
+				SnekService.localStorageHighScore = score;
+				this.resetSnekGame();
+			});
+	}
+
+	private static get localStorageHighScore(): number {
 		return JSON.parse(localStorage.getItem('snek-high-score'))
 			?? 0;
 	}
 
-	public set localStorageHighScore(highScore: number) {
+	private static set localStorageHighScore(highScore: number) {
 		if (highScore > this.localStorageHighScore) {
 			localStorage.setItem('snek-high-score', `${ highScore }`);
 		}

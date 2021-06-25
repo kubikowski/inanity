@@ -4,6 +4,7 @@ import { SnekGame } from 'src/app/pages/not-found/snek/models/snek-game.model';
 import { SnekGridNodeType } from 'src/app/pages/not-found/snek/models/snek-grid-node-type.enum';
 import { SnekDialogService } from 'src/app/pages/not-found/snek/services/snek-dialog.service';
 import { SnekInputListenerService } from 'src/app/pages/not-found/snek/services/snek-input-listener.service';
+import { SnekStatisticsService } from 'src/app/pages/not-found/snek/services/snek-statistics.service';
 import { SnekService } from 'src/app/pages/not-found/snek/services/snek.service';
 
 @Component({
@@ -15,6 +16,7 @@ import { SnekService } from 'src/app/pages/not-found/snek/services/snek.service'
 		SnekService,
 		SnekDialogService,
 		SnekInputListenerService,
+		SnekStatisticsService,
 	],
 })
 export class SnekComponent {
@@ -28,6 +30,7 @@ export class SnekComponent {
 		private snekService: SnekService,
 		private snekDialogService: SnekDialogService,
 		private snekInputListenerService: SnekInputListenerService,
+		private snekStatisticsService: SnekStatisticsService,
 	) {
 		this.snekGame$ = this.snekService.snekGame$;
 		this.highScore$ = this.snekService.highScore$;

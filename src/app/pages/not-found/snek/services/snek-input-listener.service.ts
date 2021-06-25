@@ -1,14 +1,21 @@
-import { Injectable, Renderer2 } from '@angular/core';
+import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
 import { SnekDirection } from 'src/app/pages/not-found/snek/models/snek-direction.enum';
 import { SnekService } from 'src/app/pages/not-found/snek/services/snek.service';
 
 @Injectable()
-export class SnekInputListenerService {
+export class SnekInputListenerService implements OnDestroy {
+	private readonly listenerUnsubscribeCallback: () => void;
+
 	constructor(
 		private renderer: Renderer2,
 		private snekService: SnekService,
 	) {
-		this.renderer.listen('document', 'keydown', this.handleKeyDown.bind(this));
+		this.listenerUnsubscribeCallback =
+			this.renderer.listen('document', 'keydown', this.handleKeyDown.bind(this));
+	}
+
+	ngOnDestroy(): void {
+		this.listenerUnsubscribeCallback();
 	}
 
 	private handleKeyDown(keyboardEvent: KeyboardEvent): void {

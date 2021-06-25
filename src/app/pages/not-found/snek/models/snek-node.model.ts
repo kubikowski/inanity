@@ -16,6 +16,7 @@ export class SnekNode {
 		if (this._snekGridNode instanceof SnekGridNode) {
 			throw new Error('out of bounds');
 		}
+
 		this._snekGridNode = snekGridNode;
 		snekGridNode.attachSnekNode(this);
 
@@ -24,6 +25,7 @@ export class SnekNode {
 
 		this._child = child;
 		this._childDirection = inverseDirection(direction);
+
 		if (this._child instanceof SnekNode) {
 			this._child.addHead(this);
 		}
@@ -37,23 +39,23 @@ export class SnekNode {
 		return new SnekNode(snekGridNode, child, direction);
 	}
 
-	get snekGridNode(): SnekGridNode {
+	public get snekGridNode(): SnekGridNode {
 		return this._snekGridNode;
 	}
 
-	get parent(): SnekNode {
+	public get parent(): SnekNode {
 		return this._parent;
 	}
 
-	get child(): SnekNode {
+	public get child(): SnekNode {
 		return this._child;
 	}
 
-	get parentDirection(): SnekDirection {
+	public get parentDirection(): SnekDirection {
 		return this._parentDirection;
 	}
 
-	get childDirection(): SnekDirection {
+	public get childDirection(): SnekDirection {
 		return this._childDirection;
 	}
 
