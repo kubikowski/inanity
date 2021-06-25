@@ -1,12 +1,18 @@
+import { Observable } from 'rxjs';
 import { inverseDirection, SnekDirection } from 'src/app/pages/not-found/snek/models/snek-direction.enum';
 import { SnekGridNode } from 'src/app/pages/not-found/snek/models/snek-grid-node.model';
+import { Observed } from 'src/app/shared/decorators/observed.decorator';
 
 export class SnekNode {
 	private readonly _snekGridNode: SnekGridNode;
 	private _parent: SnekNode;
 	private _child: SnekNode;
-	private _parentDirection: SnekDirection;
-	private _childDirection: SnekDirection;
+
+	@Observed() private parentDirection: SnekDirection = null;
+	@Observed() private childDirection: SnekDirection = null;
+
+	public readonly parentDirection$: Observable<SnekDirection>;
+	public readonly childDirection$: Observable<SnekDirection>;
 
 	private constructor(
 		snekGridNode: SnekGridNode,
@@ -21,10 +27,10 @@ export class SnekNode {
 		snekGridNode.attachSnekNode(this);
 
 		this._parent = null;
-		this._parentDirection = null;
+		this.parentDirection = null;
 
 		this._child = child;
-		this._childDirection = inverseDirection(direction);
+		this.childDirection = inverseDirection(direction);
 
 		if (this._child instanceof SnekNode) {
 			this._child.addHead(this);
@@ -51,21 +57,13 @@ export class SnekNode {
 		return this._child;
 	}
 
-	public get parentDirection(): SnekDirection {
-		return this._parentDirection;
-	}
-
-	public get childDirection(): SnekDirection {
-		return this._childDirection;
-	}
-
 	public addHead(head: SnekNode): void {
 		if (this._parent instanceof SnekNode) {
 			throw new Error('hydra');
 		}
 
 		this._parent = head;
-		this._parentDirection = inverseDirection(head._childDirection);
+		this.parentDirection = inverseDirection(head.childDirection);
 	}
 
 	public removeTail(): void {
@@ -74,6 +72,6 @@ export class SnekNode {
 		}
 
 		this._child = null;
-		this._childDirection = null;
+		this.childDirection = null;
 	}
 }

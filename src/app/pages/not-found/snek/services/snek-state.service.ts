@@ -4,10 +4,14 @@ import { catchError, map, scan, tap } from 'rxjs/operators';
 import { SnekGameState } from 'src/app/pages/not-found/snek/models/snek-game-state.model';
 import { SnekGame } from 'src/app/pages/not-found/snek/models/snek-game.model';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
+import { notNullFilter } from 'src/app/shared/functions/rxjs/not-null-filter.function';
+import { SubSink } from 'subsink';
 
 @Injectable()
 export class SnekStateService implements OnDestroy {
+	private readonly subscriptions = new SubSink();
 	private gameCounterSubscription: Subscription;
+
 	public playing = false;
 	public paused = false;
 
@@ -17,6 +21,9 @@ export class SnekStateService implements OnDestroy {
 
 	@Observed() public snekGame: SnekGame;
 	public readonly snekGame$: Observable<SnekGame>;
+
+	@Observed() public score: number;
+	public readonly score$: Observable<number>;
 
 	@Observed() public highScore: number;
 	public readonly highScore$: Observable<number>;
@@ -29,6 +36,8 @@ export class SnekStateService implements OnDestroy {
 
 	constructor() {
 		this.resetSnekGame();
+
+		this.initializeScore();
 	}
 
 	ngOnDestroy(): void {
@@ -36,9 +45,11 @@ export class SnekStateService implements OnDestroy {
 	}
 
 	public resetSnekGame(): void {
-		SnekStateService.localStorageHighScore = (this.snekGame?.snek.length ?? this.initialSnekLength) - this.initialSnekLength;
+		SnekStateService.localStorageHighScore = this.score ?? 0;
 
 		this.snekGame = SnekGame.new(this.width, this.height, this.initialSnekLength);
+
+		this.score = 0;
 		this.highScore = SnekStateService.localStorageHighScore;
 
 		this.paused = false;
@@ -74,6 +85,14 @@ export class SnekStateService implements OnDestroy {
 
 			this.gameOver = null;
 		}
+	}
+
+	private initializeScore(): void {
+		this.subscriptions.sink = this.gameState$
+			.pipe(
+				notNullFilter(),
+				map(gameState => gameState.snekLength - this.initialSnekLength),
+			).subscribe(score => this.score = score);
 	}
 
 	private static get localStorageHighScore(): number {

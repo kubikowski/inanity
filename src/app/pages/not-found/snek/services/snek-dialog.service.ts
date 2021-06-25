@@ -17,7 +17,7 @@ export class SnekDialogService {
 	}
 
 	private openResultsDialog(): void {
-		const score = this.snekStateService.snekGame.snek.length - this.snekStateService.initialSnekLength;
+		const score = this.snekStateService.score;
 		const highScore = this.snekStateService.highScore;
 
 		const dialogRef = this.dialog.open(

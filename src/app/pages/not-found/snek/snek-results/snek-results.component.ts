@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-	selector: 'app-snek-results',
+	selector: 'snek-results',
 	templateUrl: './snek-results.component.html',
 	styleUrls: [ './snek-results.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
