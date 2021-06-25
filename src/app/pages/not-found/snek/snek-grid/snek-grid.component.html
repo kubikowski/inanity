@@ -1,0 +1,10 @@
+<ng-container *ngIf="snekGame$ | async as snekGame">
+
+	<div class="snek-grid-row"
+		 *ngFor="let snekGridRow of snekGame.grid">
+
+		<snek-grid-node *ngFor="let snekGridNode of snekGridRow"
+						[snekGridNode]="snekGridNode">
+		</snek-grid-node>
+	</div>
+</ng-container>

@@ -1,0 +1,49 @@
+:host {
+	background-color: var(--default-background-color);
+	width: 20px;
+	height: 20px;
+	position: relative;
+
+	> .snek {
+		background-color: var(--default-theme-color);
+		width: 16px;
+		height: 20px;
+		border-radius: 0 0 50% 50%;
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		&.up, &.down, &.left, &.right {
+			display: block;
+		}
+
+		&.up {
+			margin-top: -2px;
+			margin-left: 2px;
+		}
+
+		&.right {
+			transform: rotate(90deg);
+			margin-left: 4px;
+		}
+
+		&.down {
+			transform: rotate(180deg);
+			margin-top: 2px;
+			margin-left: 2px;
+		}
+
+		&.left {
+			transform: rotate(270deg);
+		}
+	}
+
+	> .fud {
+		background-color: var(--darkest-theme-color);
+		width: 16px;
+		height: 16px;
+		border-radius: 25%;
+		margin: 2px;
+	}
+}
