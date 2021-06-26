@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
-import { catchError, map, scan, tap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, map, scan, tap } from 'rxjs/operators';
 import { SnekGameState } from 'src/app/pages/not-found/snek/models/snek-game-state.model';
 import { SnekGame } from 'src/app/pages/not-found/snek/models/snek-game.model';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
@@ -92,6 +92,7 @@ export class SnekStateService implements OnDestroy {
 			.pipe(
 				notNullFilter(),
 				map(gameState => gameState.snekLength - this.initialSnekLength),
+				distinctUntilChanged(),
 			).subscribe(score => this.score = score);
 	}
 
