@@ -1,24 +1,14 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '~@angular/material' as mat;
-@use '~@angular/material/theming' as *;
+@use '~@angular/material/theming';
 
-// Define a custom typography config that overrides the font-family as well as the
-// `headlines` and `body-1` levels.
 $custom-typography: mat.define-typography-config(
-	$font-family: 'Garamond, sans-serif',
-	$headline:	mat.define-typography-level(32px, 48px, 700),
-	$title:		mat.define-typography-level(32px, 48px, 700),
-	$body-1:	mat.define-typography-level(16px, 24px, 500),
+	$font-family: 'Garamond, "EB Garamond", Georgia, serif',
+	$headline:	mat.define-typography-level(32px, 48px, 400),
+	$title:		mat.define-typography-level(32px, 48px, 500),
 );
 
-// Override typography CSS classes (e.g., mat-h1, mat-display-1, mat-typography, etc.).
 @include mat.typography-hierarchy($custom-typography);
-
-// Override typography for a specific Angular Material components.
 @include mat.checkbox-typography($custom-typography);
-
-// Override typography for all Angular Material, including mat-base-typography and all components.
 @include mat.all-component-typographies($custom-typography);
 
 
@@ -46,33 +36,22 @@ $custom-typography: mat.define-typography-config(
 	@return $palette;
 }
 
-// Inanity Primary Theme (based off of the Theme Colors)
 $inanity-primary-theme: inanity-palette(
 	var(--default-theme-color),
 	var(--light-theme-color),
 	var(--dark-theme-color),
 );
-
-// Inanity Accent Theme (based off the App & Tile Background Colors)
 $inanity-accent-theme: inanity-palette(
 	var(--default-background-color),
 	var(--accent-background-color),
 	var(--disabled-background-color),
 );
-
-// Inanity Warning Theme (currently the Angular Material default)
 $inanity-warning-theme: mat.define-palette(mat.$red-palette);
 
 
-// Inanity Light Theme Object (a Sass map containing all of the palettes).
 $inanity-light-theme: mat.define-light-theme($inanity-primary-theme, $inanity-accent-theme, $inanity-warning-theme);
-
-// Inanity Dark Theme Object (a Sass map containing all of the palettes).
 $inanity-dark-theme: mat.define-dark-theme($inanity-primary-theme, $inanity-accent-theme, $inanity-warning-theme);
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 body {
 	&.light-theme {
 		@include mat.all-component-themes($inanity-light-theme);
