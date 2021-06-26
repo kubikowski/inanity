@@ -4,33 +4,22 @@ import { SnekGridNode } from 'src/app/pages/not-found/snek/models/snek-grid-node
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
 
 export class SnekNode {
-	private readonly _snekGridNode: SnekGridNode;
-	private _parent: SnekNode;
-	private _child: SnekNode;
+	private _parent: SnekNode = null;
 
 	@Observed() private parentDirection: SnekDirection = null;
-	@Observed() private childDirection: SnekDirection = null;
+	@Observed() private childDirection: SnekDirection;
 
 	public readonly parentDirection$: Observable<SnekDirection>;
 	public readonly childDirection$: Observable<SnekDirection>;
 
 	private constructor(
-		snekGridNode: SnekGridNode,
-		child: SnekNode,
-		direction: SnekDirection,
+		public readonly snekGridNode: SnekGridNode,
+		private _child: SnekNode,
+		childDirection: SnekDirection,
 	) {
-		if (this._snekGridNode instanceof SnekGridNode) {
-			throw new Error('out of bounds');
-		}
-
-		this._snekGridNode = snekGridNode;
 		snekGridNode.attachSnekNode(this);
 
-		this._parent = null;
-		this.parentDirection = null;
-
-		this._child = child;
-		this.childDirection = inverseDirection(direction);
+		this.childDirection = childDirection;
 
 		if (this._child instanceof SnekNode) {
 			this._child.addHead(this);
@@ -41,12 +30,10 @@ export class SnekNode {
 		return new SnekNode(snekGridNode, null, null);
 	}
 
-	public static newHead(snekGridNode: SnekGridNode, child: SnekNode, direction: SnekDirection): SnekNode {
-		return new SnekNode(snekGridNode, child, direction);
-	}
+	public static newHead(snekGridNode: SnekGridNode, child: SnekNode, nextDirection: SnekDirection): SnekNode {
+		const childDirection = inverseDirection(nextDirection);
 
-	public get snekGridNode(): SnekGridNode {
-		return this._snekGridNode;
+		return new SnekNode(snekGridNode, child, childDirection);
 	}
 
 	public get parent(): SnekNode {
