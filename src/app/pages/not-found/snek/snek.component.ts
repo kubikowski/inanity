@@ -21,11 +21,11 @@ import { SnekStatisticsService } from 'src/app/pages/not-found/snek/services/sne
 export class SnekComponent {
 
 	constructor(
-		private snekDialogService: SnekDialogService,
-		private snekInputListenerService: SnekInputListenerService,
-		private snekSolverService: SnekSolverService,
-		private snekStateService: SnekStateService,
-		private snekStatisticsService: SnekStatisticsService,
+		private readonly snekDialogService: SnekDialogService,
+		private readonly snekInputListenerService: SnekInputListenerService,
+		private readonly snekSolverService: SnekSolverService,
+		private readonly snekStateService: SnekStateService,
+		private readonly snekStatisticsService: SnekStatisticsService,
 	) { }
 
 }

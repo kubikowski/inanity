@@ -11,7 +11,7 @@ export class SnekResultsComponent {
 	public readonly newHighScore: boolean;
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) public results: { score: number, highScore: number },
+		@Inject(MAT_DIALOG_DATA) public readonly results: { score: number, highScore: number },
 	) {
 		this.newHighScore = results.score > results.highScore;
 	}

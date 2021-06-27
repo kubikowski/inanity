@@ -67,7 +67,7 @@ export class SnekStateService implements OnDestroy {
 			.pipe(
 				tap(() => this.snekGame.snekLegs()),
 				scan((ignoredAcc, ignoredVal, gameCounter) => gameCounter),
-				map(gameCounter => SnekGameState.from(this.snekGame, gameCounter)),
+				map(gameCounter => SnekGameState.from(this.snekGame, this.initialSnekLength, gameCounter)),
 				tap(gameState => this.gameState = gameState),
 				catchError(error => {
 					this.stopGame();
@@ -91,7 +91,7 @@ export class SnekStateService implements OnDestroy {
 		this.subscriptions.sink = this.gameState$
 			.pipe(
 				notNullFilter(),
-				map(gameState => gameState.snekLength - this.initialSnekLength),
+				map(gameState => gameState.score),
 				distinctUntilChanged(),
 			).subscribe(score => this.score = score);
 	}

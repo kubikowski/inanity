@@ -13,7 +13,7 @@ export class SnekGridComponent {
 	public readonly snekGame$: Observable<SnekGame>;
 
 	constructor(
-		private snekStateService: SnekStateService,
+		private readonly snekStateService: SnekStateService,
 	) {
 		this.snekGame$ = this.snekStateService.snekGame$;
 	}

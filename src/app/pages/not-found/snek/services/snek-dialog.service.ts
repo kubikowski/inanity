@@ -9,8 +9,8 @@ export class SnekDialogService {
 	private readonly subscriptions = new SubSink();
 
 	constructor(
-		private dialog: MatDialog,
-		private snekStateService: SnekStateService,
+		private readonly dialog: MatDialog,
+		private readonly snekStateService: SnekStateService,
 	) {
 		this.subscriptions.sink = this.snekStateService.gameOver$
 			.subscribe(() => this.openResultsDialog());

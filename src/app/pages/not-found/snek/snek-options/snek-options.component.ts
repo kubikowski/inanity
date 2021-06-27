@@ -21,8 +21,8 @@ export class SnekOptionsComponent {
 	public solverEnabled: FormControl;
 
 	constructor(
-		private snekStateService: SnekStateService,
-		private snekSolverService: SnekSolverService,
+		private readonly snekStateService: SnekStateService,
+		private readonly snekSolverService: SnekSolverService,
 	) {
 		this.score$ = this.snekStateService.score$;
 		this.highScore$ = this.snekStateService.highScore$;
