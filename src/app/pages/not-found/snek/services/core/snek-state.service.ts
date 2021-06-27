@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
 import { catchError, distinctUntilChanged, map, scan, tap } from 'rxjs/operators';
-import { SnekGameState } from 'src/app/pages/not-found/snek/models/snek-game-state.model';
-import { SnekGame } from 'src/app/pages/not-found/snek/models/snek-game.model';
+import { SnekGameState } from 'src/app/pages/not-found/snek/models/state/snek-game-state.model';
+import { SnekGame } from 'src/app/pages/not-found/snek/models/state/snek-game.model';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
 import { notNullFilter } from 'src/app/shared/functions/rxjs/not-null-filter.function';
 import { SubSink } from 'subsink';

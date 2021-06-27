@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
-import { SnekDirection } from 'src/app/pages/not-found/snek/models/snek-direction.enum';
-import { SnekStateService } from 'src/app/pages/not-found/snek/services/snek-state.service';
+import { SnekDirection } from 'src/app/pages/not-found/snek/models/direction/snek-direction.enum';
+import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
 
 @Injectable()
 export class SnekInputListenerService implements OnDestroy {

@@ -1,6 +1,6 @@
-import { SnekDirection } from 'src/app/pages/not-found/snek/models/snek-direction.enum';
-import { SnekGame } from 'src/app/pages/not-found/snek/models/snek-game.model';
-import { SnekGridNode } from 'src/app/pages/not-found/snek/models/snek-grid-node.model';
+import { SnekDirection } from 'src/app/pages/not-found/snek/models/direction/snek-direction.enum';
+import { SnekGame } from 'src/app/pages/not-found/snek/models/state/snek-game.model';
+import { SnekGridNode } from 'src/app/pages/not-found/snek/models/grid/snek-grid-node.model';
 
 export class SnekGameState {
 	private constructor(

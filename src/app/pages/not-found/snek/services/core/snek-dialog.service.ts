@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SnekStateService } from 'src/app/pages/not-found/snek/services/snek-state.service';
-import { SnekResultsComponent } from 'src/app/pages/not-found/snek/snek-results/snek-results.component';
+import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
+import { SnekResultsComponent } from 'src/app/pages/not-found/snek/components/snek-results/snek-results.component';
 import { SubSink } from 'subsink';
 
 @Injectable()

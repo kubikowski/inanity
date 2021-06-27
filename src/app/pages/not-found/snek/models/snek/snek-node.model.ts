@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { inverseDirection, SnekDirection } from 'src/app/pages/not-found/snek/models/snek-direction.enum';
-import { SnekGridNode } from 'src/app/pages/not-found/snek/models/snek-grid-node.model';
+import { inverseDirection, SnekDirection } from 'src/app/pages/not-found/snek/models/direction/snek-direction.enum';
+import { SnekGridNode } from 'src/app/pages/not-found/snek/models/grid/snek-grid-node.model';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
 
 export class SnekNode {

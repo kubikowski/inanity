@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
-import { SnekDirection } from 'src/app/pages/not-found/snek/models/snek-direction.enum';
-import { SnekGridNodeType } from 'src/app/pages/not-found/snek/models/snek-grid-node-type.enum';
-import { SnekNode } from 'src/app/pages/not-found/snek/models/snek-node.model';
+import { SnekDirection } from 'src/app/pages/not-found/snek/models/direction/snek-direction.enum';
+import { SnekGridNodeType } from 'src/app/pages/not-found/snek/models/grid/snek-grid-node-type.enum';
+import { SnekNode } from 'src/app/pages/not-found/snek/models/snek/snek-node.model';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
 
 export class SnekGridNode {

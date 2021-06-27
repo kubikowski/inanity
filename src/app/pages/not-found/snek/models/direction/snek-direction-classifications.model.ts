@@ -1,7 +1,7 @@
-import { inverseDirection, SnekDirection } from 'src/app/pages/not-found/snek/models/snek-direction.enum';
-import { SnekGameState } from 'src/app/pages/not-found/snek/models/snek-game-state.model';
-import { SnekGridNodeType } from 'src/app/pages/not-found/snek/models/snek-grid-node-type.enum';
-import { SnekGridNode } from 'src/app/pages/not-found/snek/models/snek-grid-node.model';
+import { inverseDirection, SnekDirection } from 'src/app/pages/not-found/snek/models/direction/snek-direction.enum';
+import { SnekGameState } from 'src/app/pages/not-found/snek/models/state/snek-game-state.model';
+import { SnekGridNodeType } from 'src/app/pages/not-found/snek/models/grid/snek-grid-node-type.enum';
+import { SnekGridNode } from 'src/app/pages/not-found/snek/models/grid/snek-grid-node.model';
 import { difference } from 'src/app/shared/functions/sets/difference.function';
 
 export class SnekDirectionClassifications {

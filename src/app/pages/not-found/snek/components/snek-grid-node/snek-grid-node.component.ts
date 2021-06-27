@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { SnekGridNodeType } from 'src/app/pages/not-found/snek/models/snek-grid-node-type.enum';
-import { SnekGridNode } from 'src/app/pages/not-found/snek/models/snek-grid-node.model';
+import { SnekGridNodeType } from 'src/app/pages/not-found/snek/models/grid/snek-grid-node-type.enum';
+import { SnekGridNode } from 'src/app/pages/not-found/snek/models/grid/snek-grid-node.model';
 
 @Component({
 	selector: 'snek-grid-node',

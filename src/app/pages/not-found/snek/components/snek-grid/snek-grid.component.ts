@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SnekGame } from 'src/app/pages/not-found/snek/models/snek-game.model';
-import { SnekStateService } from 'src/app/pages/not-found/snek/services/snek-state.service';
+import { SnekGame } from 'src/app/pages/not-found/snek/models/state/snek-game.model';
+import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
 
 @Component({
 	selector: 'snek-grid',

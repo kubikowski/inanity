@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { distinctUntilKeyChanged, map, tap } from 'rxjs/operators';
-import { SnekGameState } from 'src/app/pages/not-found/snek/models/snek-game-state.model';
-import { SnekStateService } from 'src/app/pages/not-found/snek/services/snek-state.service';
+import { SnekGameState } from 'src/app/pages/not-found/snek/models/state/snek-game-state.model';
+import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
 import { notNullFilter } from 'src/app/shared/functions/rxjs/not-null-filter.function';
 import { SubSink } from 'subsink';
 

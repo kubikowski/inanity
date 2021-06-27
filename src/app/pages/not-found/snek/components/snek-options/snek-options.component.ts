@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { SnekSolverService } from 'src/app/pages/not-found/snek/services/snek-solver.service';
-import { SnekStateService } from 'src/app/pages/not-found/snek/services/snek-state.service';
+import { SnekSolverService } from 'src/app/pages/not-found/snek/services/peripheral/snek-solver.service';
+import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
 import { SubSink } from 'subsink';
 
 @Component({
