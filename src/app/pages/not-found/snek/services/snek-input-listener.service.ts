@@ -7,8 +7,8 @@ export class SnekInputListenerService implements OnDestroy {
 	private readonly listenerUnsubscribeCallback: () => void;
 
 	constructor(
-		private renderer: Renderer2,
-		private snekStateService: SnekStateService,
+		private readonly renderer: Renderer2,
+		private readonly snekStateService: SnekStateService,
 	) {
 		this.listenerUnsubscribeCallback =
 			this.renderer.listen('document', 'keydown', this.handleKeyDown.bind(this));

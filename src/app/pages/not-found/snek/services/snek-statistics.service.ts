@@ -10,23 +10,17 @@ import { SubSink } from 'subsink';
 export class SnekStatisticsService {
 	private readonly subscriptions = new SubSink();
 
-	private readonly gameState$: Observable<SnekGameState>;
-	private readonly gameOver$: Observable<void>;
-
 	private gameStateLog: SnekGameState[] = [];
 
 	constructor(
-		private snekStateService: SnekStateService,
+		private readonly snekStateService: SnekStateService,
 	) {
-		this.gameState$ = this.snekStateService.gameState$;
-		this.gameOver$ = this.snekStateService.gameOver$;
-
 		this.logGameState();
 		this.printGameStateLog();
 	}
 
 	private logGameState(): void {
-		this.subscriptions.sink = this.gameState$
+		this.subscriptions.sink = this.snekStateService.gameState$
 			.pipe(
 				notNullFilter(),
 				distinctUntilKeyChanged('score'),
@@ -34,7 +28,7 @@ export class SnekStatisticsService {
 	}
 
 	private printGameStateLog(): void {
-		this.subscriptions.sink = this.gameOver$
+		this.subscriptions.sink = this.snekStateService.gameOver$
 			.pipe(
 				map(() => this.gameStateLog[this.gameStateLog.length - 1].toConsoleFormat()),
 				tap(gameStateLog => console.log(gameStateLog)),

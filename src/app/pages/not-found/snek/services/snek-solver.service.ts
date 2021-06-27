@@ -18,7 +18,7 @@ export class SnekSolverService {
 	public readonly enabled$: Observable<boolean>;
 
 	constructor(
-		private snekStateService: SnekStateService
+		private readonly snekStateService: SnekStateService
 	) {
 		this.gameState$ = this.snekStateService.gameState$;
 
