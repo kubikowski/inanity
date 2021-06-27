@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { SnekResults } from 'src/app/pages/not-found/snek/models/state/snek-results.interface';
 import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
 import { SnekResultsComponent } from 'src/app/pages/not-found/snek/components/snek-results/snek-results.component';
 import { SubSink } from 'subsink';
@@ -13,19 +14,21 @@ export class SnekDialogService {
 		private readonly snekStateService: SnekStateService,
 	) {
 		this.subscriptions.sink = this.snekStateService.gameOver$
-			.subscribe(() => this.openResultsDialog());
+			.subscribe(gameOverMessage => this.openResultsDialog(gameOverMessage));
 	}
 
-	private openResultsDialog(): void {
-		const score = this.snekStateService.score;
-		const highScore = this.snekStateService.highScore;
+	private openResultsDialog(gameOverMessage: string): void {
+		const { score, highScore } = this.snekStateService;
+
+		const data: SnekResults = {
+			score,
+			highScore,
+			gameOverMessage,
+		};
 
 		const dialogRef = this.dialog.open(
 			SnekResultsComponent,
-			{
-				width: '300px',
-				data: { score, highScore },
-			},
+			{ width: '300px', data },
 		);
 
 		dialogRef.afterClosed().subscribe(() => {

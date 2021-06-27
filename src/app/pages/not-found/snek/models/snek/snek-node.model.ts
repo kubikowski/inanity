@@ -55,7 +55,7 @@ export class SnekNode {
 
 	public removeTail(): void {
 		if (!(this._child instanceof SnekNode)) {
-			throw new Error('ouroboros');
+			throw new Error('if i had a tail');
 		}
 
 		this._child = null;

@@ -8,9 +8,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
 	imports: [
@@ -23,9 +24,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 		MatIconModule,
 		MatMenuModule,
 		MatSidenavModule,
-		MatSliderModule,
 		MatSlideToggleModule,
+		MatSliderModule,
 		MatToolbarModule,
+		MatTooltipModule,
 	],
 	exports: [
 		MatButtonModule,
@@ -36,9 +38,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 		MatIconModule,
 		MatMenuModule,
 		MatSidenavModule,
-		MatSliderModule,
 		MatSlideToggleModule,
+		MatSliderModule,
 		MatToolbarModule,
+		MatTooltipModule,
 	],
 })
 export class MaterialModule {

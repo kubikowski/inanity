@@ -1,16 +1,16 @@
 <h1>
-	{{ newHighScore ? 'Congratulations!' : 'woof' }}
+	{{ isNewHighScore ? 'Congratulations!' : 'woof' }}
 </h1>
 
-<h4>
-	{{ newHighScore ? 'new high score:' : 'you lost with:' }}
+<h3>
+	{{ isNewHighScore ? 'new high score:' : 'you lost with:' }}
 	<b>{{ results.score }}</b>
 	points
-</h4>
+</h3>
 
 <footer>
 	<button mat-flat-button color="primary"
 			[mat-dialog-close]>
-		{{ newHighScore ? 'noice' : 'woof' }}
+		{{ isNewHighScore ? 'noice' : results.gameOverMessage }}
 	</button>
 </footer>

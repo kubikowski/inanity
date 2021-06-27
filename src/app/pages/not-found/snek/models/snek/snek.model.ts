@@ -28,12 +28,12 @@ export class Snek {
 		return new Snek(length, tailGridNode);
 	}
 
-	public legs(): boolean {
+	public move(): boolean {
 		this._currentDirection = this._nextDirection;
 		const nextSnekGridNode = this._head.snekGridNode.next(this._nextDirection);
 
 		if (!(nextSnekGridNode instanceof SnekGridNode)) {
-			throw new Error('hit a wall');
+			throw new Error('come join me in the wall');
 		}
 
 		switch (nextSnekGridNode.type) {
@@ -45,7 +45,7 @@ export class Snek {
 				this.addHead();
 				return true;
 			case SnekGridNodeType.SNEK:
-				throw new Error('hit yourself');
+				throw new Error('stop hitting yourself');
 		}
 	}
 

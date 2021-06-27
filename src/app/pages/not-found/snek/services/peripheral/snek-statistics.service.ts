@@ -30,7 +30,7 @@ export class SnekStatisticsService {
 	private printGameStateLog(): void {
 		this.subscriptions.sink = this.snekStateService.gameOver$
 			.pipe(
-				map(() => this.gameStateLog[this.gameStateLog.length - 1].toConsoleFormat()),
+				map(() => this.gameStateLog[this.gameStateLog.length - 1]?.toConsoleFormat() ?? 'ur bad kid'),
 				tap(gameStateLog => console.log(gameStateLog)),
 			).subscribe(() => this.gameStateLog = []);
 	}
