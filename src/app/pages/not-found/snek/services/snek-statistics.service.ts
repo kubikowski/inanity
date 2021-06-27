@@ -29,14 +29,14 @@ export class SnekStatisticsService {
 		this.subscriptions.sink = this.gameState$
 			.pipe(
 				notNullFilter(),
-				distinctUntilKeyChanged('snekLength'),
+				distinctUntilKeyChanged('score'),
 			).subscribe(gameState => this.gameStateLog.push(gameState));
 	}
 
 	private printGameStateLog(): void {
 		this.subscriptions.sink = this.gameOver$
 			.pipe(
-				map(() => this.gameStateLog.map(gameState => gameState.toConsoleFormat())),
+				map(() => this.gameStateLog[this.gameStateLog.length - 1].toConsoleFormat()),
 				tap(gameStateLog => console.log(gameStateLog)),
 			).subscribe(() => this.gameStateLog = []);
 	}
