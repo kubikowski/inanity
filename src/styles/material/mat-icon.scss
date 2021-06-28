@@ -1,0 +1,12 @@
+.mat-icon {
+	fill: currentColor;
+
+	> svg {
+		width: auto;
+		max-width: 100%;
+
+		> path {
+			fill: currentColor;
+		}
+	}
+}

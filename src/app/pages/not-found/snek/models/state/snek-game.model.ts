@@ -40,8 +40,8 @@ export class SnekGame {
 		});
 	}
 
-	public snekLegs(): void {
-		if (this.snek.legs()) {
+	public moveSnek(): void {
+		if (this.snek.move()) {
 			this.spawnFud();
 		}
 	}

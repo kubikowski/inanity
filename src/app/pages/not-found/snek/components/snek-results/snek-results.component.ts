@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SnekResults } from 'src/app/pages/not-found/snek/models/state/snek-results.interface';
 
 @Component({
 	selector: 'snek-results',
@@ -8,11 +9,11 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SnekResultsComponent {
-	public readonly newHighScore: boolean;
+	public readonly isNewHighScore: boolean;
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) public readonly results: { score: number, highScore: number },
+		@Inject(MAT_DIALOG_DATA) public readonly results: SnekResults,
 	) {
-		this.newHighScore = results.score > results.highScore;
+		this.isNewHighScore = results.score > results.highScore;
 	}
 }

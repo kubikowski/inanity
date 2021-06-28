@@ -1,10 +1,10 @@
 // Angular Material Core & Theming
-@use 'styles/material-theme';
+@use 'src/styles/material-theme';
 
 // Colors and Default Color Values
-@use 'styles/colors/colors';
+@use 'src/styles/colors/colors';
 
 // Overrides
-@use 'styles/overrides/browser-overrides';
-@use 'styles/overrides/material-overrides';
-@use 'styles/overrides/scrollbar-overrides';
+@use 'src/styles/overrides/browser-overrides';
+@use 'src/styles/overrides/material-overrides';
+@use 'src/styles/overrides/scrollbar-overrides';

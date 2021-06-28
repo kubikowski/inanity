@@ -31,8 +31,8 @@ export class SnekStateService implements OnDestroy {
 	@Observed() public gameState: SnekGameState = null;
 	public readonly gameState$: Observable<SnekGameState>;
 
-	@Observed({ type: 'subject' }) private gameOver: void = null;
-	public readonly gameOver$: Observable<void>;
+	@Observed({ type: 'subject' }) private gameOver: string = null;
+	public readonly gameOver$: Observable<string>;
 
 	constructor() {
 		this.resetSnekGame();
@@ -41,7 +41,8 @@ export class SnekStateService implements OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.stopGame();
+		this.stopGame('de-rendering snek');
+		this.subscriptions.unsubscribe();
 	}
 
 	public resetSnekGame(): void {
@@ -65,26 +66,29 @@ export class SnekStateService implements OnDestroy {
 	private startGame(): void {
 		this.gameCounterSubscription = timer(100, 100)
 			.pipe(
-				tap(() => this.snekGame.snekLegs()),
-				scan((ignoredAcc, ignoredVal, gameCounter) => gameCounter),
-				map(gameCounter => SnekGameState.from(this.snekGame, this.initialSnekLength, gameCounter)),
+				tap(() => this.snekGame.moveSnek()),
+				scan(gameCounter => gameCounter + 1, 0),
+				map(gameCounter => this.getGameState(gameCounter)),
 				tap(gameState => this.gameState = gameState),
-				catchError(error => {
-					this.stopGame();
-					return of(error.message);
-				}),
+				catchError(error => this.stopGame(error.message)),
 			).subscribe();
 	}
 
-	private stopGame(): void {
+	private stopGame(gameOverMessage: string): Observable<string> {
 		this.paused = true;
 
 		if (this.playing) {
 			this.playing = false;
 			this.gameCounterSubscription.unsubscribe();
 
-			this.gameOver = null;
+			this.gameOver = gameOverMessage;
 		}
+
+		return of(gameOverMessage);
+	}
+
+	private getGameState(gameCounter: number): SnekGameState {
+		return SnekGameState.from(this.snekGame, this.initialSnekLength, gameCounter);
 	}
 
 	private initializeScore(): void {
