@@ -10,7 +10,8 @@
 
 <footer>
 	<button mat-flat-button color="primary"
+			[matTooltip]="results.gameOverMessage"
 			[mat-dialog-close]>
-		{{ isNewHighScore ? 'noice' : results.gameOverMessage }}
+		{{ isNewHighScore ? 'noice' : 'woof' }}
 	</button>
 </footer>

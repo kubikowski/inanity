@@ -57,7 +57,7 @@ export class SnekGridNode {
 			case SnekDirection.RIGHT:
 				return this._right;
 			default:
-				throw new Error(`${ direction } is not a direction. you are going nowhere`);
+				throw new Error(`${ direction } is not a direction`);
 		}
 	}
 }

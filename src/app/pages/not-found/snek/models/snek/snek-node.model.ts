@@ -46,7 +46,7 @@ export class SnekNode {
 
 	public addHead(head: SnekNode): void {
 		if (this._parent instanceof SnekNode) {
-			throw new Error('hydra');
+			throw new Error('be like the hydra');
 		}
 
 		this._parent = head;
