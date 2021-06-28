@@ -1,10 +1,19 @@
-<mat-card class="project-stack">
+<mat-card class="project-status">
 	<mat-card-header>
 		<mat-icon [svgIcon]="StackIcon"></mat-icon>
 		<mat-card-title>
-			<dyslexic-text text="project stack"></dyslexic-text>
+			<dyslexic-text text="project status"></dyslexic-text>
 		</mat-card-title>
 	</mat-card-header>
+	<mat-card-content>
+		<section *ngFor="let statusUpdate of statusUpdates">
+			<h1>{{ statusUpdate.title }}</h1>
+			<h4>{{ statusUpdate.date | date }}</h4>
+			<p *ngFor="let paragraph of statusUpdate.paragraphs">
+				{{ paragraph }}
+			</p>
+		</section>
+	</mat-card-content>
 </mat-card>
 
 <mat-card>
