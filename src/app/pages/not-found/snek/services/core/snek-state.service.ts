@@ -39,8 +39,12 @@ export class SnekStateService implements OnDestroy {
 		private readonly screenDetectorService: ScreenDetectorService,
 	) {
 		const { screenWidth, screenHeight } = this.screenDetectorService;
-		this.width = Math.min(Math.floor(this.screenDetectorService.screenWidth / 20) - 3, 35);
-		this.height = Math.min(Math.floor(this.screenDetectorService.screenHeight / 20) - 5, 25);
+		this.width = Math.min(Math.floor(screenWidth / 20) - 3, 35);
+		this.height = Math.min(Math.floor(screenHeight / 20) - 12, 25);
+
+		if (this.width < 35 || this.height < 25) {
+			console.warn(`current resolution: (${ this.width }, ${ this.height })\noptimal resolution: (35, 25)`);
+		}
 
 		this.resetSnekGame();
 

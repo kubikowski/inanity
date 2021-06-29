@@ -1,5 +1,18 @@
 @use 'src/styles/mixins/page-layout' as *;
 
 :host {
-	@include page-layout();
+	display: flex;
+	flex-flow: column nowrap;
+	height: 100%;
+	overflow: hidden;
+
+	h1 {
+		text-align: center;
+		text-decoration: underline;
+		margin-bottom: 0;
+	}
+
+	.status-updates {
+		@include page-layout();
+	}
 }
