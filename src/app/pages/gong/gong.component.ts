@@ -23,7 +23,7 @@ export class GongComponent {
 				SvgIcon.GONG,
 				[
 					'Ok so there is a gong. The gong is real. It is a vintage Paiste symphonic gong from West Germany.',
-					'In theory what we want to happen here is that when you press a button here, it sends a message to an api. ' +
+					'In theory what we want to happen is that when you press a button here, it sends a message to an api. ' +
 					'That will be routed through a messaging service, to a local arduino listener that will strike the gong.',
 				],
 				'https://images.reverb.com/image/upload/s--h6GEum9o--/f_auto,t_large/v1580782954/kxhgkqs4mfgopbbpg43b.jpg',
