@@ -5,7 +5,7 @@ import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 @Component({
 	selector: 'gong',
 	templateUrl: './gong.component.html',
-	styleUrls: [ './gong.component.scss', './../page.component.scss' ],
+	styleUrls: [ './gong.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GongComponent {

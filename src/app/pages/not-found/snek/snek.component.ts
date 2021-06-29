@@ -11,6 +11,11 @@ import { SnekStatisticsService } from 'src/app/pages/not-found/snek/services/per
 		<snek-grid></snek-grid>
 		<snek-options></snek-options>
 	`,
+	styles: [ `:host {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+	}` ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		SnekDialogService,

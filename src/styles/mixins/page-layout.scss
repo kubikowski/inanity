@@ -1,0 +1,36 @@
+@mixin page-layout($max-width: 1fr) {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, $max-width));
+	grid-template-rows: min-content;
+	grid-auto-flow: row dense;
+	justify-content: center;
+
+	max-height: 100%;
+	overflow: hidden auto;
+
+	@media (max-width: 575.98px) {
+		padding: 1rem;
+		gap: 1rem;
+	}
+	@media (min-width: 576px) and (max-width: 767.98px) {
+		padding: 1.5rem;
+		gap: 1.5rem;
+	}
+	@media (min-width: 768px) and (max-width: 991.98px) {
+		padding: 2rem;
+		gap: 2rem;
+	}
+	@media (min-width: 992px) and (max-width: 1199.98px) {
+		padding: 2.5rem;
+		gap: 2.5rem;
+	}
+	@media (min-width: 1200px) {
+		padding: 3rem;
+		gap: 3rem;
+	}
+
+	> .mat-card {
+		max-width: 800px;
+		margin-bottom: auto;
+	}
+}

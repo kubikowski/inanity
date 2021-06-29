@@ -1,9 +1,5 @@
-:host {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-around;
+@use 'src/styles/mixins/page-layout' as *;
 
-	height: 100%;
-	width: 100%;
-	overflow: auto;
+:host {
+	@include page-layout();
 }

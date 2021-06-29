@@ -1,0 +1,6 @@
+@mixin truncated() {
+	overflow: hidden;
+	white-space: nowrap;
+	word-break: break-word;
+	text-overflow: ellipsis;
+}

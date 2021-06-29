@@ -4,7 +4,7 @@ import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 @Component({
 	selector: 'not-found',
 	templateUrl: './not-found.component.html',
-	styleUrls: [ './not-found.component.scss', '../page.component.scss' ],
+	styleUrls: [ './not-found.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFoundComponent {
