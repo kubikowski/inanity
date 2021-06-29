@@ -1,29 +1,21 @@
+@use 'src/styles/mixins/page-layout' as *;
+
 :host {
-	> .mat-card {
-		max-width: 800px;
-		margin: 3rem auto;
+	@include page-layout(800px);
 
-		> .mat-card-header {
+	.mat-icon {
+		animation-name: ckw;
+		animation-duration: 5s;
+		animation-iteration-count: infinite;
+		transform-origin: 50% 50%;
+	}
 
-			> .mat-icon {
-				order: -1;
-				height: 2.5rem;
-				width: 2.5rem;
-
-				animation-name: ckw;
-				animation-duration: 5s;
-				animation-iteration-count: infinite;
-				transform-origin: 50% 50%;
-			}
-		}
-
-		> .mat-card-content {
-			display: flex;
-			flex-flow: column nowrap;
-			align-items: center;
-			justify-content: center;
-			padding: 4rem;
-		}
+	.mat-card-content {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
 	}
 }
 

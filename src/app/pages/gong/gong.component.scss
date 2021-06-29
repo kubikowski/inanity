@@ -1,24 +1,18 @@
+@use 'src/styles/mixins/page-layout' as *;
+
 :host {
 	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-around;
-
+	flex-flow: column nowrap;
 	height: 100%;
-	width: 100%;
-	overflow: auto;
+	overflow: hidden;
 
-	.mat-card {
-		min-width: 300px;
-		flex-grow: 1;
+	h1 {
+		text-align: center;
+		text-decoration: underline;
+		margin-bottom: 0;
 	}
 
-	.project-stack {
-		flex-basis: 15%;
-	}
-
-	.mat-icon {
-		order: -1;
-		height: 2.5rem;
-		width: 2.5rem;
+	.status-updates {
+		@include page-layout();
 	}
 }

@@ -5,6 +5,7 @@ import { SnekGameState } from 'src/app/pages/not-found/snek/models/state/snek-ga
 import { SnekGame } from 'src/app/pages/not-found/snek/models/state/snek-game.model';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
 import { notNullFilter } from 'src/app/shared/functions/rxjs/not-null-filter.function';
+import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-detector.service';
 import { SubSink } from 'subsink';
 
 @Injectable()
@@ -15,8 +16,8 @@ export class SnekStateService implements OnDestroy {
 	public playing = false;
 	public paused = false;
 
-	public readonly width = 35;
-	public readonly height = 25;
+	public readonly width;
+	public readonly height;
 	public readonly initialSnekLength = 3;
 
 	@Observed() public snekGame: SnekGame;
@@ -34,7 +35,17 @@ export class SnekStateService implements OnDestroy {
 	@Observed({ type: 'subject' }) private gameOver: string = null;
 	public readonly gameOver$: Observable<string>;
 
-	constructor() {
+	constructor(
+		private readonly screenDetectorService: ScreenDetectorService,
+	) {
+		const { screenWidth, screenHeight } = this.screenDetectorService;
+		this.width = Math.min(Math.floor(screenWidth / 20) - 3, 35);
+		this.height = Math.min(Math.floor(screenHeight / 20) - 12, 25);
+
+		if (this.width < 35 || this.height < 25) {
+			console.warn(`current resolution: (${ this.width }, ${ this.height })\noptimal resolution: (35, 25)`);
+		}
+
 		this.resetSnekGame();
 
 		this.initializeScore();
