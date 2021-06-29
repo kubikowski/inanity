@@ -1,20 +1,14 @@
 :host {
 	> .mat-card {
 		max-width: 800px;
-		margin: 3rem auto;
+		margin-left: auto;
+		margin-right: auto;
 
-		> .mat-card-header {
-
-			> .mat-icon {
-				order: -1;
-				height: 2.5rem;
-				width: 2.5rem;
-
-				animation-name: ckw;
-				animation-duration: 5s;
-				animation-iteration-count: infinite;
-				transform-origin: 50% 50%;
-			}
+		.mat-icon {
+			animation-name: ckw;
+			animation-duration: 5s;
+			animation-iteration-count: infinite;
+			transform-origin: 50% 50%;
 		}
 
 		> .mat-card-content {
@@ -22,7 +16,7 @@
 			flex-flow: column nowrap;
 			align-items: center;
 			justify-content: center;
-			padding: 4rem;
+			padding: 2rem;
 		}
 	}
 }

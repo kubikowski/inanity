@@ -1,36 +1,19 @@
-<mat-card class="project-status">
+<mat-card *ngFor="let statusUpdate of statusUpdates">
 	<mat-card-header>
-		<mat-icon [svgIcon]="StackIcon"></mat-icon>
+		<mat-icon mat-card-avatar [svgIcon]="statusUpdate.svgIcon"></mat-icon>
 		<mat-card-title>
-			<dyslexic-text text="project status"></dyslexic-text>
+			<dyslexic-text [text]="statusUpdate.title"></dyslexic-text>
 		</mat-card-title>
+		<mat-card-subtitle>{{ statusUpdate.date | date }}</mat-card-subtitle>
 	</mat-card-header>
-	<mat-card-content>
-		<section *ngFor="let statusUpdate of statusUpdates">
-			<h1>{{ statusUpdate.title }}</h1>
-			<h4>{{ statusUpdate.date | date }}</h4>
-			<p *ngFor="let paragraph of statusUpdate.paragraphs">
-				{{ paragraph }}
-			</p>
-		</section>
-	</mat-card-content>
-</mat-card>
 
-<mat-card>
-	<mat-card-header>
-		<mat-icon [svgIcon]="GongIcon"></mat-icon>
-		<mat-card-title>
-			<dyslexic-text text="...gong"></dyslexic-text>
-		</mat-card-title>
-	</mat-card-header>
+	<img mat-card-image *ngIf="statusUpdate.imageUrl"
+		 [src]="statusUpdate.imageUrl"
+		 [alt]="statusUpdate.imageAlt">
+
 	<mat-card-content>
-		<img mat-card-image src="https://images.reverb.com/image/upload/s--h6GEum9o--/f_auto,t_large/v1580782954/kxhgkqs4mfgopbbpg43b.jpg"
-			 alt="a picture of my actual gong">
-		<p>
-			<dyslexic-text text="The gong is real. It is a real gong."></dyslexic-text>
-		</p>
-		<p>
-			<dyslexic-text text="When you hit the gong, it sends a message to an arduino listener that strikes the gong."></dyslexic-text>
+		<p *ngFor="let paragraph of statusUpdate.paragraphs">
+			<dyslexic-text [text]="paragraph"></dyslexic-text>
 		</p>
 	</mat-card-content>
 </mat-card>

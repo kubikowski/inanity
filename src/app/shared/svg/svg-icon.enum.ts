@@ -1,11 +1,11 @@
 import { ExternalSvgIcon } from 'src/app/shared/svg/external-svg-icon.enum';
 import { InternalSvgIcon } from 'src/app/shared/svg/internal-svg-icon.enum';
 
-type SvgIconKey = keyof typeof InternalSvgIcon | keyof typeof ExternalSvgIcon;
-type SvgIcon = { [ key in SvgIconKey]: key };
+export type SvgIcon = keyof typeof InternalSvgIcon | keyof typeof ExternalSvgIcon;
+type SvgIconEnum = { [ key in SvgIcon ]: key };
 
 const svgIcons = { ...InternalSvgIcon, ...ExternalSvgIcon } as const;
 const svgIconEntries = Object.keys(svgIcons)
 	.map(key => [ key, key ]);
 
-export const SvgIcon = Object.fromEntries(svgIconEntries) as SvgIcon;
+export const SvgIcon = Object.fromEntries(svgIconEntries) as SvgIconEnum;
