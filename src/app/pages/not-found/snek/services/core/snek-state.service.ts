@@ -43,7 +43,10 @@ export class SnekStateService implements OnDestroy {
 		this.height = Math.min(Math.floor(screenHeight / 20) - 12, 25);
 
 		if (this.width < 35 || this.height < 25) {
-			console.warn(`current resolution: (${ this.width }, ${ this.height })\noptimal resolution: (35, 25)`);
+			console.warn(
+				`current res: (${ this.width }, ${ this.height }), area: ${ this.width * this.height } \n` +
+				`optimal res: (35, 25), area: ${ 35 * 25 }`
+			);
 		}
 
 		this.resetSnekGame();
