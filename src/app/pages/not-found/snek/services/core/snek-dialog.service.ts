@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { SnekResultsDialogComponent } from 'src/app/pages/not-found/snek/components/dialog/snek-results-dialog/snek-results-dialog.component';
 import { SnekResults } from 'src/app/pages/not-found/snek/models/state/snek-results.interface';
 import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
-import { SnekResultsComponent } from 'src/app/pages/not-found/snek/components/snek-results/snek-results.component';
 import { SubSink } from 'subsink';
 
 @Injectable()
@@ -27,7 +27,7 @@ export class SnekDialogService {
 		};
 
 		const dialogRef = this.dialog.open(
-			SnekResultsComponent,
+			SnekResultsDialogComponent,
 			{ width: '300px', data },
 		);
 
