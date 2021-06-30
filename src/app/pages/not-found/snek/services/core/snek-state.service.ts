@@ -38,31 +38,15 @@ export class SnekStateService implements OnDestroy {
 	constructor(
 		private readonly snekResolutionService: SnekResolutionService,
 	) {
-		this.initializeBoardResolution();
+		this.initializeGridResolution();
+		this.initializeScore();
 
 		this.resetSnekGame();
-
-		this.initializeScore();
 	}
 
 	ngOnDestroy(): void {
 		this.stopGame('de-rendering snek');
 		this.subscriptions.unsubscribe();
-	}
-
-	private initializeBoardResolution(): void {
-		const { snekWidth$, snekHeight$, resolutionChange$ } = this.snekResolutionService;
-
-		this.subscriptions.sink = snekWidth$
-			.subscribe(snekWidth => this.snekGridWidth = snekWidth);
-		this.subscriptions.sink = snekHeight$
-			.subscribe(snekHeight => this.snekGridHeight = snekHeight);
-
-		this.subscriptions.sink = resolutionChange$
-			.pipe(debounceTime(0), throttleTime(250))
-			.subscribe(() => (this.playing)
-				? this.stopGame('resolution changed')
-				: this.resetSnekGame());
 	}
 
 	public resetSnekGame(): void {
@@ -109,6 +93,21 @@ export class SnekStateService implements OnDestroy {
 
 	private getGameState(gameCounter: number): SnekGameState {
 		return SnekGameState.from(this.snekGame, this.initialSnekLength, gameCounter);
+	}
+
+	private initializeGridResolution(): void {
+		const { snekWidth$, snekHeight$, resolutionChange$ } = this.snekResolutionService;
+
+		this.subscriptions.sink = snekWidth$
+			.subscribe(snekWidth => this.snekGridWidth = snekWidth);
+		this.subscriptions.sink = snekHeight$
+			.subscribe(snekHeight => this.snekGridHeight = snekHeight);
+
+		this.subscriptions.sink = resolutionChange$
+			.pipe(debounceTime(0), throttleTime(250))
+			.subscribe(() => (this.playing)
+				? this.stopGame('resolution changed')
+				: this.resetSnekGame());
 	}
 
 	private initializeScore(): void {
