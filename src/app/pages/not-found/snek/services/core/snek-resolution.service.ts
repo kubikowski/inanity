@@ -1,7 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
+import { notNullFilter } from 'src/app/shared/functions/rxjs/not-null-filter.function';
 import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-detector.service';
 import { SubSink } from 'subsink';
 
@@ -14,9 +15,11 @@ export class SnekResolutionService implements OnDestroy {
 
 	@Observed() private snekWidth: number;
 	@Observed() private snekHeight: number;
+	@Observed({ type: 'subject' }) private resolutionChange: [ number, number ] = null;
 
 	public readonly snekWidth$: Observable<number>;
 	public readonly snekHeight$: Observable<number>;
+	public readonly resolutionChange$: Observable<[ number, number ]>;
 
 	constructor(
 		private readonly screenDetectorService: ScreenDetectorService,
@@ -25,6 +28,7 @@ export class SnekResolutionService implements OnDestroy {
 		this.initializeSnekHeight();
 
 		this.initializeInadequateResolutionHandler();
+		this.initializeResolutionChange();
 	}
 
 	ngOnDestroy(): void {
@@ -33,20 +37,32 @@ export class SnekResolutionService implements OnDestroy {
 
 	private initializeSnekWidth(): void {
 		this.subscriptions.sink = this.screenDetectorService.screenWidth$
-			.pipe(map(screenWidth => this.getSnekWidth(screenWidth)))
-			.subscribe(snekWidth => this.snekWidth = snekWidth);
+			.pipe(
+				map(screenWidth => this.getSnekWidth(screenWidth)),
+				distinctUntilChanged(),
+			).subscribe(snekWidth => this.snekWidth = snekWidth);
 	}
 
 	private initializeSnekHeight(): void {
 		this.subscriptions.sink = this.screenDetectorService.screenHeight$
-			.pipe(map(screenHeight => this.getSnekHeight(screenHeight)))
-			.subscribe(snekHeight => this.snekHeight = snekHeight);
+			.pipe(
+				map(screenHeight => this.getSnekHeight(screenHeight)),
+				distinctUntilChanged(),
+			).subscribe(snekHeight => this.snekHeight = snekHeight);
+	}
+
+	private initializeResolutionChange(): void {
+		this.subscriptions.sink = combineLatest([ this.snekWidth$, this.snekHeight$ ])
+			.subscribe(([ snekWidth, snekHeight ]) => this.resolutionChange = [ snekWidth, snekHeight ]);
 	}
 
 	private initializeInadequateResolutionHandler(): void {
-		this.subscriptions.sink = combineLatest([ this.snekWidth$, this.snekHeight$ ])
-			.pipe(filter(this.filterInadequateResolution.bind(this)))
-			.subscribe(this.warnInadequateResolution.bind(this));
+		this.subscriptions.sink = this.resolutionChange$
+			.pipe(
+				notNullFilter(),
+				debounceTime(500),
+				filter(this.filterInadequateResolution.bind(this)),
+			).subscribe(this.warnInadequateResolution.bind(this));
 	}
 
 	private filterInadequateResolution([ snekWidth, snekHeight ]: [ number, number ]): boolean {
@@ -56,7 +72,7 @@ export class SnekResolutionService implements OnDestroy {
 
 	private warnInadequateResolution([ snekWidth, snekHeight ]: [ number, number ]): void {
 		console.warn(
-			`current res: (${ snekWidth }, ${ snekHeight }), area: ${ snekWidth * snekHeight } \n` +
+			`current res: (${ snekWidth }, ${ snekHeight }), area: ${ snekWidth * snekHeight }\n` +
 			`optimal res: (${ this.optimalSnekWidth }, ${ this.optimalSnekHeight }), area: ${ this.optimalSnekWidth * this.optimalSnekHeight }`
 		);
 	}

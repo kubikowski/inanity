@@ -3,12 +3,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnekResults } from 'src/app/pages/not-found/snek/models/state/snek-results.interface';
 
 @Component({
-	selector: 'snek-results',
-	templateUrl: './snek-results.component.html',
-	styleUrls: [ './snek-results.component.scss' ],
+	selector: 'snek-results-dialog',
+	templateUrl: './snek-results-dialog.component.html',
+	styleUrls: [ './snek-results-dialog.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SnekResultsComponent {
+export class SnekResultsDialogComponent {
 	public readonly isNewHighScore: boolean;
 
 	constructor(

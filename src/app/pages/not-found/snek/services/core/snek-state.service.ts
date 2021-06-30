@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
-import { catchError, distinctUntilChanged, map, scan, tap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, filter, map, scan, tap } from 'rxjs/operators';
 import { SnekGameState } from 'src/app/pages/not-found/snek/models/state/snek-game-state.model';
 import { SnekGame } from 'src/app/pages/not-found/snek/models/state/snek-game.model';
 import { SnekResolutionService } from 'src/app/pages/not-found/snek/services/core/snek-resolution.service';
@@ -51,10 +51,16 @@ export class SnekStateService implements OnDestroy {
 	}
 
 	private initializeBoardResolution(): void {
-		const { snekWidth$, snekHeight$ } = this.snekResolutionService;
+		const { snekWidth$, snekHeight$, resolutionChange$ } = this.snekResolutionService;
 
-		this.subscriptions.sink = snekWidth$.subscribe(snekWidth => this.snekGridWidth = snekWidth);
-		this.subscriptions.sink = snekHeight$.subscribe(snekHeight => this.snekGridHeight = snekHeight);
+		this.subscriptions.sink = snekWidth$
+			.subscribe(snekWidth => this.snekGridWidth = snekWidth);
+		this.subscriptions.sink = snekHeight$
+			.subscribe(snekHeight => this.snekGridHeight = snekHeight);
+
+		this.subscriptions.sink = resolutionChange$
+			.pipe(filter(() => this.playing === true))
+			.subscribe(() => this.stopGame('resolution changed'));
 	}
 
 	public resetSnekGame(): void {
