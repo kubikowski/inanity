@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, filter, map, scan, tap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, map, scan, tap, throttleTime } from 'rxjs/operators';
 import { SnekGameState } from 'src/app/pages/not-found/snek/models/state/snek-game-state.model';
 import { SnekGame } from 'src/app/pages/not-found/snek/models/state/snek-game.model';
 import { SnekResolutionService } from 'src/app/pages/not-found/snek/services/core/snek-resolution.service';
@@ -59,7 +59,7 @@ export class SnekStateService implements OnDestroy {
 			.subscribe(snekHeight => this.snekGridHeight = snekHeight);
 
 		this.subscriptions.sink = resolutionChange$
-			.pipe(debounceTime(250))
+			.pipe(debounceTime(0), throttleTime(250))
 			.subscribe(() => (this.playing)
 				? this.stopGame('resolution changed')
 				: this.resetSnekGame());
