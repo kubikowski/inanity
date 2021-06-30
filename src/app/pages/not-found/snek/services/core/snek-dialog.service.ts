@@ -31,8 +31,7 @@ export class SnekDialogService {
 			{ width: '300px', data },
 		);
 
-		dialogRef.afterClosed().subscribe(() => {
-			this.snekStateService.resetSnekGame();
-		});
+		dialogRef.afterClosed()
+			.subscribe(() => this.snekStateService.resetSnekGame());
 	}
 }
