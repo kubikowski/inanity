@@ -1,11 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
-import { catchError, distinctUntilChanged, map, scan, tap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, map, scan, tap, throttleTime } from 'rxjs/operators';
 import { SnekGameState } from 'src/app/pages/not-found/snek/models/state/snek-game-state.model';
 import { SnekGame } from 'src/app/pages/not-found/snek/models/state/snek-game.model';
+import { SnekResolutionService } from 'src/app/pages/not-found/snek/services/core/snek-resolution.service';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
 import { notNullFilter } from 'src/app/shared/functions/rxjs/not-null-filter.function';
-import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-detector.service';
 import { SubSink } from 'subsink';
 
 @Injectable()
@@ -16,8 +16,8 @@ export class SnekStateService implements OnDestroy {
 	public playing = false;
 	public paused = false;
 
-	public readonly width;
-	public readonly height;
+	public snekGridWidth;
+	public snekGridHeight;
 	public readonly initialSnekLength = 3;
 
 	@Observed() public snekGame: SnekGame;
@@ -36,19 +36,12 @@ export class SnekStateService implements OnDestroy {
 	public readonly gameOver$: Observable<string>;
 
 	constructor(
-		private readonly screenDetectorService: ScreenDetectorService,
+		private readonly snekResolutionService: SnekResolutionService,
 	) {
-		const { screenWidth, screenHeight } = this.screenDetectorService;
-		this.width = Math.min(Math.floor(screenWidth / 20) - 3, 35);
-		this.height = Math.min(Math.floor(screenHeight / 20) - 12, 25);
-
-		if (this.width < 35 || this.height < 25) {
-			console.warn(`current resolution: (${ this.width }, ${ this.height })\noptimal resolution: (35, 25)`);
-		}
+		this.initializeGridResolution();
+		this.initializeScore();
 
 		this.resetSnekGame();
-
-		this.initializeScore();
 	}
 
 	ngOnDestroy(): void {
@@ -59,7 +52,7 @@ export class SnekStateService implements OnDestroy {
 	public resetSnekGame(): void {
 		SnekStateService.localStorageHighScore = this.score ?? 0;
 
-		this.snekGame = SnekGame.new(this.width, this.height, this.initialSnekLength);
+		this.snekGame = SnekGame.new(this.snekGridWidth, this.snekGridHeight, this.initialSnekLength);
 
 		this.score = 0;
 		this.highScore = SnekStateService.localStorageHighScore;
@@ -100,6 +93,21 @@ export class SnekStateService implements OnDestroy {
 
 	private getGameState(gameCounter: number): SnekGameState {
 		return SnekGameState.from(this.snekGame, this.initialSnekLength, gameCounter);
+	}
+
+	private initializeGridResolution(): void {
+		const { snekWidth$, snekHeight$, resolutionChange$ } = this.snekResolutionService;
+
+		this.subscriptions.sink = snekWidth$
+			.subscribe(snekWidth => this.snekGridWidth = snekWidth);
+		this.subscriptions.sink = snekHeight$
+			.subscribe(snekHeight => this.snekGridHeight = snekHeight);
+
+		this.subscriptions.sink = resolutionChange$
+			.pipe(debounceTime(0), throttleTime(250))
+			.subscribe(() => (this.playing)
+				? this.stopGame('resolution changed')
+				: this.resetSnekGame());
 	}
 
 	private initializeScore(): void {
