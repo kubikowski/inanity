@@ -3,9 +3,9 @@ import { Observable, of, Subscription, timer } from 'rxjs';
 import { catchError, distinctUntilChanged, map, scan, tap } from 'rxjs/operators';
 import { SnekGameState } from 'src/app/pages/not-found/snek/models/state/snek-game-state.model';
 import { SnekGame } from 'src/app/pages/not-found/snek/models/state/snek-game.model';
+import { SnekResolutionService } from 'src/app/pages/not-found/snek/services/core/snek-resolution.service';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
 import { notNullFilter } from 'src/app/shared/functions/rxjs/not-null-filter.function';
-import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-detector.service';
 import { SubSink } from 'subsink';
 
 @Injectable()
@@ -16,8 +16,8 @@ export class SnekStateService implements OnDestroy {
 	public playing = false;
 	public paused = false;
 
-	public readonly width;
-	public readonly height;
+	public snekGridWidth;
+	public snekGridHeight;
 	public readonly initialSnekLength = 3;
 
 	@Observed() public snekGame: SnekGame;
@@ -36,18 +36,9 @@ export class SnekStateService implements OnDestroy {
 	public readonly gameOver$: Observable<string>;
 
 	constructor(
-		private readonly screenDetectorService: ScreenDetectorService,
+		private readonly snekResolutionService: SnekResolutionService,
 	) {
-		const { screenWidth, screenHeight } = this.screenDetectorService;
-		this.width = Math.min(Math.floor(screenWidth / 20) - 3, 35);
-		this.height = Math.min(Math.floor(screenHeight / 20) - 12, 25);
-
-		if (this.width < 35 || this.height < 25) {
-			console.warn(
-				`current res: (${ this.width }, ${ this.height }), area: ${ this.width * this.height } \n` +
-				`optimal res: (35, 25), area: ${ 35 * 25 }`
-			);
-		}
+		this.initializeBoardResolution();
 
 		this.resetSnekGame();
 
@@ -59,10 +50,17 @@ export class SnekStateService implements OnDestroy {
 		this.subscriptions.unsubscribe();
 	}
 
+	private initializeBoardResolution(): void {
+		const { snekWidth$, snekHeight$ } = this.snekResolutionService;
+
+		this.subscriptions.sink = snekWidth$.subscribe(snekWidth => this.snekGridWidth = snekWidth);
+		this.subscriptions.sink = snekHeight$.subscribe(snekHeight => this.snekGridHeight = snekHeight);
+	}
+
 	public resetSnekGame(): void {
 		SnekStateService.localStorageHighScore = this.score ?? 0;
 
-		this.snekGame = SnekGame.new(this.width, this.height, this.initialSnekLength);
+		this.snekGame = SnekGame.new(this.snekGridWidth, this.snekGridHeight, this.initialSnekLength);
 
 		this.score = 0;
 		this.highScore = SnekStateService.localStorageHighScore;
