@@ -11,6 +11,7 @@ There is no integration site, so merged code immediately gets deployed to prod. 
 
 ### Stack
 
+- [RxJS](https://rxjs.dev/)
 - [Angular](https://angular.io/)
 - [Material](https://material.angular.io/)
 - [Firebase](https://console.firebase.google.com/)
