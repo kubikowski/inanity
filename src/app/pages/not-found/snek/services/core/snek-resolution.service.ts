@@ -12,13 +12,13 @@ export class SnekResolutionService implements OnDestroy {
 	private readonly optimalSnekWidth = 35;
 	private readonly optimalSnekHeight = 25;
 
-	@Observed() private snekWidth: number;
-	@Observed() private snekHeight: number;
-	@Observed({ type: 'subject' }) private resolutionChange: [ number, number ] = null;
+	@Observed() public snekWidth: number;
+	@Observed() public snekHeight: number;
+	@Observed({ type: 'subject' }) private onResolutionChange: [ number, number ] = null;
 
 	public readonly snekWidth$: Observable<number>;
 	public readonly snekHeight$: Observable<number>;
-	public readonly resolutionChange$: Observable<[ number, number ]>;
+	public readonly onResolutionChange$: Observable<[ number, number ]>;
 
 	constructor(
 		private readonly screenDetectorService: ScreenDetectorService,
@@ -50,7 +50,7 @@ export class SnekResolutionService implements OnDestroy {
 
 	private initializeResolutionChange(): void {
 		this.subscriptions.sink = combineLatest([ this.snekWidth$, this.snekHeight$ ])
-			.subscribe(([ snekWidth, snekHeight ]) => this.resolutionChange = [ snekWidth, snekHeight ]);
+			.subscribe(([ snekWidth, snekHeight ]) => this.onResolutionChange = [ snekWidth, snekHeight ]);
 	}
 
 	private getSnekWidth(screenWidth: number): number {
