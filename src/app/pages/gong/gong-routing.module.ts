@@ -6,6 +6,9 @@ const routes: Routes = [
 	{
 		path: '',
 		component: GongComponent,
+		data: {
+			title: 'gong',
+		},
 	},
 ];
 

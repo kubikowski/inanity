@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationService } from 'src/app/navigation/navigation.service';
+import { TitleService } from 'src/app/navigation/routing/title.service';
 import { ColorsService } from 'src/app/shared/colors/services/colors.service';
 import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-detector.service';
 import { SvgIconService } from 'src/app/shared/svg/svg-icon.service';
@@ -17,6 +18,7 @@ export class AppComponent implements AfterViewInit {
 
 	constructor(
 		private readonly navigationService: NavigationService,
+		private readonly titleService: TitleService,
 		private readonly colorsService: ColorsService,
 		private readonly screenDetectorService: ScreenDetectorService,
 		private readonly svgIconService: SvgIconService,
