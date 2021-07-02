@@ -13,5 +13,4 @@ import { DyslexicTextComponent } from 'src/app/shared/dyslexic-text/dyslexic-tex
 		DyslexicTextComponent,
 	],
 })
-export class DyslexicTextModule {
-}
+export class DyslexicTextModule { }

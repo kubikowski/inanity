@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SnekResultsDialogComponent } from 'src/app/pages/not-found/snek/components/dialog/snek-results-dialog/snek-results-dialog.component';
 import { SnekGridNodeComponent } from 'src/app/pages/not-found/snek/components/snek-grid-node/snek-grid-node.component';
@@ -16,12 +15,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 		SnekComponent,
 	],
 	imports: [
-		CommonModule,
 		SharedModule,
 	],
 	exports: [
 		SnekComponent,
 	],
 })
-export class SnekModule {
-}
+export class SnekModule { }
