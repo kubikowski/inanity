@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HeaderComponent } from 'src/app/navigation/header/header.component';
 import { SettingsComponent } from 'src/app/navigation/header/settings/settings.component';
@@ -14,7 +13,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 		SidebarItemComponent,
 	],
 	imports: [
-		CommonModule,
 		SharedModule,
 	],
 	exports: [
@@ -24,5 +22,4 @@ import { SharedModule } from 'src/app/shared/shared.module';
 		SidebarItemComponent,
 	],
 })
-export class NavigationModule {
-}
+export class NavigationModule { }

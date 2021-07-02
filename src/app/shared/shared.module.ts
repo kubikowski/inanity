@@ -7,23 +7,14 @@ import { DyslexicTextModule } from 'src/app/shared/dyslexic-text/dyslexic-text.m
 import { MaterialModule } from 'src/app/shared/material.module';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		RouterModule,
-		DyslexicTextModule,
-		MaterialModule,
-	],
 	exports: [
 		CommonModule,
 		HttpClientModule,
-		RouterModule,
 		FormsModule,
 		ReactiveFormsModule,
+		RouterModule,
 		DyslexicTextModule,
 		MaterialModule,
 	],
 })
-export class SharedModule {
-}
+export class SharedModule { }
