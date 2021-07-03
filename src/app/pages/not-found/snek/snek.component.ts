@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SnekDialogService } from 'src/app/pages/not-found/snek/services/core/snek-dialog.service';
-import { SnekInputListenerService } from 'src/app/pages/not-found/snek/services/core/snek-input-listener.service';
 import { SnekResolutionService } from 'src/app/pages/not-found/snek/services/core/snek-resolution.service';
 import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
+import { SnekUserInputService } from 'src/app/pages/not-found/snek/services/core/snek-user-input.service';
 import { SnekSolverService } from 'src/app/pages/not-found/snek/services/peripheral/snek-solver.service';
 import { SnekStatisticsService } from 'src/app/pages/not-found/snek/services/peripheral/snek-statistics.service';
 
@@ -20,9 +20,9 @@ import { SnekStatisticsService } from 'src/app/pages/not-found/snek/services/per
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		SnekDialogService,
-		SnekInputListenerService,
 		SnekResolutionService,
 		SnekStateService,
+		SnekUserInputService,
 		SnekSolverService,
 		SnekStatisticsService,
 	],
@@ -31,14 +31,14 @@ export class SnekComponent {
 
 	constructor(
 		private readonly snekDialogService: SnekDialogService,
-		private readonly snekInputListenerService: SnekInputListenerService,
 		private readonly snekResolutionService: SnekResolutionService,
 		private readonly snekStateService: SnekStateService,
+		private readonly snekUserInputService: SnekUserInputService,
 		private readonly snekSolverService: SnekSolverService,
 		private readonly snekStatisticsService: SnekStatisticsService,
 	) { }
 
 	public handleSwipe(swipeEvent: HammerInput): void {
-		this.snekInputListenerService.handleSwipe(swipeEvent);
+		this.snekUserInputService.handleSwipe(swipeEvent);
 	}
 }

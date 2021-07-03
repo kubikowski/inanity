@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
+import Hammer from 'hammerjs';
 import { SnekDirection } from 'src/app/pages/not-found/snek/models/direction/snek-direction.enum';
 import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
-import Hammer from 'hammerjs';
 
 @Injectable()
-export class SnekInputListenerService implements OnDestroy {
+export class SnekUserInputService implements OnDestroy {
 	private readonly listenerUnsubscribeCallback: () => void;
 
 	constructor(
