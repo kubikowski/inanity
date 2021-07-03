@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DyslexicTextModule } from 'src/app/shared/dyslexic-text/dyslexic-text.module';
+import { SharedHammerModule } from 'src/app/shared/hammer/shared-hammer.module';
 import { MaterialModule } from 'src/app/shared/material.module';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { MaterialModule } from 'src/app/shared/material.module';
 		ReactiveFormsModule,
 		RouterModule,
 		DyslexicTextModule,
+		SharedHammerModule,
 		MaterialModule,
 	],
 })

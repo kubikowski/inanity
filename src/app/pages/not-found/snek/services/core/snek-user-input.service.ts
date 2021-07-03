@@ -1,9 +1,10 @@
 import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
+import Hammer from 'hammerjs';
 import { SnekDirection } from 'src/app/pages/not-found/snek/models/direction/snek-direction.enum';
 import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
 
 @Injectable()
-export class SnekInputListenerService implements OnDestroy {
+export class SnekUserInputService implements OnDestroy {
 	private readonly listenerUnsubscribeCallback: () => void;
 
 	constructor(
@@ -38,6 +39,27 @@ export class SnekInputListenerService implements OnDestroy {
 				break;
 			case 'd':
 			case 'ArrowRight':
+				this.changeDirection(SnekDirection.RIGHT);
+				break;
+		}
+	}
+
+	public handleSwipe(swipeEvent: HammerInput): void {
+		if (this.snekStateService.paused) {
+			return;
+		}
+
+		switch (swipeEvent.direction) {
+			case Hammer.DIRECTION_UP:
+				this.changeDirection(SnekDirection.UP);
+				break;
+			case Hammer.DIRECTION_DOWN:
+				this.changeDirection(SnekDirection.DOWN);
+				break;
+			case Hammer.DIRECTION_LEFT:
+				this.changeDirection(SnekDirection.LEFT);
+				break;
+			case Hammer.DIRECTION_RIGHT:
 				this.changeDirection(SnekDirection.RIGHT);
 				break;
 		}
