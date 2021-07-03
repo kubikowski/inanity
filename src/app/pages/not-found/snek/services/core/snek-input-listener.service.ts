@@ -43,6 +43,27 @@ export class SnekInputListenerService implements OnDestroy {
 		}
 	}
 
+	public handleSwipe(swipeEvent: HammerInput): void {
+		if (this.snekStateService.paused) {
+			return;
+		}
+
+		switch (swipeEvent.direction) {
+			case Hammer.DIRECTION_UP:
+				this.changeDirection(SnekDirection.UP);
+				break;
+			case Hammer.DIRECTION_DOWN:
+				this.changeDirection(SnekDirection.DOWN);
+				break;
+			case Hammer.DIRECTION_LEFT:
+				this.changeDirection(SnekDirection.LEFT);
+				break;
+			case Hammer.DIRECTION_RIGHT:
+				this.changeDirection(SnekDirection.RIGHT);
+				break;
+		}
+	}
+
 	private changeDirection(direction: SnekDirection): void {
 		this.snekStateService.play();
 		this.snekStateService.snekGame.snek.direction = direction;

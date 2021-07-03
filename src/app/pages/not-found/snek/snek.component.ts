@@ -9,7 +9,7 @@ import { SnekStatisticsService } from 'src/app/pages/not-found/snek/services/per
 @Component({
 	selector: 'snek',
 	template: `
-		<snek-grid></snek-grid>
+		<snek-grid (swipe)="handleSwipe($event)"></snek-grid>
 		<snek-options></snek-options>
 	`,
 	styles: [ `:host {
@@ -38,4 +38,7 @@ export class SnekComponent {
 		private readonly snekStatisticsService: SnekStatisticsService,
 	) { }
 
+	public handleSwipe(swipeEvent: HammerInput): void {
+		this.snekInputListenerService.handleSwipe(swipeEvent);
+	}
 }
