@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { JoystickOutputData } from 'nipplejs';
 import { SnekDialogService } from 'src/app/pages/not-found/snek/services/core/snek-dialog.service';
 import { SnekResolutionService } from 'src/app/pages/not-found/snek/services/core/snek-resolution.service';
 import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
@@ -9,7 +10,8 @@ import { SnekStatisticsService } from 'src/app/pages/not-found/snek/services/per
 @Component({
 	selector: 'snek',
 	template: `
-		<snek-grid (swipe)="handleSwipe($event)"></snek-grid>
+		<joystick (move)="handleJoystick($event)"></joystick>
+		<snek-grid></snek-grid>
 		<snek-options></snek-options>
 	`,
 	styles: [ `:host {
@@ -38,7 +40,7 @@ export class SnekComponent {
 		private readonly snekStatisticsService: SnekStatisticsService,
 	) { }
 
-	public handleSwipe(swipeEvent: HammerInput): void {
-		this.snekUserInputService.handleSwipe(swipeEvent);
+	public handleJoystick(event: JoystickOutputData): void {
+		this.snekUserInputService.handleJoystick(event);
 	}
 }

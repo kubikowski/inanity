@@ -4,6 +4,7 @@ import { SnekGridNodeComponent } from 'src/app/pages/not-found/snek/components/s
 import { SnekGridComponent } from 'src/app/pages/not-found/snek/components/snek-grid/snek-grid.component';
 import { SnekOptionsComponent } from 'src/app/pages/not-found/snek/components/snek-options/snek-options.component';
 import { SnekComponent } from 'src/app/pages/not-found/snek/snek.component';
+import { JoystickModule } from 'src/app/shared/joystick/joystick.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 	],
 	imports: [
 		SharedModule,
+		JoystickModule,
 	],
 	exports: [
 		SnekComponent,
