@@ -44,10 +44,13 @@ export class JoystickComponent implements AfterViewInit, OnDestroy {
 	private get defaultOptions(): JoystickManagerOptions {
 		return {
 			zone: this.elementRef.nativeElement,
-			position: { left: '50%', top: '50%' },
-			mode: 'semi',
 			color: 'var(--disabled-text-color)',
 			size: 75,
+			threshold: 0.5,
+			fadeTime: 100,
+			position: { left: '50%', top: '50%' },
+			mode: 'dynamic',
+			dynamicPage: true,
 		};
 	}
 }
