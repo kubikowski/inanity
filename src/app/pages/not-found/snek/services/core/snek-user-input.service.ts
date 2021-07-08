@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
 import Hammer from 'hammerjs';
+import { JoystickOutputData } from 'nipplejs';
 import { SnekDirection } from 'src/app/pages/not-found/snek/models/direction/snek-direction.enum';
 import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
 
@@ -44,22 +45,22 @@ export class SnekUserInputService implements OnDestroy {
 		}
 	}
 
-	public handleSwipe(swipeEvent: HammerInput): void {
+	public handleJoystick(event: JoystickOutputData): void {
 		if (this.snekStateService.paused) {
 			return;
 		}
 
-		switch (swipeEvent.direction) {
-			case Hammer.DIRECTION_UP:
+		switch (event.direction?.angle) {
+			case 'up':
 				this.changeDirection(SnekDirection.UP);
 				break;
-			case Hammer.DIRECTION_DOWN:
+			case 'down':
 				this.changeDirection(SnekDirection.DOWN);
 				break;
-			case Hammer.DIRECTION_LEFT:
+			case 'left':
 				this.changeDirection(SnekDirection.LEFT);
 				break;
-			case Hammer.DIRECTION_RIGHT:
+			case 'right':
 				this.changeDirection(SnekDirection.RIGHT);
 				break;
 		}
