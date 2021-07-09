@@ -4,6 +4,7 @@
 	width: max-content;
 	border: solid 2px var(--border-color);
 	border-radius: 5px;
+	user-select: none;
 	overflow: hidden;
 
 	> .snek-grid-row {

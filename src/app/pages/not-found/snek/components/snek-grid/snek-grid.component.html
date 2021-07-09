@@ -1,3 +1,8 @@
+<joystick (move)="handleJoystick($event)"
+		  [style.width]="(snekWidth$ | async) * 20 + 'px'"
+		  [style.height]="(snekHeight$ | async) * 20 + 'px'">
+</joystick>
+
 <ng-container *ngIf="snekGame$ | async as snekGame">
 
 	<div class="snek-grid-row"
