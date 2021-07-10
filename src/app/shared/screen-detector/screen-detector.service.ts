@@ -7,8 +7,8 @@ export class ScreenDetectorService implements OnDestroy {
 	private readonly renderer: Renderer2;
 	private readonly listenerUnsubscribeCallback: () => void;
 
-	@Observed() public screenWidth: number;
-	@Observed() public screenHeight: number;
+	@Observed() private screenWidth: number;
+	@Observed() private screenHeight: number;
 
 	public readonly screenWidth$: Observable<number>;
 	public readonly screenHeight$: Observable<number>;

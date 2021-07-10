@@ -1,7 +1,7 @@
 <mat-card [routerLink]="[config.route]" routerLinkActive="active"
 		  (click)="toggleSidenav($event)">
 	<mat-card-header>
-		<mat-icon [svgIcon]="config.icon"></mat-icon>
+		<mat-icon mat-card-avatar [svgIcon]="config.icon"></mat-icon>
 		<mat-card-title>
 			{{ config.title }}
 		</mat-card-title>

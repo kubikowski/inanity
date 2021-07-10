@@ -1,7 +1,7 @@
 :host {
 	padding: 1rem 1rem 0;
 
-	mat-card {
+	.mat-card {
 		cursor: pointer;
 		background-color: var(--lightest-theme-color);
 
@@ -13,14 +13,11 @@
 			background-color: var(--default-theme-color);
 		}
 
-		> mat-card-header {
-			display: flex;
-			flex-flow: row nowrap;
+		.mat-card-header {
+			align-items: center;
 
-			> mat-icon {
-				order: -1;
-				width: 2.5rem;
-				height: 2.5rem;
+			.mat-card-title {
+				margin-bottom: 0;
 			}
 		}
 	}
