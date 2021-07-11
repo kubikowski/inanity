@@ -24,7 +24,7 @@ export class BackgroundComponent implements OnDestroy {
 		this.subscriptions.sink = timer(0, 500)
 			.pipe(
 				tap(this.renderIcon.bind(this)),
-				skip(48),
+				skip(60),
 				tap(this.deRenderIcon.bind(this)),
 			).subscribe();
 	}

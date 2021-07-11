@@ -20,7 +20,7 @@ export const FloatUpAnimation = [
 				height: '2rem',
 				transform: 'rotate(0)',
 			})),
-			animate('24s ease-in-out', style({
+			animate('30s ease-in-out', style({
 				position: 'absolute',
 				bottom: '100%',
 				width: '1rem',
