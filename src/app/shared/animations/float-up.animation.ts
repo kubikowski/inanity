@@ -15,9 +15,9 @@ export const FloatUpAnimation = [
 		transition(':enter', [ group([
 			animate('0ms ease-in-out', style({
 				position: 'absolute',
-				bottom: '0px',
-				width: '4rem',
-				height: '4rem',
+				bottom: '-2rem',
+				width: '2rem',
+				height: '2rem',
 				transform: 'rotate(0)',
 			})),
 			animate('24s ease-in-out', style({

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Observable, timer } from 'rxjs';
+import { skip, tap } from 'rxjs/operators';
 import { RenderedIcon } from 'src/app/navigation/background/rendered-icon.model';
 import { FloatUpAnimation, FloatUpAnimationState } from 'src/app/shared/animations/float-up.animation';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
@@ -20,11 +21,12 @@ export class BackgroundComponent implements OnDestroy {
 	public readonly renderedIcons$: Observable<ReadonlyArray<RenderedIcon>>;
 
 	constructor() {
-		this.subscriptions.sink = timer(0, 1000)
-			.subscribe(this.renderIcon.bind(this));
-
-		this.subscriptions.sink = timer(24000, 1000)
-			.subscribe(this.deRenderIcon.bind(this));
+		this.subscriptions.sink = timer(0, 500)
+			.pipe(
+				tap(this.renderIcon.bind(this)),
+				skip(48),
+				tap(this.deRenderIcon.bind(this)),
+			).subscribe();
 	}
 
 	ngOnDestroy(): void {
