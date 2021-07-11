@@ -1,10 +1,11 @@
 <mat-sidenav-container>
-	<mat-sidenav #sidenav [mode]="'over'">
+	<mat-sidenav #sidenav mode="over">
 		<app-sidebar></app-sidebar>
 	</mat-sidenav>
 
 	<mat-sidenav-content>
 		<app-header></app-header>
+		<app-background></app-background>
 		<router-outlet></router-outlet>
 	</mat-sidenav-content>
 </mat-sidenav-container>

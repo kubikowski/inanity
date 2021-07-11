@@ -1,0 +1,7 @@
+<mat-icon
+	*ngFor="let renderedIcon of renderedIcons$ | async;
+			trackBy: trackIconBy"
+	[svgIcon]="renderedIcon.icon"
+	[style.left]="renderedIcon.position + '%'"
+	[@floatUp]="floating"
+></mat-icon>
