@@ -1,6 +1,6 @@
 import { Sin, sins } from 'src/app/shared/svg/sin.enum';
 
-export class RenderedIcon {
+export class MovingBackgroundIcon {
 	private static idCounter = 0;
 
 	private constructor(
@@ -9,11 +9,11 @@ export class RenderedIcon {
 		public readonly id: number,
 	) { }
 
-	public static random(): RenderedIcon {
-		const sin = sins[ Math.floor(Math.random() * sins.length) ];
+	public static random(): MovingBackgroundIcon {
+		const icon = sins[ Math.floor(Math.random() * sins.length) ];
 		const position = Math.random() * 100;
-		const id = ++RenderedIcon.idCounter;
+		const id = MovingBackgroundIcon.idCounter++;
 
-		return new RenderedIcon(sin, position, id);
+		return new MovingBackgroundIcon(icon, position, id);
 	}
 }

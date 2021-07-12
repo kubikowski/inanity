@@ -11,7 +11,7 @@ export class DyslexicTextService {
 
 	constructor() {
 		const isEnabled = JSON.parse(localStorage.getItem('dyslexic-text')) ?? true;
-		const amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 10;
+		const amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 15;
 
 		this.isEnabled = isEnabled;
 		this.amount = amount;

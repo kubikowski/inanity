@@ -13,15 +13,13 @@ export const FloatUpAnimation = [
 			position: 'absolute',
 		})),
 		transition(':enter', [ group([
-			animate('0ms ease-in-out', style({
-				position: 'absolute',
+			animate('0ms linear', style({
 				bottom: '-2rem',
 				width: '2rem',
 				height: '2rem',
 				transform: 'rotate(0)',
 			})),
-			animate('30s ease-in-out', style({
-				position: 'absolute',
+			animate('30s linear', style({
 				bottom: '100%',
 				width: '1rem',
 				height: '1rem',
