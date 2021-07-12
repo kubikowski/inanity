@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, of, timer } from 'rxjs';
-import { delay, mergeMap } from 'rxjs/operators';
+import { interval, Observable, of } from 'rxjs';
+import { delay, filter, mergeMap, switchMap } from 'rxjs/operators';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
 import { MovingBackgroundIcon } from 'src/app/shared/moving-background/moving-background-icon.model';
 import { SubSink } from 'subsink';
@@ -9,8 +9,11 @@ import { SubSink } from 'subsink';
 export class MovingBackgroundService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
-	private _isEnabled: boolean;
-	private _amount: number;
+	@Observed() private _isEnabled: boolean;
+	private readonly _isEnabled$: Observable<boolean>;
+
+	@Observed() private _amount: number;
+	private readonly _amount$: Observable<number>;
 
 	@Observed() private renderedIcons: ReadonlyMap<number, MovingBackgroundIcon> = new Map();
 	public readonly renderedIcons$: Observable<ReadonlyMap<number, MovingBackgroundIcon>>;
@@ -50,8 +53,10 @@ export class MovingBackgroundService implements OnDestroy {
 	}
 
 	private initializeIcons(): void {
-		this.subscriptions.sink = timer(0, 250)
+		this.subscriptions.sink = this._amount$
 			.pipe(
+				switchMap(frequency => interval(5000 / frequency)),
+				filter(() => this.isEnabled),
 				mergeMap(this.renderIcon.bind(this)),
 				delay(30000),
 			).subscribe(this.deRenderIcon.bind(this));
