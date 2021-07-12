@@ -78,6 +78,5 @@ export const ColorPalettes = [
 	GreenPalette,
 	PinkPalette,
 	RedPalette,
-	OrangePalette,
 	TanPalette,
 ] as const;

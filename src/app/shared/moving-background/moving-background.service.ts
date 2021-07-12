@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { interval, Observable, of } from 'rxjs';
 import { delay, filter, mergeMap, switchMap } from 'rxjs/operators';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
+import { clamp } from 'src/app/shared/functions/clamp/clamp.function';
 import { MovingBackgroundIcon } from 'src/app/shared/moving-background/moving-background-icon.model';
 import { SubSink } from 'subsink';
 
@@ -55,7 +56,7 @@ export class MovingBackgroundService implements OnDestroy {
 	private initializeIcons(): void {
 		this.subscriptions.sink = this._amount$
 			.pipe(
-				switchMap(frequency => interval(5000 / frequency)),
+				switchMap(frequency => interval(5000 / clamp(1, frequency, 20))),
 				filter(() => this.isEnabled),
 				mergeMap(this.renderIcon.bind(this)),
 				delay(30000),
