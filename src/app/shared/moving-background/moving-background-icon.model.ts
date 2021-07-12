@@ -1,10 +1,11 @@
-import { Sin, sins } from 'src/app/shared/svg/sin.enum';
+import { sins } from 'src/app/shared/moving-background/sin.constant';
+import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 
 export class MovingBackgroundIcon {
 	private static idCounter = 0;
 
 	private constructor(
-		public readonly icon: Sin,
+		public readonly icon: SvgIcon,
 		public readonly position: number,
 		public readonly id: number,
 	) { }

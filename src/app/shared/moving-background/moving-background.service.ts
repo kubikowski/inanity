@@ -56,7 +56,7 @@ export class MovingBackgroundService implements OnDestroy {
 	private initializeIcons(): void {
 		this.subscriptions.sink = this._amount$
 			.pipe(
-				switchMap(frequency => interval(5000 / clamp(1, frequency, 20))),
+				switchMap(amount => interval(5000 / clamp(1, amount, 20))),
 				filter(() => this.isEnabled),
 				mergeMap(this.renderIcon.bind(this)),
 				delay(30000),
