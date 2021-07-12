@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { Observable, timer } from 'rxjs';
-import { RenderedIcon } from 'src/app/navigation/background/rendered-icon.model';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { distinctUntilKeyChanged, map } from 'rxjs/operators';
 import { FloatUpAnimation, FloatUpAnimationState } from 'src/app/shared/animations/float-up.animation';
-import { Observed } from 'src/app/shared/decorators/observed.decorator';
-import { SubSink } from 'subsink';
+import { MovingBackgroundIcon } from 'src/app/shared/moving-background/moving-background-icon.model';
+import { MovingBackgroundService } from 'src/app/shared/moving-background/moving-background.service';
 
 @Component({
 	selector: 'app-background',
@@ -12,37 +12,21 @@ import { SubSink } from 'subsink';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: [ FloatUpAnimation ],
 })
-export class BackgroundComponent implements OnDestroy {
-	private readonly subscriptions = new SubSink();
+export class BackgroundComponent {
+	public readonly renderedIcons$: Observable<ReadonlyArray<MovingBackgroundIcon>>;
 	public readonly floating = FloatUpAnimationState.FLOATING;
 
-	@Observed() private renderedIcons: ReadonlyArray<RenderedIcon> = [];
-	public readonly renderedIcons$: Observable<ReadonlyArray<RenderedIcon>>;
-
-	constructor() {
-		this.subscriptions.sink = timer(0, 1000)
-			.subscribe(this.renderIcon.bind(this));
-
-		this.subscriptions.sink = timer(24000, 1000)
-			.subscribe(this.deRenderIcon.bind(this));
+	constructor(
+		private readonly movingBackgroundService: MovingBackgroundService,
+	) {
+		this.renderedIcons$ = this.movingBackgroundService.renderedIcons$
+			.pipe(
+				distinctUntilKeyChanged('size'),
+				map(iconMap => Array.from(iconMap.values())),
+			);
 	}
 
-	ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
-	}
-
-	private renderIcon(): void {
-		this.renderedIcons = [
-			...this.renderedIcons,
-			RenderedIcon.random(),
-		];
-	}
-
-	private deRenderIcon(): void {
-		this.renderedIcons = this.renderedIcons.slice(1);
-	}
-
-	public trackIconBy(index: number, renderedIcon: RenderedIcon): number {
+	public trackIconBy(index: number, renderedIcon: MovingBackgroundIcon): number {
 		return renderedIcon?.id ?? null;
 	}
 }

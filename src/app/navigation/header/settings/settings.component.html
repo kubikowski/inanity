@@ -14,6 +14,9 @@
 	<button mat-menu-item [matMenuTriggerFor]="dyslexicText">
 		Dyslexic Text
 	</button>
+	<button mat-menu-item [matMenuTriggerFor]="movingBackground">
+		Moving Background
+	</button>
 </mat-menu>
 
 <mat-menu #themes="matMenu">
@@ -43,6 +46,21 @@
 				[disabled]="!dyslexicTextEnabled"
 				[(ngModel)]="dyslexiaAmount"
 				(ngModelChange)="setDyslexiaAmount()"
+				(click)="$event.stopPropagation()">
+	</mat-slider>
+</mat-menu>
+
+<mat-menu #movingBackground="matMenu">
+	<mat-checkbox class="mat-menu-item" color="primary"
+				  [(ngModel)]="movingBackgroundEnabled"
+				  (ngModelChange)="toggleMovingBackgroundEnabled()"
+				  (click)="$event.stopPropagation()">
+		Enabled
+	</mat-checkbox>
+	<mat-slider min="0" max="20" color="primary"
+				[disabled]="!movingBackgroundEnabled"
+				[(ngModel)]="movingBackgroundAmount"
+				(ngModelChange)="setMovingBackgroundAmount()"
 				(click)="$event.stopPropagation()">
 	</mat-slider>
 </mat-menu>

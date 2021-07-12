@@ -5,6 +5,7 @@ import { ColorTheme } from 'src/app/shared/colors/models/color-themes/color-them
 import { ColorThemes } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
 import { ColorsService } from 'src/app/shared/colors/services/colors.service';
 import { DyslexicTextService } from 'src/app/shared/dyslexic-text/dyslexic-text.service';
+import { MovingBackgroundService } from 'src/app/shared/moving-background/moving-background.service';
 
 @Component({
 	selector: 'settings',
@@ -18,11 +19,15 @@ export class SettingsComponent implements OnInit {
 	public readonly colorPalettes = ColorPalettes;
 
 	public dyslexicTextEnabled = true;
-	public dyslexiaAmount = 10;
+	public dyslexiaAmount = 5;
+
+	public movingBackgroundEnabled = true;
+	public movingBackgroundAmount = 5;
 
 	constructor(
-		private colorsService: ColorsService,
-		private dyslexicTextService: DyslexicTextService,
+		private readonly colorsService: ColorsService,
+		private readonly dyslexicTextService: DyslexicTextService,
+		private readonly movingBackgroundService: MovingBackgroundService,
 	) { }
 
 	ngOnInit(): void {
@@ -46,5 +51,13 @@ export class SettingsComponent implements OnInit {
 
 	public setDyslexiaAmount(): void {
 		this.dyslexicTextService.amount = 20 - this.dyslexiaAmount;
+	}
+
+	public toggleMovingBackgroundEnabled(): void {
+		this.movingBackgroundService.isEnabled = this.movingBackgroundEnabled;
+	}
+
+	public setMovingBackgroundAmount(): void {
+		this.movingBackgroundService.amount = this.movingBackgroundAmount;
 	}
 }
