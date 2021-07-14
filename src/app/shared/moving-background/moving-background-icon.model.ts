@@ -1,4 +1,4 @@
-import { sins } from 'src/app/shared/moving-background/sin.constant';
+import { sins } from 'src/app/shared/moving-background/sins.constant';
 import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 
 export class MovingBackgroundIcon {
