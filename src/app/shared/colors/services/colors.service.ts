@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import { BaseColorPalette } from 'src/app/shared/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/shared/colors/models/color-palettes/color-palette.model';
 import { BluePalette, ColorPalettes } from 'src/app/shared/colors/models/color-palettes/color-palettes.constant';
@@ -11,7 +10,7 @@ import { Observed } from 'src/app/shared/decorators/observed.decorator';
 import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })
-export class ColorsService {
+export class ColorsService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
 	@Observed() public theme: ColorTheme;
@@ -25,12 +24,14 @@ export class ColorsService {
 		this.palette = ColorsService.localStoragePalette;
 
 		this.subscriptions.sink = this.theme$
-			.pipe(debounceTime(0))
 			.subscribe(theme => this.setTheme(theme));
 
 		this.subscriptions.sink = this.palette$
-			.pipe(debounceTime(0))
 			.subscribe(palette => this.setPalette(palette));
+	}
+
+	ngOnDestroy(): void {
+		this.subscriptions.unsubscribe();
 	}
 
 	// region setters

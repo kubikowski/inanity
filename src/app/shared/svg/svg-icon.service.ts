@@ -8,8 +8,8 @@ import { InternalSvgIcon } from 'src/app/shared/svg/internal-svg-icon.enum';
 export class SvgIconService {
 
 	constructor(
-		private matIconRegistry: MatIconRegistry,
-		private domSanitizer: DomSanitizer,
+		private readonly matIconRegistry: MatIconRegistry,
+		private readonly domSanitizer: DomSanitizer,
 	) {
 		this.registerInternalIcons();
 		this.registerExternalIcons();

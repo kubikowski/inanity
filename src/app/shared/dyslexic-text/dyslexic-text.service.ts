@@ -1,49 +1,47 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Observed } from 'src/app/shared/decorators/observed.decorator';
 import { DyslexicWord } from 'src/app/shared/dyslexic-text/models/dyslexic-word.model';
+import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })
-export class DyslexicTextService {
+export class DyslexicTextService implements OnDestroy {
+	private readonly subscriptions = new SubSink();
 
-	private _isEnabled: boolean;
-	private _amount: number;
+	@Observed() public isEnabled: boolean;
+	@Observed() public amount: number;
+
+	public readonly isEnabled$: Observable<boolean>;
+	public readonly amount$: Observable<number>;
 
 	private readonly wordCombinations = new Map<string, readonly string[]>();
 
 	constructor() {
-		const isEnabled = JSON.parse(localStorage.getItem('dyslexic-text')) ?? true;
-		const amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 15;
+		this.isEnabled = JSON.parse(localStorage.getItem('dyslexic-text')) ?? true;
+		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 15;
 
-		this.isEnabled = isEnabled;
-		this.amount = amount;
+		this.persistSettings();
 	}
 
-	public get isEnabled(): boolean {
-		return this._isEnabled;
+	ngOnDestroy(): void {
+		this.subscriptions.unsubscribe();
 	}
 
-	public set isEnabled(isEnabled: boolean) {
-		this._isEnabled = isEnabled;
+	private persistSettings(): void {
+		this.subscriptions.sink = this.isEnabled$
+			.subscribe(isEnabled => localStorage.setItem('dyslexic-text', String(isEnabled)));
 
-		localStorage.setItem('dyslexic-text', String(isEnabled));
-	}
-
-	public get amount(): number {
-		return this._amount;
-	}
-
-	public set amount(amount: number) {
-		this._amount = amount;
-
-		localStorage.setItem('dyslexia-amount', String(amount));
+		this.subscriptions.sink = this.amount$
+			.subscribe(amount => localStorage.setItem('dyslexia-amount', String(amount)));
 	}
 
 	public getDyslexicWord(word: string): string {
-		if (!this._isEnabled) {
+		if (!this.isEnabled) {
 			return word;
 		}
 
 		const combinations = this.getCombinations(word);
-		const combinationIndex = Math.floor(Math.random() * combinations.length * this._amount);
+		const combinationIndex = Math.floor(Math.random() * combinations.length * this.amount);
 
 		return combinations[combinationIndex]
 			?? word;
