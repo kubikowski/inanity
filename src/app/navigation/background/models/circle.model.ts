@@ -4,7 +4,7 @@ import { BaseColorPalette } from 'src/app/shared/colors/models/color-palettes/ba
 type ColorKey = keyof BaseColorPalette;
 
 export class Circle extends CanvasElement {
-	private static maxRadius = 50;
+	private static maxRadius = 40;
 	private static minRadius = 10;
 
 	private constructor(
@@ -13,13 +13,15 @@ export class Circle extends CanvasElement {
 		private dx: number,
 		private dy: number,
 		private radius: number,
+		private dRadius: number,
 		private colorKey: ColorKey,
 	) {
 		super();
 	}
 
 	public static random(): Circle {
-		const radius = Circle.minRadius;
+		const dRadius = Math.floor((Math.random() - 0.5) * Circle.minRadius);
+		const radius = Circle.minRadius + dRadius;
 
 		const x = Math.random() * (CanvasElement.screenWidth - radius * 2) + radius;
 		const y = Math.random() * (CanvasElement.screenHeight - radius * 2) + radius;
@@ -30,7 +32,7 @@ export class Circle extends CanvasElement {
 		const colorKeys = Object.keys(BaseColorPalette.CssPaletteVariables) as ColorKey[];
 		const colorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
 
-		return new Circle(x, y, dx, dy, radius, colorKey);
+		return new Circle(x, y, dx, dy, radius, dRadius, colorKey);
 	}
 
 	public referenceMousePosition([ x, y ]: [ number, number ]): void {
@@ -39,20 +41,24 @@ export class Circle extends CanvasElement {
 		const mouseDistance = Math.sqrt(Math.pow(mouseDX, 2) + Math.pow(mouseDY, 2));
 
 		if (mouseDistance < 100) {
-			if (this.radius < Circle.maxRadius) {
+			if (this.radius < Circle.maxRadius + this.dRadius) {
 				this.radius++;
 			}
-		} else if (this.radius > Circle.minRadius) {
+		} else if (this.radius > Circle.minRadius + this.dRadius) {
 			this.radius--;
 		}
 	}
 
 	public move(): void {
-		if (this.x + Circle.minRadius >= Circle.screenWidth || this.x - Circle.minRadius <= 0) {
+		if (this.x + Circle.minRadius + this.dRadius >= Circle.screenWidth ||
+			this.x - Circle.minRadius - this.dRadius <= 0) {
+
 			this.dx = -this.dx;
 		}
 
-		if (this.y + Circle.minRadius >= Circle.screenHeight || this.y - Circle.minRadius <= 0) {
+		if (this.y + Circle.minRadius + this.dRadius >= Circle.screenHeight ||
+			this.y - Circle.minRadius - this.dRadius <= 0) {
+
 			this.dy = -this.dy;
 		}
 

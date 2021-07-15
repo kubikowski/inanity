@@ -47,7 +47,7 @@ export class BackgroundCanvasService implements OnDestroy {
 		this.context = canvas.nativeElement.getContext('2d');
 
 		this.subscriptions.sink = this.movingBackgroundService.amount$
-			.subscribe(amount => this.manageCircleAmount(amount * 10));
+			.subscribe(amount => this.manageCircleAmount(amount * 20));
 
 		this.subscriptions.sink = interval(10, animationFrameScheduler)
 			.pipe(filter(() => this.movingBackgroundService.isEnabled))
@@ -61,26 +61,6 @@ export class BackgroundCanvasService implements OnDestroy {
 		this.canvasElements.forEach(canvasElement => canvasElement.move());
 		this.canvasElements.forEach(canvasElement => canvasElement.draw(this.context));
 	}
-
-	// public addRectangle(size: number): void {
-	// 	this.context.fillStyle = BackgroundCanvasService.randomColorString;
-	//
-	// 	this.context.fillRect(size, size, size, size);
-	// }
-	//
-	// public beginLineSegment(x: number, y: number): void {
-	// 	this.context.beginPath();
-	//
-	// 	this.context.moveTo(x, y);
-	// }
-	//
-	// public addLineSegment(x: number, y: number): void {
-	// 	this.context.strokeStyle = BackgroundCanvasService.randomColorString;
-	//
-	// 	this.context.lineTo(x, y);
-	//
-	// 	this.context.stroke();
-	// }
 
 	public manageCircleAmount(amount: number): void {
 		const circles = this.canvasElements
