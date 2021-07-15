@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { distinctUntilKeyChanged, first, map } from 'rxjs/operators';
+import { BackgroundCanvasService } from 'src/app/navigation/background/background-canvas.service';
 import { FloatUpAnimation, FloatUpAnimationState } from 'src/app/shared/animations/float-up.animation';
 import { MovingBackgroundIcon } from 'src/app/shared/moving-background/moving-background-icon.model';
 import { MovingBackgroundService } from 'src/app/shared/moving-background/moving-background.service';
@@ -12,6 +13,9 @@ import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-det
 	styleUrls: [ './background.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: [ FloatUpAnimation ],
+	providers: [
+		BackgroundCanvasService,
+	],
 })
 export class BackgroundComponent implements AfterViewInit {
 	public readonly screenWidth$: Observable<number>;
@@ -23,9 +27,8 @@ export class BackgroundComponent implements AfterViewInit {
 	@ViewChild('canvas', { static: true })
 	private readonly canvas: ElementRef<HTMLCanvasElement>;
 
-	private context: CanvasRenderingContext2D;
-
 	constructor(
+		private readonly backgroundCanvasService: BackgroundCanvasService,
 		private readonly screenDetectorService: ScreenDetectorService,
 		private readonly movingBackgroundService: MovingBackgroundService,
 	) {
@@ -40,31 +43,49 @@ export class BackgroundComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		this.context = this.canvas.nativeElement.getContext('2d');
+		this.backgroundCanvasService.initialize(this.canvas);
 
-		this.initializeRects();
-		this.setContextStyles();
-	}
-
-	private initializeRects(): void {
 		combineLatest([ this.screenWidth$, this.screenHeight$ ])
 			.pipe(first())
 			.subscribe(([ maxWidth, maxHeight ]) => {
-				const maxSize = Math.min(maxWidth, maxHeight);
-
-				for (let size = 1; size < maxSize; size = size * 2) {
-					this.fillRect(size);
-				}
+				this.initializeRectangles(maxWidth, maxHeight);
+				this.initializeLineSegments(maxWidth, maxHeight);
+				this.initializeCircles(maxWidth, maxHeight);
 			});
 	}
 
-	private fillRect(size: number): void {
-		this.context.fillRect(size, size, size, size);
+	private initializeRectangles(maxWidth: number, maxHeight: number): void {
+		const maxSize = Math.min(maxWidth, maxHeight);
+
+		for (let size = 1; size < maxSize; size = size * 2) {
+			this.backgroundCanvasService.addRectangle(size);
+		}
 	}
 
-	private setContextStyles(): void {
-		this.context.fillStyle = 'var(--default-background-color)';
-		this.context.strokeStyle = 'var(--default-background-color)';
+	private initializeLineSegments(maxWidth: number, maxHeight: number): void {
+		const maxSize = Math.min(maxWidth, maxHeight);
+
+		const startingX = Math.floor(Math.random() * maxWidth);
+		const startingY = Math.floor(Math.random() * maxHeight);
+		this.backgroundCanvasService.beginLineSegment(startingX, startingY);
+
+		for (let size = 1; size < maxSize; size = size * 2) {
+			const x = Math.floor(Math.random() * maxWidth / size);
+			const y = Math.floor(Math.random() * maxHeight / size);
+
+			this.backgroundCanvasService.addLineSegment(x, y);
+		}
+	}
+
+	private initializeCircles(maxWidth: number, maxHeight: number): void {
+		const maxSize = Math.min(maxWidth, maxHeight);
+
+		for (let size = 1; size < maxSize; size = size * 2) {
+			const x = Math.floor(Math.random() * maxWidth / size);
+			const y = Math.floor(Math.random() * maxHeight / size);
+
+			this.backgroundCanvasService.addCircle(x, y);
+		}
 	}
 
 	public trackIconBy(index: number, renderedIcon: MovingBackgroundIcon): number {
