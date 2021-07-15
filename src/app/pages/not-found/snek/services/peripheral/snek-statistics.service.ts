@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { distinctUntilKeyChanged, filter, map, tap } from 'rxjs/operators';
 import { SnekGameState } from 'src/app/pages/not-found/snek/models/state/snek-game-state.model';
 import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/snek-state.service';
@@ -6,7 +6,7 @@ import { notNullFilter } from 'src/app/shared/functions/rxjs/not-null-filter.fun
 import { SubSink } from 'subsink';
 
 @Injectable()
-export class SnekStatisticsService {
+export class SnekStatisticsService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
 	private gameStateLog: SnekGameState[] = [];
@@ -16,6 +16,10 @@ export class SnekStatisticsService {
 	) {
 		this.logGameState();
 		this.printGameStateLog();
+	}
+
+	ngOnDestroy(): void {
+		this.subscriptions.unsubscribe();
 	}
 
 	private logGameState(): void {

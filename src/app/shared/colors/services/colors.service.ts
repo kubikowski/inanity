@@ -1,33 +1,41 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
 import { BaseColorPalette } from 'src/app/shared/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/shared/colors/models/color-palettes/color-palette.model';
 import { BluePalette, ColorPalettes } from 'src/app/shared/colors/models/color-palettes/color-palettes.constant';
 import { BaseColorTheme } from 'src/app/shared/colors/models/color-themes/base-color-theme.model';
 import { ColorTheme } from 'src/app/shared/colors/models/color-themes/color-theme.model';
 import { ColorThemes, LightTheme } from 'src/app/shared/colors/models/color-themes/color-themes.constant';
+import { Observed } from 'src/app/shared/decorators/observed.decorator';
+import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })
-export class ColorsService {
+export class ColorsService implements OnDestroy {
+	private readonly subscriptions = new SubSink();
 
-	private _theme: ColorTheme;
-	private _palette: ColorPalette;
+	@Observed() public theme: ColorTheme;
+	@Observed() public palette: ColorPalette;
+
+	public readonly theme$: Observable<ColorTheme>;
+	public readonly palette$: Observable<ColorPalette>;
 
 	constructor() {
-		this._theme = ColorsService.localStorageTheme;
-		this._palette = ColorsService.localStoragePalette;
+		this.theme = ColorsService.localStorageTheme;
+		this.palette = ColorsService.localStoragePalette;
 
-		this.theme = this._theme;
-		this.palette = this._palette;
+		this.subscriptions.sink = this.theme$
+			.subscribe(theme => this.setTheme(theme));
+
+		this.subscriptions.sink = this.palette$
+			.subscribe(palette => this.setPalette(palette));
 	}
 
-	// region public accessors
-	public get theme(): ColorTheme {
-		return this._theme;
+	ngOnDestroy(): void {
+		this.subscriptions.unsubscribe();
 	}
 
-	public set theme(theme: ColorTheme) {
-		this._theme = theme;
-
+	// region setters
+	private setTheme(theme: ColorTheme): void {
 		ColorsService.localStorageTheme = theme;
 		ColorsService.documentBodyThemeClass = theme;
 		ColorsService.cssThemeVariables = theme;
@@ -35,24 +43,18 @@ export class ColorsService {
 		ColorsService.cssPaletteVariables = this.computedPalette;
 	}
 
-	public get palette(): ColorPalette {
-		return this._palette;
-	}
-
-	public set palette(palette: ColorPalette) {
-		this._palette = palette;
-
+	private setPalette(palette: ColorPalette): void {
 		ColorsService.localStoragePalette = palette;
 
 		ColorsService.cssPaletteVariables = this.computedPalette;
 	}
 
 	private get computedPalette(): ColorPalette {
-		return (this._palette.theme.themeName !== this._theme.themeName)
-			? this._palette.inverse(this._theme)
-			: this._palette;
+		return (this.palette.theme.themeName !== this.theme.themeName)
+			? this.palette.inverse(this.theme)
+			: this.palette;
 	}
-	// endregion public accessors
+	// region setters
 
 	// region theme handling
 	private static get localStorageTheme(): ColorTheme {

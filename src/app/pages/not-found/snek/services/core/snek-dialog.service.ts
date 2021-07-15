@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SnekResultsDialogComponent } from 'src/app/pages/not-found/snek/components/dialog/snek-results-dialog/snek-results-dialog.component';
 import { SnekResults } from 'src/app/pages/not-found/snek/models/state/snek-results.interface';
@@ -6,7 +6,7 @@ import { SnekStateService } from 'src/app/pages/not-found/snek/services/core/sne
 import { SubSink } from 'subsink';
 
 @Injectable()
-export class SnekDialogService {
+export class SnekDialogService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
 	constructor(
@@ -15,6 +15,10 @@ export class SnekDialogService {
 	) {
 		this.subscriptions.sink = this.snekStateService.gameOver$
 			.subscribe(gameOverMessage => this.openResultsDialog(gameOverMessage));
+	}
+
+	ngOnDestroy(): void {
+		this.subscriptions.unsubscribe();
 	}
 
 	private openResultsDialog(gameOverMessage: string): void {

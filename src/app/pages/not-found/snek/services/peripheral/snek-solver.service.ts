@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { SnekDirectionClassifications } from 'src/app/pages/not-found/snek/models/direction/snek-direction-classifications.model';
@@ -10,7 +10,7 @@ import { notNullFilter } from 'src/app/shared/functions/rxjs/not-null-filter.fun
 import { SubSink } from 'subsink';
 
 @Injectable()
-export class SnekSolverService {
+export class SnekSolverService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 	private readonly gameState$: Observable<SnekGameState>;
 
@@ -23,6 +23,10 @@ export class SnekSolverService {
 		this.gameState$ = this.snekStateService.gameState$;
 
 		this.initializeSolver();
+	}
+
+	ngOnDestroy(): void {
+		this.subscriptions.unsubscribe();
 	}
 
 	private initializeSolver(): void {

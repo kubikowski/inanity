@@ -10,51 +10,29 @@ import { SubSink } from 'subsink';
 export class MovingBackgroundService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
-	@Observed() private _isEnabled: boolean;
-	private readonly _isEnabled$: Observable<boolean>;
+	@Observed() public isEnabled: boolean;
+	public readonly isEnabled$: Observable<boolean>;
 
-	@Observed() private _amount: number;
-	private readonly _amount$: Observable<number>;
+	@Observed() public amount: number;
+	public readonly amount$: Observable<number>;
 
 	@Observed() private renderedIcons: ReadonlyMap<number, MovingBackgroundIcon> = new Map();
 	public readonly renderedIcons$: Observable<ReadonlyMap<number, MovingBackgroundIcon>>;
 
 	constructor() {
-		const isEnabled = JSON.parse(localStorage.getItem('moving-background')) ?? true;
-		const amount = JSON.parse(localStorage.getItem('moving-background-amount')) ?? 5;
-
-		this.isEnabled = isEnabled;
-		this.amount = amount;
+		this.isEnabled = JSON.parse(localStorage.getItem('moving-background')) ?? true;
+		this.amount = JSON.parse(localStorage.getItem('moving-background-amount')) ?? 5;
 
 		this.initializeIcons();
+		this.persistSettings();
 	}
 
 	ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 
-	public get isEnabled(): boolean {
-		return this._isEnabled;
-	}
-
-	public set isEnabled(isEnabled: boolean) {
-		this._isEnabled = isEnabled;
-
-		localStorage.setItem('moving-background', String(isEnabled));
-	}
-
-	public get amount(): number {
-		return this._amount;
-	}
-
-	public set amount(amount: number) {
-		this._amount = amount;
-
-		localStorage.setItem('moving-background-amount', String(amount));
-	}
-
 	private initializeIcons(): void {
-		this.subscriptions.sink = this._amount$
+		this.subscriptions.sink = this.amount$
 			.pipe(
 				switchMap(amount => interval(5000 / clamp(1, amount, 20))),
 				filter(() => this.isEnabled),
@@ -79,5 +57,13 @@ export class MovingBackgroundService implements OnDestroy {
 			...[ ...this.renderedIcons.entries() ]
 				.filter(([ id ]) => id !== iconId),
 		]);
+	}
+
+	private persistSettings(): void {
+		this.subscriptions.sink = this.isEnabled$
+			.subscribe(isEnabled => localStorage.setItem('moving-background', String(isEnabled)));
+
+		this.subscriptions.sink = this.amount$
+			.subscribe(amount => localStorage.setItem('moving-background-amount', String(amount)));
 	}
 }

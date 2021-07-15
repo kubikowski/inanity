@@ -1,7 +1,6 @@
-<mat-icon
-	*ngFor="let renderedIcon of renderedIcons$ | async;
-			trackBy: trackIconBy"
-	[svgIcon]="renderedIcon.icon"
-	[style.left]="renderedIcon.position + '%'"
-	[@floatUp]="floating"
-></mat-icon>
+<canvas #canvas
+	[width]="screenWidth$ | async"
+	[height]="screenHeight$ | async"
+></canvas>
+
+<h4>{{ fps$ | async | number }}</h4>
