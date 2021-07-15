@@ -1,15 +1,19 @@
 import { CanvasElement } from 'src/app/navigation/background/models/canvas-element.model';
+import { BaseColorPalette } from 'src/app/shared/colors/models/color-palettes/base-color-palette.model';
+
+type ColorKey = keyof BaseColorPalette;
 
 export class Circle extends CanvasElement {
 	private static maxRadius = 50;
 	private static minRadius = 10;
 
 	private constructor(
-		public x: number,
-		public y: number,
+		private x: number,
+		private y: number,
 		private dx: number,
 		private dy: number,
-		public radius: number,
+		private radius: number,
+		private colorKey: ColorKey,
 	) {
 		super();
 	}
@@ -23,7 +27,10 @@ export class Circle extends CanvasElement {
 		const dx = Math.random() - 0.5;
 		const dy = Math.random() - 0.5;
 
-		return new Circle(x, y, dx, dy, radius);
+		const colorKeys = Object.keys(BaseColorPalette.CssPaletteVariables) as ColorKey[];
+		const colorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
+
+		return new Circle(x, y, dx, dy, radius, colorKey);
 	}
 
 	public referenceMousePosition([ x, y ]: [ number, number ]): void {
@@ -56,8 +63,8 @@ export class Circle extends CanvasElement {
 	public draw(context: CanvasRenderingContext2D): void {
 		context.beginPath();
 		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-		context.strokeStyle = 'rgba(0, 0, 0, 50%)';
-		context.fillStyle = 'rgba(0, 0, 0, 50%)';
+		context.strokeStyle = CanvasElement.colorPalette[this.colorKey];
+		context.fillStyle = CanvasElement.colorPalette[this.colorKey];
 		context.stroke();
 		context.fill();
 	}

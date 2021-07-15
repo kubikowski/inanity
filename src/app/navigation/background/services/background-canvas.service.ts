@@ -3,6 +3,7 @@ import { animationFrameScheduler, interval } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/navigation/background/models/canvas-element.model';
 import { Circle } from 'src/app/navigation/background/models/circle.model';
+import { ColorsService } from 'src/app/shared/colors/services/colors.service';
 import { MovingBackgroundService } from 'src/app/shared/moving-background/moving-background.service';
 import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-detector.service';
 import { SubSink } from 'subsink';
@@ -19,6 +20,7 @@ export class BackgroundCanvasService implements OnDestroy {
 	private canvasElements = Array<CanvasElement>();
 
 	constructor(
+		private readonly colorsService: ColorsService,
 		private readonly screenDetectorService: ScreenDetectorService,
 		private readonly movingBackgroundService: MovingBackgroundService,
 	) {
@@ -32,6 +34,9 @@ export class BackgroundCanvasService implements OnDestroy {
 
 		this.subscriptions.sink = this.screenDetectorService.mousePosition$
 			.subscribe(mousePosition => this.mousePosition = mousePosition);
+
+		this.subscriptions.sink = this.colorsService.palette$
+			.subscribe(colorPalette => CanvasElement.colorPalette = colorPalette);
 	}
 
 	ngOnDestroy(): void {
@@ -93,13 +98,5 @@ export class BackgroundCanvasService implements OnDestroy {
 			circles.push(circle);
 			this.canvasElements.push(circle);
 		}
-	}
-
-	private static get randomColorString(): string {
-		const red = Math.floor(Math.random() * 255);
-		const green = Math.floor(Math.random() * 255);
-		const blue = Math.floor(Math.random() * 255);
-
-		return `rgba(${ red }, ${ green }, ${ blue }, 0.25)`;
 	}
 }
