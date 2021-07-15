@@ -1,6 +1,6 @@
 import { ElementRef, Injectable, OnDestroy } from '@angular/core';
-import { animationFrameScheduler, interval, of } from 'rxjs';
-import { filter, observeOn, tap } from 'rxjs/operators';
+import { animationFrameScheduler, interval } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/navigation/background/models/canvas-element.model';
 import { Circle } from 'src/app/navigation/background/models/circle.model';
 import { MovingBackgroundService } from 'src/app/shared/moving-background/moving-background.service';
@@ -13,6 +13,7 @@ export class BackgroundCanvasService implements OnDestroy {
 
 	private screenWidth: number;
 	private screenHeight: number;
+	private mousePosition: [ number, number ];
 
 	private context: CanvasRenderingContext2D;
 	private canvasElements = Array<CanvasElement>();
@@ -28,6 +29,9 @@ export class BackgroundCanvasService implements OnDestroy {
 		this.subscriptions.sink = this.screenDetectorService.screenHeight$
 			.pipe(tap(screenHeight => CanvasElement.screenHeight = screenHeight))
 			.subscribe(screenHeight => this.screenHeight = screenHeight);
+
+		this.subscriptions.sink = this.screenDetectorService.mousePosition$
+			.subscribe(mousePosition => this.mousePosition = mousePosition);
 	}
 
 	ngOnDestroy(): void {
@@ -48,6 +52,7 @@ export class BackgroundCanvasService implements OnDestroy {
 	private renderFrame(): void {
 		this.context.clearRect(0, 0, this.screenWidth, this.screenHeight);
 
+		this.canvasElements.forEach(canvasElement => canvasElement.referenceMousePosition(this.mousePosition));
 		this.canvasElements.forEach(canvasElement => canvasElement.move());
 		this.canvasElements.forEach(canvasElement => canvasElement.draw(this.context));
 	}

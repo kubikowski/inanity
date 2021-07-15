@@ -27,7 +27,7 @@ export class ScreenDetectorService implements OnDestroy {
 			this.renderer.listen('window', 'resize', this.detectScreenSize.bind(this));
 
 		this.mouseMoveListenerUnsubscribeCallback =
-			this.renderer.listen('window', 'mouseMove', this.detectMouseLocation.bind(this));
+			this.renderer.listen('window', 'mousemove', this.detectMouseLocation.bind(this));
 	}
 
 	ngOnDestroy(): void {

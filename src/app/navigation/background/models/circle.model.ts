@@ -1,6 +1,9 @@
 import { CanvasElement } from 'src/app/navigation/background/models/canvas-element.model';
 
 export class Circle extends CanvasElement {
+	private static maxRadius = 50;
+	private static minRadius = 10;
+
 	private constructor(
 		public x: number,
 		public y: number,
@@ -12,7 +15,7 @@ export class Circle extends CanvasElement {
 	}
 
 	public static random(): Circle {
-		const radius = 30;
+		const radius = Circle.minRadius;
 
 		const x = Math.random() * (CanvasElement.screenWidth - radius * 2) + radius;
 		const y = Math.random() * (CanvasElement.screenHeight - radius * 2) + radius;
@@ -23,12 +26,26 @@ export class Circle extends CanvasElement {
 		return new Circle(x, y, dx, dy, radius);
 	}
 
+	public referenceMousePosition([ x, y ]: [ number, number ]): void {
+		const mouseDX = Math.abs(this.x - x);
+		const mouseDY = Math.abs(this.y - y);
+		const mouseDistance = Math.sqrt(Math.pow(mouseDX, 2) + Math.pow(mouseDY, 2));
+
+		if (mouseDistance < 100) {
+			if (this.radius < Circle.maxRadius) {
+				this.radius++;
+			}
+		} else if (this.radius > Circle.minRadius) {
+			this.radius--;
+		}
+	}
+
 	public move(): void {
-		if (this.x + this.radius >= Circle.screenWidth || this.x - this.radius <= 0) {
+		if (this.x + Circle.minRadius >= Circle.screenWidth || this.x - Circle.minRadius <= 0) {
 			this.dx = -this.dx;
 		}
 
-		if (this.y + this.radius >= Circle.screenHeight || this.y - this.radius <= 0) {
+		if (this.y + Circle.minRadius >= Circle.screenHeight || this.y - Circle.minRadius <= 0) {
 			this.dy = -this.dy;
 		}
 
@@ -40,6 +57,8 @@ export class Circle extends CanvasElement {
 		context.beginPath();
 		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
 		context.strokeStyle = 'rgba(0, 0, 0, 50%)';
+		context.fillStyle = 'rgba(0, 0, 0, 50%)';
 		context.stroke();
+		context.fill();
 	}
 }
