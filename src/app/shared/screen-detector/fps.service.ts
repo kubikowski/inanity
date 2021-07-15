@@ -1,13 +1,15 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, pairwise } from 'rxjs/operators';
+import { map, scan } from 'rxjs/operators';
 import { Observed } from 'src/app/shared/decorators/observed.decorator';
 import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })
 export class FpsService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
+
 	private static enabled = true;
+	private static frameAverage = 60;
 
 	@Observed() private timeStamp: DOMHighResTimeStamp;
 	private readonly timeStamp$: Observable<DOMHighResTimeStamp>;
@@ -20,9 +22,9 @@ export class FpsService implements OnDestroy {
 
 		this.subscriptions.sink = this.timeStamp$
 			.pipe(
-				pairwise(),
-				map(([ previous, current ]) => current - previous),
-				map(msBetweenTimestamps => 1000 / msBetweenTimestamps),
+				scan((acc, timestamp) => [ ...acc.slice(acc.length <= FpsService.frameAverage ? 0 : 1), timestamp ], []),
+				map(timestamps => timestamps[timestamps.length - 1] - timestamps[0]),
+				map(msBetweenTimestamps => 1000 * FpsService.frameAverage / msBetweenTimestamps),
 			).subscribe(fps => this.fps = fps);
 	}
 

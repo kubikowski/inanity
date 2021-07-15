@@ -1,10 +1,9 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { distinctUntilKeyChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { BackgroundCanvasService } from 'src/app/navigation/background/services/background-canvas.service';
-import { FloatUpAnimation, FloatUpAnimationState } from 'src/app/shared/animations/float-up.animation';
+import { FloatUpAnimationState } from 'src/app/shared/animations/float-up.animation';
 import { MovingBackgroundIcon } from 'src/app/shared/moving-background/moving-background-icon.model';
-import { MovingBackgroundService } from 'src/app/shared/moving-background/moving-background.service';
 import { FpsService } from 'src/app/shared/screen-detector/fps.service';
 import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-detector.service';
 
@@ -13,7 +12,6 @@ import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-det
 	templateUrl: './background.component.html',
 	styleUrls: [ './background.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	animations: [ FloatUpAnimation ],
 	providers: [
 		BackgroundCanvasService,
 	],
@@ -21,6 +19,7 @@ import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-det
 export class BackgroundComponent implements AfterViewInit {
 	public readonly screenWidth$: Observable<number>;
 	public readonly screenHeight$: Observable<number>;
+	public readonly mousePosition$: Observable<[ number, number ]>;
 	public readonly fps$: Observable<number>;
 
 	public readonly renderedIcons$: Observable<ReadonlyArray<MovingBackgroundIcon>>;
@@ -33,18 +32,13 @@ export class BackgroundComponent implements AfterViewInit {
 		private readonly backgroundCanvasService: BackgroundCanvasService,
 		private readonly fpsService: FpsService,
 		private readonly screenDetectorService: ScreenDetectorService,
-		private readonly movingBackgroundService: MovingBackgroundService,
 	) {
 		this.screenWidth$ = this.screenDetectorService.screenWidth$;
 		this.screenHeight$ = this.screenDetectorService.screenHeight$;
+		this.mousePosition$ = this.screenDetectorService.mousePosition$;
 
-		this.fps$ = this.fpsService.fps$;
-
-		this.renderedIcons$ = this.movingBackgroundService.renderedIcons$
-			.pipe(
-				distinctUntilKeyChanged('size'),
-				map(iconMap => Array.from(iconMap.values())),
-			);
+		this.fps$ = this.fpsService.fps$
+			.pipe(map(fps => Math.floor(fps)), distinctUntilChanged());
 	}
 
 	ngAfterViewInit(): void {
