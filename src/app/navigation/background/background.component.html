@@ -3,6 +3,8 @@
 	[height]="screenHeight$ | async"
 ></canvas>
 
+<h4>{{ fps$ | async | number }}</h4>
+
 <!--<mat-icon-->
 <!--	*ngFor="let renderedIcon of renderedIcons$ | async;-->
 <!--			trackBy: trackIconBy"-->
