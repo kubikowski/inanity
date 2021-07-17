@@ -23,8 +23,8 @@ export class Circle extends CanvasElement {
 		const dRadius = Math.floor((Math.random() - 0.5) * Circle.minRadius);
 		const radius = Circle.minRadius + dRadius;
 
-		const x = Math.random() * (CanvasElement.screenWidth - radius * 2) + radius;
-		const y = Math.random() * (CanvasElement.screenHeight - radius * 2) + radius;
+		const x = Math.random() * (CanvasElement.canvasWidth - radius * 2) + radius;
+		const y = Math.random() * (CanvasElement.canvasHeight - radius * 2) + radius;
 
 		const dx = Math.random() - 0.5;
 		const dy = Math.random() - 0.5;
@@ -50,13 +50,13 @@ export class Circle extends CanvasElement {
 	}
 
 	public move(): void {
-		if (this.x + Circle.minRadius + this.dRadius >= Circle.screenWidth ||
+		if (this.x + Circle.minRadius + this.dRadius >= CanvasElement.canvasWidth ||
 			this.x - Circle.minRadius - this.dRadius <= 0) {
 
 			this.dx = -this.dx;
 		}
 
-		if (this.y + Circle.minRadius + this.dRadius >= Circle.screenHeight ||
+		if (this.y + Circle.minRadius + this.dRadius >= CanvasElement.canvasHeight ||
 			this.y - Circle.minRadius - this.dRadius <= 0) {
 
 			this.dy = -this.dy;

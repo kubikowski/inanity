@@ -15,8 +15,6 @@ import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-det
 	],
 })
 export class BackgroundComponent implements AfterViewInit {
-	public readonly screenWidth$: Observable<number>;
-	public readonly screenHeight$: Observable<number>;
 	public readonly fps$: Observable<number>;
 
 	@ViewChild('canvas', { static: true })
@@ -25,11 +23,7 @@ export class BackgroundComponent implements AfterViewInit {
 	constructor(
 		private readonly backgroundCanvasService: BackgroundCanvasService,
 		private readonly fpsService: FpsService,
-		private readonly screenDetectorService: ScreenDetectorService,
 	) {
-		this.screenWidth$ = this.screenDetectorService.screenWidth$;
-		this.screenHeight$ = this.screenDetectorService.screenHeight$;
-
 		this.fps$ = this.fpsService.fps$
 			.pipe(map(fps => Math.floor(fps)), distinctUntilChanged());
 	}
