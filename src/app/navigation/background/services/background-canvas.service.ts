@@ -1,6 +1,6 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { animationFrameScheduler, interval } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/navigation/background/models/canvas-element.model';
 import { Circle } from 'src/app/navigation/background/models/circle.model';
 import { CanvasService } from 'src/app/shared/canvas/canvas.service';
@@ -10,6 +10,7 @@ import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-det
 
 @Injectable()
 export class BackgroundCanvasService extends CanvasService {
+	private canvasTopOffset: number;
 	private mousePosition: [ number, number ];
 
 	constructor(
@@ -19,15 +20,8 @@ export class BackgroundCanvasService extends CanvasService {
 	) {
 		super(screenDetectorService);
 
-		this.subscriptions.sink = this.screenDetectorService.screenWidth$
-			.subscribe(screenWidth => this.rawCanvasWidth = screenWidth);
-
-		this.subscriptions.sink = this.screenDetectorService.screenHeight$
-			.subscribe(screenHeight => this.rawCanvasHeight = screenHeight);
-
 		this.subscriptions.sink = this.screenDetectorService.mousePosition$
-			.pipe(map(coordinates => coordinates.map(coordinate =>
-				Math.floor(coordinate * this.pixelDensity)) as [ number, number ]))
+			.pipe(map(([ x, y ]) => [ x * this.pixelDensity, (y - this.canvasTopOffset) * this.pixelDensity ] as [ number, number ]))
 			.subscribe(mousePosition => this.mousePosition = mousePosition);
 
 		this.subscriptions.sink = this.colorsService.palette$
@@ -47,6 +41,15 @@ export class BackgroundCanvasService extends CanvasService {
 
 	protected initializeCanvasSize(): void {
 		super.initializeCanvasSize();
+
+		this.subscriptions.sink = this.screenDetectorService.screenWidth$
+			.subscribe(screenWidth => this.rawCanvasWidth = screenWidth);
+
+		this.subscriptions.sink = this.screenDetectorService.screenHeight$
+			.pipe(
+				tap(() => this.canvasTopOffset = this.canvas.getBoundingClientRect().top),
+				map(screenHeight => screenHeight - this.canvasTopOffset),
+			).subscribe(rawCanvasHeight => this.rawCanvasHeight = rawCanvasHeight);
 
 		this.subscriptions.sink = this.canvasWidth$
 			.subscribe(canvasWidth => CanvasElement.canvasWidth = canvasWidth);
