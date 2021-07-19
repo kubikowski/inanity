@@ -11,10 +11,12 @@ export class ScreenDetectorService implements OnDestroy {
 
 	@Observed() private screenWidth: number;
 	@Observed() private screenHeight: number;
+	@Observed() private pixelDensity: number;
 	@Observed() private mousePosition: [ number, number ] = [ 0, 0 ];
 
 	public readonly screenWidth$: Observable<number>;
 	public readonly screenHeight$: Observable<number>;
+	public readonly pixelDensity$: Observable<number>;
 	public readonly mousePosition$: Observable<[ number, number ]>;
 
 	constructor(
@@ -36,10 +38,11 @@ export class ScreenDetectorService implements OnDestroy {
 	}
 
 	private detectScreenSize(): void {
-		const { innerWidth, innerHeight } = window;
+		const { innerWidth, innerHeight, devicePixelRatio } = window;
 
 		this.screenWidth = innerWidth;
 		this.screenHeight = innerHeight;
+		this.pixelDensity = devicePixelRatio;
 	}
 
 	private detectMouseLocation(mouseMove: MouseEvent): void {

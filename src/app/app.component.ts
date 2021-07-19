@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationService } from 'src/app/navigation/navigation.service';
 import { TitleService } from 'src/app/navigation/routing/title.service';
@@ -13,9 +13,7 @@ import { SvgIconService } from 'src/app/shared/svg/svg-icon.service';
 	styleUrls: [ './app.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements AfterViewInit {
-
-	@ViewChild('sidenav') private sidenav: MatSidenav;
+export class AppComponent {
 
 	constructor(
 		private readonly navigationService: NavigationService,
@@ -26,7 +24,7 @@ export class AppComponent implements AfterViewInit {
 		private readonly svgIconService: SvgIconService,
 	) { }
 
-	ngAfterViewInit(): void {
-		this.navigationService.initialize(this.sidenav);
+	@ViewChild('sidenav') private set sidenav(sidenav: MatSidenav) {
+		this.navigationService.initialize(sidenav);
 	}
 }
