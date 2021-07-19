@@ -1,4 +1,4 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { animationFrameScheduler, interval } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/navigation/background/models/canvas-element.model';
@@ -20,16 +20,23 @@ export class BackgroundCanvasService extends CanvasService {
 	) {
 		super(screenDetectorService);
 
+		this.handleMousePosition();
+		this.handleColorPalette();
+	}
+
+	public handleMousePosition(): void {
 		this.subscriptions.sink = this.screenDetectorService.mousePosition$
 			.pipe(map(([ x, y ]) => [ x * this.pixelDensity, (y - this.canvasTopOffset) * this.pixelDensity ] as [ number, number ]))
 			.subscribe(mousePosition => this.mousePosition = mousePosition);
+	}
 
+	public handleColorPalette(): void {
 		this.subscriptions.sink = this.colorsService.palette$
 			.subscribe(colorPalette => CanvasElement.colorPalette = colorPalette);
 	}
 
-	public initialize(canvasRef: ElementRef<HTMLCanvasElement>): void {
-		super.initialize(canvasRef);
+	public initialize(canvas: HTMLCanvasElement): void {
+		super.initialize(canvas);
 
 		this.subscriptions.sink = this.movingBackgroundService.amount$
 			.subscribe(amount => this.manageCircleAmount(amount * 20));

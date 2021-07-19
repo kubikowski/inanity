@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/navigation/background/models/canvas-element.model';
@@ -38,9 +38,9 @@ export abstract class CanvasService implements OnDestroy {
 		this.subscriptions.unsubscribe();
 	}
 
-	public initialize(canvasRef: ElementRef<HTMLCanvasElement>): void {
-		this.canvas = canvasRef.nativeElement;
-		this.context = this.canvas.getContext('2d');
+	public initialize(canvas: HTMLCanvasElement): void {
+		this.canvas = canvas;
+		this.context = canvas.getContext('2d');
 
 		this.initializeCanvasSize();
 	}
