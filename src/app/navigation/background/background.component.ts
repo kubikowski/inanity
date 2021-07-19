@@ -3,16 +3,13 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { BackgroundCanvasService } from 'src/app/navigation/background/services/background-canvas.service';
 import { FpsService } from 'src/app/shared/screen-detector/fps.service';
-import { ScreenDetectorService } from 'src/app/shared/screen-detector/screen-detector.service';
 
 @Component({
 	selector: 'app-background',
 	templateUrl: './background.component.html',
 	styleUrls: [ './background.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		BackgroundCanvasService,
-	],
+	providers: [ BackgroundCanvasService ],
 })
 export class BackgroundComponent implements AfterViewInit {
 	public readonly fps$: Observable<number>;
@@ -29,6 +26,6 @@ export class BackgroundComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		this.backgroundCanvasService.initialize(this.canvas);
+		this.backgroundCanvasService.initialize(this.canvas.nativeElement);
 	}
 }

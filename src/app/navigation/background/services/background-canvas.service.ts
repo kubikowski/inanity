@@ -1,6 +1,6 @@
-import { ElementRef, Injectable } from '@angular/core';
-import { animationFrameScheduler, interval } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { animationFrameScheduler, combineLatest, interval } from 'rxjs';
+import { debounceTime, filter, map, tap } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/navigation/background/models/canvas-element.model';
 import { Circle } from 'src/app/navigation/background/models/circle.model';
 import { CanvasService } from 'src/app/shared/canvas/canvas.service';
@@ -20,23 +20,26 @@ export class BackgroundCanvasService extends CanvasService {
 	) {
 		super(screenDetectorService);
 
+		this.handleMousePosition();
+		this.handleColorPalette();
+	}
+
+	public handleMousePosition(): void {
 		this.subscriptions.sink = this.screenDetectorService.mousePosition$
 			.pipe(map(([ x, y ]) => [ x * this.pixelDensity, (y - this.canvasTopOffset) * this.pixelDensity ] as [ number, number ]))
 			.subscribe(mousePosition => this.mousePosition = mousePosition);
+	}
 
+	public handleColorPalette(): void {
 		this.subscriptions.sink = this.colorsService.palette$
 			.subscribe(colorPalette => CanvasElement.colorPalette = colorPalette);
 	}
 
-	public initialize(canvasRef: ElementRef<HTMLCanvasElement>): void {
-		super.initialize(canvasRef);
+	public initialize(canvas: HTMLCanvasElement): void {
+		super.initialize(canvas);
 
-		this.subscriptions.sink = this.movingBackgroundService.amount$
-			.subscribe(amount => this.manageCircleAmount(amount * 20));
-
-		this.subscriptions.sink = interval(10, animationFrameScheduler)
-			.pipe(filter(() => this.movingBackgroundService.isEnabled))
-			.subscribe(() => this.renderFrame());
+		this.initializeCanvasElements();
+		this.initializeFrameRefresh();
 	}
 
 	protected initializeCanvasSize(): void {
@@ -58,6 +61,12 @@ export class BackgroundCanvasService extends CanvasService {
 			.subscribe(canvasHeight => CanvasElement.canvasHeight = canvasHeight);
 	}
 
+	private initializeFrameRefresh(): void {
+		this.subscriptions.sink = interval(10, animationFrameScheduler)
+			.pipe(filter(() => this.movingBackgroundService.isEnabled))
+			.subscribe(() => this.renderFrame());
+	}
+
 	private renderFrame(): void {
 		this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
@@ -66,21 +75,57 @@ export class BackgroundCanvasService extends CanvasService {
 		this.canvasElements.forEach(canvasElement => canvasElement.draw(this.context));
 	}
 
-	public manageCircleAmount(amount: number): void {
-		const circles = this.canvasElements
+	private initializeCanvasElements(): void {
+		this.subscriptions.sink = combineLatest([
+			this.movingBackgroundService.amount$,
+			this.canvasWidth$,
+			this.canvasHeight$,
+		]).pipe(debounceTime(0))
+			.subscribe(() => this.manageCircles());
+	}
+
+	private manageCircles(): void {
+		this.removeOutOfBoundCircles();
+		this.calibrateCircleAmount();
+	}
+
+	private removeOutOfBoundCircles(): void {
+		const outOfBoundCircles = new Set(this.circles
+			.filter(circle => !circle.inBoundaries(this.canvasWidth, this.canvasHeight)));
+
+		this.canvasElements = this.canvasElements
+			.filter(canvasElement => !outOfBoundCircles.has(canvasElement as Circle));
+	}
+
+	private calibrateCircleAmount(): void {
+		const idealAmount = this.movingBackgroundService.amount * 20;
+		const currentAmount = this.circles.length;
+
+		if (idealAmount < currentAmount) {
+			this.removeCircles(idealAmount);
+
+		} else if (idealAmount > currentAmount) {
+			this.addCircles(idealAmount - currentAmount);
+		}
+	}
+
+	private get circles(): Circle[] {
+		return this.canvasElements
 			.filter(canvasElement => canvasElement instanceof Circle) as Circle[];
+	}
 
-		while (amount < circles.length) {
-			const circle = circles.pop();
+	private removeCircles(idealAmount: number): void {
+		const removedCircles = new Set(this.circles.slice(idealAmount));
 
-			this.canvasElements.splice(this.canvasElements.indexOf(circle), 1);
-		}
+		this.canvasElements = this.canvasElements
+			.filter(canvasElement => !removedCircles.has(canvasElement as Circle));
+	}
 
-		while (amount > circles.length) {
-			const circle = Circle.random();
+	private addCircles(addCircleAmount: number): void {
+		const addedCircles = Array
+			.from({ length: addCircleAmount })
+			.map(() => Circle.random());
 
-			circles.push(circle);
-			this.canvasElements.push(circle);
-		}
+		this.canvasElements.push(...addedCircles);
 	}
 }

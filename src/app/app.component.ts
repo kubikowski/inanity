@@ -24,7 +24,8 @@ export class AppComponent {
 		private readonly svgIconService: SvgIconService,
 	) { }
 
-	@ViewChild('sidenav') private set sidenav(sidenav: MatSidenav) {
+	@ViewChild('sidenav', { static: true })
+	private set sidenav(sidenav: MatSidenav) {
 		this.navigationService.initialize(sidenav);
 	}
 }
