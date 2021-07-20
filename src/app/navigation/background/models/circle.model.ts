@@ -48,10 +48,10 @@ export class Circle extends CanvasElement {
 
 		if (mouseDistance < 100) {
 			if (this.radius < Circle.maxRadius + this.dRadius) {
-				this.radius++;
+				this.radius += 1.5;
 			}
 		} else if (this.radius > Circle.minRadius + this.dRadius) {
-			this.radius--;
+			this.radius -= 0.25;
 		}
 	}
 

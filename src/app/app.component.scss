@@ -1,7 +1,4 @@
 :host {
-	display: flex;
-	flex-flow: column nowrap;
-
 	.mat-sidenav-container {
 		color: var(--dark-text-color);
 		background-color: var(--lightest-theme-color);
@@ -13,11 +10,13 @@
 	}
 }
 
-:host, .mat-sidenav-container, .mat-sidenav-content {
+:host,
+.mat-sidenav-container,
+.mat-sidenav-content,
+section {
 	display: flex;
 	flex-flow: column nowrap;
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
 }
-

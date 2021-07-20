@@ -15,6 +15,7 @@ export enum InternalSvgIcon {
 	SINS_PRIDE = 'sins/pride',
 	SINS_SLOTH = 'sins/sloth',
 	SINS_WRATH = 'sins/wrath',
+	SNAKE = 'snake',
 	STACK = 'stack',
 	WHEEL = 'wheel',
 }
