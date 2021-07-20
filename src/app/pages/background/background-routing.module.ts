@@ -7,7 +7,7 @@ const routes: Routes = [
 		path: '',
 		component: BackgroundNoiseComponent,
 		data: {
-			title: 'bg noise',
+			title: 'noise',
 		},
 	},
 ];

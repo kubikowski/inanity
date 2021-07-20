@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	selector: 'background-noise',
 	template: `
 		<h1>
-			<dyslexic-text text="Background Noise"></dyslexic-text>
+			<dyslexic-text text="Pure Background Noise"></dyslexic-text>
 		</h1>`,
 	styles: [
 		`:host {
