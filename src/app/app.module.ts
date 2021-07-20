@@ -17,7 +17,6 @@ import { NavigationModule } from 'src/app/features/navigation/navigation.module'
 		BackgroundModule,
 		NavigationModule,
 	],
-	providers: [],
 	bootstrap: [ AppComponent ],
 })
 export class AppModule { }
