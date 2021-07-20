@@ -38,15 +38,25 @@ export class Snek {
 
 		switch (nextSnekGridNode.type) {
 			case SnekGridNodeType.BLANK:
-				this.addHead();
-				this.removeTail();
-				return false;
+				return this.moveOn();
 			case SnekGridNodeType.FUD:
-				this.addHead();
-				return true;
+				return this.moveOnUp();
 			case SnekGridNodeType.SNEK:
-				throw new Error('stop hitting yourself');
+				if (nextSnekGridNode === this._tail.snekGridNode) {
+					return this.moveOn();
+				} else throw new Error('stop hitting yourself');
 		}
+	}
+
+	private moveOn(): false {
+		this.removeTail();
+		this.addHead();
+		return false;
+	}
+
+	private moveOnUp(): true {
+		this.addHead();
+		return true;
 	}
 
 	private addHead(): void {
