@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 import { GongStatusUpdate } from 'src/app/pages/gong/models/gong-status-update.model';
-import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 
 @Component({
 	selector: 'gong',

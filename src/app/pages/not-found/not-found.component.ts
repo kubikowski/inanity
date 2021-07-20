@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
+import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 
 @Component({
 	selector: 'not-found',
