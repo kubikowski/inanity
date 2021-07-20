@@ -3,16 +3,16 @@ import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 import { GongStatusUpdate } from 'src/app/pages/gong/models/gong-status-update.model';
 
 @Component({
-	selector: 'gong',
-	templateUrl: './gong.component.html',
-	styleUrls: [ './gong.component.scss' ],
+	selector: 'gong-page',
+	templateUrl: './gong-page.component.html',
+	styleUrls: [ './gong-page.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GongComponent {
+export class GongPageComponent {
 	public readonly statusUpdates: ReadonlyArray<GongStatusUpdate>;
 
 	constructor() {
-		this.statusUpdates = GongComponent.getStatusUpdates();
+		this.statusUpdates = GongPageComponent.getStatusUpdates();
 	}
 
 	private static getStatusUpdates(): ReadonlyArray<GongStatusUpdate> {

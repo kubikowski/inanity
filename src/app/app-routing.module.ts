@@ -4,20 +4,24 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
 	{
 		path: '',
-		redirectTo: '/gong',
+		redirectTo: '/snek',
 		pathMatch: 'full'
 	}, {
 		path: 'background',
-		loadChildren: () => import('src/app/pages/background/background.module')
-			.then(module => module.BackgroundModule),
+		loadChildren: () => import('src/app/pages/background/background-page.module')
+			.then(module => module.BackgroundPageModule),
 	}, {
 		path: 'gong',
-		loadChildren: () => import('src/app/pages/gong/gong.module')
-			.then(module => module.GongModule),
+		loadChildren: () => import('src/app/pages/gong/gong-page.module')
+			.then(module => module.GongPageModule),
+	}, {
+		path: 'snek',
+		loadChildren: () => import('src/app/pages/snek/snek-page.module')
+			.then(module => module.SnekPageModule),
 	}, {
 		path: '**',
-		loadChildren: () => import('src/app/pages/not-found/not-found.module')
-			.then(module => module.NotFoundModule),
+		loadChildren: () => import('src/app/pages/not-found/not-found-page.module')
+			.then(module => module.NotFoundPageModule),
 	},
 ];
 

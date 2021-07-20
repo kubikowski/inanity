@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CoreModule } from 'src/app/core/core.module';
 import { DyslexicTextModule } from 'src/app/features/dyslexic-text/dyslexic-text.module';
-import { GongRoutingModule } from 'src/app/pages/gong/gong-routing.module';
-import { GongComponent } from 'src/app/pages/gong/gong.component';
+import { GongPageRoutingModule } from 'src/app/pages/gong/gong-page-routing.module';
+import { GongPageComponent } from 'src/app/pages/gong/gong-page.component';
 
 @NgModule({
 	declarations: [
-		GongComponent,
+		GongPageComponent,
 	],
 	imports: [
 		CoreModule,
 		DyslexicTextModule,
 	],
 	exports: [
-		GongRoutingModule,
+		GongPageRoutingModule,
 	],
 })
-export class GongModule { }
+export class GongPageModule { }

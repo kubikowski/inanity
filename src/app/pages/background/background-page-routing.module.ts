@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BackgroundNoiseComponent } from 'src/app/pages/background/background-noise.component';
+import { BackgroundPageComponent } from 'src/app/pages/background/background-page.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: BackgroundNoiseComponent,
+		component: BackgroundPageComponent,
 		data: {
 			title: 'noise',
 		},
@@ -16,4 +16,4 @@ const routes: Routes = [
 	imports: [ RouterModule.forChild(routes) ],
 	exports: [ RouterModule ]
 })
-export class BackgroundRoutingModule { }
+export class BackgroundPageRoutingModule { }

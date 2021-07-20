@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-	selector: 'background-noise',
+	selector: 'background-page',
 	template: `
 		<h1>
 			<dyslexic-text text="Pure Background Noise"></dyslexic-text>
@@ -14,4 +14,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BackgroundNoiseComponent { }
+export class BackgroundPageComponent { }

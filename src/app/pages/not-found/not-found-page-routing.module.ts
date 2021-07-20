@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GongComponent } from 'src/app/pages/gong/gong.component';
+import { NotFoundPageComponent } from 'src/app/pages/not-found/not-found-page.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: GongComponent,
+		component: NotFoundPageComponent,
 		data: {
-			title: 'gong',
+			title: 'got lost?',
 		},
 	},
 ];
@@ -16,4 +16,4 @@ const routes: Routes = [
 	imports: [ RouterModule.forChild(routes) ],
 	exports: [ RouterModule ]
 })
-export class GongRoutingModule { }
+export class NotFoundPageRoutingModule { }

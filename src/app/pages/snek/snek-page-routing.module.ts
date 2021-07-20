@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from 'src/app/pages/not-found/not-found.component';
+import { SnekPageComponent } from 'src/app/pages/snek/snek-page.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: NotFoundComponent,
+		component: SnekPageComponent,
 		data: {
-			title: 'got lost?',
+			title: 'snek',
 		},
 	},
 ];
@@ -16,4 +16,4 @@ const routes: Routes = [
 	imports: [ RouterModule.forChild(routes) ],
 	exports: [ RouterModule ]
 })
-export class NotFoundRoutingModule { }
+export class SnekPageRoutingModule { }

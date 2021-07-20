@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 
 @Component({
-	selector: 'not-found',
-	templateUrl: './not-found.component.html',
-	styleUrls: [ './not-found.component.scss' ],
+	selector: 'snek-page',
+	templateUrl: './snek-page.component.html',
+	styleUrls: [ './snek-page.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotFoundComponent {
+export class SnekPageComponent {
 
-	readonly WheelIcon = SvgIcon.WHEEL;
+	readonly SnekIcon = SvgIcon.SNAKE;
 
 	constructor() {
 	}
