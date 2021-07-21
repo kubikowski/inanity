@@ -1,5 +1,6 @@
 export class DyslexicWord {
 	private constructor(
+		private readonly word: string,
 		private readonly firstLetter: string,
 		private readonly lastLetter: string,
 		private readonly middleLetters: string,
@@ -12,11 +13,11 @@ export class DyslexicWord {
 		const lastLetter = orderedLetters.pop();
 		const middleLetters = orderedLetters.join('');
 
-		return new DyslexicWord(firstLetter, lastLetter, middleLetters);
+		return new DyslexicWord(word, firstLetter, lastLetter, middleLetters);
 	}
 
 	public get combinations(): readonly string[] {
-		const allCombinations = [];
+		const allCombinations = [ this.word ];
 
 		for (let movingDistance = 0; movingDistance < this.middleLetters.length - 1; movingDistance++) {
 			const combinations = this.getCombinationsByMovingDistance(movingDistance);

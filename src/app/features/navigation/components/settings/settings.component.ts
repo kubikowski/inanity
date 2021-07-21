@@ -14,9 +14,11 @@ import { DyslexicTextService } from 'src/app/features/dyslexic-text/services/dys
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent implements OnInit {
-
 	public readonly colorThemes = ColorThemes;
 	public readonly colorPalettes = ColorPalettes;
+
+	public readonly minDyslexiaAmount = DyslexicTextService.minAmount;
+	public readonly maxDyslexiaAmount = DyslexicTextService.maxAmount;
 
 	public dyslexicTextEnabled = true;
 	public dyslexiaAmount = 5;
@@ -32,7 +34,7 @@ export class SettingsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.dyslexicTextEnabled = this.dyslexicTextService.isEnabled;
-		this.dyslexiaAmount = 20 - this.dyslexicTextService.amount;
+		this.dyslexiaAmount = this.dyslexicTextService.amount;
 	}
 
 	public toggleTheme(theme: ColorTheme, event: Event): void {
@@ -50,7 +52,7 @@ export class SettingsComponent implements OnInit {
 	}
 
 	public setDyslexiaAmount(): void {
-		this.dyslexicTextService.amount = 20 - this.dyslexiaAmount;
+		this.dyslexicTextService.amount = this.dyslexiaAmount;
 	}
 
 	public toggleMovingBackgroundEnabled(): void {
