@@ -1,4 +1,4 @@
-import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
+import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 
 export class GongStatusUpdate {
 	constructor(
