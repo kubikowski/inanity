@@ -8,6 +8,9 @@ import { SubSink } from 'subsink';
 export class DyslexicTextService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
+	public static readonly minAmount = 0;
+	public static readonly maxAmount = 100;
+
 	@Observed() public isEnabled: boolean;
 	@Observed() public amount: number;
 
@@ -18,7 +21,7 @@ export class DyslexicTextService implements OnDestroy {
 
 	constructor() {
 		this.isEnabled = JSON.parse(localStorage.getItem('dyslexic-text')) ?? true;
-		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 15;
+		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 25;
 
 		this.persistSettings();
 	}
@@ -41,7 +44,7 @@ export class DyslexicTextService implements OnDestroy {
 		}
 
 		const combinations = this.getCombinations(word);
-		const combinationIndex = Math.floor(Math.random() * combinations.length * this.amount);
+		const combinationIndex = Math.floor(Math.random() * combinations.length * DyslexicTextService.maxAmount / this.amount);
 
 		return combinations[combinationIndex]
 			?? word;
