@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Observed } from 'src/app/core/decorators/observed.decorator';
+import { clamp } from 'src/app/core/functions/clamp/clamp.function';
 import { DyslexicWord } from 'src/app/features/dyslexic-text/models/dyslexic-word.model';
 import { SubSink } from 'subsink';
 
@@ -44,7 +45,9 @@ export class DyslexicTextService implements OnDestroy {
 		}
 
 		const combinations = this.getCombinations(word);
-		const combinationIndex = Math.floor(Math.random() * combinations.length * DyslexicTextService.maxAmount / this.amount);
+
+		const dyslexiaAmount = clamp(DyslexicTextService.minAmount, this.amount, DyslexicTextService.maxAmount);
+		const combinationIndex = Math.floor(Math.random() * combinations.length * DyslexicTextService.maxAmount / dyslexiaAmount);
 
 		return combinations[combinationIndex]
 			?? word;
@@ -52,17 +55,11 @@ export class DyslexicTextService implements OnDestroy {
 
 	private getCombinations(word: string): readonly string[] {
 		if (!this.wordCombinations.has(word)) {
-			const combinations = DyslexicTextService.generateCombinations(word);
+			const combinations = DyslexicWord.from(word).combinations;
 
 			this.wordCombinations.set(word, combinations);
 		}
 
 		return this.wordCombinations.get(word);
-	}
-
-	private static generateCombinations(word: string): readonly string[] {
-		const dyslexicWord = DyslexicWord.from(word);
-
-		return dyslexicWord.combinations;
 	}
 }
