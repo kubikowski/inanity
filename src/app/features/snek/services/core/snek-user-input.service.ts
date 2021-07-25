@@ -1,22 +1,35 @@
 import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
 import { JoystickOutputData } from 'nipplejs';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { Observed } from 'src/app/core/decorators/observed.decorator';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
+import { SubSink } from 'subsink';
 
 @Injectable()
 export class SnekUserInputService implements OnDestroy {
+	private readonly subscriptions = new SubSink();
 	private readonly listenerUnsubscribeCallback: () => void;
+
+	@Observed() private commandQueue: ReadonlyArray<SnekDirection> = [];
+	private readonly commandQueue$: Observable<ReadonlyArray<SnekDirection>>;
 
 	constructor(
 		private readonly renderer: Renderer2,
 		private readonly snekStateService: SnekStateService,
 	) {
-		this.listenerUnsubscribeCallback =
-			this.renderer.listen('document', 'keydown', this.handleKeyDown.bind(this));
+		this.initializeCommandQueue();
+		this.listenerUnsubscribeCallback = this.keyDownEventListener;
 	}
 
 	ngOnDestroy(): void {
+		this.subscriptions.unsubscribe();
 		this.listenerUnsubscribeCallback();
+	}
+
+	private get keyDownEventListener(): () => void {
+		return this.renderer.listen('document', 'keydown', this.handleKeyDown.bind(this));
 	}
 
 	private handleKeyDown(keyboardEvent: KeyboardEvent): void {
@@ -27,19 +40,19 @@ export class SnekUserInputService implements OnDestroy {
 		switch (keyboardEvent.key) {
 			case 'w':
 			case 'ArrowUp':
-				this.changeDirection(SnekDirection.UP);
+				this.enterCommand(SnekDirection.UP);
 				break;
 			case 's':
 			case 'ArrowDown':
-				this.changeDirection(SnekDirection.DOWN);
+				this.enterCommand(SnekDirection.DOWN);
 				break;
 			case 'a':
 			case 'ArrowLeft':
-				this.changeDirection(SnekDirection.LEFT);
+				this.enterCommand(SnekDirection.LEFT);
 				break;
 			case 'd':
 			case 'ArrowRight':
-				this.changeDirection(SnekDirection.RIGHT);
+				this.enterCommand(SnekDirection.RIGHT);
 				break;
 		}
 	}
@@ -51,18 +64,66 @@ export class SnekUserInputService implements OnDestroy {
 
 		switch (event.direction?.angle) {
 			case 'up':
-				this.changeDirection(SnekDirection.UP);
+				this.enterCommand(SnekDirection.UP);
 				break;
 			case 'down':
-				this.changeDirection(SnekDirection.DOWN);
+				this.enterCommand(SnekDirection.DOWN);
 				break;
 			case 'left':
-				this.changeDirection(SnekDirection.LEFT);
+				this.enterCommand(SnekDirection.LEFT);
 				break;
 			case 'right':
-				this.changeDirection(SnekDirection.RIGHT);
+				this.enterCommand(SnekDirection.RIGHT);
 				break;
 		}
+	}
+
+	private initializeCommandQueue(): void {
+		this.subscriptions.sink = this.commandQueue$
+			.pipe(filter(commandQueue => commandQueue.length === 1))
+			.subscribe(commandQueue => this.changeDirection(commandQueue[0]));
+
+		this.subscriptions.sink = this.snekStateService.gameState$
+			.subscribe(this.processNextCommand.bind(this));
+
+		this.subscriptions.sink = this.snekStateService.gameOver$
+			.subscribe(this.resetCommandQueue.bind(this));
+	}
+
+	private enterCommand(direction: SnekDirection): void {
+		switch (this.commandQueue.length) {
+			case 0:
+				this.enterPrimaryCommand(direction);
+				break;
+			case 1:
+				this.enterSecondaryCommand(direction);
+				break;
+		}
+	}
+
+	private enterPrimaryCommand(direction: SnekDirection): void {
+		const playing = this.snekStateService.playing;
+		const currentDirection = this.snekStateService.snekGame.snek.direction;
+
+		if (direction !== currentDirection || !playing) {
+			this.commandQueue = [ direction ];
+		}
+	}
+
+	private enterSecondaryCommand(direction: SnekDirection): void {
+		const [ nextDirection ] = this.commandQueue;
+
+		if (direction !== nextDirection) {
+			this.commandQueue = [ nextDirection, direction ];
+		}
+	}
+
+	private processNextCommand(): void {
+		this.commandQueue = this.commandQueue.slice(1);
+	}
+
+	private resetCommandQueue(): void {
+		this.commandQueue = [];
 	}
 
 	private changeDirection(direction: SnekDirection): void {
