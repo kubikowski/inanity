@@ -19,3 +19,8 @@ export function inverseDirection(direction: SnekDirection): SnekDirection {
 			return null;
 	}
 }
+
+export function isValidDirectionChange(current: SnekDirection, next: SnekDirection): boolean {
+	return next !== current
+		&& next !== inverseDirection(current);
+}
