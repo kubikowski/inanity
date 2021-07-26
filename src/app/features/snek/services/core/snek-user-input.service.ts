@@ -3,7 +3,7 @@ import { JoystickOutputData } from 'nipplejs';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Observed } from 'src/app/core/decorators/observed.decorator';
-import { isValidDirectionChange, SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
+import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 import { SubSink } from 'subsink';
 
@@ -105,7 +105,7 @@ export class SnekUserInputService implements OnDestroy {
 		const playing = this.snekStateService.playing;
 		const currentDirection = this.snekStateService.snekGame.snek.direction;
 
-		if (isValidDirectionChange(currentDirection, direction) || !playing) {
+		if (SnekDirection.isValidChange(currentDirection, direction) || !playing) {
 			this.commandQueue = [ direction ];
 		}
 	}
@@ -114,9 +114,9 @@ export class SnekUserInputService implements OnDestroy {
 		const currentDirection = this.snekStateService.snekGame.snek.direction;
 		const [ nextDirection ] = this.commandQueue;
 
-		if (isValidDirectionChange(nextDirection, direction)) {
+		if (SnekDirection.isValidChange(nextDirection, direction)) {
 			this.commandQueue = [ nextDirection, direction ];
-		} else if (isValidDirectionChange(currentDirection, direction)) {
+		} else if (SnekDirection.isValidChange(currentDirection, direction)) {
 			this.commandQueue = [ direction ];
 		}
 	}

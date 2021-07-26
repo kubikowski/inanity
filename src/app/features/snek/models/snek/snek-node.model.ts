@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Observed } from 'src/app/core/decorators/observed.decorator';
-import { inverseDirection, SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
+import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
 
 export class SnekNode {
@@ -31,7 +31,7 @@ export class SnekNode {
 	}
 
 	public static newHead(snekGridNode: SnekGridNode, child: SnekNode, nextDirection: SnekDirection): SnekNode {
-		const childDirection = inverseDirection(nextDirection);
+		const childDirection = SnekDirection.inverse(nextDirection);
 
 		return new SnekNode(snekGridNode, child, childDirection);
 	}
@@ -50,7 +50,7 @@ export class SnekNode {
 		}
 
 		this._parent = head;
-		this.parentDirection = inverseDirection(head.childDirection);
+		this.parentDirection = SnekDirection.inverse(head.childDirection);
 	}
 
 	public removeTail(): void {
