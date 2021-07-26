@@ -18,7 +18,7 @@ export class SnekOptionsComponent {
 	public readonly score$: Observable<number>;
 	public readonly highScore$: Observable<number>;
 
-	public solverEnabled: FormControl;
+	public readonly solverEnabledControl: FormControl;
 
 	constructor(
 		private readonly snekStateService: SnekStateService,
@@ -27,19 +27,6 @@ export class SnekOptionsComponent {
 		this.score$ = this.snekStateService.score$;
 		this.highScore$ = this.snekStateService.highScore$;
 
-		this.solverEnabled = this.initializeSolverEnabled();
-	}
-
-	private initializeSolverEnabled(): FormControl {
-		const solverEnabled = new FormControl(this.snekSolverService.enabled);
-
-		this.subscriptions.sink = this.snekSolverService.enabled$
-			.pipe(distinctUntilChanged())
-			.subscribe(enabled => solverEnabled.setValue(enabled));
-
-		this.subscriptions.sink = solverEnabled.valueChanges
-			.subscribe(enabled => this.snekSolverService.enabled = enabled);
-
-		return solverEnabled;
+		this.solverEnabledControl = this.snekSolverService.enabledControl;
 	}
 }

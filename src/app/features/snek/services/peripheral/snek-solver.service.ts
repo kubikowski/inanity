@@ -1,7 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
+import { Controlled } from 'src/app/core/decorators/controlled.decorator';
 import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.function';
 import { SnekDirectionClassifications } from 'src/app/features/snek/models/direction/snek-direction-classifications.model';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
@@ -14,8 +15,8 @@ export class SnekSolverService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 	private readonly gameState$: Observable<SnekGameState>;
 
-	@Observed() public enabled = false;
-	public readonly enabled$: Observable<boolean>;
+	@Controlled() private enabled = false;
+	public readonly enabledControl: FormControl;
 
 	constructor(
 		private readonly snekStateService: SnekStateService
