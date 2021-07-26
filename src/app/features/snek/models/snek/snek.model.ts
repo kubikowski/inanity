@@ -1,4 +1,4 @@
-import { inverseDirection, SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
+import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';
@@ -86,7 +86,7 @@ export class Snek {
 	}
 
 	public set direction(direction: SnekDirection) {
-		if (this._currentDirection !== inverseDirection(direction)) {
+		if (this._currentDirection !== SnekDirection.inverse(direction)) {
 			this._nextDirection = direction;
 		}
 	}

@@ -46,7 +46,7 @@ export class JoystickComponent implements AfterViewInit, OnDestroy {
 			zone: this.elementRef.nativeElement,
 			color: 'var(--disabled-text-color)',
 			size: 75,
-			threshold: 0.5,
+			threshold: 1 / 3,
 			fadeTime: 100,
 			position: { left: '50%', top: '50%' },
 			mode: 'dynamic',

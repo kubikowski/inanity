@@ -1,5 +1,5 @@
 import { difference } from 'src/app/core/functions/sets/difference.function';
-import { inverseDirection, SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
+import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
@@ -30,13 +30,14 @@ export class SnekDirectionClassifications {
 		return new SnekDirectionClassifications(optimal, subOptimal, direction);
 	}
 
+	private static readonly SnekDirections = [ SnekDirection.UP, SnekDirection.DOWN, SnekDirection.LEFT, SnekDirection.RIGHT ];
+
 	private static getPossibleDirections(headNode: SnekGridNode, currentDirection: SnekDirection): ReadonlySet<SnekDirection> {
-		const allDirections = Object.values(SnekDirection);
-		const possible = new Set(allDirections);
+		const possible = new Set(this.SnekDirections);
 
-		possible.delete(inverseDirection(currentDirection));
+		possible.delete(SnekDirection.inverse(currentDirection));
 
-		allDirections.forEach(direction => {
+		this.SnekDirections.forEach(direction => {
 			const next = headNode.next(direction);
 
 			if (!(next instanceof SnekGridNode) || next.type === SnekGridNodeType.SNEK) {
