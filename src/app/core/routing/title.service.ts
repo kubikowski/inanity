@@ -7,7 +7,6 @@ import { SubSink } from 'subsink';
 @Injectable({ providedIn: 'root' })
 export class TitleService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
-
 	private readonly DEFAULT_TITLE = 'inanity';
 
 	constructor(
@@ -26,12 +25,12 @@ export class TitleService implements OnDestroy {
 		this.subscriptions.sink = this.router.events
 			.pipe(
 				filter(event => event instanceof NavigationEnd),
-				map(() => this.routeTitle),
+				map(() => this.getRouteTitle()),
 				distinctUntilChanged(),
 			).subscribe(routeTitle => this.title.setTitle(routeTitle));
 	}
 
-	private get routeTitle(): string {
+	private getRouteTitle(): string {
 		let route = this.activatedRoute;
 		let title = this.DEFAULT_TITLE;
 
