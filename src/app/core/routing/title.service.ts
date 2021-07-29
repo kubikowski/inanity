@@ -26,12 +26,12 @@ export class TitleService implements OnDestroy {
 		this.subscriptions.sink = this.router.events
 			.pipe(
 				filter(event => event instanceof NavigationEnd),
-				map(() => this.routeTitle),
+				map(() => this.getRouteTitle()),
 				distinctUntilChanged(),
 			).subscribe(routeTitle => this.title.setTitle(routeTitle));
 	}
 
-	private get routeTitle(): string {
+	private getRouteTitle(): string {
 		let route = this.activatedRoute;
 		let title = this.DEFAULT_TITLE;
 
