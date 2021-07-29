@@ -7,7 +7,6 @@ import { SubSink } from 'subsink';
 @Injectable({ providedIn: 'root' })
 export class TitleService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
-
 	private readonly DEFAULT_TITLE = 'inanity';
 
 	constructor(
