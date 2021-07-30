@@ -1,0 +1,14 @@
+@use 'src/styles/mixins/page-layout' as *;
+
+:host {
+	@include page-layout(800px);
+
+	.mat-card-content {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+	}
+}
+

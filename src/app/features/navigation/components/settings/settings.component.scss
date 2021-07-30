@@ -1,0 +1,8 @@
+:host {
+	display: flex;
+}
+
+::ng-deep .mat-menu-content {
+	display: flex;
+	flex-flow: column nowrap;
+}

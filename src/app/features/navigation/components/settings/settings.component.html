@@ -1,0 +1,68 @@
+<button mat-icon-button [matMenuTriggerFor]="settings">
+	<mat-icon>settings</mat-icon>
+</button>
+
+<mat-menu #settings="matMenu">
+	<button mat-menu-item [matMenuTriggerFor]="themes">
+		<mat-icon color="accent">stars</mat-icon>
+		Theme
+	</button>
+	<button mat-menu-item [matMenuTriggerFor]="palettes">
+		<mat-icon color="primary">circle</mat-icon>
+		Palette
+	</button>
+	<button mat-menu-item [matMenuTriggerFor]="dyslexicText">
+		Dyslexic Text
+	</button>
+	<button mat-menu-item [matMenuTriggerFor]="movingBackground">
+		Moving Background
+	</button>
+</mat-menu>
+
+<mat-menu #themes="matMenu">
+	<button mat-menu-item *ngFor="let colorTheme of colorThemes"
+			(click)="toggleTheme(colorTheme, $event)">
+		<mat-icon [style.color]="colorTheme.colorDefaultBackground">stars</mat-icon>
+		{{ colorTheme.displayName }}
+	</button>
+</mat-menu>
+
+<mat-menu #palettes="matMenu">
+	<button mat-menu-item *ngFor="let colorPalette of colorPalettes"
+			(click)="togglePalette(colorPalette, $event)">
+		<mat-icon [style.color]="colorPalette.colorDefault">circle</mat-icon>
+		{{ colorPalette.displayName }}
+	</button>
+</mat-menu>
+
+<mat-menu #dyslexicText="matMenu">
+	<mat-checkbox class="mat-menu-item" color="primary"
+				  [(ngModel)]="dyslexicTextEnabled"
+				  (ngModelChange)="toggleDyslexicTextEnabled()"
+				  (click)="$event.stopPropagation()">
+		Enabled
+	</mat-checkbox>
+	<mat-slider color="primary"
+				[min]="minDyslexiaAmount"
+				[max]="maxDyslexiaAmount"
+				[disabled]="!dyslexicTextEnabled"
+				[(ngModel)]="dyslexiaAmount"
+				(ngModelChange)="setDyslexiaAmount()"
+				(click)="$event.stopPropagation()">
+	</mat-slider>
+</mat-menu>
+
+<mat-menu #movingBackground="matMenu">
+	<mat-checkbox class="mat-menu-item" color="primary"
+				  [(ngModel)]="movingBackgroundEnabled"
+				  (ngModelChange)="toggleMovingBackgroundEnabled()"
+				  (click)="$event.stopPropagation()">
+		Enabled
+	</mat-checkbox>
+	<mat-slider min="0" max="20" color="primary"
+				[disabled]="!movingBackgroundEnabled"
+				[(ngModel)]="movingBackgroundAmount"
+				(ngModelChange)="setMovingBackgroundAmount()"
+				(click)="$event.stopPropagation()">
+	</mat-slider>
+</mat-menu>

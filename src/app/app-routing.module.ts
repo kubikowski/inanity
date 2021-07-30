@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
 	{
@@ -9,13 +8,24 @@ const routes: Routes = [
 		pathMatch: 'full'
 	}, {
 		path: 'about',
-		loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule),
+		loadChildren: () => import('./pages/about/about.module')
+			.then(module => module.AboutModule),
+	}, {
+		path: 'background',
+		loadChildren: () => import('src/app/pages/background/background-page.module')
+			.then(module => module.BackgroundPageModule),
 	}, {
 		path: 'gong',
-		loadChildren: () => import('./pages/gong/gong.module').then(m => m.GongModule),
+		loadChildren: () => import('src/app/pages/gong/gong-page.module')
+			.then(module => module.GongPageModule),
+	}, {
+		path: 'snek',
+		loadChildren: () => import('src/app/pages/snek/snek-page.module')
+			.then(module => module.SnekPageModule),
 	}, {
 		path: '**',
-		component: PageNotFoundComponent,
+		loadChildren: () => import('src/app/pages/not-found/not-found-page.module')
+			.then(module => module.NotFoundPageModule),
 	},
 ];
 
@@ -23,5 +33,4 @@ const routes: Routes = [
 	imports: [ RouterModule.forRoot(routes) ],
 	exports: [ RouterModule ],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }

@@ -39,19 +39,10 @@
     },
     "max-classes-per-file": false,
     "max-line-length": [
-      true,
-      140
+      false
     ],
     "member-ordering": [
-      true,
-      {
-        "order": [
-          "static-field",
-          "instance-field",
-          "static-method",
-          "instance-method"
-        ]
-      }
+      false
     ],
     "no-console": [
       true,
@@ -118,7 +109,8 @@
       "options": [
         "ban-keywords",
         "check-format",
-        "allow-pascal-case"
+        "allow-pascal-case",
+        "allow-leading-underscore"
       ]
     },
     "whitespace": {
@@ -135,6 +127,7 @@
     "no-host-metadata-property": true,
     "no-input-rename": true,
     "no-inputs-metadata-property": true,
+    "no-namespace": false,
     "no-output-native": true,
     "no-output-on-prefix": true,
     "no-output-rename": true,

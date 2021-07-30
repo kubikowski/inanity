@@ -4,19 +4,18 @@ html, body {
 }
 
 body {
+	color: var(--default-text-color);
 	margin: 0;
 }
 
 
 a {
-	color: var(--theme-color-default);
+	color: var(--default-theme-color);
+	cursor: pointer;
 	text-decoration: none;
 
 	&:hover {
-		color: var(--theme-color-darker);
+		color: var(--darkest-theme-color);
+		text-decoration: underline;
 	}
-}
-
-mat-icon {
-	fill: currentColor;
 }

@@ -1,0 +1,20 @@
+:host {
+	display: flex;
+	flex-flow: column nowrap;
+	width: max-content;
+	border: solid 2px var(--border-color);
+	border-radius: 5px;
+	user-select: none;
+	overflow: hidden;
+
+	> .snek-grid-row {
+		display: flex;
+		flex-flow: row nowrap;
+		background-color: var(--default-background-color);
+
+		&:nth-child(2n) > snek-grid-node:nth-child(2n),
+		&:nth-child(2n + 1) > snek-grid-node:nth-child(2n + 1) {
+			background-color: var(--accent-background-color);
+		}
+	}
+}

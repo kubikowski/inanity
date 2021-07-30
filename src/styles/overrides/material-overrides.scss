@@ -1,22 +1,4 @@
-
-.mat-menu-content {
-	> mat-slider {
-		margin: 0 .5rem;
-	}
-}
-
-.mat-card-header .mat-card-title {
-	display: flex;
-	flex-flow: row nowrap;
-	align-items: center;
-}
-
-.mat-card-header-text {
-	width: 100%;
-}
-
-body.light-theme, body.dark-theme {
-	mat-card.mat-card {
-		background-image: linear-gradient(to top, var(--theme-color-selected), transparent);
-	}
-}
+@use 'src/styles/material/mat-card';
+@use 'src/styles/material/mat-icon';
+@use 'src/styles/material/mat-slider';
+@use 'src/styles/material/mat-tooltip';
