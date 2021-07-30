@@ -4,8 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
 	{
 		path: '',
-		redirectTo: '/snek',
+		redirectTo: '/about',
 		pathMatch: 'full'
+	}, {
+		path: 'about',
+		loadChildren: () => import('./pages/about/about.module')
+			.then(module => module.AboutModule),
 	}, {
 		path: 'background',
 		loadChildren: () => import('src/app/pages/background/background-page.module')

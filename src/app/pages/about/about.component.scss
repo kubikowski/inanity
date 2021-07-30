@@ -1,0 +1,46 @@
+:host {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+
+	.mat-card-header {
+		width: 100%;
+
+		.mat-card-title {
+			justify-content: space-around;
+
+			dyslexic-text {
+				width: 100%;
+				text-align: center;
+				font-size: 48px;
+			}
+		}
+	}
+
+	.mat-card-avatar {
+		background-image: url('https://lh3.googleusercontent.com/a-/AOh14GjpIqEggqEXg631mIKBfdJ6mne8ZWgcG8HgILWMQg=s0');
+		background-size: cover;
+		display: inline-flex;
+		width: 10rem;
+		height: 10rem;
+	}
+
+	mat-card {
+		min-width: 300px;
+		flex-grow: 1;
+	}
+
+	.about-me {
+		flex-basis: 15%;
+	}
+
+	mat-icon {
+		order: -1;
+		height: 2.5rem;
+		width: 2.5rem;
+	}
+}
