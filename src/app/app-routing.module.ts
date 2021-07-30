@@ -8,8 +8,8 @@ const routes: Routes = [
 		pathMatch: 'full'
 	}, {
 		path: 'about',
-		loadChildren: () => import('./pages/about/about.module')
-			.then(module => module.AboutModule),
+		loadChildren: () => import('src/app/pages/about/about-page.module')
+			.then(module => module.AboutPageModule),
 	}, {
 		path: 'background',
 		loadChildren: () => import('src/app/pages/background/background-page.module')

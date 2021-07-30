@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
 	selector: 'about-page',
-	templateUrl: './about.component.html',
-	styleUrls: [ './about.component.scss' ],
+	templateUrl: './about-page.component.html',
+	styleUrls: [ './about-page.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AboutComponent {
+export class AboutPageComponent {
 
 	constructor() {
 	}
