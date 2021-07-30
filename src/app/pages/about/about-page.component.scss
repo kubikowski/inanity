@@ -1,46 +1,25 @@
+@use 'src/styles/mixins/page-layout' as *;
+
 :host {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-around;
+	@include page-layout(400px);
 
-	height: 100%;
-	width: 100%;
-	overflow: auto;
+	.mat-card-content {
+		display: grid;
+		grid-template-columns: max-content auto;
+		column-gap: 1rem;
+		font-size: 1.25rem;
+		line-height: 1.25rem;
 
-	.mat-card-header {
-		width: 100%;
-
-		.mat-card-title {
-			justify-content: space-around;
-
-			dyslexic-text {
-				width: 100%;
-				text-align: center;
-				font-size: 48px;
-			}
+		> span, > small {
+			grid-column: 1;
 		}
-	}
 
-	.mat-card-avatar {
-		background-image: url('https://lh3.googleusercontent.com/a-/AOh14GjpIqEggqEXg631mIKBfdJ6mne8ZWgcG8HgILWMQg=s0');
-		background-size: cover;
-		display: inline-flex;
-		width: 10rem;
-		height: 10rem;
-	}
+		> small {
+			margin-left: 1rem;
+		}
 
-	mat-card {
-		min-width: 300px;
-		flex-grow: 1;
-	}
-
-	.about-me {
-		flex-basis: 15%;
-	}
-
-	mat-icon {
-		order: -1;
-		height: 2.5rem;
-		width: 2.5rem;
+		> dyslexic-text {
+			grid-column: 2;
+		}
 	}
 }
