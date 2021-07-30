@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AboutComponent } from './about.component';
-import { AboutRoutingModule } from './about-routing.module';
-import { SharedModule } from '../../shared/shared.module';
+import { CoreModule } from 'src/app/core/core.module';
+import { DyslexicTextModule } from 'src/app/features/dyslexic-text/dyslexic-text.module';
+import { AboutRoutingModule } from 'src/app/pages/about/about-routing.module';
+import { AboutComponent } from 'src/app/pages/about/about.component';
 
 @NgModule({
 	declarations: [
 		AboutComponent,
 	],
 	imports: [
-		CommonModule,
-		SharedModule,
+		CoreModule,
+		DyslexicTextModule,
 	],
 	exports: [
 		AboutRoutingModule,
-		AboutComponent,
 	],
 })
-export class AboutModule {
-}
+export class AboutModule { }

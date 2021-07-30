@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { GongComponent } from '../gong/gong.component';
-import { AboutComponent } from './about.component';
+import { AboutComponent } from 'src/app/pages/about/about.component';
 
 const routes: Routes = [
 	{
@@ -15,5 +13,4 @@ const routes: Routes = [
 	imports: [ RouterModule.forChild(routes) ],
 	exports: [ RouterModule ]
 })
-export class AboutRoutingModule {
-}
+export class AboutRoutingModule { }
