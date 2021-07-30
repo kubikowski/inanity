@@ -23,15 +23,15 @@ export class FeatureFlagGuard implements CanActivate, CanActivateChild, CanLoad 
 
 	public canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
 		const hasFeatureFlag: boolean = route.data?.featureFlag ?? false;
-		const path = segments.map(segment => segment.path).join('/');
+		const url = segments.map(segment => segment.path).join('/');
 
-		return this.hasPermission(hasFeatureFlag, path);
+		return this.hasPermission(hasFeatureFlag, url);
 	}
 
 	private hasPermission(hasFeatureFlag: boolean, url: string): Observable<boolean> {
 		return FeatureFlagGuard.hasPermission(hasFeatureFlag, url)
 			.pipe(tap(hasPermission => {
-				if (!hasPermission) this.router.navigate(['/gottem']);
+				if (!hasPermission) this.router.navigate([ '/gottem' ]);
 			}));
 	}
 
