@@ -29,10 +29,10 @@ export class SidebarComponent {
 
 	private static get navigationItems(): ReadonlyArray<NavigationConfig> {
 		return [
-			NavigationConfig.from('About', SvgIcon.GOAT, 'about'),
-			NavigationConfig.from('Snek', SvgIcon.SNAKE, 'snek'),
-			NavigationConfig.from('Gong', SvgIcon.GONG, 'gong'),
-			NavigationConfig.from('Noise', SvgIcon.ONI, 'background'),
+			NavigationConfig.from('About', SvgIcon.GOAT, '/about'),
+			NavigationConfig.from('Snek', SvgIcon.SNAKE, '/snek'),
+			NavigationConfig.from('Gong', SvgIcon.GONG, '/gong'),
+			NavigationConfig.from('Noise', SvgIcon.ONI, '/background'),
 		];
 	}
 }
