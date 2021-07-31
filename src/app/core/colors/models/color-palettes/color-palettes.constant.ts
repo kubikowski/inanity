@@ -29,10 +29,10 @@ export const PinkPalette = new ColorPalette(
 	Color.fromString('#fdb4c8'),
 	Color.fromString('#fda1ba'),
 	Color.fromString('#fc8eac'),
-	Color.fromString('#fb7b9e'),
-	Color.fromString('#fa4274'),
-	Color.fromString('#f92e66'),
-	Color.fromString('#d4063e'),
+	Color.fromString('#e96a97'), // Pantone 16-2126 TCX [Azalea Pink]
+	Color.fromString('#b61c50'), // Pantone 18-1950 TCX [Jazzy]
+	Color.fromString('#a52350'), // Pantone 19-2039 TCX [Granita]
+	Color.fromString('#77202f'), // Pantone 19-1652 TCX [Rhubarb]
 	'pink-palette',
 	'Flamingo',
 );
