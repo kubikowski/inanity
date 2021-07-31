@@ -47,7 +47,9 @@ jobs:
                 with:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
             -   name: Add GPG to Git Config
-                run: git config gpg.program $(which gpg)
+                run: |
+                    git config gpg.program $(which gpg)
+                    echo "no-tty" >> ~/.gnupg/gpg.conf
             -   name: Sign Commit
                 uses: crazy-max/ghaction-import-gpg@master
                 with:
