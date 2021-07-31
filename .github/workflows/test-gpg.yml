@@ -9,7 +9,7 @@ jobs:
                 with:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
 
-            -   run: git config --get gpg.program
+            -   run: git config --list --show-origin
             -   run: which gpg
 
             -   name: Sign Commit
@@ -21,9 +21,9 @@ jobs:
                     git-commit-gpgsign: true
                     git-push-gpgsign: true
 
-            -   run: git config --get gpg.program
+            -   run: git config --list --show-origin
             -   run: which gpg
 
             -   run: git config gpg.program $(which gpg)
-            -   run: git config --get gpg.program
+            -   run: git config --list --show-origin
 
