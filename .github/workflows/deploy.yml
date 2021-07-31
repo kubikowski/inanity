@@ -46,6 +46,8 @@ jobs:
             -   uses: actions/checkout@v2
                 with:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
+            -   name: Add GPG to Git Config
+                run: git config gpg.program $(which gpg)
             -   name: Sign Commit
                 uses: crazy-max/ghaction-import-gpg@master
                 with:
