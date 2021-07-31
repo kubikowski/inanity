@@ -35,7 +35,8 @@ jobs:
                 uses: phips28/gh-action-bump-version@master
                 env:
                     GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
+                    GITHUB_USER: ${{ secrets.REPOSITORY_ACTIONS_USER }}
+                    GITHUB_EMAIL: ${{ secrets.REPOSITORY_ACTIONS_EMAIL }}
                 with:
                     minor-wording: 'feature: '
                     skip-tag: true
-                    push: false
