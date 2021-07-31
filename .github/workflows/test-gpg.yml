@@ -14,7 +14,6 @@ jobs:
                 with:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
 
-            -   run: git config --list --show-origin
             -   run: which -a gpg
 
             -   name: Sign Commit
@@ -26,13 +25,11 @@ jobs:
                     git-commit-gpgsign: true
                     git-push-gpgsign: true
 
-            -   run: git config --list --show-origin
-            -   run: which gpg
-
             -   name: Add GPG to Git Config
                 run: |
                     git config gpg.program $(which gpg)
-                    echo "no-tty" >> ~/.gnupg/gpg.conf
+                    $(which gpg) --batch --no-tty "$@"
+
             -   run: git config --list --show-origin
 
             -   name: Test Signing a Commit
