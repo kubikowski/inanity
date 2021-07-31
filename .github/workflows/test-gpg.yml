@@ -15,9 +15,7 @@ jobs:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
 
             -   run: git config --list --show-origin
-            -   run: which gpg
-            -   run: which gpg.exe
-            -   run: which gpg.conf
+            -   run: which -a gpg
 
             -   name: Sign Commit
                 uses: crazy-max/ghaction-import-gpg@master
