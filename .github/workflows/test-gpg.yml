@@ -15,6 +15,7 @@ jobs:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
 
             -   run: which -a gpg
+            -   run: which -a gpg.conf
 
             -   name: Sign Commit
                 uses: crazy-max/ghaction-import-gpg@master
@@ -28,8 +29,7 @@ jobs:
             -   name: Add GPG to Git Config
                 run: |
                     git config gpg.program $(which gpg)
-                    $(which gpg) --batch --no-tty "$@"
-
+                    echo "no-tty" >> ~/.gnupg/gpg.conf
             -   run: git config --list --show-origin
 
             -   name: Test Signing a Commit
