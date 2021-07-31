@@ -12,6 +12,10 @@ const routes: Routes = [
 		canActivateChild: [ FeatureFlagGuard ],
 		children: [
 			{
+				path: 'about',
+				loadChildren: () => import('src/app/pages/about/about-page.module')
+					.then(module => module.AboutPageModule),
+			}, {
 				path: 'background',
 				loadChildren: () => import('src/app/pages/background/background-page.module')
 					.then(module => module.BackgroundPageModule),
