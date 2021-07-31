@@ -48,6 +48,7 @@ jobs:
                 env:
                     GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
                 with:
+                    minor-wording: 'feature: '
                     tag-prefix: 'v'
     deploy:
         name: Deploy
