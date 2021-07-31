@@ -14,10 +14,6 @@ jobs:
                 with:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
 
-            -   run: cd ~
-            -   run: which -a gpg
-            -   run: which -a "gpg.conf"
-
             -   name: Sign Commit
                 uses: crazy-max/ghaction-import-gpg@master
                 with:
@@ -27,11 +23,19 @@ jobs:
                     git-commit-gpgsign: true
                     git-push-gpgsign: true
 
+            -   run: which -a gpg
+
             -   name: Add GPG to Git Config
                 run: |
                     git config gpg.program $(which gpg)
                     echo "no-tty" >> ~/.gnupg/gpg.conf
             -   run: git config --list --show-origin
 
-            -   name: Test Signing a Commit
-                run: git commit --allow-empty -m "signed actions commit"
+            -   name: Test Automated Version Bump
+                uses: phips28/gh-action-bump-version@master
+                env:
+                    GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
+                with:
+                    minor-wording: 'feature: '
+                    skip-tag: true
+                    push: false
