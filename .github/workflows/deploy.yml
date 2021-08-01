@@ -46,22 +46,24 @@ jobs:
             -   uses: actions/checkout@v2
                 with:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
-            -   name: Add GPG to Git Config
-                run: |
-                    git config gpg.program $(which gpg)
-                    echo "no-tty" >> ~/.gnupg/gpg.conf
-            -   name: Sign Commit
-                uses: crazy-max/ghaction-import-gpg@master
-                with:
-                    gpg-private-key: ${{ secrets.ACTIONS_GPG_PRIVATE_KEY }}
-                    passphrase: ${{ secrets.ACTIONS_GPG_PASSPHRASE }}
-                    git-user-signingkey: true
-                    git-commit-gpgsign: true
-                    git-push-gpgsign: true
+#            -   name: Sign Commit
+#                uses: crazy-max/ghaction-import-gpg@master
+#                with:
+#                    gpg-private-key: ${{ secrets.ACTIONS_GPG_PRIVATE_KEY }}
+#                    passphrase: ${{ secrets.ACTIONS_GPG_PASSPHRASE }}
+#                    git-user-signingkey: true
+#                    git-commit-gpgsign: true
+#                    git-push-gpgsign: true
+#            -   name: Add GPG to Git Config
+#                run: |
+#                    git config gpg.program $(which gpg)
+#                    echo "no-tty" >> ~/.gnupg/gpg.conf
             -   name: Automated Version Bump
                 uses: phips28/gh-action-bump-version@master
                 env:
                     GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
+                    GITHUB_USER: ${{ secrets.REPOSITORY_ACTIONS_USER }}
+                    GITHUB_EMAIL: ${{ secrets.REPOSITORY_ACTIONS_EMAIL }}
                 with:
                     minor-wording: 'feature: '
                     tag-prefix: 'v'
