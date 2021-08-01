@@ -21,7 +21,6 @@ jobs:
                     passphrase: ${{ secrets.ACTIONS_GPG_PASSPHRASE }}
                     git-user-signingkey: true
                     git-commit-gpgsign: true
-                    git-push-gpgsign: true
 
             -   run: which -a gpg
             -   run: docker container ls -q
