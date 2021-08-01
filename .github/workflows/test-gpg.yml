@@ -36,7 +36,7 @@ jobs:
             -   run: git config --list --show-origin
 
             -   name: Test Automated Version Bump
-                uses: phips28/gh-action-bump-version@master
+                uses: kubikowski/gh-action-bump-version@master
                 env:
                     GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
                     GITHUB_USER: ${{ secrets.REPOSITORY_ACTIONS_USER }}
