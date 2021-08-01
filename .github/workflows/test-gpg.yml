@@ -24,15 +24,13 @@ jobs:
                     git-push-gpgsign: true
 
             -   run: which -a gpg
-
-            -   run: docker container ls
-
             -   run: docker container ls -q
 
             -   name: Add GPG to Git Config
                 run: |
-                    git config gpg.program /bin/gpg
+                    git config gpg.program $(which gpg)
                     echo "no-tty" >> ~/.gnupg/gpg.conf
+
             -   run: git config --list --show-origin
 
             -   name: Test Automated Version Bump
