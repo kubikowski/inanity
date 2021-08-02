@@ -5,31 +5,40 @@
 #$FaviconSizes = 256, 192, 128, 96, 64, 48, 40, 32, 24, 16;
 
 # Browser Legacy
-$FaviconSizes = 48, 32, 16;
+$FaviconSizes = 32, 16;
 
 $Out = "out";
 
 function export-favicon() {
-	Param ([Parameter(Mandatory = $true)][string] $SvgFile)
+	Param (
+		[Parameter(Mandatory = $true)][string] $SvgFile,
+		[Parameter(Mandatory = $false)][int[]] $Sizes = $FaviconSizes
+	)
 
-	export-pngs $SvgFile;
-	compress-pngs;
-	convert-favicon;
+	export-pngs $SvgFile $Sizes;
+	compress-pngs $Sizes;
+	convert-favicon $Sizes;
 	remove-out-directory;
 }
 
 function export-pngs() {
-	Param ([Parameter(Mandatory = $true)][string] $SvgFile)
+	Param (
+		[Parameter(Mandatory = $true)][string] $SvgFile,
+		[Parameter(Mandatory = $false)][int[]] $Sizes = $FaviconSizes
+	)
 
 	add-out-directory;
 
-	foreach ($FaviconSize in $FaviconSizes) {
-		export-png $SvgFile $FaviconSize;
+	foreach ($Size in $Sizes) {
+		export-png $SvgFile $Size;
 	}
 }
 
 function export-png() {
-	Param ([Parameter(Mandatory = $true)][string] $SvgFile, [Parameter(Mandatory = $true)][int] $Size)
+	Param (
+		[Parameter(Mandatory = $true)][string] $SvgFile,
+		[Parameter(Mandatory = $true)][int] $Size
+	)
 
 	inkscape `
 		-p "$SvgFile" `
@@ -39,9 +48,11 @@ function export-png() {
 }
 
 function compress-pngs() {
-	$Pngs = ($FaviconSizes | Foreach-Object { [string]::Format("$Out\favicon-{0}.png", $_) });
+	Param ([Parameter(Mandatory = $false)][int[]] $Sizes = $FaviconSizes)
 
-	$Pngs | ForEach-Object { compress-png $_ }
+	$PngFiles = $Sizes | Foreach-Object { [string]::Format("$Out\favicon-{0}.png", $_) };
+
+	$PngFiles | ForEach-Object { compress-png $_ }
 }
 
 function compress-png() {
@@ -52,14 +63,19 @@ function compress-png() {
 }
 
 function convert-favicon() {
-	$Pngs = ($FaviconSizes | Foreach-Object { [string]::Format("$Out\favicon-{0}.png", $_) });
+	Param ([Parameter(Mandatory = $false)][int[]] $Sizes = $FaviconSizes)
 
-	magick convert $Pngs favicon.ico;
+	$PngFiles = $Sizes | Foreach-Object { [string]::Format("$Out\favicon-{0}.png", $_) };
+
+	magick convert $PngFiles favicon.ico;
 }
 
 
 function export-favicon-only-magick() {
-	Param ([Parameter(Mandatory = $true)][string] $SvgFile)
+	Param (
+		[Parameter(Mandatory = $true)][string] $SvgFile,
+		[Parameter(Mandatory = $false)][int[]] $Sizes = $FaviconSizes
+	)
 
 	magick `
 		-density 256x256 `
