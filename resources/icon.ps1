@@ -5,7 +5,7 @@
 #$FaviconSizes = 256, 192, 128, 96, 64, 48, 40, 32, 24, 16;
 
 # Browser Legacy
-$FaviconSizes = 32, 16;
+$FaviconSizes = 48, 32, 16;
 
 $Out = "out";
 
@@ -41,7 +41,13 @@ function export-png() {
 function compress-pngs() {
 	$Pngs = ($FaviconSizes | Foreach-Object { [string]::Format("$Out\favicon-{0}.png", $_) });
 
-	optipng -o7 $Pngs;
+	$Pngs | ForEach-Object { compress-png $_ }
+}
+
+function compress-png() {
+	Param ([Parameter(Mandatory = $true)][string] $PngFile)
+
+	optipng -o7 $PngFile;
 #	pngquant -f --ext .png $Pngs --posterize 4 --speed 1;
 }
 
