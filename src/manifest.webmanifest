@@ -1,0 +1,21 @@
+{
+	"name": "inanity",
+	"short_name": "inanity",
+	"icons": [
+		{
+			"src": "assets/icon/inanity-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "assets/icon/inanity-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"theme_color": "#ff6d6A",
+	"background_color": "#ff6d6A",
+	"display": "standalone"
+}
