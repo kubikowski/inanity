@@ -7,6 +7,7 @@ import packageInfo from 'package.json';
 export const environment = {
 	production: false,
 	version: packageInfo.version,
+	iconRef: 'assets/icon/inanity.dev.svg',
 };
 
 /*
