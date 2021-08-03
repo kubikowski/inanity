@@ -27,8 +27,9 @@ export class FaviconService {
 	}
 
 	private removeFavicon(favicon: HTMLLinkElement): void {
-		if (typeof favicon !== 'undefined')
+		if (typeof favicon !== 'undefined') {
 			this.renderer.removeChild(this.head, favicon);
+		}
 	}
 
 	private addFavicon(faviconRef: FaviconRef): void {
@@ -36,6 +37,7 @@ export class FaviconService {
 
 		this.renderer.setAttribute(favicon, 'rel', 'icon');
 		this.renderer.setAttribute(favicon, 'type', 'image/svg+xml');
+		this.renderer.setAttribute(favicon, 'sizes', 'any');
 		this.renderer.setAttribute(favicon, 'href', faviconRef);
 
 		this.renderer.insertBefore(this.head, favicon, this.appleTouchIcon);
