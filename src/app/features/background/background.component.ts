@@ -19,9 +19,9 @@ export class BackgroundComponent implements AfterViewInit {
 
 	constructor(
 		private readonly backgroundCanvasService: BackgroundCanvasService,
-		private readonly fpsService: AnimationFrameService,
+		private readonly animationFrameService: AnimationFrameService,
 	) {
-		this.fps$ = this.fpsService.fps$
+		this.fps$ = this.animationFrameService.fps$
 			.pipe(map(fps => Math.floor(fps)), distinctUntilChanged());
 	}
 
