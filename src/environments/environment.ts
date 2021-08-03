@@ -1,4 +1,5 @@
 import packageInfo from 'package.json';
+import { firebaseConfig } from 'src/environments/firebase-config';
 
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
@@ -7,6 +8,7 @@ import packageInfo from 'package.json';
 export const environment = {
 	production: false,
 	version: packageInfo.version,
+	firebaseConfig,
 };
 
 /*
