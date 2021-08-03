@@ -27,7 +27,7 @@ export class FaviconService {
 	}
 
 	private removeFavicon(favicon: HTMLLinkElement): void {
-		if (typeof favicon !== 'undefined') {
+		if (favicon instanceof HTMLLinkElement) {
 			this.renderer.removeChild(this.head, favicon);
 		}
 	}
