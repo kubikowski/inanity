@@ -18,7 +18,7 @@ export class FaviconService {
 	}
 
 	private replaceFavicon(faviconRef: FaviconRef): void {
-		const favicon = this.svgFavicon;
+		const favicon = this.favicon;
 
 		if (favicon?.getAttribute('href') !== faviconRef) {
 			this.removeFavicon(favicon);
@@ -27,7 +27,7 @@ export class FaviconService {
 	}
 
 	private removeFavicon(favicon: HTMLLinkElement): void {
-		if (typeof favicon !== 'undefined') {
+		if (favicon instanceof HTMLLinkElement) {
 			this.renderer.removeChild(this.head, favicon);
 		}
 	}
@@ -35,25 +35,17 @@ export class FaviconService {
 	private addFavicon(faviconRef: FaviconRef): void {
 		const favicon = this.renderer.createElement('link');
 
-		this.renderer.setAttribute(favicon, 'rel', 'icon');
-		this.renderer.setAttribute(favicon, 'type', 'image/svg+xml');
-		this.renderer.setAttribute(favicon, 'sizes', 'any');
-		this.renderer.setAttribute(favicon, 'href', faviconRef);
+		FaviconRef.getAttributes(faviconRef).forEach(([ attribute, value ]) =>
+			this.renderer.setAttribute(favicon, attribute, value));
 
 		this.renderer.insertBefore(this.head, favicon, this.appleTouchIcon);
 	}
 
-	private get svgFavicon(): HTMLLinkElement {
-		return Array.from(this.favicons)
-			.find(favicon => favicon.getAttribute('type') === 'image/svg+xml');
+	private get favicon(): HTMLLinkElement {
+		return this.head.querySelector('link[rel="icon"]');
 	}
 
 	private get appleTouchIcon(): HTMLLinkElement {
-		return Array.from(this.favicons)
-			.find(favicon => favicon.getAttribute('type') === 'apple-touch-icon');
-	}
-
-	private get favicons(): NodeListOf<HTMLLinkElement> {
-		return this.head.querySelectorAll('link[rel="icon"]');
+		return this.head.querySelector('link[rel="apple-touch-icon"]');
 	}
 }
