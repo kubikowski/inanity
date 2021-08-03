@@ -11,4 +11,13 @@ export namespace FaviconRef {
 			? FaviconRef.PROD_DEFAULT
 			: FaviconRef.DEV_DEFAULT;
 	}
+
+	export function getAttributes(faviconRef: FaviconRef): [ string, string ][] {
+		return Object.entries({
+			rel: 'icon',
+			type: 'image/svg+xml',
+			sizes: 'any',
+			href: faviconRef,
+		});
+	}
 }
