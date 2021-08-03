@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { FaviconRef } from 'src/app/core/browser/favicon-ref.enum';
 
 @Injectable({ providedIn: 'root' })
 export class FaviconService {
@@ -8,31 +8,31 @@ export class FaviconService {
 	constructor(
 		@Inject(DOCUMENT) private readonly document: HTMLDocument,
 	) {
-		this.initializeFavicon();
+		this.replaceFavicon(FaviconRef.getDefault());
 	}
 
-	private initializeFavicon(): void {
+	private replaceFavicon(faviconRef: FaviconRef): void {
 		const favicon = this.document.getElementById('favicon');
 
-		if (favicon.getAttribute('href') !== environment.iconRef) {
+		if (favicon?.getAttribute('href') !== faviconRef) {
 			this.removeFavicon();
-			this.addFavicon();
+			this.addFavicon(faviconRef);
 		}
 	}
 
 	private removeFavicon(): void {
 		const favicon = this.document.getElementById('favicon');
 
-		favicon.parentNode.removeChild(favicon);
+		favicon?.parentNode.removeChild(favicon);
 	}
 
-	private addFavicon(): void {
+	private addFavicon(faviconRef: FaviconRef): void {
 		const favicon = this.document.createElement('link');
 
 		favicon.setAttribute('id', 'favicon');
 		favicon.setAttribute('rel', 'icon');
 		favicon.setAttribute('type', 'image/svg+xml');
-		favicon.setAttribute('href', environment.iconRef);
+		favicon.setAttribute('href', faviconRef);
 
 		this.document.head.appendChild(favicon);
 	}
