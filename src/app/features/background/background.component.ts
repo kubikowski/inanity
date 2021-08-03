@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
-import { FpsService } from 'src/app/core/screen/fps.service';
+import { AnimationFrameService } from 'src/app/core/browser/animation-frame.service';
 import { BackgroundCanvasService } from 'src/app/features/background/services/background-canvas.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class BackgroundComponent implements AfterViewInit {
 
 	constructor(
 		private readonly backgroundCanvasService: BackgroundCanvasService,
-		private readonly fpsService: FpsService,
+		private readonly fpsService: AnimationFrameService,
 	) {
 		this.fps$ = this.fpsService.fps$
 			.pipe(map(fps => Math.floor(fps)), distinctUntilChanged());

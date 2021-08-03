@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { FaviconRef } from 'src/app/core/browser/favicon-ref.enum';
+import { FaviconRef } from 'src/app/core/svg/favicon-ref.enum';
 
 @Injectable({ providedIn: 'root' })
 export class FaviconService {
