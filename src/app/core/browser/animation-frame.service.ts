@@ -5,7 +5,7 @@ import { Observed } from 'src/app/core/decorators/observed.decorator';
 import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })
-export class FpsService implements OnDestroy {
+export class AnimationFrameService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
 	private static enabled = true;
@@ -22,21 +22,21 @@ export class FpsService implements OnDestroy {
 
 		this.subscriptions.sink = this.timeStamp$
 			.pipe(
-				scan((acc, timestamp) => [ ...acc.slice(acc.length <= FpsService.frameAverage ? 0 : 1), timestamp ], []),
+				scan((acc, timestamp) => [ ...acc.slice(acc.length <= AnimationFrameService.frameAverage ? 0 : 1), timestamp ], []),
 				map(timestamps => timestamps[timestamps.length - 1] - timestamps[0]),
-				map(msBetweenTimestamps => 1000 * FpsService.frameAverage / msBetweenTimestamps),
+				map(msBetweenTimestamps => 1000 * AnimationFrameService.frameAverage / msBetweenTimestamps),
 			).subscribe(fps => this.fps = fps);
 	}
 
 	ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
-		FpsService.enabled = false;
+		AnimationFrameService.enabled = false;
 	}
 
 	private onAnimationFrame(time: number): void {
 		this.timeStamp = time;
 
-		if (FpsService.enabled) {
+		if (AnimationFrameService.enabled) {
 			requestAnimationFrame(this.onAnimationFrame.bind(this));
 		}
 	}

@@ -1,39 +1,59 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { FaviconRef } from 'src/app/core/svg/favicon-ref.enum';
 
 @Injectable({ providedIn: 'root' })
 export class FaviconService {
+	private readonly head: HTMLHeadElement;
+	private readonly renderer: Renderer2;
 
 	constructor(
 		@Inject(DOCUMENT) private readonly document: HTMLDocument,
+		private readonly rendererFactory: RendererFactory2,
 	) {
-		this.initializeFavicon();
+		this.head = this.document.head;
+		this.renderer = this.rendererFactory.createRenderer(this.head, null);
+
+		this.replaceFavicon(FaviconRef.getDefault());
 	}
 
-	private initializeFavicon(): void {
-		const favicon = this.document.getElementById('favicon');
+	private replaceFavicon(faviconRef: FaviconRef): void {
+		const favicon = this.svgFavicon;
 
-		if (favicon.getAttribute('href') !== environment.iconRef) {
-			this.removeFavicon();
-			this.addFavicon();
+		if (favicon?.getAttribute('href') !== faviconRef) {
+			this.removeFavicon(favicon);
+			this.addFavicon(faviconRef);
 		}
 	}
 
-	private removeFavicon(): void {
-		const favicon = this.document.getElementById('favicon');
-
-		favicon.parentNode.removeChild(favicon);
+	private removeFavicon(favicon: HTMLLinkElement): void {
+		if (typeof favicon !== 'undefined') {
+			this.renderer.removeChild(this.head, favicon);
+		}
 	}
 
-	private addFavicon(): void {
-		const favicon = this.document.createElement('link');
+	private addFavicon(faviconRef: FaviconRef): void {
+		const favicon = this.renderer.createElement('link');
 
-		favicon.setAttribute('id', 'favicon');
-		favicon.setAttribute('rel', 'icon');
-		favicon.setAttribute('type', 'image/svg+xml');
-		favicon.setAttribute('href', environment.iconRef);
+		this.renderer.setAttribute(favicon, 'rel', 'icon');
+		this.renderer.setAttribute(favicon, 'type', 'image/svg+xml');
+		this.renderer.setAttribute(favicon, 'sizes', 'any');
+		this.renderer.setAttribute(favicon, 'href', faviconRef);
 
-		this.document.head.appendChild(favicon);
+		this.renderer.insertBefore(this.head, favicon, this.appleTouchIcon);
+	}
+
+	private get svgFavicon(): HTMLLinkElement {
+		return Array.from(this.favicons)
+			.find(favicon => favicon.getAttribute('type') === 'image/svg+xml');
+	}
+
+	private get appleTouchIcon(): HTMLLinkElement {
+		return Array.from(this.favicons)
+			.find(favicon => favicon.getAttribute('type') === 'apple-touch-icon');
+	}
+
+	private get favicons(): NodeListOf<HTMLLinkElement> {
+		return this.head.querySelectorAll('link[rel="icon"]');
 	}
 }
