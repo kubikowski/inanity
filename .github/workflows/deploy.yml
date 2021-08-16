@@ -68,10 +68,13 @@ jobs:
                     minor-wording: 'feature: '
                     tag-prefix: 'v'
 
-    deploy:
-        name: Deploy
+    deploy-production:
+        name: Deploy Production
         needs: bump-version
         runs-on: ubuntu-latest
+        environment:
+            name: Production
+            url: https://inanity.io
         steps:
             -   uses: actions/checkout@v2
                 with:
