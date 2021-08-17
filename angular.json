@@ -96,7 +96,7 @@
 						"main": "src/test.ts",
 						"polyfills": "src/polyfills.ts",
 						"tsConfig": "tsconfig.spec.json",
-						"karmaConfig": "karma.conf.js",
+						"karmaConfig": "karma.conf.ts",
 						"assets": [
 							"src/assets",
 							"src/favicon.ico",
