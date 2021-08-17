@@ -1,13 +1,13 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Observed } from 'rxjs-observed-decorator';
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { BluePalette, ColorPalettes } from 'src/app/core/colors/models/color-palettes/color-palettes.constant';
 import { BaseColorTheme } from 'src/app/core/colors/models/color-themes/base-color-theme.model';
 import { ColorTheme } from 'src/app/core/colors/models/color-themes/color-theme.model';
 import { ColorThemes, LightTheme } from 'src/app/core/colors/models/color-themes/color-themes.constant';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
 import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })

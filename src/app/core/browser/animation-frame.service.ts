@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Observed } from 'rxjs-observed-decorator';
 import { map, scan } from 'rxjs/operators';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
 import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })
