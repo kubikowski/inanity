@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
+import { Observed } from 'rxjs-observed-decorator';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';

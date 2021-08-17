@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
 import { JoystickOutputData } from 'nipplejs';
 import { Observable } from 'rxjs';
+import { Observed } from 'rxjs-observed-decorator';
 import { filter } from 'rxjs/operators';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 import { SubSink } from 'subsink';

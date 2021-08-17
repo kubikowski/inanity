@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { interval, Observable, of } from 'rxjs';
+import { Observed } from 'rxjs-observed-decorator';
 import { delay, filter, mergeMap, switchMap } from 'rxjs/operators';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
 import { clamp } from 'src/app/core/functions/clamp/clamp.function';
 import { MovingBackgroundIcon } from 'src/app/features/background/models/svg/moving-background-icon.model';
 import { SubSink } from 'subsink';

@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
+import { Observed } from 'rxjs-observed-decorator';
 
 @Injectable({ providedIn: 'root' })
 export class ScreenDetectorService implements OnDestroy {

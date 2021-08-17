@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
+import { Observed } from 'rxjs-observed-decorator';
 import { catchError, debounceTime, distinctUntilChanged, map, scan, tap, throttleTime } from 'rxjs/operators';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
 import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.pipe';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
 import { SnekGame } from 'src/app/features/snek/models/state/snek-game.model';

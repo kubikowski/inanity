@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
+import { Observed } from 'rxjs-observed-decorator';
 import { clamp } from 'src/app/core/functions/clamp/clamp.function';
 import { DyslexicWord } from 'src/app/features/dyslexic-text/models/dyslexic-word.model';
 import { SubSink } from 'subsink';
