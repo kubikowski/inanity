@@ -1,0 +1,24 @@
+:host {
+	padding: 1rem 1rem 0;
+
+	.mat-card {
+		cursor: pointer;
+		background-color: var(--lightest-theme-color);
+
+		&:hover, &:active {
+			background-color: var(--lighter-theme-color);
+		}
+
+		&.active {
+			background-color: var(--default-theme-color);
+		}
+
+		.mat-card-header {
+			align-items: center;
+
+			.mat-card-title {
+				margin-bottom: 0;
+			}
+		}
+	}
+}

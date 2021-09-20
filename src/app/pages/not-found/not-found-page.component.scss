@@ -1,0 +1,29 @@
+@use 'src/styles/mixins/page-layout' as *;
+
+:host {
+	@include page-layout(800px);
+
+	.mat-icon {
+		animation-name: ckw;
+		animation-duration: 5s;
+		animation-iteration-count: infinite;
+		transform-origin: 50% 50%;
+	}
+
+	.mat-card-content {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+	}
+}
+
+@keyframes ckw {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

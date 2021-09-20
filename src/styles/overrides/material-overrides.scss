@@ -1,27 +1,6 @@
-
-.mat-menu-content {
-	> .mat-slider {
-		margin: 0 .5rem;
-	}
-}
-
-.mat-accordion {
-	display: flex;
-	flex-flow: column nowrap;
-}
-
-mat-expansion-panel.mat-expansion-panel {
-	display: flex;
-	flex-flow: column nowrap;
-	min-height: 3em;
-
-	.mat-expansion-panel-header {
-		min-height: 3em;
-		font-weight: 600;
-	}
-
-	.mat-expansion-panel-content {
-		overflow: hidden auto;
-		max-height: 100%;
-	}
-}
+@use 'src/styles/material/mat-accordion';
+@use 'src/styles/material/mat-card';
+@use 'src/styles/material/mat-expansion-panel';
+@use 'src/styles/material/mat-icon';
+@use 'src/styles/material/mat-slider';
+@use 'src/styles/material/mat-tooltip';

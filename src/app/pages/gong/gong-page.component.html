@@ -1,0 +1,25 @@
+<h1>
+	<dyslexic-text text="Gong Status Updates"></dyslexic-text>
+</h1>
+
+<section class="status-updates">
+	<mat-card *ngFor="let statusUpdate of statusUpdates">
+		<mat-card-header>
+			<mat-icon mat-card-avatar [svgIcon]="statusUpdate.svgIcon"></mat-icon>
+			<mat-card-title>
+				<dyslexic-text [text]="statusUpdate.title"></dyslexic-text>
+			</mat-card-title>
+			<mat-card-subtitle>{{ statusUpdate.date | date }}</mat-card-subtitle>
+		</mat-card-header>
+
+		<img mat-card-image *ngIf="statusUpdate.imageUrl"
+			 [src]="statusUpdate.imageUrl"
+			 [alt]="statusUpdate.imageAlt">
+
+		<mat-card-content>
+			<p *ngFor="let paragraph of statusUpdate.paragraphs">
+				<dyslexic-text [text]="paragraph"></dyslexic-text>
+			</p>
+		</mat-card-content>
+	</mat-card>
+</section>

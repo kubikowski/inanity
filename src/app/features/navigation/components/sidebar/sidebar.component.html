@@ -1,0 +1,28 @@
+<mat-toolbar>
+	<button mat-icon-button (click)="toggleSidenav($event)">
+		<mat-icon>menu</mat-icon>
+	</button>
+
+	<span class="title-wrapper">
+		<dyslexic-text text="inanity"></dyslexic-text>
+	</span>
+</mat-toolbar>
+
+<section class="nav-items">
+	<sidebar-item *ngFor="let config of navigationConfigs"
+				  [config]="config">
+	</sidebar-item>
+</section>
+
+<mat-toolbar>
+	<button mat-icon-button>
+		<mat-icon [svgIcon]="GitHubIcon"></mat-icon>
+	</button>
+
+	<span class="github-wrapper">
+		<span>v{{ version }}</span>
+		<a href="https://github.com/kubikowski/inanity">
+			<dyslexic-text text="inanity github"></dyslexic-text>
+		</a>
+	</span>
+</mat-toolbar>

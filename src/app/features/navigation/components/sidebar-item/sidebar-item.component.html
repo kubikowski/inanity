@@ -1,0 +1,9 @@
+<mat-card [routerLink]="[config.route]" routerLinkActive="active"
+		  (click)="toggleSidenav($event)">
+	<mat-card-header>
+		<mat-icon mat-card-avatar [svgIcon]="config.icon"></mat-icon>
+		<mat-card-title>
+			<dyslexic-text [text]="config.title"></dyslexic-text>
+		</mat-card-title>
+	</mat-card-header>
+</mat-card>
