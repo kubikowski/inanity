@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 import { MalbolgeExecutorService } from 'src/app/pages/malbolge/services/malbolge-executor.service';
-import { SvgIcon } from 'src/app/shared/svg/svg-icon.enum';
 
 @Component({
 	selector: 'malbolge',
 	templateUrl: './malbolge.component.html',
-	styleUrls: [ './malbolge.component.scss', './../page.component.scss' ],
+	styleUrls: [ './malbolge.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ MalbolgeExecutorService ],
 })

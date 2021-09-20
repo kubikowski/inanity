@@ -1,5 +1,5 @@
+import { CircularArray } from 'src/app/core/data-structures/circular-array/circular-array.proxy';
 import { TenTrit, trit } from 'src/app/pages/malbolge/models/data-structures/ternary.model';
-import { CircularArray } from 'src/app/shared/data-structures/circular-array/circular-array.proxy';
 
 const CrazyLookup: ReadonlyArray<ReadonlyArray<trit>> = [
 	[ 1, 0, 0 ],
