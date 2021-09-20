@@ -1,4 +1,4 @@
-import { TenTrit, MaxTenTrit } from 'src/app/pages/malbolge/models/data-structures/ternary.model';
+import { MaxTenTrit, TenTrit } from 'src/app/features/malbolge/models/data-structures/ternary.model';
 
 describe('Ternaries', () => {
 

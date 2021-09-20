@@ -25,8 +25,8 @@ const routes: Routes = [
 					.then(module => module.GongPageModule),
 			}, {
 				path: 'malbolge',
-				loadChildren: () => import('./pages/malbolge/malbolge.module')
-					.then(m => m.MalbolgeModule),
+				loadChildren: () => import('src/app/pages/malbolge/malbolge-page.module')
+					.then(module => module.MalbolgePageModule),
 			}, {
 				path: 'snek',
 				loadChildren: () => import('src/app/pages/snek/snek-page.module')

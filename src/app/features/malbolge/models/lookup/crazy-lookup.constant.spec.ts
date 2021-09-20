@@ -1,5 +1,5 @@
-import { TenTrit } from 'src/app/pages/malbolge/models/data-structures/ternary.model';
-import { tenCrazy } from 'src/app/pages/malbolge/models/lookup/crazy-lookup.constant';
+import { TenTrit } from 'src/app/features/malbolge/models/data-structures/ternary.model';
+import { tenCrazy } from 'src/app/features/malbolge/models/lookup/crazy-lookup.constant';
 
 describe('Crazy Lookup', () => {
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReadonlyCircularArray } from 'src/app/core/data-structures/circular-array/circular-array.proxy';
-import { MaxTenTrit, TenTrit } from 'src/app/pages/malbolge/models/data-structures/ternary.model';
-import { getCrazyLoop } from 'src/app/pages/malbolge/models/lookup/crazy-lookup.constant';
+import { MaxTenTrit, TenTrit } from 'src/app/features/malbolge/models/data-structures/ternary.model';
+import { getCrazyLoop } from 'src/app/features/malbolge/models/lookup/crazy-lookup.constant';
 
 /** Stores the memory and each of the registers used to execute a malbolge program.
  * @param vm - The memory space on which the program is loaded and executed.
