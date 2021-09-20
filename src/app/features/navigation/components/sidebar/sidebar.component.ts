@@ -17,7 +17,7 @@ export class SidebarComponent {
 	public readonly version = environment.version;
 
 	constructor(
-		private navigationService: NavigationService,
+		private readonly navigationService: NavigationService,
 	) {
 		this.navigationConfigs = SidebarComponent.navigationItems;
 	}
