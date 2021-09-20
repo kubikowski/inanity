@@ -1,21 +1,38 @@
 .demo-colors {
-	// Light Theme Default Values
-	--theme-color-background: white;
-	--theme-color-accent: whitesmoke;
-	--theme-color-disabled: lightgrey;
-	--theme-color-contrast: rgba(0, 0, 0, 0.87);
-	--theme-color-hover: rgba(0, 0, 0, 0.15);
+	/* Light Theme Default Colors */
+	--info-color: #00b3ee;
+	--success-color: #5cb85c;
+	--warning-color: #f0ad4e;
+	--danger-color: #d9534f;
 
-	// Blue Palette Default Values
-	--theme-color-lightest: #51d4ff;
-	--theme-color-lighter: #1ab4f5;
-	--theme-color-light: #00b3ee;
-	--theme-color-default: #039ddd;
-	--theme-color-dark: #0487cc;
-	--theme-color-darker: #047ec5;
-	--theme-color-darkest: #036ea6;
-	--theme-color-selected: rgba(3, 157, 221, 0.25);
-	--theme-color-selected-opaque: rgb(192, 231, 247);
+	--default-background-color: white;
+	--accent-background-color: whitesmoke;
+	--disabled-background-color: lightgrey;
+
+	--dark-text-color: rgba(0, 0, 0, 0.87);
+	--default-text-color: #616f77;
+	--disabled-text-color: #95a2a9;
+	--light-text-color: #ffffff;
+
+	--hover-background-color: #ebebeb;
+	--hover-background-color-transparent: rgba(0, 0, 0, 0.08);
+
+	--dark-border-color: lightgrey;
+	--border-color: rgba(0, 0, 0, 0.10);
+
+	--shadow-color: rgba(0, 0, 0, 0.20);
+
+	/* Blue Palette Default Colors */
+	--lightest-theme-color: #51d4ff;
+	--lighter-theme-color: #1ab4f5;
+	--light-theme-color: #00b3ee;
+	--default-theme-color: #039ddd;
+	--dark-theme-color: #0487cc;
+	--darker-theme-color: #047ec5;
+	--darkest-theme-color: #036ea6;
+
+	--selected-background-color: rgb(217, 240, 250);
+	--selected-background-color-transparent: rgba(3, 157, 221, 0.15);
 }
 
 :not(.default-transition):not(.custom-transition) {

@@ -1,8 +1,12 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { ColorsService } from 'src/app/shared/colors/services/colors.service';
-import { SvgIconService } from 'src/app/shared/svg/svg-icon.service';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { NavigationService } from './navigation/navigation.service';
+import { AnimationFrameService } from 'src/app/core/browser/animation-frame.service';
+import { FaviconService } from 'src/app/core/browser/favicon.service';
+import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
+import { TitleService } from 'src/app/core/browser/title.service';
+import { ColorsService } from 'src/app/core/colors/services/colors.service';
+import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
+import { NavigationService } from 'src/app/features/navigation/services/navigation.service';
 
 @Component({
 	selector: 'app-root',
@@ -10,17 +14,20 @@ import { NavigationService } from './navigation/navigation.service';
 	styleUrls: [ './app.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements AfterViewInit {
-
-	@ViewChild('sidenav') private sidenav: MatSidenav;
+export class AppComponent {
 
 	constructor(
-		private colorsService: ColorsService,
-		private svgIconService: SvgIconService,
-		private navigationService: NavigationService,
+		private readonly animationFrameService: AnimationFrameService,
+		private readonly faviconService: FaviconService,
+		private readonly screenDetectorService: ScreenDetectorService,
+		private readonly titleService: TitleService,
+		private readonly colorsService: ColorsService,
+		private readonly svgIconService: SvgIconService,
+		private readonly navigationService: NavigationService,
 	) { }
 
-	ngAfterViewInit(): void {
-		this.navigationService.initialize(this.sidenav);
+	@ViewChild('sidenav', { static: true })
+	private set sidenav(sidenav: MatSidenav) {
+		this.navigationService.initialize(sidenav);
 	}
 }

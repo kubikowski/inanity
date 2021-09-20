@@ -1,11 +1,8 @@
 :host {
-	display: flex;
-	flex-flow: column nowrap;
-
 	.mat-sidenav-container {
-		color: var(--theme-color-contrast);
-		background-color: var(--theme-color-lightest);
-		background-image: linear-gradient(to top, var(--theme-color-background), transparent);
+		color: var(--dark-text-color);
+		background-color: var(--lightest-theme-color);
+		background-image: linear-gradient(to top, var(--default-background-color), transparent);
 
 		.mat-sidenav {
 			width: 17.5rem;
@@ -13,9 +10,13 @@
 	}
 }
 
-:host, .mat-sidenav-container, .mat-sidenav-content {
+:host,
+.mat-sidenav-container,
+.mat-sidenav-content,
+section {
+	display: flex;
+	flex-flow: column nowrap;
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
 }
-

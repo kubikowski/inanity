@@ -1,0 +1,50 @@
+@use 'src/styles/mixins/page-layout' as *;
+
+:host {
+	@include page-layout(500px);
+
+	.mat-card {
+		overflow: visible;
+
+		.mat-card-header {
+			position: absolute;
+			width: 100%;
+
+			::ng-deep .mat-card-header-text {
+				width: calc(100% - 32px);
+			}
+
+			.mat-card-title {
+				margin-top: -1.75rem;
+				font-weight: bold;
+				text-align: center;
+			}
+		}
+
+		.mat-card-image {
+			margin: -16px -16px -22px;
+			border-radius: inherit;
+		}
+
+		.mat-card-content {
+			display: grid;
+			grid-template-columns: max-content auto;
+			column-gap: 1.5rem;
+
+			font-size: 1.25rem;
+			line-height: 1.25rem;
+
+			> span, > small {
+				grid-column: 1;
+			}
+
+			> small {
+				margin-left: 1.5rem;
+			}
+
+			> dyslexic-text, > a {
+				grid-column: 2;
+			}
+		}
+	}
+}

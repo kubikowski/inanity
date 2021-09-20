@@ -1,0 +1,35 @@
+:host {
+	display: flex;
+	flex-flow: column nowrap;
+	height: 100%;
+	overflow: hidden auto;
+
+	.mat-toolbar {
+		justify-content: space-between;
+
+		> .title-wrapper {
+			color: var(--default-text-color);
+			line-height: 2.5rem;
+			background-color: var(--hover-background-color);
+			border-radius: 0.5rem;
+			padding: 0 0.75rem;
+		}
+
+		> .github-wrapper {
+			display: flex;
+			flex-flow: column nowrap;
+			width: 100%;
+			padding-left: 0.5rem;
+			font-size: 1rem;
+			line-height: 1rem;
+		}
+	}
+
+	.nav-items {
+		flex: 1;
+		display: flex;
+		flex-flow: column nowrap;
+		padding-bottom: 1rem;
+		overflow: hidden auto;
+	}
+}

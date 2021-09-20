@@ -3,8 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AppComponent } from 'src/app/app.component';
-import { NavigationModule } from 'src/app/navigation/navigation.module';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { CoreModule } from 'src/app/core/core.module';
+import { BackgroundModule } from 'src/app/features/background/background.module';
+import { NavigationModule } from 'src/app/features/navigation/navigation.module';
 
 @NgModule({
 	declarations: [ AppComponent ],
@@ -12,11 +13,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 		BrowserModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
+		CoreModule,
+		BackgroundModule,
 		NavigationModule,
-		SharedModule,
 	],
-	providers: [],
 	bootstrap: [ AppComponent ],
 })
-export class AppModule {
-}
+export class AppModule { }
