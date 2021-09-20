@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { aboutCardData } from 'src/app/features/about/models/about-card-data.constant';
 
 @Component({
 	selector: 'about-page',
@@ -6,4 +7,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	styleUrls: [ './about-page.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AboutPageComponent { }
+export class AboutPageComponent {
+	public readonly aboutCardData = aboutCardData;
+}
