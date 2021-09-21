@@ -44,6 +44,7 @@ jobs:
             -   uses: actions/checkout@v2
                 with:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
+            -   run: git pull
 #            -   name: Sign Commit
 #                uses: crazy-max/ghaction-import-gpg@master
 #                with:
