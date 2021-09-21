@@ -38,7 +38,7 @@ export class AnimationFrameService implements OnDestroy {
 	private calculateFps(): void {
 		this.subscriptions.sink = this.onAnimationFrame$
 			.pipe(
-				scan((acc, timestamp) => [ ...acc.slice(acc.length <= AnimationFrameService.frameAverage ? 0 : 1), timestamp ], []),
+				scan((acc, timestamp) => [ ...acc.slice((acc.length <= AnimationFrameService.frameAverage) ? 0 : 1), timestamp ], []),
 				map(timestamps => timestamps[timestamps.length - 1] - timestamps[0]),
 				map(msBetweenTimestamps => 1000 * AnimationFrameService.frameAverage / msBetweenTimestamps),
 			).subscribe(fps => this.fps = fps);
