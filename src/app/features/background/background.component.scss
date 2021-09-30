@@ -16,4 +16,11 @@
 		top: -0.125rem;
 		left: 0.25rem;
 	}
+
+	> clock {
+		color: var(--dark-text-color);
+		position: absolute;
+		bottom: 2.875rem;
+		right: 0.25rem;
+	}
 }
