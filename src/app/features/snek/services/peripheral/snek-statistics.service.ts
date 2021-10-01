@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { distinctUntilKeyChanged, filter, map, tap } from 'rxjs/operators';
-import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.pipe';
+import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.function';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 import { SubSink } from 'subsink';
