@@ -11,5 +11,5 @@ import { switchMap } from 'rxjs/operators';
  * @see https://stackoverflow.com/a/62642598
  */
 export function mapToVoid<T>(): OperatorFunction<T, void> {
-	return switchMap(() => of(void 0));
+	return switchMap(() => of<void>(void 0));
 }
