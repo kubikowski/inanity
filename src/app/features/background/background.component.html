@@ -1,5 +1,9 @@
 <canvas #canvas></canvas>
 
-<h4>{{ fps$ | async | number }}</h4>
+<h4 class="fps">
+	{{ fps$ | async | number }}
+</h4>
 
-<clock></clock>
+<h4 class="clock">
+	<clock></clock>
+</h4>

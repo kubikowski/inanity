@@ -11,13 +11,13 @@
 		left: 0;
 	}
 
-	> h4 {
+	> .fps {
 		position: absolute;
 		top: -0.125rem;
 		left: 0.25rem;
 	}
 
-	> clock {
+	> .clock {
 		color: var(--dark-text-color);
 		position: absolute;
 		bottom: 2.875rem;
