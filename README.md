@@ -1,9 +1,10 @@
 # inanity
 
-[![Lint, Build, & Test](https://github.com/kubikowski/inanity/actions/workflows/test.yml/badge.svg)](https://github.com/kubikowski/inanity/actions/workflows/test.yml)
-[![Bump Version & Deploy](https://github.com/kubikowski/inanity/actions/workflows/deploy.yml/badge.svg)](https://github.com/kubikowski/inanity/actions/workflows/deploy.yml)
-
 a personal sandbox
+
+[![CodeQL Analysis](https://github.com/kubikowski/inanity/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/kubikowski/inanity/actions/workflows/codeql-analysis.yml) <br>
+[![Lint, Build, & Test](https://github.com/kubikowski/inanity/actions/workflows/test.yml/badge.svg)](https://github.com/kubikowski/inanity/actions/workflows/test.yml) <br>
+[![Bump Version & Deploy](https://github.com/kubikowski/inanity/actions/workflows/deploy.yml/badge.svg)](https://github.com/kubikowski/inanity/actions/workflows/deploy.yml)
 
 ### Deploy: [inanity.io](https://inanity.io)
 
