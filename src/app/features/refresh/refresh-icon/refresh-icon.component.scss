@@ -1,0 +1,15 @@
+.mat-icon {
+	&.state-idle {
+		cursor: pointer;
+	}
+
+	&.state-active {
+		cursor: default;
+		animation: fa-spin 800ms infinite linear;
+	}
+
+	&.state-done {
+		color: var(--color-success);
+		cursor: default;
+	}
+}

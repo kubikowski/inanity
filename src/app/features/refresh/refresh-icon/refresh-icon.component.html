@@ -1,0 +1,15 @@
+<ng-template #template>
+	<ng-container *ngIf="refreshState$ | async as state">
+		<mat-icon
+			[class]="state | refreshClass"
+			[matTooltip]="state | refreshTooltip: tooltip"
+			[matTooltipDisabled]="tooltipDisabled"
+			[style.width]="size"
+			[style.height]="size"
+			[style.font-size]="size"
+			(click)="handleClick()"
+		>
+			{{ state | refreshIcon }}
+		</mat-icon>
+	</ng-container>
+</ng-template>
