@@ -1,3 +1,5 @@
+@use 'src/styles/mixins/spin' as *;
+
 .mat-icon {
 	&.state-idle {
 		cursor: pointer;
@@ -5,7 +7,7 @@
 
 	&.state-active {
 		cursor: default;
-		animation: fa-spin 800ms infinite linear;
+		animation: spin 800ms infinite linear;
 	}
 
 	&.state-done {
