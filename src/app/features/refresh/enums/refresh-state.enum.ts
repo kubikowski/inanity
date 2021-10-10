@@ -16,17 +16,17 @@ export namespace RefreshState {
 	}
 
 	export function getClass(refreshState: RefreshState): string {
-		return `state-${refreshState.toLowerCase()}`;
+		return `state-${ refreshState.toLowerCase() }`;
 	}
 
 	export function getTooltip(refreshState: RefreshState, tooltip: string): string {
 		switch (refreshState) {
 			case RefreshState.IDLE:
-				return `Refresh ${tooltip}`.trim();
+				return `Refresh ${ tooltip }`.trim();
 			case RefreshState.ACTIVE:
-				return `Refreshing ${tooltip}`.trim();
+				return `Refreshing ${ tooltip }`.trim();
 			case RefreshState.DONE:
-				return `Refreshed ${tooltip}`.trim();
+				return `Refreshed ${ tooltip }`.trim();
 		}
 	}
 }
