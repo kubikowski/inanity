@@ -10,8 +10,13 @@
 		animation: spin 1600ms infinite linear;
 	}
 
-	&.state-done {
+	&.state-complete {
 		color: var(--success-color);
+		cursor: default;
+	}
+
+	&.state-error {
+		color: var(--danger-color);
 		cursor: default;
 	}
 }

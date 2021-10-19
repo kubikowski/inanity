@@ -1,8 +1,8 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, PartialObserver } from 'rxjs';
 import { Observed } from 'rxjs-observed-decorator';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime, filter } from 'rxjs/operators';
 import { RefreshState } from 'src/app/features/refresh/enums/refresh-state.enum';
 import { SubSink } from 'subsink';
 
@@ -27,9 +27,6 @@ export class RefreshIconComponent<T> implements OnInit, AfterViewInit, OnDestroy
 	/* css size string */
 	@Input() public size: string;
 
-	@Observed({ type: 'subject' }) private onCompleteRefreshAction: Observable<void>;
-	private readonly onCompleteRefreshAction$: Observable<void>;
-
 	@Observed() private refreshState = RefreshState.IDLE;
 	public readonly refreshState$: Observable<RefreshState>;
 	@Output() public readonly refreshStateChange = new EventEmitter<RefreshState>();
@@ -40,12 +37,11 @@ export class RefreshIconComponent<T> implements OnInit, AfterViewInit, OnDestroy
 	public constructor(
 		private readonly viewContainerRef: ViewContainerRef,
 	) {
-		this.subscriptions.sink = this.onCompleteRefreshAction$
+		this.subscriptions.sink = this.refreshState$
 			.pipe(
-				tap(() => this.refreshState = RefreshState.DONE),
+				filter(refreshState => RefreshState.isFinished(refreshState)),
 				debounceTime(this.debounceTime),
-				tap(() => this.refreshState = RefreshState.IDLE),
-			).subscribe();
+			).subscribe(() => this.refreshState = RefreshState.IDLE);
 
 		this.subscriptions.sink = this.refreshState$
 			.subscribe(refreshState => this.refreshStateChange.emit(refreshState));
@@ -75,7 +71,14 @@ export class RefreshIconComponent<T> implements OnInit, AfterViewInit, OnDestroy
 			this.refreshState = RefreshState.ACTIVE;
 
 			this.subscriptions.sink = this.refresh$
-				.subscribe({ complete: () => this.onCompleteRefreshAction = null });
+				.subscribe(this.refreshObserver);
 		}
+	}
+
+	private get refreshObserver(): PartialObserver<T> {
+		return {
+			error: () => this.refreshState = RefreshState.ERROR,
+			complete: () => this.refreshState = RefreshState.COMPLETE,
+		};
 	}
 }

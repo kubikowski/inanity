@@ -1,17 +1,31 @@
 export enum RefreshState {
 	IDLE = 'IDLE',
 	ACTIVE = 'ACTIVE',
-	DONE = 'DONE',
+	COMPLETE = 'COMPLETE',
+	ERROR = 'ERROR',
 }
 
 export namespace RefreshState {
+	export function isFinished(refreshState: RefreshState): boolean {
+		switch (refreshState) {
+			case RefreshState.IDLE:
+			case RefreshState.ACTIVE:
+				return false;
+			case RefreshState.COMPLETE:
+			case RefreshState.ERROR:
+				return true;
+		}
+	}
+
 	export function getIcon(refreshState: RefreshState): string {
 		switch (refreshState) {
 			case RefreshState.IDLE:
 			case RefreshState.ACTIVE:
 				return 'autorenew';
-			case RefreshState.DONE:
+			case RefreshState.COMPLETE:
 				return 'done';
+			case RefreshState.ERROR:
+				return 'clear';
 		}
 	}
 
@@ -25,8 +39,10 @@ export namespace RefreshState {
 				return `Refresh ${ tooltip }`.trim();
 			case RefreshState.ACTIVE:
 				return `Refreshing ${ tooltip }`.trim();
-			case RefreshState.DONE:
+			case RefreshState.COMPLETE:
 				return `Refreshed ${ tooltip }`.trim();
+			case RefreshState.ERROR:
+				return `Failed to Refresh ${ tooltip }`.trim();
 		}
 	}
 }
