@@ -9,7 +9,7 @@ export namespace RefreshState {
 		switch (refreshState) {
 			case RefreshState.IDLE:
 			case RefreshState.ACTIVE:
-				return 'refresh';
+				return 'autorenew';
 			case RefreshState.DONE:
 				return 'done';
 		}
