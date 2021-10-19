@@ -12,11 +12,11 @@ import { SubSink } from 'subsink';
 	styleUrls: [ './refresh-icon.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RefreshIconComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RefreshIconComponent<T> implements OnInit, AfterViewInit, OnDestroy {
 	private readonly subscriptions = new SubSink();
 	public readonly RefreshState = RefreshState;
 
-	@Input() public refresh$: Observable<any>;
+	@Input() public refresh$: Observable<T>;
 	@Input() public doRefresh$: Observable<void>;
 
 	@Input() public tooltip = '';

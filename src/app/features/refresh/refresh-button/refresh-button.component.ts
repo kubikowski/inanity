@@ -9,12 +9,10 @@ import { RefreshState } from 'src/app/features/refresh/enums/refresh-state.enum'
 	styleUrls: [ './refresh-button.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RefreshButtonComponent implements OnInit {
+export class RefreshButtonComponent<T> implements OnInit {
 	public readonly RefreshState = RefreshState;
 
-	@Input() public refresh$: Observable<any>;
-	@Observed({ type: 'subject' }) private doRefresh: void;
-	public readonly doRefresh$: Observable<void>;
+	@Input() public refresh$: Observable<T>;
 
 	@Input() public tooltip = '';
 	@Input() public tooltipDisabled = false;
@@ -22,7 +20,10 @@ export class RefreshButtonComponent implements OnInit {
 	/* time spent in DONE state (milliseconds) */
 	@Input() public debounceTime = 10_000;
 
+	@Observed({ type: 'subject' }) private doRefresh: void;
 	@Observed() public refreshState = RefreshState.IDLE;
+
+	public readonly doRefresh$: Observable<void>;
 	public readonly refreshState$: Observable<RefreshState>;
 
 	public ngOnInit(): void {
