@@ -1,4 +1,5 @@
-<button mat-icon-button *ngIf="refreshState$ | async as state"
+<button mat-icon-button [color]="color"
+		*ngIf="refreshState$ | async as state"
 		[matTooltip]="state | refreshTooltip: tooltip"
 		[matTooltipDisabled]="tooltipDisabled"
 		[disabled]="state !== RefreshState.IDLE"

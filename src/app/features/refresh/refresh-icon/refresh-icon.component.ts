@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 import { Observable, PartialObserver } from 'rxjs';
 import { Observed } from 'rxjs-observed-decorator';
 import { debounceTime, filter } from 'rxjs/operators';
@@ -18,6 +19,8 @@ export class RefreshIconComponent<T> implements OnInit, AfterViewInit, OnDestroy
 
 	@Input() public refresh$: Observable<T>;
 	@Input() public doRefresh$: Observable<void>;
+
+	@Input() public color: ThemePalette;
 
 	@Input() public tooltip = '';
 	@Input() public tooltipDisabled = false;

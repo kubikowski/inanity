@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { Observed } from 'rxjs-observed-decorator';
 import { RefreshState } from 'src/app/features/refresh/enums/refresh-state.enum';
@@ -13,6 +14,8 @@ export class RefreshButtonComponent<T> implements OnInit {
 	public readonly RefreshState = RefreshState;
 
 	@Input() public refresh$: Observable<T>;
+
+	@Input() public color: ThemePalette;
 
 	@Input() public tooltip = '';
 	@Input() public tooltipDisabled = false;
