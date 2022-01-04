@@ -1,4 +1,6 @@
 export class BaseColorTheme {
+	public static readonly CssVariables = this.getCssVariables();
+
 	protected constructor(
 		public readonly colorInfo: string,
 		public readonly colorSuccess: string,
@@ -23,33 +25,35 @@ export class BaseColorTheme {
 		public readonly colorShadow: string,
 	) { }
 
-	public static readonly CssThemeVariables = new BaseColorTheme(
-		/* Static App Colors */
-		'--info-color',
-		'--success-color',
-		'--warning-color',
-		'--danger-color',
+	private static getCssVariables(): BaseColorTheme {
+		return new BaseColorTheme(
+			/* Static App Colors */
+			'--info-color',
+			'--success-color',
+			'--warning-color',
+			'--danger-color',
 
-		/* Background Colors */
-		'--default-background-color',
-		'--accent-background-color',
-		'--disabled-background-color',
+			/* Background Colors */
+			'--default-background-color',
+			'--accent-background-color',
+			'--disabled-background-color',
 
-		/* Text Colors */
-		'--dark-text-color',
-		'--default-text-color',
-		'--disabled-text-color',
-		'--light-text-color',
+			/* Text Colors */
+			'--dark-text-color',
+			'--default-text-color',
+			'--disabled-text-color',
+			'--light-text-color',
 
-		/* Hover Colors */
-		'--hover-background-color',
-		'--hover-background-color-transparent',
+			/* Hover Colors */
+			'--hover-background-color',
+			'--hover-background-color-transparent',
 
-		/* Border Colors */
-		'--dark-border-color',
-		'--border-color',
+			/* Border Colors */
+			'--dark-border-color',
+			'--border-color',
 
-		/* Shadow Colors */
-		'--shadow-color',
-	);
+			/* Shadow Colors */
+			'--shadow-color',
+		);
+	}
 }

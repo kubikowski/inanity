@@ -87,7 +87,7 @@ export class ColorsService implements OnDestroy {
 	}
 
 	private set cssThemeVariables(theme: ColorTheme) {
-		const cssThemeEntries = Object.entries(BaseColorTheme.CssThemeVariables);
+		const cssThemeEntries = Object.entries(BaseColorTheme.CssVariables);
 
 		cssThemeEntries.forEach(([ themeKey, cssVariableName ]) => {
 			const cssVariableValue = theme[themeKey];
@@ -110,7 +110,7 @@ export class ColorsService implements OnDestroy {
 	}
 
 	private set cssPaletteVariables(palette: ColorPalette) {
-		const cssPaletteEntries = Object.entries(BaseColorPalette.CssPaletteVariables);
+		const cssPaletteEntries = Object.entries(BaseColorPalette.CssVariables);
 
 		cssPaletteEntries.forEach(([ paletteKey, cssVariableName ]) => {
 			const cssVariableValue = palette[paletteKey];

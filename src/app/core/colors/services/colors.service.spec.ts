@@ -87,34 +87,34 @@ describe('ColorsService', () => {
 
 	describe('CSS Variables', () => {
 		it('should have set theme css values on element', () => {
-			Object.entries(BaseColorTheme.CssThemeVariables).forEach(([key, cssVariable]) => {
+			Object.entries(BaseColorTheme.CssVariables).forEach(([key, cssVariable]) => {
 				expect(style.getPropertyValue(cssVariable)).toBe(theme[key]);
 			});
 		});
 
 		it('should have set palette css values on element', () => {
-			Object.entries(BaseColorPalette.CssPaletteVariables).forEach(([key, cssVariable]) => {
+			Object.entries(BaseColorPalette.CssVariables).forEach(([key, cssVariable]) => {
 				expect(style.getPropertyValue(cssVariable)).toBe(palette[key]);
 			});
 		});
 
 		it('should update theme css values on toggleTheme', fakeAsync(() => {
 			setDarkTheme();
-			Object.entries(BaseColorTheme.CssThemeVariables).forEach(([key, cssVariable]) => {
+			Object.entries(BaseColorTheme.CssVariables).forEach(([key, cssVariable]) => {
 				expect(style.getPropertyValue(cssVariable)).toBe(theme[key]);
 			});
 		}));
 
 		it('should update palette css values on togglePalette', fakeAsync(() => {
 			setGreenPalette();
-			Object.entries(BaseColorPalette.CssPaletteVariables).forEach(([key, cssVariable]) => {
+			Object.entries(BaseColorPalette.CssVariables).forEach(([key, cssVariable]) => {
 				expect(style.getPropertyValue(cssVariable)).toBe(palette[key]);
 			});
 		}));
 
 		it('should update inverse palette css values on toggleTheme', fakeAsync(() => {
 			setDarkTheme();
-			Object.entries(BaseColorPalette.CssPaletteVariables).forEach(([key, cssVariable]) => {
+			Object.entries(BaseColorPalette.CssVariables).forEach(([key, cssVariable]) => {
 				expect(style.getPropertyValue(cssVariable)).toBe(palette[key]);
 			});
 		}));

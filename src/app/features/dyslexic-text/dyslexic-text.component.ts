@@ -50,8 +50,8 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	private setDefaultWords(): void {
 		const splitText = this.text.split(/\b/);
 
-		this.inputWords = splitText.filter((text) => /\b/.test(text));
-		this.delimiters = splitText.filter((text) => !/\b/.test(text));
+		this.inputWords = splitText.filter(text => /\b/.test(text));
+		this.delimiters = splitText.filter(text => !/\b/.test(text));
 		this.startsWithWord = /\b/.test(splitText[0]);
 
 		this.outputWords = [ ...this.inputWords ];
