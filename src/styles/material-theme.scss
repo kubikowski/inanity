@@ -1,5 +1,10 @@
-@use '~@angular/material' as mat;
-@use '~@angular/material/theming';
+/**
+ * Custom Theming for Angular Material
+ * For more information: https://material.angular.io/guide/theming
+ */
+@use '@angular/material' as mat;
+@use '@angular/material/theming';
+@use 'src/styles/colors/color-theme' as inanity;
 
 $custom-typography: mat.define-typography-config(
 	$font-family: 'Garamond, "EB Garamond", Georgia, serif',
@@ -12,52 +17,18 @@ $custom-typography: mat.define-typography-config(
 @include mat.all-component-typographies($custom-typography);
 
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat.core($custom-typography);
-
-
-/** Inanity Palette Generator
- * These methods mimic the result of the mat-palette function
- * The resulting palettes, however, contain css member values as defined in colors.scss
+/**
+ * Includes the common styles for Angular Material.
+ * Be sure that you only ever include this mixin once!
  */
-@function inanity-palette($default, $lighter, $darker, $contrast: var(--dark-text-color)) {
-	$palette: (
-		default: $default,
-		lighter: $lighter,
-		darker: $darker,
-		text: $default,
-
-		default-contrast: $contrast,
-		lighter-contrast: $contrast,
-		darker-contrast: $contrast,
-	);
-	@return $palette;
-}
-
-$inanity-primary-theme: inanity-palette(
-	var(--default-theme-color),
-	var(--light-theme-color),
-	var(--dark-theme-color),
-);
-$inanity-accent-theme: inanity-palette(
-	var(--default-background-color),
-	var(--accent-background-color),
-	var(--disabled-background-color),
-);
-$inanity-warning-theme: mat.define-palette(mat.$red-palette);
-
-
-$inanity-light-theme: mat.define-light-theme($inanity-primary-theme, $inanity-accent-theme, $inanity-warning-theme);
-$inanity-dark-theme: mat.define-dark-theme($inanity-primary-theme, $inanity-accent-theme, $inanity-warning-theme);
+@include mat.core($custom-typography);
 
 body {
 	&.light-theme {
-		@include mat.all-component-themes($inanity-light-theme);
+		@include mat.all-component-themes(inanity.$light-theme);
 	}
 
 	&.dark-theme {
-		@include mat.all-component-themes($inanity-dark-theme);
+		@include mat.all-component-themes(inanity.$dark-theme);
 	}
 }
