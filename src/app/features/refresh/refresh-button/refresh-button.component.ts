@@ -23,7 +23,7 @@ export class RefreshButtonComponent<T> implements OnInit {
 	/* time spent in DONE state (milliseconds) */
 	@Input() public debounceTime = 10_000;
 
-	@Observed({ type: 'subject' }) private doRefresh: void;
+	@Observed('subject') private doRefresh: void;
 	@Observed() public refreshState = RefreshState.IDLE;
 
 	public readonly doRefresh$: Observable<void>;
