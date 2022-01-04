@@ -11,7 +11,7 @@ import { GongStatusUpdate } from 'src/app/pages/gong/models/gong-status-update.m
 export class GongPageComponent {
 	public readonly statusUpdates: ReadonlyArray<GongStatusUpdate>;
 
-	constructor() {
+	public constructor() {
 		this.statusUpdates = GongPageComponent.getStatusUpdates();
 	}
 

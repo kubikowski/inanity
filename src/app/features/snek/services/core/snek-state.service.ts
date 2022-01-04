@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
 import { Observed } from 'rxjs-observed-decorator';
 import { catchError, debounceTime, distinctUntilChanged, map, scan, tap, throttleTime } from 'rxjs/operators';
-import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.pipe';
+import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.function';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
 import { SnekGame } from 'src/app/features/snek/models/state/snek-game.model';
 import { SnekResolutionService } from 'src/app/features/snek/services/core/snek-resolution.service';
@@ -30,10 +30,10 @@ export class SnekStateService implements OnDestroy {
 	@Observed() public gameState: SnekGameState = null;
 	public readonly gameState$: Observable<SnekGameState>;
 
-	@Observed({ type: 'subject' }) private gameOver: string = null;
+	@Observed('subject') private gameOver: string = null;
 	public readonly gameOver$: Observable<string>;
 
-	constructor(
+	public constructor(
 		private readonly snekResolutionService: SnekResolutionService,
 	) {
 		this.initializeGridResolution();
@@ -42,7 +42,7 @@ export class SnekStateService implements OnDestroy {
 		this.resetSnekGame();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.stopGame('de-rendering snek');
 		this.subscriptions.unsubscribe();
 	}

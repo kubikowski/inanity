@@ -17,7 +17,7 @@ export class SnekGridComponent {
 	public readonly snekWidth$: Observable<number>;
 	public readonly snekHeight$: Observable<number>;
 
-	constructor(
+	public constructor(
 		private readonly snekResolutionService: SnekResolutionService,
 		private readonly snekStateService: SnekStateService,
 		private readonly snekUserInputService: SnekUserInputService,

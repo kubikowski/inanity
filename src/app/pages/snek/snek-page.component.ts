@@ -8,10 +8,5 @@ import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SnekPageComponent {
-
-	readonly SnekIcon = SvgIcon.SNAKE;
-
-	constructor() {
-	}
-
+	public readonly SnekIcon = SvgIcon.SNAKE;
 }

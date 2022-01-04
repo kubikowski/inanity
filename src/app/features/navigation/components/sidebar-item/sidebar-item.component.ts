@@ -9,10 +9,11 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarItemComponent {
-	@Input() config: NavigationConfig;
+	@Input() public config: NavigationConfig;
 
-	constructor(private navigationService: NavigationService) {
-	}
+	public constructor(
+		private readonly navigationService: NavigationService,
+	) { }
 
 	public toggleSidenav(event: Event): void {
 		(event.currentTarget as HTMLElement).blur();
