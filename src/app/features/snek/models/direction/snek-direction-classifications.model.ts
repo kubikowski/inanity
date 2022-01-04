@@ -30,14 +30,12 @@ export class SnekDirectionClassifications {
 		return new SnekDirectionClassifications(optimal, subOptimal, direction);
 	}
 
-	private static readonly SnekDirections = [ SnekDirection.UP, SnekDirection.DOWN, SnekDirection.LEFT, SnekDirection.RIGHT ];
-
 	private static getPossibleDirections(headNode: SnekGridNode, currentDirection: SnekDirection): ReadonlySet<SnekDirection> {
-		const possible = new Set(this.SnekDirections);
+		const possible = new Set(SnekDirection.all);
 
 		possible.delete(SnekDirection.inverse(currentDirection));
 
-		this.SnekDirections.forEach(direction => {
+		SnekDirection.all.forEach(direction => {
 			const next = headNode.next(direction);
 
 			if (!(next instanceof SnekGridNode) || next.type === SnekGridNodeType.SNEK) {
@@ -55,10 +53,10 @@ export class SnekDirectionClassifications {
 		return [
 			(deltaWidth > 0) ? SnekDirection.RIGHT
 				: (deltaWidth < 0) ? SnekDirection.LEFT
-				: null,
+					: null,
 			(deltaHeight > 0) ? SnekDirection.DOWN
 				: (deltaHeight < 0) ? SnekDirection.UP
-				: null,
+					: null,
 		].filter(Boolean);
 	}
 
