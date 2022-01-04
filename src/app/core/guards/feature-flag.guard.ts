@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class FeatureFlagGuard implements CanActivate, CanActivateChild, CanLoad {
-	constructor(
+	public constructor(
 		private readonly router: Router,
 	) { }
 

@@ -17,7 +17,7 @@ export class AnimationFrameService implements OnDestroy {
 	public readonly onAnimationFrame$: Observable<DOMHighResTimeStamp>;
 	public readonly fps$: Observable<number>;
 
-	constructor() {
+	public constructor() {
 		this.requestAnimationFrame(performance.now());
 		this.calculateFps();
 	}

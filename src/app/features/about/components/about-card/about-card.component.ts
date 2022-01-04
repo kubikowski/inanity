@@ -21,9 +21,9 @@ export class AboutCardComponent implements OnDestroy {
 	public readonly openBrace$: Observable<string>;
 	public readonly closeBrace$: Observable<string>;
 
-	@Input() data: AboutCardData;
+	@Input() public data: AboutCardData;
 
-	constructor() {
+	public constructor() {
 		this.subscriptions.sink = Braces.random$()
 			.subscribe(([ openBrace, closeBrace ]) => {
 				this.openBrace = openBrace;
@@ -31,7 +31,7 @@ export class AboutCardComponent implements OnDestroy {
 			});
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 }

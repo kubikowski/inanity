@@ -15,13 +15,15 @@ export class JoystickComponent implements AfterViewInit, OnDestroy {
 	@Output() public move = new EventEmitter<JoystickOutputData>();
 	@Output() public release = new EventEmitter<JoystickOutputData>();
 
-	constructor(private readonly elementRef: ElementRef) { }
+	public constructor(
+		private readonly elementRef: ElementRef,
+	) { }
 
-	ngAfterViewInit(): void {
+	public ngAfterViewInit(): void {
 		this.initializeJoystick();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.joystickManager.destroy();
 	}
 

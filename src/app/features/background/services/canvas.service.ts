@@ -34,7 +34,7 @@ export abstract class CanvasService implements OnDestroy {
 			.subscribe(pixelDensity => this.pixelDensity = pixelDensity);
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 

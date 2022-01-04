@@ -7,7 +7,7 @@ import { InternalSvgIcon } from 'src/app/core/svg/internal-svg-icon.enum';
 @Injectable({ providedIn: 'root' })
 export class SvgIconService {
 
-	constructor(
+	public constructor(
 		private readonly matIconRegistry: MatIconRegistry,
 		private readonly domSanitizer: DomSanitizer,
 	) {

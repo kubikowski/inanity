@@ -7,7 +7,7 @@ export class FaviconService {
 	private readonly head: HTMLHeadElement;
 	private readonly renderer: Renderer2;
 
-	constructor(
+	public constructor(
 		@Inject(DOCUMENT) private readonly document: HTMLDocument,
 		private readonly rendererFactory: RendererFactory2,
 	) {

@@ -1,7 +1,7 @@
 import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 
 export class GongStatusUpdate {
-	constructor(
+	public constructor(
 		public readonly title: string,
 		public readonly date: Date,
 		public readonly svgIcon: SvgIcon,

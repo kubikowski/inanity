@@ -9,7 +9,7 @@ import { SubSink } from 'subsink';
 export class SnekDialogService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
-	constructor(
+	public constructor(
 		private readonly dialog: MatDialog,
 		private readonly snekStateService: SnekStateService,
 	) {
@@ -17,7 +17,7 @@ export class SnekDialogService implements OnDestroy {
 			.subscribe(gameOverMessage => this.openResultsDialog(gameOverMessage));
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 
