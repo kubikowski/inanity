@@ -1,6 +1,6 @@
 {
 	"name": "inanity",
-	"version": "0.8.26",
+	"version": "0.8.27",
 	"scripts": {
 		"ng": "ng",
 		"build": "ng build",
