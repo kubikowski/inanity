@@ -30,7 +30,7 @@ export class SnekStateService implements OnDestroy {
 	@Observed() public gameState: SnekGameState = null;
 	public readonly gameState$: Observable<SnekGameState>;
 
-	@Observed({ type: 'subject' }) private gameOver: string = null;
+	@Observed('subject') private gameOver: string = null;
 	public readonly gameOver$: Observable<string>;
 
 	public constructor(

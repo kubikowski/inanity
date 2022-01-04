@@ -14,7 +14,7 @@ export class SnekResolutionService implements OnDestroy {
 
 	@Observed() public snekWidth: number;
 	@Observed() public snekHeight: number;
-	@Observed({ type: 'subject' }) private onResolutionChange: [ number, number ] = null;
+	@Observed('subject') private onResolutionChange: [ number, number ] = null;
 
 	public readonly snekWidth$: Observable<number>;
 	public readonly snekHeight$: Observable<number>;
