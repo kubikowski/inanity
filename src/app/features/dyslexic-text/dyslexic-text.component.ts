@@ -24,7 +24,7 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	public readonly outputText$: Observable<string>;
 
 	public constructor(
-		private dyslexicTextService: DyslexicTextService,
+		private readonly dyslexicTextService: DyslexicTextService,
 	) {
 		this.outputText$ = this.outputWords$
 			.pipe(
