@@ -8,10 +8,5 @@ import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFoundPageComponent {
-
-	readonly WheelIcon = SvgIcon.WHEEL;
-
-	constructor() {
-	}
-
+	public readonly WheelIcon = SvgIcon.WHEEL;
 }

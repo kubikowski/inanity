@@ -16,14 +16,14 @@ export class BackgroundComponent implements AfterViewInit {
 	@ViewChild('canvas', { static: true })
 	private readonly canvas: ElementRef<HTMLCanvasElement>;
 
-	constructor(
+	public constructor(
 		private readonly backgroundCanvasService: BackgroundCanvasService,
 		private readonly animationFrameService: AnimationFrameService,
 	) {
 		this.fps$ = this.animationFrameService.fps$;
 	}
 
-	ngAfterViewInit(): void {
+	public ngAfterViewInit(): void {
 		this.backgroundCanvasService.initialize(this.canvas.nativeElement);
 	}
 }

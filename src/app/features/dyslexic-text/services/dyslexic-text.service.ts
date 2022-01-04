@@ -20,14 +20,14 @@ export class DyslexicTextService implements OnDestroy {
 
 	private readonly wordCombinations = new Map<string, readonly string[]>();
 
-	constructor() {
+	public constructor() {
 		this.isEnabled = JSON.parse(localStorage.getItem('dyslexic-text')) ?? true;
 		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 25;
 
 		this.persistSettings();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 

@@ -33,7 +33,7 @@ export class SnekStateService implements OnDestroy {
 	@Observed({ type: 'subject' }) private gameOver: string = null;
 	public readonly gameOver$: Observable<string>;
 
-	constructor(
+	public constructor(
 		private readonly snekResolutionService: SnekResolutionService,
 	) {
 		this.initializeGridResolution();
@@ -42,7 +42,7 @@ export class SnekStateService implements OnDestroy {
 		this.resetSnekGame();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.stopGame('de-rendering snek');
 		this.subscriptions.unsubscribe();
 	}

@@ -9,8 +9,9 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 })
 export class HeaderComponent {
 
-	constructor(private navigationService: NavigationService) {
-	}
+	public constructor(
+		private readonly navigationService: NavigationService,
+	) { }
 
 	public toggleSidenav(event: Event): void {
 		(event.currentTarget as HTMLElement).blur();

@@ -13,7 +13,7 @@ export class BackgroundCanvasService extends CanvasService {
 	private canvasTopOffset: number;
 	private mousePosition: [ number, number ];
 
-	constructor(
+	public constructor(
 		private readonly colorsService: ColorsService,
 		private readonly movingBackgroundService: MovingBackgroundService,
 		screenDetectorService: ScreenDetectorService,

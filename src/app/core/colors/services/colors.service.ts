@@ -24,7 +24,7 @@ export class ColorsService implements OnDestroy {
 	public readonly theme$: Observable<ColorTheme>;
 	public readonly palette$: Observable<ColorPalette>;
 
-	constructor(
+	public constructor(
 		@Inject(DOCUMENT) private readonly document: HTMLDocument,
 		private readonly rendererFactory: RendererFactory2,
 	) {
@@ -41,7 +41,7 @@ export class ColorsService implements OnDestroy {
 			.subscribe(palette => this.setPalette(palette));
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 

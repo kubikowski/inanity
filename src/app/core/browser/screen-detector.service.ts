@@ -19,7 +19,7 @@ export class ScreenDetectorService implements OnDestroy {
 	public readonly pixelDensity$: Observable<number>;
 	public readonly mousePosition$: Observable<[ number, number ]>;
 
-	constructor(
+	public constructor(
 		private readonly rendererFactory: RendererFactory2,
 	) {
 		this.renderer = this.rendererFactory.createRenderer(null, null);
@@ -32,7 +32,7 @@ export class ScreenDetectorService implements OnDestroy {
 			this.renderer.listen('window', 'mousemove', this.detectMouseLocation.bind(this));
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.resizeListenerUnsubscribeCallback();
 		this.mouseMoveListenerUnsubscribeCallback();
 	}

@@ -16,7 +16,7 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 })
 export class AppComponent {
 
-	constructor(
+	public constructor(
 		private readonly animationFrameService: AnimationFrameService,
 		private readonly faviconService: FaviconService,
 		private readonly screenDetectorService: ScreenDetectorService,

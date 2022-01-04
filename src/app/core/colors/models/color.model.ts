@@ -2,7 +2,7 @@ import * as ColorName from 'color-name';
 import { clamp } from 'src/app/core/functions/clamp/clamp.function';
 
 export class InvalidColorString extends Error {
-	constructor(message?: string) {
+	public constructor(message?: string) {
 		super(message);
 		this.name = 'Invalid Color String';
 	}

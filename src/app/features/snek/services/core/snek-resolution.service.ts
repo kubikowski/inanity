@@ -20,7 +20,7 @@ export class SnekResolutionService implements OnDestroy {
 	public readonly snekHeight$: Observable<number>;
 	public readonly onResolutionChange$: Observable<[ number, number ]>;
 
-	constructor(
+	public constructor(
 		private readonly screenDetectorService: ScreenDetectorService,
 	) {
 		this.initializeSnekWidth();
@@ -28,7 +28,7 @@ export class SnekResolutionService implements OnDestroy {
 		this.initializeResolutionChange();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 

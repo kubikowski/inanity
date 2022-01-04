@@ -11,14 +11,14 @@ export class SnekStatisticsService implements OnDestroy {
 
 	private gameStateLog: SnekGameState[] = [];
 
-	constructor(
+	public constructor(
 		private readonly snekStateService: SnekStateService,
 	) {
 		this.logGameState();
 		this.printGameStateLog();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 
