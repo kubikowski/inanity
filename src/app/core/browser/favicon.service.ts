@@ -8,7 +8,7 @@ export class FaviconService {
 	private readonly renderer: Renderer2;
 
 	public constructor(
-		@Inject(DOCUMENT) private readonly document: HTMLDocument,
+		@Inject(DOCUMENT) private readonly document: Document,
 		private readonly rendererFactory: RendererFactory2,
 	) {
 		this.head = this.document.head;
@@ -26,7 +26,7 @@ export class FaviconService {
 		}
 	}
 
-	private removeFavicon(favicon: HTMLLinkElement): void {
+	private removeFavicon(favicon: HTMLLinkElement | null): void {
 		if (favicon instanceof HTMLLinkElement) {
 			this.renderer.removeChild(this.head, favicon);
 		}
@@ -41,11 +41,11 @@ export class FaviconService {
 		this.renderer.insertBefore(this.head, favicon, this.appleTouchIcon);
 	}
 
-	private get favicon(): HTMLLinkElement {
+	private get favicon(): HTMLLinkElement | null {
 		return this.head.querySelector('link[rel="icon"]');
 	}
 
-	private get appleTouchIcon(): HTMLLinkElement {
+	private get appleTouchIcon(): HTMLLinkElement | null {
 		return this.head.querySelector('link[rel="apple-touch-icon"]');
 	}
 }

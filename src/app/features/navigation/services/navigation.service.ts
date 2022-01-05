@@ -4,13 +4,13 @@ import { MatSidenav } from '@angular/material/sidenav';
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
 
-	private sidenav: MatSidenav;
+	private sidenav?: MatSidenav;
 
 	public initialize(sidenav: MatSidenav): void {
 		this.sidenav = sidenav;
 	}
 
 	public toggle(): void {
-		this.sidenav.toggle();
+		this.sidenav?.toggle();
 	}
 }

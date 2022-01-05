@@ -11,11 +11,11 @@ export class AnimationFrameService implements OnDestroy {
 	private static enabled = true;
 	private static frameAverage = 60;
 
-	@Observed() private onAnimationFrame: DOMHighResTimeStamp;
+	@Observed() private onAnimationFrame: DOMHighResTimeStamp = performance.now();
 	@Observed() private fps = 0;
 
-	public readonly onAnimationFrame$: Observable<DOMHighResTimeStamp>;
-	public readonly fps$: Observable<number>;
+	public readonly onAnimationFrame$!: Observable<DOMHighResTimeStamp>;
+	public readonly fps$!: Observable<number>;
 
 	public constructor() {
 		this.requestAnimationFrame(performance.now());
@@ -38,7 +38,7 @@ export class AnimationFrameService implements OnDestroy {
 	private calculateFps(): void {
 		this.subscriptions.sink = this.onAnimationFrame$
 			.pipe(
-				scan((acc, timestamp) => [ ...acc.slice((acc.length <= AnimationFrameService.frameAverage) ? 0 : 1), timestamp ], []),
+				scan((acc, timestamp) => [ ...acc.slice((acc.length <= AnimationFrameService.frameAverage) ? 0 : 1), timestamp ], <number[]>[]),
 				map(timestamps => timestamps[timestamps.length - 1] - timestamps[0]),
 				map(msBetweenTimestamps => 1000 * AnimationFrameService.frameAverage / msBetweenTimestamps),
 				map(fps => Math.floor(fps)),

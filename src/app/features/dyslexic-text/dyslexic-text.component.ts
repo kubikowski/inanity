@@ -15,12 +15,12 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 
 	@Input() public text = '';
 
-	private inputWords: string[];
-	private delimiters: string[];
-	private startsWithWord: boolean;
+	private inputWords!: string[];
+	private delimiters!: string[];
+	private startsWithWord!: boolean;
 
 	@Observed() private outputWords: string[] = [];
-	private readonly outputWords$: Observable<string[]>;
+	private readonly outputWords$!: Observable<string[]>;
 	public readonly outputText$: Observable<string>;
 
 	public constructor(

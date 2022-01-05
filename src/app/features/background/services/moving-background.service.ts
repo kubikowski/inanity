@@ -11,17 +11,16 @@ export class MovingBackgroundService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
 	@Observed() public isEnabled: boolean;
-	public readonly isEnabled$: Observable<boolean>;
-
 	@Observed() public amount: number;
-	public readonly amount$: Observable<number>;
-
 	@Observed() private renderedIcons: ReadonlyMap<number, MovingBackgroundIcon> = new Map();
-	public readonly renderedIcons$: Observable<ReadonlyMap<number, MovingBackgroundIcon>>;
+
+	public readonly isEnabled$!: Observable<boolean>;
+	public readonly amount$!: Observable<number>;
+	public readonly renderedIcons$!: Observable<ReadonlyMap<number, MovingBackgroundIcon>>;
 
 	public constructor() {
-		this.isEnabled = JSON.parse(localStorage.getItem('moving-background')) ?? true;
-		this.amount = JSON.parse(localStorage.getItem('moving-background-amount')) ?? 5;
+		this.isEnabled = JSON.parse(localStorage.getItem('moving-background') ?? 'true');
+		this.amount = JSON.parse(localStorage.getItem('moving-background-amount') ?? '5');
 
 		this.initializeIcons();
 		this.persistSettings();

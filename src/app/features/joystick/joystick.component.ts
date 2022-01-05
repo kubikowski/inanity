@@ -7,7 +7,7 @@ import { create, JoystickManager, JoystickManagerOptions, JoystickOutputData } f
 	styleUrls: [ './joystick.component.scss' ],
 })
 export class JoystickComponent implements AfterViewInit, OnDestroy {
-	private joystickManager: JoystickManager;
+	private joystickManager!: JoystickManager;
 
 	@Input() public options: JoystickManagerOptions = { };
 

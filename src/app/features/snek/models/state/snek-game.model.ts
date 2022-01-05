@@ -6,7 +6,7 @@ import { Snek } from 'src/app/features/snek/models/snek/snek.model';
 export class SnekGame {
 	private readonly _grid: ReadonlyArray<ReadonlyArray<SnekGridNode>>;
 	private readonly _snek: Snek;
-	private _fudNode: SnekGridNode = null;
+	private _fudNode!: SnekGridNode;
 
 	private constructor(
 		private readonly _width: number,
@@ -18,7 +18,7 @@ export class SnekGame {
 				(node, width) => SnekGridNode.new(width, height)));
 		this.initializeGridNodes();
 
-		const tailGridNode = this.at(1, Math.floor(this._height / 2));
+		const tailGridNode = this.at(1, Math.floor(this._height / 2)) as SnekGridNode;
 		this._snek = Snek.new(initialSnekLength, tailGridNode);
 
 		this.spawnFud();
@@ -53,7 +53,7 @@ export class SnekGame {
 
 	private findBlankGridNode(): SnekGridNode {
 		const randomIndex = Math.floor(Math.random() * ((this._width * this._height) - this._snek.length));
-		let currentSnekGridNode = this.at(0, 0);
+		let currentSnekGridNode = this.at(0, 0) as SnekGridNode;
 		for (let currentIndex = 0; currentIndex < randomIndex; currentIndex++) {
 			currentSnekGridNode = this.findNextBlankGridNode(currentSnekGridNode);
 		}
@@ -62,14 +62,14 @@ export class SnekGame {
 
 	private findNextBlankGridNode(snekGridNode: SnekGridNode): SnekGridNode {
 		const nextGridNode = (snekGridNode.width + 1 === this._width)
-			? this.at(0, snekGridNode.height + 1)
-			: snekGridNode.next(SnekDirection.RIGHT);
+			? this.at(0, snekGridNode.height + 1) as SnekGridNode
+			: snekGridNode.next(SnekDirection.RIGHT) as SnekGridNode;
 		return (nextGridNode.type === SnekGridNodeType.BLANK)
 			? nextGridNode
 			: this.findNextBlankGridNode(nextGridNode);
 	}
 
-	private at(width: number, height: number): SnekGridNode {
+	private at(width: number, height: number): SnekGridNode | null {
 		if (width >= 0 && width < this._width && height >= 0 && height < this._height) {
 			return this._grid[height][width];
 		} else {

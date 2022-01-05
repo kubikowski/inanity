@@ -12,13 +12,13 @@ export class SnekResolutionService implements OnDestroy {
 	private readonly optimalSnekWidth = 35;
 	private readonly optimalSnekHeight = 25;
 
-	@Observed() public snekWidth: number;
-	@Observed() public snekHeight: number;
-	@Observed('subject') private onResolutionChange: [ number, number ] = null;
+	@Observed() public snekWidth!: number;
+	@Observed() public snekHeight!: number;
+	@Observed('subject') private onResolutionChange?: [ number, number ];
 
-	public readonly snekWidth$: Observable<number>;
-	public readonly snekHeight$: Observable<number>;
-	public readonly onResolutionChange$: Observable<[ number, number ]>;
+	public readonly snekWidth$!: Observable<number>;
+	public readonly snekHeight$!: Observable<number>;
+	public readonly onResolutionChange$!: Observable<[ number, number ]>;
 
 	public constructor(
 		private readonly screenDetectorService: ScreenDetectorService,

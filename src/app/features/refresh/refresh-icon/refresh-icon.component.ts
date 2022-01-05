@@ -17,10 +17,10 @@ export class RefreshIconComponent<T> implements OnInit, AfterViewInit, OnDestroy
 	private readonly subscriptions = new SubSink();
 	public readonly RefreshState = RefreshState;
 
-	@Input() public refresh$: Observable<T>;
-	@Input() public doRefresh$: Observable<void>;
+	@Input() public refresh$!: Observable<T>;
+	@Input() public doRefresh$?: Observable<void>;
 
-	@Input() public color: ThemePalette;
+	@Input() public color?: ThemePalette;
 
 	@Input() public tooltip = '';
 	@Input() public tooltipDisabled = false;
@@ -28,14 +28,14 @@ export class RefreshIconComponent<T> implements OnInit, AfterViewInit, OnDestroy
 	/* time spent in DONE state (milliseconds) */
 	@Input() public debounceTime = 10_000;
 	/* css size string */
-	@Input() public size: string;
+	@Input() public size?: string;
 
 	@Observed() private refreshState = RefreshState.IDLE;
-	public readonly refreshState$: Observable<RefreshState>;
+	public readonly refreshState$!: Observable<RefreshState>;
 	@Output() public readonly refreshStateChange = new EventEmitter<RefreshState>();
 
 	@ViewChild('template', { static: true })
-	private readonly template: TemplateRef<NgTemplateOutlet>;
+	private readonly template!: TemplateRef<NgTemplateOutlet>;
 
 	public constructor(
 		private readonly viewContainerRef: ViewContainerRef,

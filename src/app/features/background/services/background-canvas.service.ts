@@ -10,8 +10,8 @@ import { MovingBackgroundService } from 'src/app/features/background/services/mo
 
 @Injectable()
 export class BackgroundCanvasService extends CanvasService {
-	private canvasTopOffset: number;
-	private mousePosition: [ number, number ];
+	private canvasTopOffset = 0;
+	private mousePosition: [ number, number ] = [ 0, 0 ];
 
 	public constructor(
 		private readonly colorsService: ColorsService,

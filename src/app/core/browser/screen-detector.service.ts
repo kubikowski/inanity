@@ -9,15 +9,15 @@ export class ScreenDetectorService implements OnDestroy {
 	private readonly resizeListenerUnsubscribeCallback: () => void;
 	private readonly mouseMoveListenerUnsubscribeCallback: () => void;
 
-	@Observed() private screenWidth: number;
-	@Observed() private screenHeight: number;
-	@Observed() private pixelDensity: number;
+	@Observed() private screenWidth!: number;
+	@Observed() private screenHeight!: number;
+	@Observed() private pixelDensity!: number;
 	@Observed() private mousePosition: [ number, number ] = [ 0, 0 ];
 
-	public readonly screenWidth$: Observable<number>;
-	public readonly screenHeight$: Observable<number>;
-	public readonly pixelDensity$: Observable<number>;
-	public readonly mousePosition$: Observable<[ number, number ]>;
+	public readonly screenWidth$!: Observable<number>;
+	public readonly screenHeight$!: Observable<number>;
+	public readonly pixelDensity$!: Observable<number>;
+	public readonly mousePosition$!: Observable<[ number, number ]>;
 
 	public constructor(
 		private readonly rendererFactory: RendererFactory2,

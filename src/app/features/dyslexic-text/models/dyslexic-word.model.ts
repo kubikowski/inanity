@@ -1,8 +1,8 @@
 export class DyslexicWord {
 	private constructor(
 		private readonly word: string,
-		private readonly firstLetter: string,
-		private readonly lastLetter: string,
+		private readonly firstLetter: string | undefined,
+		private readonly lastLetter: string | undefined,
 		private readonly middleLetters: string,
 	) { }
 

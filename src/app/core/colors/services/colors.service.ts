@@ -21,11 +21,11 @@ export class ColorsService implements OnDestroy {
 	@Observed() public theme: ColorTheme;
 	@Observed() public palette: ColorPalette;
 
-	public readonly theme$: Observable<ColorTheme>;
-	public readonly palette$: Observable<ColorPalette>;
+	public readonly theme$!: Observable<ColorTheme>;
+	public readonly palette$!: Observable<ColorPalette>;
 
 	public constructor(
-		@Inject(DOCUMENT) private readonly document: HTMLDocument,
+		@Inject(DOCUMENT) private readonly document: Document,
 		private readonly rendererFactory: RendererFactory2,
 	) {
 		this.body = this.document.body;
@@ -87,7 +87,7 @@ export class ColorsService implements OnDestroy {
 	}
 
 	private set cssThemeVariables(theme: ColorTheme) {
-		const cssThemeEntries = Object.entries(BaseColorTheme.CssVariables);
+		const cssThemeEntries = Object.entries(BaseColorTheme.CssVariables) as [ keyof BaseColorTheme, string ][];
 
 		cssThemeEntries.forEach(([ themeKey, cssVariableName ]) => {
 			const cssVariableValue = theme[themeKey];
@@ -110,7 +110,7 @@ export class ColorsService implements OnDestroy {
 	}
 
 	private set cssPaletteVariables(palette: ColorPalette) {
-		const cssPaletteEntries = Object.entries(BaseColorPalette.CssVariables);
+		const cssPaletteEntries = Object.entries(BaseColorPalette.CssVariables) as [ keyof BaseColorPalette, string ][];
 
 		cssPaletteEntries.forEach(([ paletteKey, cssVariableName ]) => {
 			const cssVariableValue = palette[paletteKey];

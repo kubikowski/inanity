@@ -11,27 +11,24 @@ import { SubSink } from 'subsink';
 @Injectable()
 export class SnekStateService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
-	private gameCounterSubscription: Subscription;
+	private gameCounterSubscription: Subscription | undefined;
 
 	public playing = false;
 	public paused = false;
 
 	public readonly initialSnekLength = 3;
 
-	@Observed() public snekGame: SnekGame;
-	public readonly snekGame$: Observable<SnekGame>;
+	@Observed() public snekGame!: SnekGame;
+	@Observed() public score!: number;
+	@Observed() public highScore!: number;
+	@Observed() public gameState: SnekGameState | null = null;
+	@Observed('subject') private gameOver?: string;
 
-	@Observed() public score: number;
-	public readonly score$: Observable<number>;
-
-	@Observed() public highScore: number;
-	public readonly highScore$: Observable<number>;
-
-	@Observed() public gameState: SnekGameState = null;
-	public readonly gameState$: Observable<SnekGameState>;
-
-	@Observed('subject') private gameOver: string = null;
-	public readonly gameOver$: Observable<string>;
+	public readonly snekGame$!: Observable<SnekGame>;
+	public readonly score$!: Observable<number>;
+	public readonly highScore$!: Observable<number>;
+	public readonly gameState$!: Observable<SnekGameState | null>;
+	public readonly gameOver$!: Observable<string>;
 
 	public constructor(
 		private readonly snekResolutionService: SnekResolutionService,
@@ -82,7 +79,7 @@ export class SnekStateService implements OnDestroy {
 
 		if (this.playing) {
 			this.playing = false;
-			this.gameCounterSubscription.unsubscribe();
+			this.gameCounterSubscription?.unsubscribe();
 
 			this.gameOver = gameOverMessage;
 		}
@@ -112,8 +109,7 @@ export class SnekStateService implements OnDestroy {
 	}
 
 	private static get localStorageHighScore(): number {
-		return JSON.parse(localStorage.getItem('snek-high-score'))
-			?? 0;
+		return JSON.parse(localStorage.getItem('snek-high-score') ?? '0');
 	}
 
 	private static set localStorageHighScore(highScore: number) {

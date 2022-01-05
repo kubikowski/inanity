@@ -4,18 +4,18 @@ import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direc
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
 
 export class SnekNode {
-	private _parent: SnekNode = null;
+	private _parent: SnekNode | null = null;
 
-	@Observed() private parentDirection: SnekDirection = null;
-	@Observed() private childDirection: SnekDirection;
+	@Observed() private parentDirection: SnekDirection | null = null;
+	@Observed() private childDirection: SnekDirection | null;
 
-	public readonly parentDirection$: Observable<SnekDirection>;
-	public readonly childDirection$: Observable<SnekDirection>;
+	public readonly parentDirection$!: Observable<SnekDirection>;
+	public readonly childDirection$!: Observable<SnekDirection>;
 
 	private constructor(
 		public readonly snekGridNode: SnekGridNode,
-		private _child: SnekNode,
-		childDirection: SnekDirection,
+		private _child: SnekNode | null,
+		childDirection: SnekDirection | null,
 	) {
 		snekGridNode.attachSnekNode(this);
 
@@ -36,11 +36,11 @@ export class SnekNode {
 		return new SnekNode(snekGridNode, child, childDirection);
 	}
 
-	public get parent(): SnekNode {
+	public get parent(): SnekNode | null {
 		return this._parent;
 	}
 
-	public get child(): SnekNode {
+	public get child(): SnekNode | null {
 		return this._child;
 	}
 

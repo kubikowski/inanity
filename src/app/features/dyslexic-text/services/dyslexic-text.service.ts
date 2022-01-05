@@ -15,14 +15,14 @@ export class DyslexicTextService implements OnDestroy {
 	@Observed() public isEnabled: boolean;
 	@Observed() public amount: number;
 
-	public readonly isEnabled$: Observable<boolean>;
-	public readonly amount$: Observable<number>;
+	public readonly isEnabled$!: Observable<boolean>;
+	public readonly amount$!: Observable<number>;
 
 	private readonly wordCombinations = new Map<string, readonly string[]>();
 
 	public constructor() {
-		this.isEnabled = JSON.parse(localStorage.getItem('dyslexic-text')) ?? true;
-		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 25;
+		this.isEnabled = JSON.parse(localStorage.getItem('dyslexic-text') ?? 'true');
+		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount') ?? '25');
 
 		this.persistSettings();
 	}
@@ -60,6 +60,6 @@ export class DyslexicTextService implements OnDestroy {
 			this.wordCombinations.set(word, combinations);
 		}
 
-		return this.wordCombinations.get(word);
+		return this.wordCombinations.get(word) as readonly string[];
 	}
 }

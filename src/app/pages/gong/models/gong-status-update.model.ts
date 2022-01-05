@@ -6,8 +6,8 @@ export class GongStatusUpdate {
 		public readonly date: Date,
 		public readonly svgIcon: SvgIcon,
 		public readonly paragraphs: ReadonlyArray<string>,
-		public readonly imageUrl: string = null,
-		public readonly imageAlt: string = null,
+		public readonly imageUrl: string | null = null,
+		public readonly imageAlt: string | null = null,
 	) { }
 
 	public static from(title: string, date: Date, svgIcon: SvgIcon, paragraphs: ReadonlyArray<string>): GongStatusUpdate {

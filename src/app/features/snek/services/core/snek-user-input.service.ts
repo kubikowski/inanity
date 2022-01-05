@@ -13,7 +13,7 @@ export class SnekUserInputService implements OnDestroy {
 	private readonly listenerUnsubscribeCallback: () => void;
 
 	@Observed() private commandQueue: ReadonlyArray<SnekDirection> = [];
-	private readonly commandQueue$: Observable<ReadonlyArray<SnekDirection>>;
+	private readonly commandQueue$!: Observable<ReadonlyArray<SnekDirection>>;
 
 	public constructor(
 		private readonly renderer: Renderer2,

@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
-import { Observable, timer } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Observed } from 'rxjs-observed-decorator';
-import { map } from 'rxjs/operators';
 import { AboutCardData } from 'src/app/features/about/models/about-card-data.interface';
-import { BracePair, Braces } from 'src/app/features/about/models/braces.constant';
+import { Braces } from 'src/app/features/about/models/braces.constant';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -12,16 +11,16 @@ import { SubSink } from 'subsink';
 	styleUrls: [ './about-card.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AboutCardComponent implements OnDestroy {
+export class AboutCardComponent implements OnInit, OnDestroy {
 	private readonly subscriptions = new SubSink();
 
-	@Observed() private openBrace: string;
-	@Observed() private closeBrace: string;
+	@Observed() private openBrace?: string;
+	@Observed() private closeBrace?: string;
 
-	public readonly openBrace$: Observable<string>;
-	public readonly closeBrace$: Observable<string>;
+	public readonly openBrace$!: Observable<string>;
+	public readonly closeBrace$!: Observable<string>;
 
-	@Input() public data: AboutCardData;
+	@Input() public data!: AboutCardData;
 
 	public constructor() {
 		this.subscriptions.sink = Braces.random$()
@@ -29,6 +28,12 @@ export class AboutCardComponent implements OnDestroy {
 				this.openBrace = openBrace;
 				this.closeBrace = closeBrace;
 			});
+	}
+
+	public ngOnInit(): void {
+		if (typeof this.data === 'undefined') {
+			console.error('missing input: data');
+		}
 	}
 
 	public ngOnDestroy(): void {
