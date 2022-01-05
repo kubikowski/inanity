@@ -10,9 +10,6 @@ export class MalbolgeSpecificationComponent {
 
 	public step = 1;
 
-	constructor() {
-	}
-
 	public setStep(index: number): void {
 		this.step = index;
 	}
