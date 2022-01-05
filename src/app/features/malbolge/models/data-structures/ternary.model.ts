@@ -2,12 +2,12 @@
 /** a trit is a single ternary digit: 0, 1, or 2
  * <br/> trits make up the low-level memory of malbolge
  */
-export type trit = 0 | 1 | 2;
+export type Trit = 0 | 1 | 2;
 
 /** TT is a tuple or a fixed length Array of 10 trits used to typeset and mock TenTrit,
  * <br/> whereas the TenTrit class is an Object prototype extending an Array prototype.
  */
-type TT = [trit, trit, trit, trit, trit, trit, trit, trit, trit, trit];
+type TT = [ Trit, Trit, Trit, Trit, Trit, Trit, Trit, Trit, Trit, Trit ];
 
 /** The maximum value a TenTrit can store when evaluated as a number.
  * A tentrit acts as an unsigned int, with a range of (0, 59048);
@@ -18,9 +18,9 @@ export const MaxTenTrit = 59049;
  * <br/> It stores exactly ten Trits, thus it's name, and
  * is used in malbolge as the functional equivalent of a byte
  */
-export class TenTrit extends Array<trit> {
+export class TenTrit extends Array<Trit> {
 	private constructor(
-		tentrit: TT = Array<trit>(10).fill(0 as trit) as TT
+		tentrit: TT = Array<Trit>(10).fill(0 as Trit) as TT,
 	) {
 		super(...tentrit);
 	}
@@ -55,7 +55,7 @@ export class TenTrit extends Array<trit> {
 
 	public set value(value: number) {
 		for (let i = 0; i < 10; i++) {
-			this[9 - i] = value % 3 as trit;
+			this[9 - i] = value % 3 as Trit;
 			value = Math.floor(value / 3);
 		}
 	}
