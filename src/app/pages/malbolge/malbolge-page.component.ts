@@ -10,12 +10,9 @@ import { MalbolgeExecutorService } from 'src/app/features/malbolge/services/malb
 })
 export class MalbolgePageComponent {
 
-	constructor(
+	public constructor(
 		private readonly executor: MalbolgeExecutorService,
 	) {
 		this.executor.loadProgram('(=<`#9]~6ZY32Vx/4Rs+0No-&Jk)"Fh}|Bcy?`=*z]Kw%oG4UUS0/@-ejc(:\'8dc');
-
-		// console.log(this.executor);
 	}
-
 }

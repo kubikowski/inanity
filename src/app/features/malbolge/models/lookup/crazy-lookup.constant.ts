@@ -1,13 +1,13 @@
 import { CircularArray } from 'src/app/core/data-structures/circular-array/circular-array.proxy';
-import { TenTrit, trit } from 'src/app/features/malbolge/models/data-structures/ternary.model';
+import { TenTrit, Trit } from 'src/app/features/malbolge/models/data-structures/ternary.model';
 
-const CrazyLookup: ReadonlyArray<ReadonlyArray<trit>> = [
-	[ 1, 0, 0 ],
-	[ 1, 0, 2 ],
-	[ 2, 2, 1 ]
-];
+const CrazyLookup = [
+	[ 1 as Trit, 0 as Trit, 0 as Trit ],
+	[ 1 as Trit, 0 as Trit, 2 as Trit ],
+	[ 2 as Trit, 2 as Trit, 1 as Trit ],
+] as const;
 
-export function crazy(trit1: trit, trit2: trit): trit {
+export function crazy(trit1: Trit, trit2: Trit): Trit {
 	return CrazyLookup[trit1][trit2];
 }
 

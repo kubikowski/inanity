@@ -3,7 +3,9 @@ import { ReadonlyCircularArray } from 'src/app/core/data-structures/circular-arr
 import { MaxTenTrit, TenTrit } from 'src/app/features/malbolge/models/data-structures/ternary.model';
 import { getCrazyLoop } from 'src/app/features/malbolge/models/lookup/crazy-lookup.constant';
 
-/** Stores the memory and each of the registers used to execute a malbolge program.
+/**
+ * Stores the memory and each of the registers used to execute a malbolge program.
+ *
  * @param vm - The memory space on which the program is loaded and executed.
  * @param a - accumulator, set to the value written by all
  * 			  write operations on memory and used for standard I/O.
@@ -14,12 +16,11 @@ import { getCrazyLoop } from 'src/app/features/malbolge/models/lookup/crazy-look
 @Injectable()
 export class MalbolgeExecutorService {
 
-	public vm: ReadonlyArray<TenTrit> = ReadonlyCircularArray(Array.from({ length: MaxTenTrit }, () => TenTrit.default()));
+	public readonly vm: ReadonlyArray<TenTrit> = ReadonlyCircularArray(Array.from({ length: MaxTenTrit }, () => TenTrit.default()));
+
 	public a = 0;
 	public c = 0;
 	public d = 0;
-
-	public constructor() { }
 
 	public loadProgram(program: string): void {
 		const strippedProgramValues: ReadonlyArray<number> = program
