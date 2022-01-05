@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Observed } from 'rxjs-observed-decorator';
 import { filter } from 'rxjs/operators';
-import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.pipe';
+import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.function';
 import { SnekDirectionClassifications } from 'src/app/features/snek/models/direction/snek-direction-classifications.model';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
@@ -17,7 +17,7 @@ export class SnekSolverService implements OnDestroy {
 	@Observed() public enabled = false;
 	public readonly enabled$: Observable<boolean>;
 
-	constructor(
+	public constructor(
 		private readonly snekStateService: SnekStateService
 	) {
 		this.gameState$ = this.snekStateService.gameState$;
@@ -25,7 +25,7 @@ export class SnekSolverService implements OnDestroy {
 		this.initializeSolver();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 

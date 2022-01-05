@@ -13,7 +13,7 @@ import { SubSink } from 'subsink';
 export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	private readonly subscriptions = new SubSink();
 
-	@Input() text = '';
+	@Input() public text = '';
 
 	private inputWords: string[];
 	private delimiters: string[];
@@ -23,7 +23,9 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	private readonly outputWords$: Observable<string[]>;
 	public readonly outputText$: Observable<string>;
 
-	constructor(private dyslexicTextService: DyslexicTextService) {
+	public constructor(
+		private readonly dyslexicTextService: DyslexicTextService,
+	) {
 		this.outputText$ = this.outputWords$
 			.pipe(
 				map(outputWords => this.getOutputText(outputWords)),
@@ -31,7 +33,7 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 			);
 	}
 
-	ngOnChanges(): void {
+	public ngOnChanges(): void {
 		this.subscriptions.unsubscribe();
 		this.setDefaultWords();
 
@@ -41,15 +43,15 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 		}
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 
 	private setDefaultWords(): void {
 		const splitText = this.text.split(/\b/);
 
-		this.inputWords = splitText.filter((text) => /\b/.test(text));
-		this.delimiters = splitText.filter((text) => !/\b/.test(text));
+		this.inputWords = splitText.filter(text => /\b/.test(text));
+		this.delimiters = splitText.filter(text => !/\b/.test(text));
 		this.startsWithWord = /\b/.test(splitText[0]);
 
 		this.outputWords = [ ...this.inputWords ];

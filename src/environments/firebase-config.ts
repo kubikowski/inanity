@@ -1,6 +1,6 @@
-import { FirebaseAppConfig } from '@angular/fire';
+import { FirebaseOptions } from '@firebase/app';
 
-export const firebaseConfig: FirebaseAppConfig = {
+export const firebaseConfig: FirebaseOptions = {
 	projectId: 'inanity-io',
 	apiKey: 'AIzaSyDUDzQ2lgAf--3OJ5O6COJNaEh8qI22xwE',
 	authDomain: 'inanity-io.firebaseapp.com',

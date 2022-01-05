@@ -9,7 +9,7 @@ export class TitleService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 	private readonly DEFAULT_TITLE = 'inanity';
 
-	constructor(
+	public constructor(
 		private readonly title: Title,
 		private readonly router: Router,
 		private readonly activatedRoute: ActivatedRoute,
@@ -17,7 +17,7 @@ export class TitleService implements OnDestroy {
 		this.handleTitleChanges();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 

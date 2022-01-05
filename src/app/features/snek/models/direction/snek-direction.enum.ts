@@ -6,6 +6,13 @@ export enum SnekDirection {
 }
 
 export namespace SnekDirection {
+	export const all: readonly SnekDirection[] = [
+		SnekDirection.UP,
+		SnekDirection.DOWN,
+		SnekDirection.LEFT,
+		SnekDirection.RIGHT,
+	];
+
 	export function inverse(direction: SnekDirection): SnekDirection {
 		switch (direction) {
 			case SnekDirection.UP:

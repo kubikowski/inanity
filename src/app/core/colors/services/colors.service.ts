@@ -24,7 +24,7 @@ export class ColorsService implements OnDestroy {
 	public readonly theme$: Observable<ColorTheme>;
 	public readonly palette$: Observable<ColorPalette>;
 
-	constructor(
+	public constructor(
 		@Inject(DOCUMENT) private readonly document: HTMLDocument,
 		private readonly rendererFactory: RendererFactory2,
 	) {
@@ -41,7 +41,7 @@ export class ColorsService implements OnDestroy {
 			.subscribe(palette => this.setPalette(palette));
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 
@@ -87,7 +87,7 @@ export class ColorsService implements OnDestroy {
 	}
 
 	private set cssThemeVariables(theme: ColorTheme) {
-		const cssThemeEntries = Object.entries(BaseColorTheme.CssThemeVariables);
+		const cssThemeEntries = Object.entries(BaseColorTheme.CssVariables);
 
 		cssThemeEntries.forEach(([ themeKey, cssVariableName ]) => {
 			const cssVariableValue = theme[themeKey];
@@ -110,7 +110,7 @@ export class ColorsService implements OnDestroy {
 	}
 
 	private set cssPaletteVariables(palette: ColorPalette) {
-		const cssPaletteEntries = Object.entries(BaseColorPalette.CssPaletteVariables);
+		const cssPaletteEntries = Object.entries(BaseColorPalette.CssVariables);
 
 		cssPaletteEntries.forEach(([ paletteKey, cssVariableName ]) => {
 			const cssVariableValue = palette[paletteKey];

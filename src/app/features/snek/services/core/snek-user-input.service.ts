@@ -15,7 +15,7 @@ export class SnekUserInputService implements OnDestroy {
 	@Observed() private commandQueue: ReadonlyArray<SnekDirection> = [];
 	private readonly commandQueue$: Observable<ReadonlyArray<SnekDirection>>;
 
-	constructor(
+	public constructor(
 		private readonly renderer: Renderer2,
 		private readonly snekStateService: SnekStateService,
 	) {
@@ -23,7 +23,7 @@ export class SnekUserInputService implements OnDestroy {
 		this.listenerUnsubscribeCallback = this.keyDownEventListener;
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 		this.listenerUnsubscribeCallback();
 	}

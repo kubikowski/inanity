@@ -11,8 +11,5 @@ import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.m
 export class SnekGridNodeComponent {
 	public readonly SnekGridNodeType = SnekGridNodeType;
 
-	@Input() snekGridNode: SnekGridNode;
-
-	constructor() {
-	}
+	@Input() public snekGridNode: SnekGridNode;
 }

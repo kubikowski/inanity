@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { animationFrameScheduler, combineLatest, interval } from 'rxjs';
 import { debounceTime, filter, map, tap } from 'rxjs/operators';
-import { ColorsService } from 'src/app/core/colors/services/colors.service';
 import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
+import { ColorsService } from 'src/app/core/colors/services/colors.service';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { Circle } from 'src/app/features/background/models/circle.model';
 import { CanvasService } from 'src/app/features/background/services/canvas.service';
@@ -13,7 +13,7 @@ export class BackgroundCanvasService extends CanvasService {
 	private canvasTopOffset: number;
 	private mousePosition: [ number, number ];
 
-	constructor(
+	public constructor(
 		private readonly colorsService: ColorsService,
 		private readonly movingBackgroundService: MovingBackgroundService,
 		screenDetectorService: ScreenDetectorService,

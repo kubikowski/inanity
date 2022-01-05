@@ -20,7 +20,7 @@ export class SnekOptionsComponent {
 
 	public solverEnabled: FormControl;
 
-	constructor(
+	public constructor(
 		private readonly snekStateService: SnekStateService,
 		private readonly snekSolverService: SnekSolverService,
 	) {

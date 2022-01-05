@@ -11,7 +11,7 @@ import { SnekResults } from 'src/app/features/snek/models/state/snek-results.int
 export class SnekResultsDialogComponent {
 	public readonly isNewHighScore: boolean;
 
-	constructor(
+	public constructor(
 		@Inject(MAT_DIALOG_DATA) public readonly results: SnekResults,
 	) {
 		this.isNewHighScore = results.score > results.highScore;
