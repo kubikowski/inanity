@@ -60,14 +60,14 @@ export class Snek {
 	}
 
 	private addHead(): void {
-		const nextSnekGridNode = this._head.snekGridNode.next(this._nextDirection);
+		const nextSnekGridNode = this._head.snekGridNode.next(this._nextDirection) as SnekGridNode;
 		this._head = SnekNode.newHead(nextSnekGridNode, this._head, this._nextDirection);
 		this._length++;
 	}
 
 	private removeTail(): void {
 		this._tail.snekGridNode.detachSnekNode();
-		const newTail = this._tail.parent;
+		const newTail = this._tail.parent as SnekNode;
 		newTail.removeTail();
 		this._tail = newTail;
 		this._length--;

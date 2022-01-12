@@ -14,7 +14,7 @@ export class ClockComponent implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
 	@Observed() private time = ClockUtil.getStartTime();
-	public readonly time$: Observable<Date>;
+	public readonly time$!: Observable<Date>;
 
 	public constructor() {
 		this.subscriptions.sink = interval(1000)

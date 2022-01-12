@@ -12,10 +12,10 @@ import { SubSink } from 'subsink';
 @Injectable()
 export class SnekSolverService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
-	private readonly gameState$: Observable<SnekGameState>;
+	private readonly gameState$: Observable<SnekGameState | null>;
 
 	@Observed() public enabled = false;
-	public readonly enabled$: Observable<boolean>;
+	public readonly enabled$!: Observable<boolean>;
 
 	public constructor(
 		private readonly snekStateService: SnekStateService

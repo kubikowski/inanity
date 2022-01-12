@@ -15,8 +15,8 @@ import { SubSink } from 'subsink';
 export class SnekOptionsComponent {
 	private readonly subscriptions = new SubSink();
 
-	public readonly score$: Observable<number>;
-	public readonly highScore$: Observable<number>;
+	public readonly score$!: Observable<number>;
+	public readonly highScore$!: Observable<number>;
 
 	public solverEnabled: FormControl;
 

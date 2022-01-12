@@ -13,7 +13,7 @@ export namespace SnekDirection {
 		SnekDirection.RIGHT,
 	];
 
-	export function inverse(direction: SnekDirection): SnekDirection {
+	export function inverse(direction: SnekDirection | null): SnekDirection | null {
 		switch (direction) {
 			case SnekDirection.UP:
 				return SnekDirection.DOWN;

@@ -14,7 +14,7 @@ export class BackgroundComponent implements AfterViewInit {
 	public readonly fps$: Observable<number>;
 
 	@ViewChild('canvas', { static: true })
-	private readonly canvas: ElementRef<HTMLCanvasElement>;
+	private readonly canvas!: ElementRef<HTMLCanvasElement>;
 
 	public constructor(
 		private readonly backgroundCanvasService: BackgroundCanvasService,
@@ -24,6 +24,10 @@ export class BackgroundComponent implements AfterViewInit {
 	}
 
 	public ngAfterViewInit(): void {
+		if (typeof this.canvas === 'undefined') {
+			throw new Error('missing element: canvas');
+		}
+
 		this.backgroundCanvasService.initialize(this.canvas.nativeElement);
 	}
 }

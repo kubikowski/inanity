@@ -33,7 +33,7 @@ export class SnekDirectionClassifications {
 	private static getPossibleDirections(headNode: SnekGridNode, currentDirection: SnekDirection): ReadonlySet<SnekDirection> {
 		const possible = new Set(SnekDirection.all);
 
-		possible.delete(SnekDirection.inverse(currentDirection));
+		possible.delete(SnekDirection.inverse(currentDirection) as SnekDirection);
 
 		SnekDirection.all.forEach(direction => {
 			const next = headNode.next(direction);
@@ -47,17 +47,30 @@ export class SnekDirectionClassifications {
 	}
 
 	private static getOptimalDirections(headNode: SnekGridNode, fudNode: SnekGridNode): SnekDirection[] {
-		const deltaWidth = fudNode.width - headNode.width;
-		const deltaHeight = fudNode.height - headNode.height;
-
 		return [
-			(deltaWidth > 0) ? SnekDirection.RIGHT
-				: (deltaWidth < 0) ? SnekDirection.LEFT
-					: null,
-			(deltaHeight > 0) ? SnekDirection.DOWN
-				: (deltaHeight < 0) ? SnekDirection.UP
-					: null,
-		].filter(Boolean);
+			this.getOptimalHorizontalDirection(headNode, fudNode),
+			this.getOptimalVerticalDirection(headNode, fudNode),
+		].filter(value => value !== null) as SnekDirection[];
+	}
+
+	private static getOptimalHorizontalDirection(headNode: SnekGridNode, fudNode: SnekGridNode): SnekDirection | null {
+		if (fudNode.width > headNode.width) {
+			return SnekDirection.RIGHT;
+		} else if (fudNode.width < headNode.width) {
+			return SnekDirection.LEFT;
+		} else {
+			return null;
+		}
+	}
+
+	private static getOptimalVerticalDirection(headNode: SnekGridNode, fudNode: SnekGridNode): SnekDirection | null {
+		if (fudNode.height > headNode.height) {
+			return SnekDirection.DOWN;
+		} else if (fudNode.height < headNode.height) {
+			return SnekDirection.UP;
+		} else {
+			return null;
+		}
 	}
 
 	private static getSubOptimalDirections(possible: ReadonlySet<SnekDirection>, optimal: ReadonlyArray<SnekDirection>): ReadonlyArray<SnekDirection> {

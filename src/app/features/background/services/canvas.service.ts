@@ -10,8 +10,8 @@ import { SubSink } from 'subsink';
 export abstract class CanvasService implements OnDestroy {
 	protected readonly subscriptions = new SubSink();
 
-	protected canvas: HTMLCanvasElement;
-	protected context: CanvasRenderingContext2D;
+	protected canvas!: HTMLCanvasElement;
+	protected context!: CanvasRenderingContext2D;
 
 	@Observed() protected rawCanvasWidth = 0;
 	@Observed() protected rawCanvasHeight = 0;
@@ -19,11 +19,11 @@ export abstract class CanvasService implements OnDestroy {
 	@Observed() protected canvasHeight = 0;
 	@Observed() protected pixelDensity = 1;
 
-	protected readonly rawCanvasWidth$: Observable<number>;
-	protected readonly rawCanvasHeight$: Observable<number>;
-	protected readonly canvasWidth$: Observable<number>;
-	protected readonly canvasHeight$: Observable<number>;
-	protected readonly pixelDensity$: Observable<number>;
+	protected readonly rawCanvasWidth$!: Observable<number>;
+	protected readonly rawCanvasHeight$!: Observable<number>;
+	protected readonly canvasWidth$!: Observable<number>;
+	protected readonly canvasHeight$!: Observable<number>;
+	protected readonly pixelDensity$!: Observable<number>;
 
 	protected canvasElements = Array<CanvasElement>();
 
@@ -40,7 +40,7 @@ export abstract class CanvasService implements OnDestroy {
 
 	public initialize(canvas: HTMLCanvasElement): void {
 		this.canvas = canvas;
-		this.context = canvas.getContext('2d');
+		this.context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 		this.initializeCanvasSize();
 	}
