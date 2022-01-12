@@ -95,7 +95,7 @@ describe('Color Palette', () => {
 		});
 	});
 
-	describe('ColorPalette.getInverse()', () => {
+	describe('ColorPalette.inverse()', () => {
 		const bluePaletteInverse = BluePalette.inverse(DarkTheme);
 
 		it('should contain correct colorLightest', () => {

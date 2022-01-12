@@ -7,6 +7,6 @@ import { filter } from 'rxjs/operators';
  * @example
  * obs$.pipe(notNullFilter());
  */
-export function notNullFilter<T>(): OperatorFunction<T | null, T> {
-	return filter<T>(value => value !== null) as OperatorFunction<T | null, T>;
+export function notNullFilter<T>(): OperatorFunction<T, Exclude<T, null>> {
+	return filter<T>(value => value !== null) as OperatorFunction<T, Exclude<T, null>>;
 }
