@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
+import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2, RendererStyleFlags2 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Observed } from 'rxjs-observed-decorator';
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
@@ -92,7 +92,7 @@ export class ColorsService implements OnDestroy {
 		cssThemeEntries.forEach(([ themeKey, cssVariableName ]) => {
 			const cssVariableValue = theme[themeKey];
 
-			this.renderer.setStyle(this.element, cssVariableName, cssVariableValue, 2);
+			this.renderer.setStyle(this.element, cssVariableName, cssVariableValue, RendererStyleFlags2.DashCase);
 		});
 	}
 	// endregion theme handling
@@ -115,7 +115,7 @@ export class ColorsService implements OnDestroy {
 		cssPaletteEntries.forEach(([ paletteKey, cssVariableName ]) => {
 			const cssVariableValue = palette[paletteKey];
 
-			this.renderer.setStyle(this.element, cssVariableName, cssVariableValue, 2);
+			this.renderer.setStyle(this.element, cssVariableName, cssVariableValue, RendererStyleFlags2.DashCase);
 		});
 	}
 	// endregion palette handling
