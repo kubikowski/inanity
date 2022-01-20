@@ -1,5 +1,8 @@
 name: Lint, Build, & Test
-on: [ push ]
+
+on:
+    push:
+
 jobs:
     test:
         name: Lint, Build, & Test

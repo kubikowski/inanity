@@ -3,7 +3,7 @@ name: Bump Version & Deploy
 on:
     push:
         branches:
-            -   master
+            -   development
         paths-ignore:
             -   'package.json'
             -   'package-lock.json'

@@ -1,6 +1,8 @@
 name: Auto Merge Dependabot
+
 on:
     pull_request_target:
+
 jobs:
     auto-merge:
         name: Auto Merge Dependabot
