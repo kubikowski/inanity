@@ -7,7 +7,7 @@ import { create, JoystickManager, JoystickManagerOptions, JoystickOutputData } f
 	styleUrls: [ './joystick.component.scss' ],
 })
 export class JoystickComponent implements AfterViewInit, OnDestroy {
-	private joystickManager: JoystickManager;
+	private joystickManager!: JoystickManager;
 
 	@Input() public options: JoystickManagerOptions = { };
 
@@ -15,13 +15,15 @@ export class JoystickComponent implements AfterViewInit, OnDestroy {
 	@Output() public move = new EventEmitter<JoystickOutputData>();
 	@Output() public release = new EventEmitter<JoystickOutputData>();
 
-	constructor(private readonly elementRef: ElementRef) { }
+	public constructor(
+		private readonly elementRef: ElementRef,
+	) { }
 
-	ngAfterViewInit(): void {
+	public ngAfterViewInit(): void {
 		this.initializeJoystick();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.joystickManager.destroy();
 	}
 

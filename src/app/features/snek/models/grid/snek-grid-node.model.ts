@@ -1,19 +1,19 @@
 import { Observable } from 'rxjs';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
+import { Observed } from 'rxjs-observed-decorator';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';
 
 export class SnekGridNode {
 	@Observed() public type = SnekGridNodeType.BLANK;
-	@Observed() private snekNode: SnekNode = null;
-	private _up: SnekGridNode;
-	private _down: SnekGridNode;
-	private _left: SnekGridNode;
-	private _right: SnekGridNode;
+	@Observed() private snekNode: SnekNode | null = null;
+	private _up!: SnekGridNode | null;
+	private _down!: SnekGridNode | null;
+	private _left!: SnekGridNode | null;
+	private _right!: SnekGridNode | null;
 
-	public readonly type$: Observable<SnekGridNodeType>;
-	public readonly snekNode$: Observable<SnekNode>;
+	public readonly type$!: Observable<SnekGridNodeType>;
+	public readonly snekNode$!: Observable<SnekNode>;
 
 	private constructor(
 		public readonly width: number,
@@ -24,7 +24,7 @@ export class SnekGridNode {
 		return new SnekGridNode(width, height);
 	}
 
-	public initialize(up: SnekGridNode, down: SnekGridNode, left: SnekGridNode, right: SnekGridNode): void {
+	public initialize(up: SnekGridNode | null, down: SnekGridNode | null, left: SnekGridNode | null, right: SnekGridNode | null): void {
 		this._up = up;
 		this._down = down;
 		this._left = left;
@@ -46,7 +46,7 @@ export class SnekGridNode {
 		this.type = SnekGridNodeType.BLANK;
 	}
 
-	public next(direction: SnekDirection): SnekGridNode {
+	public next(direction: SnekDirection): SnekGridNode | null {
 		switch (direction) {
 			case SnekDirection.UP:
 				return this._up;

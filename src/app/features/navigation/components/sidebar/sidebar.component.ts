@@ -16,8 +16,8 @@ export class SidebarComponent {
 	public readonly GitHubIcon = SvgIcon.GITHUB;
 	public readonly version = environment.version;
 
-	constructor(
-		private navigationService: NavigationService,
+	public constructor(
+		private readonly navigationService: NavigationService,
 	) {
 		this.navigationConfigs = SidebarComponent.navigationItems;
 	}

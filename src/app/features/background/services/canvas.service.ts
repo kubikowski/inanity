@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
+import { Observed } from 'rxjs-observed-decorator';
 import { map, tap } from 'rxjs/operators';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
-import { ScreenDetectorService } from 'src/app/core/screen/screen-detector.service';
+import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { SubSink } from 'subsink';
 
@@ -10,8 +10,8 @@ import { SubSink } from 'subsink';
 export abstract class CanvasService implements OnDestroy {
 	protected readonly subscriptions = new SubSink();
 
-	protected canvas: HTMLCanvasElement;
-	protected context: CanvasRenderingContext2D;
+	protected canvas!: HTMLCanvasElement;
+	protected context!: CanvasRenderingContext2D;
 
 	@Observed() protected rawCanvasWidth = 0;
 	@Observed() protected rawCanvasHeight = 0;
@@ -19,11 +19,11 @@ export abstract class CanvasService implements OnDestroy {
 	@Observed() protected canvasHeight = 0;
 	@Observed() protected pixelDensity = 1;
 
-	protected readonly rawCanvasWidth$: Observable<number>;
-	protected readonly rawCanvasHeight$: Observable<number>;
-	protected readonly canvasWidth$: Observable<number>;
-	protected readonly canvasHeight$: Observable<number>;
-	protected readonly pixelDensity$: Observable<number>;
+	protected readonly rawCanvasWidth$!: Observable<number>;
+	protected readonly rawCanvasHeight$!: Observable<number>;
+	protected readonly canvasWidth$!: Observable<number>;
+	protected readonly canvasHeight$!: Observable<number>;
+	protected readonly pixelDensity$!: Observable<number>;
 
 	protected canvasElements = Array<CanvasElement>();
 
@@ -34,13 +34,13 @@ export abstract class CanvasService implements OnDestroy {
 			.subscribe(pixelDensity => this.pixelDensity = pixelDensity);
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 
 	public initialize(canvas: HTMLCanvasElement): void {
 		this.canvas = canvas;
-		this.context = canvas.getContext('2d');
+		this.context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 		this.initializeCanvasSize();
 	}

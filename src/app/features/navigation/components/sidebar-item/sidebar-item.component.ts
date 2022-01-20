@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { NavigationConfig } from 'src/app/features/navigation/models/navigation-config.model';
 import { NavigationService } from 'src/app/features/navigation/services/navigation.service';
 
@@ -8,10 +9,17 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 	styleUrls: [ './sidebar-item.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SidebarItemComponent {
-	@Input() config: NavigationConfig;
+export class SidebarItemComponent implements OnInit {
+	@Input() public config!: NavigationConfig;
 
-	constructor(private navigationService: NavigationService) {
+	public constructor(
+		private readonly navigationService: NavigationService,
+	) { }
+
+	public ngOnInit(): void {
+		if (typeof this.config === 'undefined') {
+			throw new Error('missing input: config');
+		}
 	}
 
 	public toggleSidenav(event: Event): void {

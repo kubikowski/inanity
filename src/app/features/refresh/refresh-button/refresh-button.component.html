@@ -1,0 +1,15 @@
+<button mat-icon-button [color]="color"
+		*ngIf="refreshState$ | async as state"
+		[matTooltip]="state | refreshTooltip: tooltip"
+		[matTooltipDisabled]="tooltipDisabled"
+		[disabled]="state !== RefreshState.IDLE"
+		(click)="handleClick($event)">
+
+	<refresh-icon
+		[refresh$]="refresh$"
+		[doRefresh$]="doRefresh$"
+		[tooltipDisabled]="true"
+		[debounceTime]="debounceTime"
+		(refreshStateChange)="refreshState = $event"
+	></refresh-icon>
+</button>

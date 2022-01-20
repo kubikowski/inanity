@@ -1,52 +1,63 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2, RendererStyleFlags2 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Observed } from 'rxjs-observed-decorator';
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { BluePalette, ColorPalettes } from 'src/app/core/colors/models/color-palettes/color-palettes.constant';
 import { BaseColorTheme } from 'src/app/core/colors/models/color-themes/base-color-theme.model';
 import { ColorTheme } from 'src/app/core/colors/models/color-themes/color-theme.model';
 import { ColorThemes, LightTheme } from 'src/app/core/colors/models/color-themes/color-themes.constant';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
 import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })
 export class ColorsService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
+	private readonly renderer: Renderer2;
+
+	private readonly body: HTMLElement;
+	private readonly element: HTMLElement;
 
 	@Observed() public theme: ColorTheme;
 	@Observed() public palette: ColorPalette;
 
-	public readonly theme$: Observable<ColorTheme>;
-	public readonly palette$: Observable<ColorPalette>;
+	public readonly theme$!: Observable<ColorTheme>;
+	public readonly palette$!: Observable<ColorPalette>;
 
-	constructor() {
+	public constructor(
+		@Inject(DOCUMENT) private readonly document: Document,
+		private readonly rendererFactory: RendererFactory2,
+	) {
+		this.body = this.document.body;
+		this.element = this.document.documentElement;
+		this.renderer = this.rendererFactory.createRenderer(this.body, null);
+
 		this.theme = ColorsService.localStorageTheme;
 		this.palette = ColorsService.localStoragePalette;
 
 		this.subscriptions.sink = this.theme$
 			.subscribe(theme => this.setTheme(theme));
-
 		this.subscriptions.sink = this.palette$
 			.subscribe(palette => this.setPalette(palette));
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 
 	// region setters
 	private setTheme(theme: ColorTheme): void {
 		ColorsService.localStorageTheme = theme;
-		ColorsService.documentBodyThemeClass = theme;
-		ColorsService.cssThemeVariables = theme;
+		this.documentBodyThemeClass = theme;
+		this.cssThemeVariables = theme;
 
-		ColorsService.cssPaletteVariables = this.computedPalette;
+		this.cssPaletteVariables = this.computedPalette;
 	}
 
 	private setPalette(palette: ColorPalette): void {
 		ColorsService.localStoragePalette = palette;
 
-		ColorsService.cssPaletteVariables = this.computedPalette;
+		this.cssPaletteVariables = this.computedPalette;
 	}
 
 	private get computedPalette(): ColorPalette {
@@ -68,20 +79,20 @@ export class ColorsService implements OnDestroy {
 		localStorage.setItem('theme', theme.themeName);
 	}
 
-	private static set documentBodyThemeClass(theme: ColorTheme) {
-		const themeNames = ColorThemes.map(colorTheme => colorTheme.themeName);
+	private set documentBodyThemeClass(theme: ColorTheme) {
+		ColorThemes.forEach(colorTheme =>
+			this.renderer.removeClass(this.body, colorTheme.themeName));
 
-		document.body.classList.remove(...themeNames);
-		document.body.classList.add(theme.themeName);
+		this.renderer.addClass(this.body, theme.themeName);
 	}
 
-	private static set cssThemeVariables(theme: ColorTheme) {
-		const cssThemeEntries = Object.entries(BaseColorTheme.CssThemeVariables);
+	private set cssThemeVariables(theme: ColorTheme) {
+		const cssThemeEntries = Object.entries(BaseColorTheme.CssVariables) as [ keyof BaseColorTheme, string ][];
 
 		cssThemeEntries.forEach(([ themeKey, cssVariableName ]) => {
 			const cssVariableValue = theme[themeKey];
 
-			document.documentElement.style.setProperty(cssVariableName, cssVariableValue);
+			this.renderer.setStyle(this.element, cssVariableName, cssVariableValue, RendererStyleFlags2.DashCase);
 		});
 	}
 	// endregion theme handling
@@ -98,13 +109,13 @@ export class ColorsService implements OnDestroy {
 		localStorage.setItem('palette', palette.paletteName);
 	}
 
-	private static set cssPaletteVariables(palette: ColorPalette) {
-		const cssPaletteEntries = Object.entries(BaseColorPalette.CssPaletteVariables);
+	private set cssPaletteVariables(palette: ColorPalette) {
+		const cssPaletteEntries = Object.entries(BaseColorPalette.CssVariables) as [ keyof BaseColorPalette, string ][];
 
 		cssPaletteEntries.forEach(([ paletteKey, cssVariableName ]) => {
 			const cssVariableValue = palette[paletteKey];
 
-			document.documentElement.style.setProperty(cssVariableName, cssVariableValue);
+			this.renderer.setStyle(this.element, cssVariableName, cssVariableValue, RendererStyleFlags2.DashCase);
 		});
 	}
 	// endregion palette handling

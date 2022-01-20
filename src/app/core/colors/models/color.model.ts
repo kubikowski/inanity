@@ -1,8 +1,8 @@
-import * as ColorName from 'color-name';
+import ColorName from 'color-name';
 import { clamp } from 'src/app/core/functions/clamp/clamp.function';
 
 export class InvalidColorString extends Error {
-	constructor(message?: string) {
+	public constructor(message?: string) {
 		super(message);
 		this.name = 'Invalid Color String';
 	}
@@ -49,7 +49,7 @@ export class Color {
 	 * @throws InvalidColorString
 	 */
 	public static fromString(colorString: string): Color {
-		const [red, green, blue, alpha] = this.getColorValues(colorString);
+		const [ red, green, blue, alpha ] = this.getColorValues(colorString);
 		return this.from(red, green, blue, alpha);
 	}
 
@@ -73,8 +73,8 @@ export class Color {
 	 * @throws InvalidColorString
 	 */
 	private static getRgbColorValues(colorString: string): number[] {
-		const [colorValesString] = /[\d%.+?, *]+/.exec(colorString);
-		const colorValues = colorValesString.split(',')
+		const [ colorValuesString ] = /[\d%.+?, *]+/.exec(colorString) ?? [];
+		const colorValues = colorValuesString.split(',')
 			.map((value, index) => convertToNumber(value, index));
 
 		if (colorValues.length === 3 || colorValues.length === 4) {
@@ -99,18 +99,18 @@ export class Color {
 	 * @throws InvalidColorString
 	 */
 	private static getHexColorValues(colorString: string): number[] {
-		const [hexValuesString] = /[\da-fA-F+?]+/.exec(colorString);
+		const [ hexValuesString ] = /[\da-fA-F+?]+/.exec(colorString) ?? [];
 		switch (hexValuesString.length) {
 			case 3:
 				return getSingleHexColorValues(hexValuesString);
 			case 4: {
-				const [alpha, red, green, blue] = getSingleHexColorValues(hexValuesString);
+				const [ alpha, red, green, blue ] = getSingleHexColorValues(hexValuesString);
 				return [red, green, blue, alpha / 255];
 			}
 			case 6:
 				return getDoubleHexColorValues(hexValuesString);
 			case 8: {
-				const [alpha, red, green, blue] = getDoubleHexColorValues(hexValuesString);
+				const [ alpha, red, green, blue ] = getDoubleHexColorValues(hexValuesString);
 				return [red, green, blue, alpha / 255];
 			}
 			default:
@@ -119,11 +119,11 @@ export class Color {
 
 		function getSingleHexColorValues(hexString: string): number[] {
 			return hexString.split('')
-				.map(value => parseInt(`${value}${value}`, 16));
+				.map(value => parseInt(`${ value }${ value }`, 16));
 		}
 
 		function getDoubleHexColorValues(hexString: string): number[] {
-			return hexString.match(/.{1,2}/g)
+			return (hexString.match(/.{1,2}/g) as RegExpExecArray)
 				.map(value => parseInt(value, 16));
 		}
 	}
@@ -133,11 +133,12 @@ export class Color {
 	 * @throws InvalidColorString
 	 * @see https://github.com/colorjs/color-name
 	 */
-	private static getNamedColorValues(colorString: string): number[] | undefined {
-		if (ColorName[colorString] instanceof Array) {
-			return ColorName[colorString];
+	private static getNamedColorValues(colorString: string): number[] {
+		const colorName = (ColorName as { [ key: string ]: number[] | undefined })[colorString];
+		if (colorName instanceof Array) {
+			return colorName;
 		} else if (colorString === 'transparent') {
-			return [0, 0, 0, 0];
+			return [ 0, 0, 0, 0 ];
 		} else {
 			throw new InvalidColorString(colorString);
 		}
@@ -154,9 +155,9 @@ export class Color {
 			case 0:
 				return 'transparent';
 			case 1:
-				return `rgb(${red}, ${green}, ${blue})`;
+				return `rgb(${ red }, ${ green }, ${ blue })`;
 			default:
-				return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+				return `rgba(${ red }, ${ green }, ${ blue }, ${ alpha })`;
 		}
 	}
 

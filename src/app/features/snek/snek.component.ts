@@ -29,7 +29,7 @@ import { SnekStatisticsService } from 'src/app/features/snek/services/peripheral
 })
 export class SnekComponent {
 
-	constructor(
+	public constructor(
 		private readonly snekDialogService: SnekDialogService,
 		private readonly snekResolutionService: SnekResolutionService,
 		private readonly snekStateService: SnekStateService,

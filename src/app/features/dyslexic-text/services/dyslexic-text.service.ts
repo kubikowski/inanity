@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
+import { Observed } from 'rxjs-observed-decorator';
 import { clamp } from 'src/app/core/functions/clamp/clamp.function';
 import { DyslexicWord } from 'src/app/features/dyslexic-text/models/dyslexic-word.model';
 import { SubSink } from 'subsink';
@@ -15,19 +15,19 @@ export class DyslexicTextService implements OnDestroy {
 	@Observed() public isEnabled: boolean;
 	@Observed() public amount: number;
 
-	public readonly isEnabled$: Observable<boolean>;
-	public readonly amount$: Observable<number>;
+	public readonly isEnabled$!: Observable<boolean>;
+	public readonly amount$!: Observable<number>;
 
 	private readonly wordCombinations = new Map<string, readonly string[]>();
 
-	constructor() {
-		this.isEnabled = JSON.parse(localStorage.getItem('dyslexic-text')) ?? true;
-		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount')) ?? 25;
+	public constructor() {
+		this.isEnabled = JSON.parse(localStorage.getItem('dyslexic-text') ?? 'true');
+		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount') ?? '25');
 
 		this.persistSettings();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 
@@ -60,6 +60,6 @@ export class DyslexicTextService implements OnDestroy {
 			this.wordCombinations.set(word, combinations);
 		}
 
-		return this.wordCombinations.get(word);
+		return this.wordCombinations.get(word) as readonly string[];
 	}
 }

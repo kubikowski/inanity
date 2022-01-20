@@ -1,0 +1,22 @@
+@use 'src/styles/mixins/spin' as *;
+
+.mat-icon {
+	&.state-idle {
+		cursor: pointer;
+	}
+
+	&.state-active {
+		cursor: default;
+		animation: spin 1600ms infinite linear;
+	}
+
+	&.state-complete {
+		color: var(--success-color);
+		cursor: default;
+	}
+
+	&.state-error {
+		color: var(--danger-color);
+		cursor: default;
+	}
+}

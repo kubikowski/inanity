@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
 
@@ -8,11 +8,14 @@ import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.m
 	styleUrls: [ './snek-grid-node.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SnekGridNodeComponent {
+export class SnekGridNodeComponent implements OnInit {
 	public readonly SnekGridNodeType = SnekGridNodeType;
 
-	@Input() snekGridNode: SnekGridNode;
+	@Input() public snekGridNode!: SnekGridNode;
 
-	constructor() {
+	public ngOnInit(): void {
+		if (typeof this.snekGridNode === 'undefined') {
+			throw new Error('missing input: snekGridNode');
+		}
 	}
 }

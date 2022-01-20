@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { Observable, timer } from 'rxjs';
+import { Observed } from 'rxjs-observed-decorator';
 import { distinctUntilChanged, map } from 'rxjs/operators';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
 import { DyslexicTextService } from 'src/app/features/dyslexic-text/services/dyslexic-text.service';
 import { SubSink } from 'subsink';
 
@@ -13,17 +13,19 @@ import { SubSink } from 'subsink';
 export class DyslexicTextComponent implements OnChanges, OnDestroy {
 	private readonly subscriptions = new SubSink();
 
-	@Input() text = '';
+	@Input() public text = '';
 
-	private inputWords: string[];
-	private delimiters: string[];
-	private startsWithWord: boolean;
+	private inputWords!: string[];
+	private delimiters!: string[];
+	private startsWithWord!: boolean;
 
 	@Observed() private outputWords: string[] = [];
-	private readonly outputWords$: Observable<string[]>;
+	private readonly outputWords$!: Observable<string[]>;
 	public readonly outputText$: Observable<string>;
 
-	constructor(private dyslexicTextService: DyslexicTextService) {
+	public constructor(
+		private readonly dyslexicTextService: DyslexicTextService,
+	) {
 		this.outputText$ = this.outputWords$
 			.pipe(
 				map(outputWords => this.getOutputText(outputWords)),
@@ -31,7 +33,7 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 			);
 	}
 
-	ngOnChanges(): void {
+	public ngOnChanges(): void {
 		this.subscriptions.unsubscribe();
 		this.setDefaultWords();
 
@@ -41,15 +43,15 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 		}
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 
 	private setDefaultWords(): void {
 		const splitText = this.text.split(/\b/);
 
-		this.inputWords = splitText.filter((text) => /\b/.test(text));
-		this.delimiters = splitText.filter((text) => !/\b/.test(text));
+		this.inputWords = splitText.filter(text => /\b/.test(text));
+		this.delimiters = splitText.filter(text => !/\b/.test(text));
 		this.startsWithWord = /\b/.test(splitText[0]);
 
 		this.outputWords = [ ...this.inputWords ];

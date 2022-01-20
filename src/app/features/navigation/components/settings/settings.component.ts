@@ -26,13 +26,13 @@ export class SettingsComponent implements OnInit {
 	public movingBackgroundEnabled = true;
 	public movingBackgroundAmount = 5;
 
-	constructor(
+	public constructor(
 		private readonly colorsService: ColorsService,
 		private readonly dyslexicTextService: DyslexicTextService,
 		private readonly movingBackgroundService: MovingBackgroundService,
 	) { }
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.dyslexicTextEnabled = this.dyslexicTextService.isEnabled;
 		this.dyslexiaAmount = this.dyslexicTextService.amount;
 	}

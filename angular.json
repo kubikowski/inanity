@@ -23,8 +23,9 @@
 						"polyfills": "src/polyfills.ts",
 						"tsConfig": "tsconfig.app.json",
 						"assets": [
+							"src/assets",
 							"src/favicon.ico",
-							"src/assets"
+							"src/.webmanifest"
 						],
 						"styles": [
 							"src/styles.scss"
@@ -95,10 +96,11 @@
 						"main": "src/test.ts",
 						"polyfills": "src/polyfills.ts",
 						"tsConfig": "tsconfig.spec.json",
-						"karmaConfig": "karma.conf.js",
+						"karmaConfig": "karma.conf.ts",
 						"assets": [
+							"src/assets",
 							"src/favicon.ico",
-							"src/assets"
+							"src/.webmanifest"
 						],
 						"styles": [
 							"src/styles.scss"
@@ -115,32 +117,12 @@
 					}
 				},
 				"lint": {
-					"builder": "@angular-devkit/build-angular:tslint",
+					"builder": "@angular-eslint/builder:lint",
 					"options": {
-						"tsConfig": [
-							"tsconfig.app.json",
-							"tsconfig.spec.json",
-							"e2e/tsconfig.json"
-						],
-						"exclude": [
-							"**/node_modules/**"
+						"lintFilePatterns": [
+							"src/**/*.ts",
+							"src/**/*.html"
 						]
-					}
-				},
-				"e2e": {
-					"builder": "@angular-devkit/build-angular:protractor",
-					"options": {
-						"protractorConfig": "e2e/protractor.conf.js",
-						"devServerTarget": "inanity:serve"
-					},
-					"configurations": {
-						"production": {
-							"devServerTarget": "inanity:serve:production"
-						},
-						"ci": {
-							"devServerTarget": "inanity:serve:production",
-							"protractorConfig": "e2e/protractor-ci.conf.js"
-						}
 					}
 				}
 			}

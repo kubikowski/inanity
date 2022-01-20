@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
+import { Observed } from 'rxjs-observed-decorator';
 import { distinctUntilChanged, map } from 'rxjs/operators';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
-import { ScreenDetectorService } from 'src/app/core/screen/screen-detector.service';
+import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
 import { SubSink } from 'subsink';
 
 @Injectable()
@@ -12,15 +12,15 @@ export class SnekResolutionService implements OnDestroy {
 	private readonly optimalSnekWidth = 35;
 	private readonly optimalSnekHeight = 25;
 
-	@Observed() public snekWidth: number;
-	@Observed() public snekHeight: number;
-	@Observed({ type: 'subject' }) private onResolutionChange: [ number, number ] = null;
+	@Observed() public snekWidth!: number;
+	@Observed() public snekHeight!: number;
+	@Observed('subject') private onResolutionChange?: [ number, number ];
 
-	public readonly snekWidth$: Observable<number>;
-	public readonly snekHeight$: Observable<number>;
-	public readonly onResolutionChange$: Observable<[ number, number ]>;
+	public readonly snekWidth$!: Observable<number>;
+	public readonly snekHeight$!: Observable<number>;
+	public readonly onResolutionChange$!: Observable<[ number, number ]>;
 
-	constructor(
+	public constructor(
 		private readonly screenDetectorService: ScreenDetectorService,
 	) {
 		this.initializeSnekWidth();
@@ -28,7 +28,7 @@ export class SnekResolutionService implements OnDestroy {
 		this.initializeResolutionChange();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 

@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
 import { JoystickOutputData } from 'nipplejs';
 import { Observable } from 'rxjs';
+import { Observed } from 'rxjs-observed-decorator';
 import { filter } from 'rxjs/operators';
-import { Observed } from 'src/app/core/decorators/observed.decorator';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 import { SubSink } from 'subsink';
@@ -13,9 +13,9 @@ export class SnekUserInputService implements OnDestroy {
 	private readonly listenerUnsubscribeCallback: () => void;
 
 	@Observed() private commandQueue: ReadonlyArray<SnekDirection> = [];
-	private readonly commandQueue$: Observable<ReadonlyArray<SnekDirection>>;
+	private readonly commandQueue$!: Observable<ReadonlyArray<SnekDirection>>;
 
-	constructor(
+	public constructor(
 		private readonly renderer: Renderer2,
 		private readonly snekStateService: SnekStateService,
 	) {
@@ -23,7 +23,7 @@ export class SnekUserInputService implements OnDestroy {
 		this.listenerUnsubscribeCallback = this.keyDownEventListener;
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 		this.listenerUnsubscribeCallback();
 	}

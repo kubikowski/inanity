@@ -1,4 +1,6 @@
 export class BaseColorPalette {
+	public static readonly CssVariables = this.getCssVariables();
+
 	protected constructor(
 		public readonly colorLightest: string,
 		public readonly colorLighter: string,
@@ -12,16 +14,18 @@ export class BaseColorPalette {
 		public readonly colorSelectedBackgroundTransparent: string,
 	) { }
 
-	public static readonly CssPaletteVariables = new BaseColorPalette(
-		'--lightest-theme-color',
-		'--lighter-theme-color',
-		'--light-theme-color',
-		'--default-theme-color',
-		'--dark-theme-color',
-		'--darker-theme-color',
-		'--darkest-theme-color',
+	private static getCssVariables(): BaseColorPalette {
+		return new BaseColorPalette(
+			'--lightest-theme-color',
+			'--lighter-theme-color',
+			'--light-theme-color',
+			'--default-theme-color',
+			'--dark-theme-color',
+			'--darker-theme-color',
+			'--darkest-theme-color',
 
-		'--selected-background-color',
-		'--selected-background-color-transparent',
-	);
+			'--selected-background-color',
+			'--selected-background-color-transparent',
+		);
+	}
 }

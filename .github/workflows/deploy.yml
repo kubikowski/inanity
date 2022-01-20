@@ -35,8 +35,6 @@ jobs:
                 run: npm run build -- --configuration=ci
             -   name: Test
                 run: npm test -- --configuration=ci
-#            -   name: E2E
-#                run: npm run e2e -- --configuration=ci
 
     bump-version:
         name: Bump Version
@@ -46,6 +44,7 @@ jobs:
             -   uses: actions/checkout@v2
                 with:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
+            -   run: git pull
 #            -   name: Sign Commit
 #                uses: crazy-max/ghaction-import-gpg@master
 #                with:
@@ -67,10 +66,13 @@ jobs:
                     minor-wording: 'feature: '
                     tag-prefix: 'v'
 
-    deploy:
-        name: Deploy
+    deploy-production:
+        name: Deploy Production
         needs: bump-version
         runs-on: ubuntu-latest
+        environment:
+            name: Production
+            url: https://inanity.io
         steps:
             -   uses: actions/checkout@v2
                 with:

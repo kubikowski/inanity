@@ -1,7 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { FpsService } from 'src/app/core/screen/fps.service';
+import { AnimationFrameService } from 'src/app/core/browser/animation-frame.service';
 import { BackgroundCanvasService } from 'src/app/features/background/services/background-canvas.service';
 
 @Component({
@@ -15,17 +14,20 @@ export class BackgroundComponent implements AfterViewInit {
 	public readonly fps$: Observable<number>;
 
 	@ViewChild('canvas', { static: true })
-	private readonly canvas: ElementRef<HTMLCanvasElement>;
+	private readonly canvas!: ElementRef<HTMLCanvasElement>;
 
-	constructor(
+	public constructor(
 		private readonly backgroundCanvasService: BackgroundCanvasService,
-		private readonly fpsService: FpsService,
+		private readonly animationFrameService: AnimationFrameService,
 	) {
-		this.fps$ = this.fpsService.fps$
-			.pipe(map(fps => Math.floor(fps)), distinctUntilChanged());
+		this.fps$ = this.animationFrameService.fps$;
 	}
 
-	ngAfterViewInit(): void {
+	public ngAfterViewInit(): void {
+		if (typeof this.canvas === 'undefined') {
+			throw new Error('missing element: canvas');
+		}
+
 		this.backgroundCanvasService.initialize(this.canvas.nativeElement);
 	}
 }

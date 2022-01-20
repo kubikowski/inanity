@@ -1,0 +1,29 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>
+			<dyslexic-text [text]="data.title"></dyslexic-text>
+		</mat-card-title>
+	</mat-card-header>
+
+	<img mat-card-image *ngIf="data.image"
+		 [src]="data.image.src"
+		 [alt]="data.image.alt"/>
+
+	<mat-card-content *ngIf="data.content">
+		<span>{{ openBrace$ | async }}</span>
+
+		<ng-container *ngFor="let content of data.content">
+			<small>{{ content.title }}:</small>
+
+			<ng-container [ngSwitch]="content.linked">
+				<a *ngSwitchCase="true" [href]="'mailto:'+ content.value">
+					<dyslexic-text [text]="content.value"></dyslexic-text>
+				</a>
+
+				<dyslexic-text *ngSwitchDefault [text]="content.value"></dyslexic-text>
+			</ng-container>
+		</ng-container>
+
+		<span>{{ closeBrace$ | async }}</span>
+	</mat-card-content>
+</mat-card>

@@ -1,6 +1,12 @@
-import { MonoTypeOperatorFunction } from 'rxjs';
+import { OperatorFunction } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-export function notNullFilter<T>(): MonoTypeOperatorFunction<T> {
-	return filter<T>(value => value !== null);
+/**
+ * Filters out `null` values from streams
+ *
+ * @example
+ * obs$.pipe(notNullFilter());
+ */
+export function notNullFilter<T>(): OperatorFunction<T, Exclude<T, null>> {
+	return filter<T>(value => value !== null) as OperatorFunction<T, Exclude<T, null>>;
 }
