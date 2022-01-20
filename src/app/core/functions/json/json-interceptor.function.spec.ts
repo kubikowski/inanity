@@ -44,7 +44,7 @@ describe('JSON Interceptor', () => {
 	} as const;
 	const complexArray = [ simpleObject, simpleArray, simpleSet, simpleMap ] as const;
 	const complexSet = new Set([ simpleObject, simpleArray, simpleSet, simpleMap ] as const);
-	const complexMap = new Map<any, number>([ [ simpleObject, 1 ], [ simpleArray, 2 ], [ simpleSet, 3 ], [ simpleMap, 4 ] ] as const);
+	const complexMap = new Map<unknown, number>([ [ simpleObject, 1 ], [ simpleArray, 2 ], [ simpleSet, 3 ], [ simpleMap, 4 ] ] as const);
 
 	describe('primitives', () => {
 		it('primitive string', () => {
