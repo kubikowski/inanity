@@ -41,3 +41,4 @@ jobs:
                 with:
                     minor-wording: 'feature: '
                     skip-tag: true
+
