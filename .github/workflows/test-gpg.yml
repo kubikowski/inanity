@@ -25,10 +25,10 @@ jobs:
             -   run: which -a gpg
             -   run: docker container ls -q
 
-            -   name: Add GPG to Git Config
-                run: |
-                    git config gpg.program $(which gpg)
-                    echo "no-tty" >> ~/.gnupg/gpg.conf
+#            -   name: Add GPG to Git Config
+#                run: |
+#                    git config gpg.program $(which gpg)
+#                    echo "no-tty" >> ~/.gnupg/gpg.conf
 
             -   run: git config --list --show-origin
 
