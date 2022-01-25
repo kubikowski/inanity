@@ -30,15 +30,15 @@ export class JoystickComponent implements AfterViewInit, OnDestroy {
 	private initializeJoystick(): void {
 		this.joystickManager = create({ ...this.defaultOptions, ...this.options });
 
-		this.joystickManager.on('start', (event, nipple) => {
+		this.joystickManager.on('start', (_event, nipple) => {
 			this.activate.emit(nipple);
 		});
 
-		this.joystickManager.on('move', (event, nipple) => {
+		this.joystickManager.on('move', (_event, nipple) => {
 			this.move.emit(nipple);
 		});
 
-		this.joystickManager.on('end', (event, nipple) => {
+		this.joystickManager.on('end', (_event, nipple) => {
 			this.release.emit(nipple);
 		});
 	}

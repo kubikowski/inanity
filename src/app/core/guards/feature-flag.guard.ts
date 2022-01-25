@@ -10,19 +10,19 @@ export class FeatureFlagGuard implements CanActivate, CanActivateChild, CanLoad 
 	) { }
 
 	public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-		const hasFeatureFlag: boolean = route.data?.featureFlag ?? false;
+		const hasFeatureFlag: boolean = route.data?.['featureFlag'] ?? false;
 
 		return this.hasPermission(hasFeatureFlag, state.url);
 	}
 
 	public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-		const hasFeatureFlag: boolean = childRoute.data?.featureFlag ?? false;
+		const hasFeatureFlag: boolean = childRoute.data?.['featureFlag'] ?? false;
 
 		return this.hasPermission(hasFeatureFlag, state.url);
 	}
 
 	public canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
-		const hasFeatureFlag: boolean = route.data?.featureFlag ?? false;
+		const hasFeatureFlag: boolean = route.data?.['featureFlag'] ?? false;
 		const url = segments.map(segment => segment.path).join('/');
 
 		return this.hasPermission(hasFeatureFlag, url);

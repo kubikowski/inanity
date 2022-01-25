@@ -20,7 +20,7 @@ export class SnekGameState {
 		return new SnekGameState(headNode, fudNode, direction, score, gameCounter);
 	}
 
-	public toConsoleFormat(): ThisType<SnekGameState> {
+	public format(): ThisType<SnekGameState> {
 		const { headNode, fudNode, direction, score, gameCounter } = this;
 
 		return {

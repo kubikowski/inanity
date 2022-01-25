@@ -38,8 +38,8 @@ export class TitleService implements OnDestroy {
 			const parentRoute = route;
 			route = route.firstChild;
 
-			const parentRouteTitle = parentRoute.snapshot.data?.title;
-			const routeTitle = route.snapshot.data?.title;
+			const parentRouteTitle = parentRoute.snapshot.data?.['title'];
+			const routeTitle = route.snapshot.data?.['title'];
 
 			if (routeTitle && parentRouteTitle !== routeTitle) {
 				title = `${ routeTitle } · ${ title }`;

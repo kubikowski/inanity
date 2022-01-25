@@ -4,12 +4,12 @@
  * @description A ∩ B := { x : x ∈ A ∧ x ∈ B }
  */
 export function intersection<T>(...sets: Set<T>[]): Set<T> {
-	let result = new Set<T>([ ...sets[0] ]);
+	let result = new Set<T>([ ...sets[0] ?? new Set<T>() ]);
 
 	for (let i = 1; i < sets.length; i++) {
 		const _intersection = new Set<T>();
 
-		sets[i].forEach(t => {
+		sets[i]?.forEach(t => {
 			if (result.has(t)) {
 				_intersection.add(t);
 			}

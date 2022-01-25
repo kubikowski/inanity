@@ -31,7 +31,7 @@ export class Circle extends CanvasElement {
 		const dy = Math.random() - 0.5;
 
 		const colorKeys = Object.keys(BaseColorPalette.CssVariables) as ColorKey[];
-		const colorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
+		const colorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)] as keyof BaseColorPalette;
 
 		return new Circle(x, y, dx, dy, radius, dRadius, colorKey);
 	}
