@@ -7,15 +7,15 @@
 export function equivalence<T>(...sets: Set<T>[]): boolean {
 	const setsHaveSameCardinalities = sets
 		.map(set => set.size)
-		.every((cardinality, index, cardinalities) => cardinality === cardinalities[0]);
+		.every((cardinality, _index, cardinalities) => cardinality === cardinalities[0]);
 
 	if (!setsHaveSameCardinalities) {
 		return false;
 	}
 
-	for (const value of sets[0]) {
+	for (const value of sets[0] ?? new Set<T>()) {
 		for (let i = 1; i < sets.length; i++) {
-			if (!sets[i].has(value)) {
+			if (!sets[i]?.has(value)) {
 				return false;
 			}
 		}

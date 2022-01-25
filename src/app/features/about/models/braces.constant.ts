@@ -29,6 +29,6 @@ export namespace Braces {
 	}
 
 	export function random(): BracePair {
-		return bracePairs[ Math.floor(Math.random() * bracePairs.length) ];
+		return bracePairs[ Math.floor(Math.random() * bracePairs.length) ] as BracePair;
 	}
 }

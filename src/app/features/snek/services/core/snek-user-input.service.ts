@@ -81,7 +81,7 @@ export class SnekUserInputService implements OnDestroy {
 	private initializeCommandQueue(): void {
 		this.subscriptions.sink = this.commandQueue$
 			.pipe(filter(commandQueue => commandQueue.length === 1))
-			.subscribe(commandQueue => this.changeDirection(commandQueue[0]));
+			.subscribe(commandQueue => this.changeDirection(commandQueue[0] as SnekDirection));
 
 		this.subscriptions.sink = this.snekStateService.gameState$
 			.subscribe(this.processNextCommand.bind(this));
@@ -112,7 +112,7 @@ export class SnekUserInputService implements OnDestroy {
 
 	private enterSecondaryCommand(direction: SnekDirection): void {
 		const currentDirection = this.snekStateService.snekGame.snek.direction;
-		const [ nextDirection ] = this.commandQueue;
+		const nextDirection = this.commandQueue[0] as SnekDirection;
 
 		if (SnekDirection.isValidChange(nextDirection, direction)) {
 			this.commandQueue = [ nextDirection, direction ];

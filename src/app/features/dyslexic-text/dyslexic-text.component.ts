@@ -52,13 +52,13 @@ export class DyslexicTextComponent implements OnChanges, OnDestroy {
 
 		this.inputWords = splitText.filter(text => /\b/.test(text));
 		this.delimiters = splitText.filter(text => !/\b/.test(text));
-		this.startsWithWord = /\b/.test(splitText[0]);
+		this.startsWithWord = /\b/.test(splitText[0] ?? '');
 
 		this.outputWords = [ ...this.inputWords ];
 	}
 
 	private setDyslexicWordByIndex(wordIndex: number): void {
-		const inputWord = this.inputWords[wordIndex];
+		const inputWord = this.inputWords[wordIndex] ?? '';
 		const outputWord = this.dyslexicTextService.getDyslexicWord(inputWord);
 
 		this.outputWords = [

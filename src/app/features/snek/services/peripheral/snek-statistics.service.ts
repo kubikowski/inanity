@@ -34,7 +34,7 @@ export class SnekStatisticsService implements OnDestroy {
 		this.subscriptions.sink = this.snekStateService.gameOver$
 			.pipe(
 				filter(gameStateLog => gameStateLog.length > 0),
-				map(() => this.gameStateLog[this.gameStateLog.length - 1].toConsoleFormat()),
+				map(() => this.gameStateLog[this.gameStateLog.length - 1]?.format()),
 				tap(gameStateLog => console.log(gameStateLog)),
 			).subscribe(() => this.gameStateLog = []);
 	}

@@ -35,14 +35,14 @@ export class BackgroundCanvasService extends CanvasService {
 			.subscribe(colorPalette => CanvasElement.colorPalette = colorPalette);
 	}
 
-	public initialize(canvas: HTMLCanvasElement): void {
+	public override initialize(canvas: HTMLCanvasElement): void {
 		super.initialize(canvas);
 
 		this.initializeCanvasElements();
 		this.initializeFrameRefresh();
 	}
 
-	protected initializeCanvasSize(): void {
+	protected override initializeCanvasSize(): void {
 		super.initializeCanvasSize();
 
 		this.subscriptions.sink = this.screenDetectorService.screenWidth$

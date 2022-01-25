@@ -11,7 +11,7 @@ export class MovingBackgroundIcon {
 	) { }
 
 	public static random(): MovingBackgroundIcon {
-		const icon = sins[ Math.floor(Math.random() * sins.length) ];
+		const icon = sins[ Math.floor(Math.random() * sins.length) ] as SvgIcon;
 		const position = Math.random() * 100;
 		const id = MovingBackgroundIcon.idCounter++;
 

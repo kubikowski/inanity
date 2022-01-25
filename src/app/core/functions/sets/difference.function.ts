@@ -5,10 +5,10 @@
  * @description A - B = { x : x ∈ A ∧ x ∉ B }
  */
 export function difference<T>(...sets: Set<T>[]): Set<T> {
-	const result = new Set<T>([ ...sets[0] ]);
+	const result = new Set<T>([ ...(sets[0] ?? new Set<T>()) ]);
 
 	for (let i = 1; i < sets.length; i++) {
-		sets[i].forEach(t => {
+		sets[i]?.forEach(t => {
 			result.delete(t);
 		});
 	}

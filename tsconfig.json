@@ -1,7 +1,18 @@
 {
 	"compileOnSave": false,
 	"compilerOptions": {
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"exactOptionalPropertyTypes": false,		// https://github.com/angular/components/issues/24078
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": false,					// does not integrate with @Observed()
+		"noUnusedParameters": true,
 		"strict": true,
+
 		"baseUrl": "./",
 		"outDir": "./dist/out-tsc",
 		"sourceMap": true,
@@ -13,9 +24,9 @@
 		"resolveJsonModule": true,
 		"importHelpers": true,
 		"target": "es2015",
-		"module": "es2020",
+		"module": "esNext",
 		"lib": [
-			"es2020",
+			"esNext",
 			"dom"
 		]
 	},

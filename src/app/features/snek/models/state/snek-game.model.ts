@@ -13,9 +13,9 @@ export class SnekGame {
 		private readonly _height: number,
 		initialSnekLength: number,
 	) {
-		this._grid = Array.from(Array(_height),
-			(row, height) => Array.from(Array(_width),
-				(node, width) => SnekGridNode.new(width, height)));
+		this._grid = Array.from(Array(this._height),
+			(_row, height) => Array.from(Array(this._width),
+				(_node, width) => SnekGridNode.new(width, height)));
 		this.initializeGridNodes();
 
 		const tailGridNode = this.at(1, Math.floor(this._height / 2)) as SnekGridNode;
@@ -70,11 +70,7 @@ export class SnekGame {
 	}
 
 	private at(width: number, height: number): SnekGridNode | null {
-		if (width >= 0 && width < this._width && height >= 0 && height < this._height) {
-			return this._grid[height][width];
-		} else {
-			return null;
-		}
+		return this._grid?.[height]?.[width] ?? null;
 	}
 
 	public get grid(): ReadonlyArray<ReadonlyArray<SnekGridNode>> {
