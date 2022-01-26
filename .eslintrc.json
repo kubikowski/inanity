@@ -30,7 +30,6 @@
 						"prefix": "kebab-case"
 					}
 				],
-				"@angular-eslint/directive-class-suffix": "off",
 				"@angular-eslint/directive-selector": [
 					"error",
 					{
@@ -39,7 +38,7 @@
 					}
 				],
 				"@typescript-eslint/explicit-member-accessibility": [
-					"off",
+					"error",
 					{
 						"accessibility": "explicit"
 					}
@@ -219,9 +218,7 @@
 				],
 				"@typescript-eslint/no-explicit-any": "error",
 				"@typescript-eslint/no-namespace": "off",
-				"@typescript-eslint/no-shadow": [
-					"error"
-				],
+				"@typescript-eslint/no-shadow": "error",
 				"arrow-body-style": [
 					"error",
 					"as-needed"
@@ -229,6 +226,10 @@
 				"arrow-parens": [
 					"error",
 					"as-needed"
+				],
+				"comma-dangle": [
+					"error",
+					"always-multiline"
 				],
 				"func-style": [
 					"error",

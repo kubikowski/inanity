@@ -2,11 +2,11 @@ import { BaseColorTheme } from 'src/app/core/colors/models/color-themes/base-col
 import { Color } from 'src/app/core/colors/models/color.model';
 
 export class ColorTheme extends BaseColorTheme {
-	static readonly infoColor = Color.fromString('#00b3ee');
-	static readonly successColor = Color.fromString('#5cb85c');
-	static readonly warningColor = Color.fromString('#f0ad4e');
-	static readonly dangerColor = Color.fromString('#d9534f');
-	static readonly shadowColor = Color.fromString('black');
+	public static readonly infoColor = Color.fromString('#00b3ee');
+	public static readonly successColor = Color.fromString('#5cb85c');
+	public static readonly warningColor = Color.fromString('#f0ad4e');
+	public static readonly dangerColor = Color.fromString('#d9534f');
+	public static readonly shadowColor = Color.fromString('black');
 
 	public constructor(
 		public readonly defaultBackgroundColor: Color,
