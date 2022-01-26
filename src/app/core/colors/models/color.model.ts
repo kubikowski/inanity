@@ -1,5 +1,5 @@
 import ColorName from 'color-name';
-import { clamp } from 'src/app/core/functions/clamp/clamp.function';
+import { clamp } from 'src/app/core/functions/number/clamp.function';
 
 type RGB = [ number, number, number, number? ];
 type RGBA = [ number, number, number, number ];

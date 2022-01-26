@@ -1,5 +1,5 @@
-import { difference } from 'src/app/core/functions/sets/difference.function';
-import { union } from 'src/app/core/functions/sets/union.function';
+import { difference } from 'src/app/core/functions/set/difference.function';
+import { union } from 'src/app/core/functions/set/union.function';
 
 /**
  * The symmetric difference of two sets contains only the unique elements to each set.

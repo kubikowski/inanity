@@ -1,5 +1,5 @@
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
-import { clamp } from 'src/app/core/functions/clamp/clamp.function';
+import { clamp } from 'src/app/core/functions/number/clamp.function';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 
 type ColorKey = keyof BaseColorPalette;
