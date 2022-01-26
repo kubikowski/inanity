@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 		`:host {
 			text-align: center;
 			text-decoration: underline;
-		}`
+		}`,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })

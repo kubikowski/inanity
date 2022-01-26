@@ -18,7 +18,7 @@ export class SnekSolverService implements OnDestroy {
 	public readonly enabled$!: Observable<boolean>;
 
 	public constructor(
-		private readonly snekStateService: SnekStateService
+		private readonly snekStateService: SnekStateService,
 	) {
 		this.gameState$ = this.snekStateService.gameState$;
 

@@ -111,7 +111,7 @@ describe('prune', () => {
 			c: '\r\n',
 			d: '   \n',
 			e: '\t  \t',
-			f: 'real value'
+			f: 'real value',
 		};
 
 		const prunedObject = prune(test, { pruneEmptyStrings: true });

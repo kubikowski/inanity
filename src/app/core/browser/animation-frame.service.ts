@@ -22,7 +22,7 @@ export class AnimationFrameService implements OnDestroy {
 		this.calculateFps();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 		AnimationFrameService.enabled = false;
 	}
