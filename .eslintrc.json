@@ -37,6 +37,10 @@
 						"prefix": "camelCase"
 					}
 				],
+				"@typescript-eslint/comma-dangle": [
+					"error",
+					"always-multiline"
+				],
 				"@typescript-eslint/explicit-member-accessibility": [
 					"error",
 					{
@@ -227,10 +231,7 @@
 					"error",
 					"as-needed"
 				],
-				"comma-dangle": [
-					"error",
-					"always-multiline"
-				],
+				"comma-dangle": "off",
 				"func-style": [
 					"error",
 					"declaration"
