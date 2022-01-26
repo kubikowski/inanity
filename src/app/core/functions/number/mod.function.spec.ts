@@ -1,4 +1,4 @@
-import { mod } from 'src/app/core/functions/mod/mod.function';
+import { mod } from 'src/app/core/functions/number/mod.function';
 
 describe('mod', () => {
 

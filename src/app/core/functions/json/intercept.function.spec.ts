@@ -1,6 +1,6 @@
-import { JsonInterceptor } from 'src/app/core/functions/json/json-interceptor.funtion';
+import { intercept } from 'src/app/core/functions/json/intercept.funtion';
 
-describe('JSON Interceptor', () => {
+describe('intercept', () => {
 
 	// primitives
 	const primitiveString = 'johnny';
@@ -48,33 +48,33 @@ describe('JSON Interceptor', () => {
 
 	describe('primitives', () => {
 		it('primitive string', () => {
-			const result = JsonInterceptor(primitiveString);
+			const result = intercept(primitiveString);
 
 			expect(result).toBe(primitiveString);
 		});
 
 		it('primitive number', () => {
-			const result = JsonInterceptor(primitiveNumber);
+			const result = intercept(primitiveNumber);
 
 			expect(result).toBe(primitiveNumber);
 		});
 
 		it('primitive boolean', () => {
-			const result = JsonInterceptor(primitiveBoolean);
+			const result = intercept(primitiveBoolean);
 
 			expect(result).toBe(primitiveBoolean);
 		});
 
 		/** will serialize to "null", less than ideal */
 		it('primitive null', () => {
-			const result = JsonInterceptor(primitiveNull);
+			const result = intercept(primitiveNull);
 
 			expect(result).toBe(primitiveNull);
 		});
 
 		/** will serialize to "undefined", less than ideal */
 		it('primitive undefined', () => {
-			const result = JsonInterceptor(primitiveUndefined);
+			const result = intercept(primitiveUndefined);
 
 			expect(result).toBe(primitiveUndefined);
 		});
@@ -83,41 +83,41 @@ describe('JSON Interceptor', () => {
 	/** Not that any of these should be used as request bodies, but I digress. */
 	describe('simple built-ins', () => {
 		it('simple date', () => {
-			const result = JsonInterceptor(simpleDate);
+			const result = intercept(simpleDate);
 
 			expect(result).toBe(simpleDate);
 		});
 
 		it('simple enum value', () => {
-			const result = JsonInterceptor(SimpleEnum.PRIMARY);
+			const result = intercept(SimpleEnum.PRIMARY);
 
 			expect(result).toBe(SimpleEnum.PRIMARY);
 		});
 
 		/** pls don't send functions to an API */
 		it('simple function', () => {
-			const result = JsonInterceptor(simpleFunction);
+			const result = intercept(simpleFunction);
 
 			expect(result).toBe(simpleFunction);
 		});
 
 		/** pls don't send symbols to an API */
 		it('simple symbol', () => {
-			const result = JsonInterceptor(simpleSymbol);
+			const result = intercept(simpleSymbol);
 
 			expect(result).toBe(simpleSymbol);
 		});
 
 		/** pls don't send regexps to an API */
 		it('simple regexp', () => {
-			const result = JsonInterceptor(simpleRegExp);
+			const result = intercept(simpleRegExp);
 
 			expect(result).toBe(simpleRegExp);
 		});
 
 		/** pls don't send errors to an API */
 		it('simple error', () => {
-			const result = JsonInterceptor(simpleError);
+			const result = intercept(simpleError);
 
 			expect(result).toBe(simpleError);
 		});
@@ -125,31 +125,31 @@ describe('JSON Interceptor', () => {
 
 	describe('simple constructs', () => {
 		it('simple enum', () => {
-			const result = JsonInterceptor(SimpleEnum);
+			const result = intercept(SimpleEnum);
 
 			expect(result).toEqual(SimpleEnum);
 		});
 
 		it('simple object', () => {
-			const result = JsonInterceptor(simpleObject);
+			const result = intercept(simpleObject);
 
 			expect(result).toEqual(simpleObject);
 		});
 
 		it('simple array', () => {
-			const result = JsonInterceptor(simpleArray);
+			const result = intercept(simpleArray);
 
 			expect(result).toEqual(simpleArray);
 		});
 
 		it('simple set', () => {
-			const result = JsonInterceptor(simpleSet);
+			const result = intercept(simpleSet);
 
 			expect(result).toEqual([ ...simpleSet ]);
 		});
 
 		it('simple map', () => {
-			const result = JsonInterceptor(simpleMap);
+			const result = intercept(simpleMap);
 
 			expect(result).toEqual(Object.fromEntries([ ...simpleMap ]));
 		});
@@ -157,7 +157,7 @@ describe('JSON Interceptor', () => {
 
 	describe('complex constructs', () => {
 		it('complex object', () => {
-			const result = JsonInterceptor(complexObject);
+			const result = intercept(complexObject);
 
 			const expectedResult = {
 				object: simpleObject,
@@ -170,7 +170,7 @@ describe('JSON Interceptor', () => {
 		});
 
 		it('complex array', () => {
-			const result = JsonInterceptor(complexArray);
+			const result = intercept(complexArray);
 
 			const expectedResult = [ simpleObject, simpleArray, [ ...simpleSet ], Object.fromEntries([ ...simpleMap ]) ];
 
@@ -178,7 +178,7 @@ describe('JSON Interceptor', () => {
 		});
 
 		it('complex set', () => {
-			const result = JsonInterceptor(complexSet);
+			const result = intercept(complexSet);
 
 			const expectedResult = [ simpleObject, simpleArray, [ ...simpleSet ], Object.fromEntries([ ...simpleMap ]) ];
 
@@ -186,7 +186,7 @@ describe('JSON Interceptor', () => {
 		});
 
 		it('complex map', () => {
-			const result = JsonInterceptor(complexMap);
+			const result = intercept(complexMap);
 
 			const expectedResult = { };
 

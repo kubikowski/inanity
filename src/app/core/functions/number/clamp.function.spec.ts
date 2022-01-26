@@ -1,4 +1,4 @@
-import { clamp } from 'src/app/core/functions/clamp/clamp.function';
+import { clamp } from 'src/app/core/functions/number/clamp.function';
 
 describe('clamp', () => {
 	const lowerBound = 0;

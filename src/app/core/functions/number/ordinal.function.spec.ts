@@ -1,4 +1,4 @@
-import { ordinal } from 'src/app/core/functions/ordinal/ordinal.function';
+import { ordinal } from 'src/app/core/functions/number/ordinal.function';
 
 describe('ordinal', () => {
 	// standards

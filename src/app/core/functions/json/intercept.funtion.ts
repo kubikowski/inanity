@@ -18,13 +18,13 @@
  *
  * @param requestBody a valid request body, or null if there is none provided.
  */
-export function JsonInterceptor(requestBody: unknown | null): unknown | null {
+export function intercept(requestBody: unknown | null): unknown | null {
 
 	if (requestBody instanceof Array || requestBody instanceof Set) {
 		const requestBodyClone = <(unknown | null)[]>[];
 
 		requestBody.forEach(value => {
-			requestBodyClone.push(JsonInterceptor(value));
+			requestBodyClone.push(intercept(value));
 		});
 
 		return requestBodyClone;
@@ -37,7 +37,7 @@ export function JsonInterceptor(requestBody: unknown | null): unknown | null {
 			switch (typeof key) {
 				case 'number':
 				case 'string':
-					requestBodyClone[key] = JsonInterceptor(value);
+					requestBodyClone[key] = intercept(value);
 			}
 		});
 
@@ -51,7 +51,7 @@ export function JsonInterceptor(requestBody: unknown | null): unknown | null {
 			const requestBodyClone = <{ [key: number | string]: unknown | null }>{};
 
 			entries.forEach(([ key, value ]) => {
-				requestBodyClone[key] = JsonInterceptor(value);
+				requestBodyClone[key] = intercept(value);
 			});
 
 			return requestBodyClone;

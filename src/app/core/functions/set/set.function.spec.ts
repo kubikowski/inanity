@@ -1,8 +1,8 @@
-import { difference } from 'src/app/core/functions/sets/difference.function';
-import { equivalence } from 'src/app/core/functions/sets/equivalence.function';
-import { intersection } from 'src/app/core/functions/sets/inersection.function';
-import { union } from 'src/app/core/functions/sets/union.function';
-import { xor } from 'src/app/core/functions/sets/xor.function';
+import { difference } from 'src/app/core/functions/set/difference.function';
+import { equivalence } from 'src/app/core/functions/set/equivalence.function';
+import { intersection } from 'src/app/core/functions/set/inersection.function';
+import { union } from 'src/app/core/functions/set/union.function';
+import { xor } from 'src/app/core/functions/set/xor.function';
 
 describe('Set Utilities', () => {
 

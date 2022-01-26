@@ -1,4 +1,4 @@
-import { difference } from 'src/app/core/functions/sets/difference.function';
+import { difference } from 'src/app/core/functions/set/difference.function';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
