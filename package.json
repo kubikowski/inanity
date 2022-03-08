@@ -26,7 +26,7 @@
 		"@angular/router": "13.1.3",
 		"firebase": "9.6.8",
 		"nipplejs": "0.9.0",
-		"rxjs": "6.6.7",
+		"rxjs": "7.5.4",
 		"rxjs-observed-decorator": "1.2.2",
 		"subsink": "1.0.2",
 		"tslib": "2.3.1",
