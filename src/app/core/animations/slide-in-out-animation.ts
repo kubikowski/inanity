@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
 
 export enum SlideInOutAnimationState {
