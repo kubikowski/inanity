@@ -3,7 +3,7 @@
  * Set union is notated A ∪ B.
  * @description A ∪ B := { x : x ∈ A ∨ x ∈ B }
  */
-export function union<T>(...sets: Set<T>[]): Set<T> {
+export function union<T, S extends ReadonlySet<T>>(...sets: S[]): S {
 	const result = new Set<T>([ ...sets[0] ?? new Set<T>() ]);
 
 	for (let i = 1; i < sets.length; i++) {
@@ -12,5 +12,5 @@ export function union<T>(...sets: Set<T>[]): Set<T> {
 		});
 	}
 
-	return result;
+	return result as ReadonlySet<T> as S;
 }
