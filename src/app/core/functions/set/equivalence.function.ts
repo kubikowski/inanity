@@ -4,7 +4,7 @@
  * Set equivalence is notated A ∼ B, where not equivalence is A ≁ B.
  * @description A ∼ B = A ⊂ B ∧ B ⊂ A
  */
-export function equivalence<T>(...sets: Set<T>[]): boolean {
+export function equivalence<T, S extends ReadonlySet<T>>(...sets: S[]): boolean {
 	const setsHaveSameCardinalities = sets
 		.map(set => set.size)
 		.every((cardinality, _index, cardinalities) => cardinality === cardinalities[0]);

@@ -96,7 +96,7 @@ export class Color {
 		}
 	}
 
-	/** Gets the RGB color values from an Hex color string
+	/** Gets the RGB color values from a Hex color string
 	 * <br/> Handles #FFF, #FFFF, #FFFFFF, & #FFFFFFFF type Hex strings
 	 * @return [red, green, blue, alpha?]
 	 * @throws InvalidColorString
@@ -137,7 +137,7 @@ export class Color {
 	 * @see https://github.com/colorjs/color-name
 	 */
 	private static getNamedColorValues(colorString: string): RGB {
-		const colorName = (ColorName as { [ key: string ]: RGB | undefined })[colorString];
+		const colorName = (ColorName as Record<string, RGB | undefined>)[ colorString ];
 		if (colorName instanceof Array) {
 			return colorName;
 		} else if (colorString === 'transparent') {

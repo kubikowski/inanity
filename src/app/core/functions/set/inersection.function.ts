@@ -3,7 +3,7 @@
  * Set intersection is notated A ∩ B.
  * @description A ∩ B := { x : x ∈ A ∧ x ∈ B }
  */
-export function intersection<T>(...sets: Set<T>[]): Set<T> {
+export function intersection<T, S extends ReadonlySet<T>>(...sets: S[]): S {
 	let result = new Set<T>([ ...sets[0] ?? new Set<T>() ]);
 
 	for (let i = 1; i < sets.length; i++) {
@@ -18,5 +18,5 @@ export function intersection<T>(...sets: Set<T>[]): Set<T> {
 		result = _intersection;
 	}
 
-	return result;
+	return result as ReadonlySet<T> as S;
 }

@@ -8,8 +8,8 @@ import { union } from 'src/app/core/functions/set/union.function';
  * Note: the symmetric difference of 2 sets is trivially inferred from an element-wise xor.
  * @description A ∗ B := { x : x ∈ A ⊕ x ∈ B }
  */
-export function xor<T>(...sets: Set<T>[]): Set<T> {
-	const differences: Set<T>[] = [];
+export function xor<T, S extends ReadonlySet<T>>(...sets: S[]): S {
+	const differences: S[] = [];
 
 	sets.forEach((set, index) => {
 		const otherSets = [ ...sets.slice(0, index), ...sets.slice(index + 1) ];
