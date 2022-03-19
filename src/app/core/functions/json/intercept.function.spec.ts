@@ -32,8 +32,8 @@ describe('intercept', () => {
 		state: SimpleEnum.PRIMARY,
 	} as const;
 	const simpleArray = [ 1, 2, 3 ] as const;
-	const simpleSet = new Set([ 'a', 'b', 'c' ] as const);
-	const simpleMap = new Map([ [ 'a', 1 ], [ 'b', 2 ], [ 'c', 3 ] ] as const);
+	const simpleSet: ReadonlySet<'a' | 'b' | 'c'> = new Set([ 'a', 'b', 'c' ] as const);
+	const simpleMap: ReadonlyMap<'a' | 'b' | 'c', 1 | 2 | 3> = new Map([ [ 'a', 1 ], [ 'b', 2 ], [ 'c', 3 ] ] as const);
 
 	// complex constructs (with nesting, non-primitive keys)
 	const complexObject = {
@@ -43,8 +43,8 @@ describe('intercept', () => {
 		map: simpleMap,
 	} as const;
 	const complexArray = [ simpleObject, simpleArray, simpleSet, simpleMap ] as const;
-	const complexSet = new Set([ simpleObject, simpleArray, simpleSet, simpleMap ] as const);
-	const complexMap = new Map<unknown, number>([ [ simpleObject, 1 ], [ simpleArray, 2 ], [ simpleSet, 3 ], [ simpleMap, 4 ] ] as const);
+	const complexSet: ReadonlySet<typeof simpleObject | typeof simpleArray | typeof simpleSet | typeof simpleMap> = new Set([ simpleObject, simpleArray, simpleSet, simpleMap ] as const);
+	const complexMap: ReadonlyMap<typeof simpleObject | typeof simpleArray | typeof simpleSet | typeof simpleMap, 1 | 2 | 3 | 4> = new Map<typeof simpleObject | typeof simpleArray | typeof simpleSet | typeof simpleMap, 1 | 2 | 3 | 4>([ [ simpleObject, 1 ], [ simpleArray, 2 ], [ simpleSet, 3 ], [ simpleMap, 4 ] ] as const);
 
 	describe('primitives', () => {
 		it('primitive string', () => {
@@ -145,13 +145,13 @@ describe('intercept', () => {
 		it('simple set', () => {
 			const result = intercept(simpleSet);
 
-			expect(result).toEqual([ ...simpleSet ]);
+			expect(result).toEqual([ ...simpleSet ] as const);
 		});
 
 		it('simple map', () => {
 			const result = intercept(simpleMap);
 
-			expect(result).toEqual(Object.fromEntries([ ...simpleMap ]));
+			expect(result).toEqual(Object.fromEntries([ ...simpleMap ] as const));
 		});
 	});
 
@@ -162,9 +162,9 @@ describe('intercept', () => {
 			const expectedResult = {
 				object: simpleObject,
 				array: simpleArray,
-				set: [ ...simpleSet ],
-				map: Object.fromEntries([ ...simpleMap ]),
-			};
+				set: [ ...simpleSet ] as const,
+				map: Object.fromEntries([ ...simpleMap ] as const),
+			} as const;
 
 			expect(result).toEqual(expectedResult);
 		});
@@ -172,7 +172,7 @@ describe('intercept', () => {
 		it('complex array', () => {
 			const result = intercept(complexArray);
 
-			const expectedResult = [ simpleObject, simpleArray, [ ...simpleSet ], Object.fromEntries([ ...simpleMap ]) ];
+			const expectedResult = [ simpleObject, simpleArray, [ ...simpleSet ] as const, Object.fromEntries([ ...simpleMap ] as const) ] as const;
 
 			expect(result).toEqual(expectedResult);
 		});
@@ -180,7 +180,7 @@ describe('intercept', () => {
 		it('complex set', () => {
 			const result = intercept(complexSet);
 
-			const expectedResult = [ simpleObject, simpleArray, [ ...simpleSet ], Object.fromEntries([ ...simpleMap ]) ];
+			const expectedResult = [ simpleObject, simpleArray, [ ...simpleSet ] as const, Object.fromEntries([ ...simpleMap ] as const) ] as const;
 
 			expect(result).toEqual(expectedResult);
 		});
