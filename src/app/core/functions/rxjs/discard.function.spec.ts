@@ -1,5 +1,4 @@
-import { from, of } from 'rxjs';
-import { CompletionObserver, NextObserver } from 'rxjs/src/internal/types';
+import { CompletionObserver, from, NextObserver, of } from 'rxjs';
 import { discard } from 'src/app/core/functions/rxjs/discard.function';
 
 describe('discard', () => {
