@@ -14,14 +14,14 @@ export class SnekIconPipe implements PipeTransform {
 		switch (snekNoteType) {
 			case SnekNodeType.HEAD:
 				return this.evenTiming
-					? SnekIcon.SNEK_HEAD_DEFAULT
-					: SnekIcon.SNEK_HEAD_TONGUE;
+					? SnekIcon.HEAD_DEFAULT
+					: SnekIcon.HEAD_TONGUE;
 			case SnekNodeType.BODY_STRAIGHT:
-				return SnekIcon.SNEK_BODY_STRAIGHT;
+				return SnekIcon.BODY_STRAIGHT;
 			case SnekNodeType.BODY_TURNED:
-				return SnekIcon.SNEK_BODY_TURNED;
+				return SnekIcon.BODY_TURNED;
 			case SnekNodeType.TAIL:
-				return SnekIcon.SNEK_TAIL;
+				return SnekIcon.TAIL;
 			default:
 				throw new Error(`what type of snek is this: ${ snekNoteType }`);
 		}

@@ -25,7 +25,7 @@ export class SnekGridComponent {
 		private readonly snekStateService: SnekStateService,
 		private readonly snekUserInputService: SnekUserInputService,
 	) {
-		this.svgIconService.registerInternalIcons(SnekIcon.registry);
+		this.svgIconService.registerInternalIconPack(SnekIcon.location, SnekIcon.namespace);
 
 		this.snekGame$ = this.snekStateService.snekGame$;
 		this.snekWidth$ = this.snekResolutionService.snekWidth$;
