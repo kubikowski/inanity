@@ -32,4 +32,17 @@ export namespace SnekDirection {
 		return next !== current
 			&& next !== inverse(current);
 	}
+
+	export function isRotatedRight(parentDirection: SnekDirection, childDirection: SnekDirection): boolean {
+		switch (childDirection) {
+			case SnekDirection.UP:
+				return parentDirection === SnekDirection.LEFT;
+			case SnekDirection.DOWN:
+				return parentDirection === SnekDirection.RIGHT;
+			case SnekDirection.LEFT:
+				return parentDirection === SnekDirection.DOWN;
+			case SnekDirection.RIGHT:
+				return parentDirection === SnekDirection.UP;
+		}
+	}
 }

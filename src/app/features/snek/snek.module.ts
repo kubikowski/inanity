@@ -5,6 +5,8 @@ import { SnekResultsDialogComponent } from 'src/app/features/snek/components/dia
 import { SnekGridNodeComponent } from 'src/app/features/snek/components/snek-grid-node/snek-grid-node.component';
 import { SnekGridComponent } from 'src/app/features/snek/components/snek-grid/snek-grid.component';
 import { SnekOptionsComponent } from 'src/app/features/snek/components/snek-options/snek-options.component';
+import { SnekDirectionPipe } from 'src/app/features/snek/pipes/snek-direction.pipe';
+import { SnekIconPipe } from 'src/app/features/snek/pipes/snek-icon.pipe';
 import { SnekComponent } from 'src/app/features/snek/snek.component';
 
 @NgModule({
@@ -13,6 +15,8 @@ import { SnekComponent } from 'src/app/features/snek/snek.component';
 		SnekGridNodeComponent,
 		SnekGridComponent,
 		SnekOptionsComponent,
+		SnekDirectionPipe,
+		SnekIconPipe,
 		SnekComponent,
 	],
 	imports: [

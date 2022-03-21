@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<g id="snek-tail">
+		<path d="M 100,90 V 10 A 90,40 0 0 0 10,50 90,40 0 0 0 100,90 Z"/>
+	</g>
+</svg>
