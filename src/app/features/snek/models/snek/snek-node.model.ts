@@ -30,7 +30,7 @@ export class SnekNode {
 		}
 
 		this.type$ = combineLatest([ this.parentDirection$, this.childDirection$ ])
-			.pipe(map(([ parentDirection, childDirection ]) => SnekNodeType.from(parentDirection, childDirection, this.child)));
+			.pipe(map(([ _parentDirection, _childDirection ]) => SnekNodeType.from(_parentDirection, _childDirection, this.child)));
 	}
 
 	public static initialHead(snekGridNode: SnekGridNode): SnekNode {

@@ -1,8 +1,8 @@
-import { Pipe } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 
 @Pipe({ name: 'snekDirection' })
-export class SnekDirectionPipe {
+export class SnekDirectionPipe implements PipeTransform {
 
 	public transform(parentDirection: SnekDirection | null, childDirection: SnekDirection | null): SnekDirection | null {
 		if (parentDirection === null) {

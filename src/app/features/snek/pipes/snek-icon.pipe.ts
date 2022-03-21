@@ -1,10 +1,10 @@
-import { Pipe } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { SnekNodeType } from 'src/app/features/snek/models/snek/snek-node-type.enum';
 import { SnekIcon } from 'src/app/features/snek/models/svg/snek-icon.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 
 @Pipe({ name: 'snekIcon' })
-export class SnekIconPipe {
+export class SnekIconPipe implements PipeTransform {
 
 	public constructor(
 		private readonly snekStateService: SnekStateService,

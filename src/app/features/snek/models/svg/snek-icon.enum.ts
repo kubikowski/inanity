@@ -21,5 +21,5 @@ export namespace SnekIcon {
 		[SnekIcon.SNEK_HEAD_DEFAULT]: 'snek/snek_head_default',
 		[SnekIcon.SNEK_HEAD_TONGUE]: 'snek/snek_head_tongue',
 		[SnekIcon.SNEK_TAIL]: 'snek/snek_tail',
-	}
+	};
 }

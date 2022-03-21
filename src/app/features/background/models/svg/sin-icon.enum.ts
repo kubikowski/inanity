@@ -45,5 +45,5 @@ export namespace SinIcon {
 		[SinIcon.SINS_PRIDE]: 'sins/pride',
 		[SinIcon.SINS_SLOTH]: 'sins/sloth',
 		[SinIcon.SINS_WRATH]: 'sins/wrath',
-	}
+	};
 }
