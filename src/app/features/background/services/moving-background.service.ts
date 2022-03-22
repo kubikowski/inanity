@@ -3,7 +3,9 @@ import { interval, Observable, of } from 'rxjs';
 import { Observed } from 'rxjs-observed-decorator';
 import { delay, filter, mergeMap, switchMap } from 'rxjs/operators';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
+import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { MovingBackgroundIcon } from 'src/app/features/background/models/svg/moving-background-icon.model';
+import { SinIcon } from 'src/app/features/background/models/svg/sin-icon.enum';
 import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })
@@ -18,7 +20,11 @@ export class MovingBackgroundService implements OnDestroy {
 	public readonly amount$!: Observable<number>;
 	public readonly renderedIcons$!: Observable<ReadonlyMap<number, MovingBackgroundIcon>>;
 
-	public constructor() {
+	public constructor(
+		private readonly svgIconService: SvgIconService,
+	) {
+		this.svgIconService.registerInternalIcons(SinIcon.registry);
+
 		this.isEnabled = JSON.parse(localStorage.getItem('moving-background') ?? 'true');
 		this.amount = JSON.parse(localStorage.getItem('moving-background-amount') ?? '5');
 

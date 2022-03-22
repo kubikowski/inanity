@@ -1,7 +1,9 @@
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Observed } from 'rxjs-observed-decorator';
+import { map } from 'rxjs/operators';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
+import { SnekNodeType } from 'src/app/features/snek/models/snek/snek-node-type.enum';
 
 export class SnekNode {
 	private _parent: SnekNode | null = null;
@@ -11,6 +13,8 @@ export class SnekNode {
 
 	public readonly parentDirection$!: Observable<SnekDirection>;
 	public readonly childDirection$!: Observable<SnekDirection>;
+
+	public readonly type$: Observable<SnekNodeType>;
 
 	private constructor(
 		public readonly snekGridNode: SnekGridNode,
@@ -24,6 +28,9 @@ export class SnekNode {
 		if (this._child instanceof SnekNode) {
 			this._child.addHead(this);
 		}
+
+		this.type$ = combineLatest([ this.parentDirection$, this.childDirection$ ])
+			.pipe(map(([ _parentDirection, _childDirection ]) => SnekNodeType.from(_parentDirection, _childDirection)));
 	}
 
 	public static initialHead(snekGridNode: SnekGridNode): SnekNode {
