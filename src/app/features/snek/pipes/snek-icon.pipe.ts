@@ -13,7 +13,7 @@ export class SnekIconPipe implements PipeTransform {
 	public transform(snekNoteType: SnekNodeType | null): SnekIcon {
 		switch (snekNoteType) {
 			case SnekNodeType.HEAD:
-				return this.evenTiming
+				return (this.evenTiming)
 					? SnekIcon.HEAD_DEFAULT
 					: SnekIcon.HEAD_TONGUE;
 			case SnekNodeType.BODY_STRAIGHT:
