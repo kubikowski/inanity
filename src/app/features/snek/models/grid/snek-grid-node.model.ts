@@ -6,7 +6,7 @@ import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';
 
 export class SnekGridNode {
 	@Observed() public type = SnekGridNodeType.BLANK;
-	@Observed() public snekNode: SnekNode | null = null;
+	@Observed() private snekNode: SnekNode | null = null;
 	private _up!: SnekGridNode | null;
 	private _down!: SnekGridNode | null;
 	private _left!: SnekGridNode | null;
