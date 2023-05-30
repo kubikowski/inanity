@@ -32,7 +32,7 @@ export class SidebarComponent {
 			NavigationConfig.from('About', SvgIcon.GOAT, '/about'),
 			NavigationConfig.from('Snek', SvgIcon.SNAKE, '/snek'),
 			NavigationConfig.from('Gong', SvgIcon.GONG, '/gong'),
-			NavigationConfig.from('Noise', SvgIcon.ONI, '/background'),
+			NavigationConfig.from('Malbolge', SvgIcon.ONI, '/malbolge'),
 		];
 	}
 }

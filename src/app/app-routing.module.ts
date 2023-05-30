@@ -24,6 +24,10 @@ const routes: Routes = [
 				loadChildren: () => import('src/app/pages/gong/gong-page.module')
 					.then(module => module.GongPageModule),
 			}, {
+				path: 'malbolge',
+				loadChildren: () => import('src/app/pages/malbolge/malbolge-page.module')
+					.then(module => module.MalbolgePageModule),
+			}, {
 				path: 'snek',
 				loadChildren: () => import('src/app/pages/snek/snek-page.module')
 					.then(module => module.SnekPageModule),

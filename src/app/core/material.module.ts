@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -19,6 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 		MatCheckboxModule,
 		MatDialogModule,
 		MatDividerModule,
+		MatExpansionModule,
 		MatIconModule,
 		MatMenuModule,
 		MatSidenavModule,
