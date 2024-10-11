@@ -1,10 +1,10 @@
 import { Injectable, isDevMode } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
+import { ActivatedRouteSnapshot, Route, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class FeatureFlagGuard implements CanActivate, CanActivateChild, CanLoad {
+export class FeatureFlagGuard {
 	public constructor(
 		private readonly router: Router,
 	) { }
