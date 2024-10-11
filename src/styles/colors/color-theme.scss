@@ -42,8 +42,8 @@ $accent-palette: light-palette(
 		var(--disabled-background-color),
 );
 
-$warning-palette: mat.define-palette(mat.$red-palette);
+$warning-palette: mat.m2-define-palette(mat.$m2-red-palette);
 
 
-$light-theme: mat.define-light-theme($primary-palette, $accent-palette, $warning-palette);
-$dark-theme: mat.define-dark-theme($primary-palette, $accent-palette, $warning-palette);
+$light-theme: mat.m2-define-light-theme($primary-palette, $accent-palette, $warning-palette);
+$dark-theme: mat.m2-define-dark-theme($primary-palette, $accent-palette, $warning-palette);
