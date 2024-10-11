@@ -127,8 +127,7 @@
 				}
 			}
 		}
-	},
-	"defaultProject": "inanity",
+  },
 	"cli": {
 		"analytics": false
 	}
