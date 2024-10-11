@@ -75,19 +75,19 @@
 				},
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
-					"options": {
-						"browserTarget": "inanity:build"
+          "options": {
+            "buildTarget": "inanity:build"
 					},
 					"configurations": {
-						"production": {
-							"browserTarget": "inanity:build:production"
+            "production": {
+              "buildTarget": "inanity:build:production"
 						}
 					}
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "inanity:build"
+          "options": {
+            "buildTarget": "inanity:build"
 					}
 				},
 				"test": {
