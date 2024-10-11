@@ -1,46 +1,64 @@
 @use '@angular/material' as mat;
+@use 'sass:map';
+@use './typography' as typography;
 
 /**
  * Color Palette Generator
  * These methods mimic the result of the mat-palette function
  * The resulting palettes, however, contain css member values as defined in colors.scss
  */
-@function color-palette($default, $lighter, $darker, $contrast) {
-	$palette: (
-		default: $default,
-		lighter: $lighter,
-		darker: $darker,
-		text: $default,
-		default-contrast: $contrast,
-		lighter-contrast: $contrast,
-		darker-contrast: $contrast,
-	);
-
-	@return $palette;
+@function color-palette($palette, $light-contrast, $dark-contrast) {
+	@return map.merge($palette, (
+		contrast: (
+			50: $dark-contrast,
+			100: $dark-contrast,
+			200: $dark-contrast,
+			300: $dark-contrast,
+			400: $dark-contrast,
+			500: $light-contrast,
+			600: $light-contrast,
+			700: $light-contrast,
+			800: $light-contrast,
+			900: $light-contrast,
+		),
+	));
 }
 
 // from Lighter Backgrounds with Darker Contrasts
-@function light-palette($default, $lighter, $darker) {
-	@return color-palette($default, $lighter, $darker, var(--dark-text-color));
+@function light-palette($palette) {
+	@return color-palette($palette, var(--dark-text-color), var(--dark-text-color));
 }
 
 // from Darker Backgrounds with Lighter Contrasts
-@function dark-palette($default, $lighter, $darker) {
-	@return color-palette($default, $lighter, $darker, var(--light-text-color));
+@function dark-palette($palette) {
+	@return color-palette($palette, var(--dark-text-color), var(--light-text-color));
 }
 
+$primary-palette: mat.m2-define-palette(dark-palette((
+	50: var(--lightest-theme-color),
+	100: var(--lightest-theme-color),
+	200: var(--lightest-theme-color),
+	300: var(--lighter-theme-color),
+	400: var(--light-theme-color),
+	500: var(--default-theme-color),
+	600: var(--dark-theme-color),
+	700: var(--darker-theme-color),
+	800: var(--darkest-theme-color),
+	900: var(--darkest-theme-color),
+)));
 
-$primary-palette: dark-palette(
-		var(--default-theme-color),
-		var(--light-theme-color),
-		var(--dark-theme-color),
-);
-
-$accent-palette: light-palette(
-		var(--default-background-color),
-		var(--accent-background-color),
-		var(--disabled-background-color),
-);
+$accent-palette: mat.m2-define-palette(light-palette((
+	50: var(--default-background-color),
+	100: var(--default-background-color),
+	200: var(--default-background-color),
+	300: var(--default-background-color),
+	400: var(--default-background-color),
+	500: var(--accent-background-color),
+	600: var(--accent-background-color),
+	700: var(--disabled-background-color),
+	800: var(--disabled-background-color),
+	900: var(--disabled-background-color),
+)));
 
 $warning-palette: mat.m2-define-palette(mat.$m2-red-palette);
 
