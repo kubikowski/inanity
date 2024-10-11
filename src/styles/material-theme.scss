@@ -21,7 +21,7 @@ $custom-typography: mat.define-typography-config(
  * Includes the common styles for Angular Material.
  * Be sure that you only ever include this mixin once!
  */
-@include mat.core($custom-typography);
+@include mat.core();
 
 body {
 	&.light-theme {
