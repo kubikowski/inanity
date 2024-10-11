@@ -1,9 +1,9 @@
 import { combineLatest, Observable } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
 import { map } from 'rxjs/operators';
-import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
+import { Observed } from 'rxjs-observed-decorator';
+import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
-import { SnekNodeType } from 'src/app/features/snek/models/snek/snek-node-type.enum';
+import { SnekNodeType, SnekNodeTypeUtil } from 'src/app/features/snek/models/snek/snek-node-type.enum';
 
 export class SnekNode {
 	private _parent: SnekNode | null = null;
@@ -30,7 +30,7 @@ export class SnekNode {
 		}
 
 		this.type$ = combineLatest([ this.parentDirection$, this.childDirection$ ])
-			.pipe(map(([ _parentDirection, _childDirection ]) => SnekNodeType.from(_parentDirection, _childDirection)));
+			.pipe(map(([ _parentDirection, _childDirection ]) => SnekNodeTypeUtil.from(_parentDirection, _childDirection)));
 	}
 
 	public static initialHead(snekGridNode: SnekGridNode): SnekNode {
@@ -38,7 +38,7 @@ export class SnekNode {
 	}
 
 	public static newHead(snekGridNode: SnekGridNode, child: SnekNode, nextDirection: SnekDirection): SnekNode {
-		const childDirection = SnekDirection.inverse(nextDirection);
+		const childDirection = SnekDirectionUtil.inverse(nextDirection);
 
 		return new SnekNode(snekGridNode, child, childDirection);
 	}
@@ -57,7 +57,7 @@ export class SnekNode {
 		}
 
 		this._parent = head;
-		this.parentDirection = SnekDirection.inverse(head.childDirection);
+		this.parentDirection = SnekDirectionUtil.inverse(head.childDirection);
 	}
 
 	public removeTail(): void {

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { Observable, timer } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
 import { distinctUntilChanged, map } from 'rxjs/operators';
+import { Observed } from 'rxjs-observed-decorator';
 import { DyslexicTextService } from 'src/app/features/dyslexic-text/services/dyslexic-text.service';
 import { SubSink } from 'subsink';
 

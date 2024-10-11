@@ -14,7 +14,9 @@ describe('mapToVoid', () => {
 		null,
 		undefined,
 		new Date(),
-		function simpleFunction() { return 'stuff'; },
+		function simpleFunction() {
+			return 'stuff'; 
+		},
 		Symbol('symbol'),
 		/abc/,
 		new Error('error'),

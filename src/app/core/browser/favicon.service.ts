@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { FaviconRef } from 'src/app/core/svg/favicon-ref.enum';
+import { FaviconRef, FaviconUtil } from 'src/app/core/svg/favicon-ref.enum';
 
 @Injectable({ providedIn: 'root' })
 export class FaviconService {
@@ -14,7 +14,7 @@ export class FaviconService {
 		this.head = this.document.head;
 		this.renderer = this.rendererFactory.createRenderer(this.head, null);
 
-		this.replaceFavicon(FaviconRef.getDefault());
+		this.replaceFavicon(FaviconUtil.getDefault());
 	}
 
 	private replaceFavicon(faviconRef: FaviconRef): void {
@@ -33,9 +33,9 @@ export class FaviconService {
 	}
 
 	private addFavicon(faviconRef: FaviconRef): void {
-		const favicon = this.renderer.createElement('link');
+		const favicon = this.renderer.createElement('link') as HTMLLinkElement;
 
-		FaviconRef.getAttributes(faviconRef).forEach(([ attribute, value ]) =>
+		FaviconUtil.getAttributes(faviconRef).forEach(([ attribute, value ]) =>
 			this.renderer.setAttribute(favicon, attribute, value));
 
 		this.renderer.insertBefore(this.head, favicon, this.appleTouchIcon);

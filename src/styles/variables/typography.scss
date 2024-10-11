@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+
+$typography: mat.m2-define-typography-config(
+    $font-family: var(--app-font),
+    $headline-6: mat.m2-define-typography-level(20px, 32px, var(--weight-normal)),
+    $subtitle-1: mat.m2-define-typography-level(1rem, 1rem, var(--weight-normal)),
+    $subtitle-2: mat.m2-define-typography-level(1rem, 1rem, var(--weight-medium)),
+    $body-1:     mat.m2-define-typography-level(1rem, 1rem, var(--weight-normal)),
+    $body-2:     mat.m2-define-typography-level(1rem, 1rem, var(--weight-normal)),
+    $caption:    mat.m2-define-typography-level(0.8rem, 1rem, var(--weight-normal)),
+    $button:     mat.m2-define-typography-level(1rem, 1rem, var(--weight-medium), null, 0.6px),
+);

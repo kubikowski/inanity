@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { NavigationConfig } from 'src/app/features/navigation/models/navigation-config.model';
 import { NavigationService } from 'src/app/features/navigation/services/navigation.service';
 

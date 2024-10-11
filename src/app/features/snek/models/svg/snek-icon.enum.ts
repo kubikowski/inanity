@@ -6,7 +6,7 @@ export enum SnekIcon {
 	TAIL = 'snek:snek-tail',
 }
 
-export namespace SnekIcon {
-	export const location = 'snek/icon-pack';
-	export const namespace = 'snek';
+export abstract class SnekIconUtil {
+	public static location = 'snek/icon-pack';
+	public static namespace = 'snek';
 }

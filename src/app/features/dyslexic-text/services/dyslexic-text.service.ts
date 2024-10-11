@@ -21,8 +21,8 @@ export class DyslexicTextService implements OnDestroy {
 	private readonly wordCombinations = new Map<string, readonly string[]>();
 
 	public constructor() {
-		this.isEnabled = JSON.parse(localStorage.getItem('dyslexic-text') ?? 'true');
-		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount') ?? '25');
+		this.isEnabled = JSON.parse(localStorage.getItem('dyslexic-text') ?? 'true') as boolean;
+		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount') ?? '25') as number;
 
 		this.persistSettings();
 	}

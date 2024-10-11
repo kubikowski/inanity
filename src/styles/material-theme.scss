@@ -3,19 +3,9 @@
  * For more information: https://material.angular.io/guide/theming
  */
 @use '@angular/material' as mat;
-@use '@angular/material/theming';
-@use 'src/styles/colors/color-theme' as inanity;
-
-$custom-typography: mat.m2-define-typography-config(
-	$font-family: 'Garamond, "EB Garamond", Georgia, serif',
-	$headline:	mat.m2-define-typography-level(32px, 48px, 400),
-	$title:		mat.m2-define-typography-level(32px, 48px, 500),
-);
-
-@include mat.typography-hierarchy($custom-typography);
-@include mat.checkbox-typography($custom-typography);
-@include mat.all-component-typographies($custom-typography);
-
+@use './variables/color-theme' as color-theme;
+@use './variables/typography' as typography;
+@use './variables/material-config';
 
 /**
  * Includes the common styles for Angular Material.
@@ -25,10 +15,14 @@ $custom-typography: mat.m2-define-typography-config(
 
 body {
 	&.light-theme {
-		@include mat.all-component-themes(inanity.$light-theme);
+		@include mat.all-component-themes(color-theme.$light-theme);
 	}
 
 	&.dark-theme {
-		@include mat.all-component-themes(inanity.$dark-theme);
+		@include mat.all-component-themes(color-theme.$dark-theme);
+	}
+
+	&:is(.light-theme, .dark-theme) {
+		@include mat.all-component-typographies(typography.$typography);
 	}
 }

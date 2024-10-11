@@ -45,7 +45,7 @@ export class JoystickComponent implements AfterViewInit, OnDestroy {
 
 	private get defaultOptions(): JoystickManagerOptions {
 		return {
-			zone: this.elementRef.nativeElement,
+			zone: this.elementRef.nativeElement as HTMLElement,
 			color: 'var(--disabled-text-color)',
 			size: 75,
 			threshold: 1 / 3,

@@ -23,7 +23,7 @@ export const SlideInOutAnimation = [
 			animate('300ms ease-in-out', style({
 				'max-height': '0px',
 			})),
-		])]),
+		]) ]),
 		transition('out => in', [ group([
 			animate('0ms ease-in-out', style({
 				'max-height': '0px',
@@ -31,6 +31,6 @@ export const SlideInOutAnimation = [
 			animate('300ms ease-in-out', style({
 				'max-height': '1000px',
 			})),
-		])]),
+		]) ]),
 	]),
 ];

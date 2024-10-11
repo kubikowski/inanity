@@ -25,6 +25,6 @@ export const FloatUpAnimation = [
 				height: '1rem',
 				transform: 'rotate(-360deg)',
 			})),
-		])]),
+		]) ]),
 	]),
 ];

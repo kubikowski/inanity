@@ -1,42 +1,102 @@
 {
 	"root": true,
-	"ignorePatterns": [
-		"projects/**/*"
-	],
 	"overrides": [
 		{
 			"files": [
-				"*.ts"
+				"*.js"
 			],
 			"parserOptions": {
-				"project": [
-					"tsconfig.json",
-					"e2e/tsconfig.json"
-				],
-				"createDefaultProgram": true
+				"ecmaVersion": "latest",
+				"sourceType": "module"
+			},
+			"env": {
+				"es6": true
 			},
 			"extends": [
-				"plugin:@angular-eslint/recommended",
-				"plugin:@angular-eslint/template/process-inline-templates"
+				"eslint:recommended"
 			],
 			"plugins": [
 				"import"
 			],
 			"rules": {
-				"@angular-eslint/component-selector": [
+				"array-bracket-spacing": [
+					"error",
+					"always"
+				],
+				"arrow-body-style": [
+					"error",
+					"as-needed"
+				],
+				"arrow-parens": [
+					"error",
+					"as-needed"
+				],
+				"brace-style": "error",
+				"comma-dangle": [
+					"error",
+					"always-multiline"
+				],
+				"func-style": [
+					"error",
+					"declaration"
+				],
+				"import/order": [
 					"error",
 					{
-						"type": "element",
-						"prefix": "kebab-case"
+						"alphabetize": {
+							"order": "asc",
+							"caseInsensitive": true
+						}
 					}
 				],
-				"@angular-eslint/directive-selector": [
+				"indent": [
 					"error",
+					"tab",
 					{
-						"type": "attribute",
-						"prefix": "camelCase"
+						"SwitchCase": 1
 					}
 				],
+				"max-len": "off",
+				"no-shadow": "error",
+				"no-var": "error",
+				"no-void": "error",
+				"no-undefined": "error",
+				"object-curly-spacing": [
+					"error",
+					"always"
+				],
+				"prefer-const": "error",
+				"prefer-template": "error",
+				"quotes": [
+					"error",
+					"single"
+				],
+				"semi": "error"
+			}
+		},
+		{
+			"files": [
+				"*.ts"
+			],
+			"parser": "@typescript-eslint/parser",
+			"parserOptions": {
+				"project": [
+					"tsconfig.json"
+				],
+				"createDefaultProgram": true,
+				"sourceType": "module"
+			},
+			"extends": [
+				"eslint:recommended",
+				"plugin:@typescript-eslint/eslint-recommended",
+				"plugin:@typescript-eslint/recommended",
+				"plugin:@typescript-eslint/recommended-requiring-type-checking"
+			],
+			"plugins": [
+				"@typescript-eslint",
+				"import"
+			],
+			"rules": {
 				"@typescript-eslint/comma-dangle": [
 					"error",
 					"always-multiline"
@@ -221,8 +281,26 @@
 					}
 				],
 				"@typescript-eslint/no-explicit-any": "error",
-				"@typescript-eslint/no-namespace": "off",
+				"@typescript-eslint/no-floating-promises": "off",
+				"@typescript-eslint/no-misused-promises": "off",
+				"@typescript-eslint/no-non-null-assertion": "off",
 				"@typescript-eslint/no-shadow": "error",
+				"array-bracket-spacing": [
+					"error",
+					"always"
+				],
+				"@typescript-eslint/no-unused-vars": [
+					"error",
+					{
+						"args": "all",
+						"argsIgnorePattern": "^_",
+						"caughtErrors": "all",
+						"caughtErrorsIgnorePattern": "^_",
+						"destructuredArrayIgnorePattern": "^_",
+						"varsIgnorePattern": "^_",
+						"ignoreRestSiblings": true
+					}
+				],
 				"arrow-body-style": [
 					"error",
 					"as-needed"
@@ -231,6 +309,7 @@
 					"error",
 					"as-needed"
 				],
+				"brace-style": "error",
 				"comma-dangle": "off",
 				"func-style": [
 					"error",
@@ -249,22 +328,25 @@
 					"error",
 					"tab",
 					{
-						"SwitchCase": 1,
-						"FunctionExpression": {
-							"parameters": "off"
-						},
-						"ignoredNodes": [
-							"FunctionExpression > .params[decorators.length > 0]",
-							"FunctionExpression > .params > :matches(Decorator, :not(:first-child))",
-							"ClassBody.body > PropertyDefinition[decorators.length > 0] > .key"
-						]
+						"SwitchCase": 1
 					}
 				],
-				"jsdoc/newline-after-description": "off",
 				"max-len": "off",
 				"no-shadow": "off",
-				"no-underscore-dangle": "off",
-				"prefer-arrow/prefer-arrow-functions": "off",
+				"no-var": "error",
+				"no-void": "off",
+				"no-undefined": "off",
+				"no-useless-escape": "off",
+				"object-curly-spacing": [
+					"error",
+					"always"
+				],
+				"prefer-const": "error",
+				"prefer-template": "error",
+				"quotes": [
+					"error",
+					"single"
+				],
 				"semi": "error"
 			}
 		},

@@ -14,8 +14,8 @@ export enum SinIcon {
 	SINS_WRATH = 'SINS_WRATH',
 }
 
-export namespace SinIcon {
-	export const all: ReadonlyArray<SinIcon> = [
+export abstract class SinIconUtil {
+	public static all: ReadonlyArray<SinIcon> = [
 		SinIcon.SINS_ANGER,
 		SinIcon.SINS_ATTACHMENT,
 		SinIcon.SINS_DECEIT,
@@ -31,7 +31,7 @@ export namespace SinIcon {
 		SinIcon.SINS_WRATH,
 	] as const;
 
-	export const registry: Record<SinIcon, string> = {
+	public static registry: Record<SinIcon, string> = {
 		[SinIcon.SINS_ANGER]: 'sins/anger',
 		[SinIcon.SINS_ATTACHMENT]: 'sins/attachment',
 		[SinIcon.SINS_DECEIT]: 'sins/deceit',

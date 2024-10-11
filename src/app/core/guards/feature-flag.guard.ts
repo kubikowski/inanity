@@ -1,31 +1,24 @@
 import { Injectable, isDevMode } from '@angular/core';
-import { ActivatedRouteSnapshot, Route, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class FeatureFlagGuard {
+export class FeatureFlagGuard implements CanActivate, CanActivateChild {
 	public constructor(
 		private readonly router: Router,
 	) { }
 
 	public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-		const hasFeatureFlag: boolean = route.data?.['featureFlag'] ?? false;
+		const hasFeatureFlag = (route.data?.['featureFlag'] as boolean | undefined) ?? false;
 
 		return this.hasPermission(hasFeatureFlag, state.url);
 	}
 
 	public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-		const hasFeatureFlag: boolean = childRoute.data?.['featureFlag'] ?? false;
+		const hasFeatureFlag = (childRoute.data?.['featureFlag'] as boolean | undefined) ?? false;
 
 		return this.hasPermission(hasFeatureFlag, state.url);
-	}
-
-	public canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
-		const hasFeatureFlag: boolean = route.data?.['featureFlag'] ?? false;
-		const url = segments.map(segment => segment.path).join('/');
-
-		return this.hasPermission(hasFeatureFlag, url);
 	}
 
 	private hasPermission(hasFeatureFlag: boolean, url: string): Observable<boolean> {

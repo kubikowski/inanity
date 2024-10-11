@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { interval, Observable } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
 import { map } from 'rxjs/operators';
+import { Observed } from 'rxjs-observed-decorator';
 import { ClockUtil } from 'src/app/features/clock/clock-util.function';
 import { SubSink } from 'subsink';
 
 @Component({
 	selector: 'clock',
-	template: `{{ time$ | async | date: 'shortTime' }}`,
+	template: '{{ time$ | async | date: \'shortTime\' }}',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClockComponent implements OnDestroy {
