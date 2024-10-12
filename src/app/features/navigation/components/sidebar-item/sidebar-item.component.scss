@@ -1,23 +1,32 @@
 :host {
 	padding: 1rem 1rem 0;
 
-	.mat-mdc-card {
-		cursor: pointer;
-		background-color: var(--lightest-theme-color);
+	.sidebar-item {
+		color: inherit;
+		text-decoration: none;
 
-		&:hover, &:active {
-			background-color: var(--lighter-theme-color);
-		}
-
-		&.active {
+		&.active-route .mat-mdc-card {
 			background-color: var(--default-theme-color);
+
+			&:hover {
+				background-color: var(--default-theme-color);
+			}
 		}
 
-		.mat-mdc-card-header {
-			align-items: center;
+		.mat-mdc-card {
+			cursor: pointer;
+			background-color: var(--lightest-theme-color);
 
-			.mat-mdc-card-title {
-				margin-bottom: 0;
+			&:hover {
+				background-color: var(--lighter-theme-color);
+			}
+
+			.mat-mdc-card-header {
+				align-items: center;
+
+				.mat-mdc-card-title {
+					margin-bottom: 0;
+				}
 			}
 		}
 	}
