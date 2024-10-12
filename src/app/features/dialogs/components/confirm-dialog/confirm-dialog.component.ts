@@ -1,5 +1,4 @@
-import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { BaseDialogComponent } from 'src/app/features/dialogs/components/base-dialog/base-dialog.component';
 import { DialogBuilder } from '../../models/builder/dialog.builder';

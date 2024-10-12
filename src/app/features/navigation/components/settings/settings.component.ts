@@ -1,9 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
-import { ColorPalettes } from 'src/app/core/colors/models/color-palettes/color-palettes.constant';
-import { ColorTheme } from 'src/app/core/colors/models/color-themes/color-theme.model';
-import { ColorThemes } from 'src/app/core/colors/models/color-themes/color-themes.constant';
-import { ColorsService } from 'src/app/core/colors/services/colors.service';
 import { MovingBackgroundService } from 'src/app/features/background/services/moving-background.service';
 import { DyslexicTextService } from 'src/app/features/dyslexic-text/services/dyslexic-text.service';
 import { HeaderService } from 'src/app/features/navigation/services/header.service';
@@ -19,9 +14,6 @@ export class SettingsComponent implements OnInit {
 
 	public readonly settingsItems = this.headerService.settingsItems;
 
-	public readonly colorThemes = ColorThemes;
-	public readonly colorPalettes = ColorPalettes;
-
 	public readonly minDyslexiaAmount = DyslexicTextService.minAmount;
 	public readonly maxDyslexiaAmount = DyslexicTextService.maxAmount;
 
@@ -32,7 +24,6 @@ export class SettingsComponent implements OnInit {
 	public movingBackgroundAmount = 5;
 
 	public constructor(
-		private readonly colorsService: ColorsService,
 		private readonly dyslexicTextService: DyslexicTextService,
 		private readonly movingBackgroundService: MovingBackgroundService,
 	) { }
