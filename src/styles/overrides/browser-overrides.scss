@@ -1,21 +1,15 @@
 :root, body {
 	height: 100%;
+	margin: 0;
+}
+
+body {
 	color: var(--default-text-color);
 	font-family: var(--app-font);
 	font-weight: var(--weight-normal);
 	font-size: 14px;
 	line-height: 1.5;
 	text-align: left;
-
-	--app-font: 'Garamond, "EB Garamond" serif';
-	--weight-normal: 400;
-	--weight-medium: 500;
-	--weight-semibold: 600;
-}
-
-body {
-	color: var(--default-text-color);
-	margin: 0;
 }
 
 * {
