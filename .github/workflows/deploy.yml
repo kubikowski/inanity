@@ -18,18 +18,6 @@ jobs:
                 with:
                     token: ${{ secrets.GITHUB_TOKEN }}
 
-            -   name: Cache Node Modules
-                uses: actions/cache@v2
-                env:
-                    cache-name: cache-node-modules
-                with:
-                    path: node_modules
-                    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-                    restore-keys: |
-                        ${{ runner.OS }}-build-${{ env.cache-name }}-
-                        ${{ runner.OS }}-build-
-                        ${{ runner.OS }}-
-
             -   name: Install dependencies
                 run: npm install
 
@@ -89,18 +77,6 @@ jobs:
 
             -   name: Pull Branch
                 run: git pull
-
-            -   name: Cache Node Modules
-                uses: actions/cache@v4
-                env:
-                    cache-name: cache-node-modules
-                with:
-                    path: node_modules
-                    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-                    restore-keys: |
-                        ${{ runner.OS }}-build-${{ env.cache-name }}-
-                        ${{ runner.OS }}-build-
-                        ${{ runner.OS }}-
 
             -   name: Install dependencies
                 run: npm install
