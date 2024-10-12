@@ -1,13 +1,66 @@
-
-html, body {
+:root, body {
 	height: 100%;
+	color: var(--default-text-color);
+	font-family: var(--app-font);
+	font-weight: var(--weight-normal);
+	font-size: 14px;
+	line-height: 1.5;
+	text-align: left;
+
+	--app-font: 'Garamond, "EB Garamond" serif';
+	--weight-normal: 400;
+	--weight-medium: 500;
+	--weight-semibold: 600;
 }
 
 body {
-	--app-font: 'Garamond, "EB Garamond"';
-	font-family: var(--app-font) serif;
 	color: var(--default-text-color);
 	margin: 0;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: var(--weight-normal);
+	line-height: 1.2;
+	margin-top: 0;
+	margin-bottom: 0.5rem;
+}
+
+h1 {
+	font-size: 2rem;
+}
+h2 {
+	font-size: 2rem;
+}
+h3 {
+	font-size: 1.75rem;
+}
+h4 {
+	font-size: 1.5rem;
+}
+h5 {
+	font-size: 1.25rem;
+}
+h6 {
+	font-size: 1rem;
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+b, strong {
+	font-weight: var(--weight-semibold);
+}
+
+code {
+	font-family: var(--monospace-font);
+	font-weight: var(--weight-medium);
 }
 
 

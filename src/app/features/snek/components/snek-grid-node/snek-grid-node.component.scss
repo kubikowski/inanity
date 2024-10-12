@@ -5,8 +5,7 @@
 
 	> .mat-icon {
 		color: var(--default-theme-color);
-		width: 20px;
-		height: 20px;
+		--icon-size: 20px;
 
 		&.right { transform: rotate(0deg); }
 		&.down { transform: rotate(90deg); }

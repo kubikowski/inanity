@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogConfigBuilder } from 'src/app/features/dialogs/models/configuration/dialog-config-builder.model';
+import { DialogService } from 'src/app/features/dialogs/services/dialog.service';
 import { SnekResultsDialogComponent } from 'src/app/features/snek/components/dialog/snek-results-dialog/snek-results-dialog.component';
 import { SnekResults } from 'src/app/features/snek/models/state/snek-results.interface';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
@@ -10,7 +11,7 @@ export class SnekDialogService implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
 	public constructor(
-		private readonly dialog: MatDialog,
+		private readonly dialogService: DialogService,
 		private readonly snekStateService: SnekStateService,
 	) {
 		this.subscriptions.sink = this.snekStateService.gameOver$
@@ -30,10 +31,8 @@ export class SnekDialogService implements OnDestroy {
 			gameOverMessage,
 		};
 
-		const dialogRef = this.dialog.open(
-			SnekResultsDialogComponent,
-			{ width: '300px', data },
-		);
+		const dialogRef = this.dialogService.static(
+			SnekResultsDialogComponent, DialogConfigBuilder.default(data));
 
 		dialogRef.afterClosed()
 			.subscribe(() => this.snekStateService.resetSnekGame());

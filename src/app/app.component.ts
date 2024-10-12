@@ -6,6 +6,7 @@ import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.serv
 import { TitleService } from 'src/app/core/browser/title.service';
 import { ColorsService } from 'src/app/core/colors/services/colors.service';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
+import { HeaderService } from 'src/app/features/navigation/services/header.service';
 import { NavigationService } from 'src/app/features/navigation/services/navigation.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class AppComponent {
 		private readonly titleService: TitleService,
 		private readonly colorsService: ColorsService,
 		private readonly svgIconService: SvgIconService,
+		private readonly headerService: HeaderService,
 		private readonly navigationService: NavigationService,
 	) { }
 

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CoreModule } from 'src/app/core/core.module';
+import { BaseDialogComponent } from 'src/app/features/dialogs/components/base-dialog/base-dialog.component';
 import { JoystickModule } from 'src/app/features/joystick/joystick.module';
 import { SnekResultsDialogComponent } from 'src/app/features/snek/components/dialog/snek-results-dialog/snek-results-dialog.component';
 import { SnekGridComponent } from 'src/app/features/snek/components/snek-grid/snek-grid.component';
@@ -22,6 +23,7 @@ import { SnekComponent } from 'src/app/features/snek/snek.component';
 	imports: [
 		CoreModule,
 		JoystickModule,
+		BaseDialogComponent,
 	],
 	exports: [
 		SnekComponent,

@@ -1,4 +1,4 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { BluePalette, GreenPalette } from 'src/app/core/colors/models/color-palettes/color-palettes.constant';
@@ -16,42 +16,33 @@ describe('ColorsService', () => {
 	let theme: ColorTheme;
 	let palette: ColorPalette;
 
-	const BUFFER_TIME = 50;
-
-	/** must be encapsulated by a fakeAsync */
 	function setDarkTheme(): void {
-		colorsService.theme = DarkTheme;
+		colorsService.theme.set(DarkTheme);
 
 		theme = DarkTheme;
 		palette = palette.inverse(DarkTheme);
 
-		tick(BUFFER_TIME);
+		TestBed.flushEffects();
 	}
 
-	/** must be encapsulated by a fakeAsync */
 	function setGreenPalette(): void {
-		colorsService.palette = GreenPalette;
+		colorsService.palette.set(GreenPalette);
 
 		palette = (theme === LightTheme)
 			? GreenPalette
 			: GreenPalette.inverse(theme);
 
-		tick(BUFFER_TIME);
+		TestBed.flushEffects();
 	}
 
 	beforeEach(() => {
-		TestBed.configureTestingModule({
-			providers: [ ColorsService ],
-		});
 		colorsService = TestBed.inject(ColorsService);
+
+		colorsService.theme.set(LightTheme);
+		colorsService.palette.set(BluePalette);
 
 		theme = LightTheme;
 		palette = BluePalette;
-	});
-
-	afterEach(() => {
-		colorsService.theme = LightTheme;
-		colorsService.palette = BluePalette;
 	});
 
 	describe('LocalStorage', () => {

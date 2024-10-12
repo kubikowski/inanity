@@ -1,0 +1,20 @@
+:host {
+	padding: 1rem;
+	display: flex;
+	flex-flow: row-reverse nowrap;
+	justify-content: flex-start;
+	background-color: var(--accent-background-color);
+	border-top: 1px solid var(--border-color);
+
+	&.has-cancel-button {
+		justify-content: space-between;
+	}
+
+	&:not(.has-visible-buttons) {
+		display: none;
+	}
+
+	button:disabled {
+		cursor: not-allowed;
+	}
+}

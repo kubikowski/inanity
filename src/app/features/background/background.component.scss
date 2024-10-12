@@ -11,12 +11,12 @@
 		left: 0;
 	}
 
-	> h4 {
+	> h5 {
 		display: flex;
 		flex-flow: row nowrap;
 		color: var(--dark-text-color);
 		position: absolute;
-		bottom: 2.875rem;
+		bottom: 3.875rem;
 		right: 0.25rem;
 
 		.mat-divider {

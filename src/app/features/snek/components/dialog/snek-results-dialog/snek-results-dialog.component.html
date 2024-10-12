@@ -1,17 +1,11 @@
-<h1>
-	{{ isNewHighScore ? 'Congratulations!' : 'woof' }}
-</h1>
-
-<h3>
-	{{ isNewHighScore ? 'new high score:' : 'you lost with:' }}
-	<b>{{ results.score }}</b>
-	points
-</h3>
-
-<footer>
-	<button mat-flat-button color="primary"
-			[matTooltip]="results.gameOverMessage"
-			[mat-dialog-close]>
-		{{ isNewHighScore ? 'noice' : 'woof' }}
-	</button>
-</footer>
+<base-dialog [configuration]="dialogConfiguration()">
+	<main>
+		<p>
+			{{ isNewHighScore() ? 'new high score:' : 'you lost with:' }}
+			<b>{{ results.score }}</b> points
+		</p>
+		<p>
+			{{ results.gameOverMessage }}
+		</p>
+	</main>
+</base-dialog>

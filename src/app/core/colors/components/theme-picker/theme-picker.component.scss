@@ -1,0 +1,36 @@
+:host {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+
+	overflow: hidden;
+	border: solid 2px transparent;
+	border-radius: 0.5rem;
+	cursor: pointer;
+
+	&.selected {
+		border-color: var(--default-theme-color);
+	}
+
+	.icon-bubble {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		background-color: var(--default-theme-color);
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 0.25rem;
+		margin: .75rem;
+
+		mat-icon {
+			opacity: 0.75;
+			--icon-size: 2rem;
+		}
+	}
+
+	.theme-name {
+		display: flex;
+		flex-flow: column nowrap;
+	}
+}
