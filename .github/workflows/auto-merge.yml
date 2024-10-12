@@ -8,10 +8,13 @@ jobs:
         name: Auto Merge Dependabot
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v2
+            -   name: Checkout Branch
+                uses: actions/checkout@v4
                 with:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
-            -   uses: ahmadnassri/action-dependabot-auto-merge@master
+
+            -   name: Auto Merge Dependabot
+                uses: ahmadnassri/action-dependabot-auto-merge@master
                 with:
                     target: minor
                     command: squash and merge

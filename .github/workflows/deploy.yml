@@ -13,9 +13,11 @@ jobs:
         name: Lint, Build, & Test
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v2
+            -   name: Checkout Branch
+                uses: actions/checkout@v4
                 with:
                     token: ${{ secrets.GITHUB_TOKEN }}
+
             -   name: Cache Node Modules
                 uses: actions/cache@v2
                 env:
@@ -27,12 +29,16 @@ jobs:
                         ${{ runner.OS }}-build-${{ env.cache-name }}-
                         ${{ runner.OS }}-build-
                         ${{ runner.OS }}-
+
             -   name: Install dependencies
                 run: npm install
+
             -   name: Lint
                 run: npm run lint
+
             -   name: Build
                 run: npm run build -- --configuration=ci
+
             -   name: Test
                 run: npm test -- --configuration=ci
 
@@ -41,10 +47,14 @@ jobs:
         needs: test
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v2
+            -   name: Checkout Branch
+                uses: actions/checkout@v4
                 with:
                     token: ${{ secrets.REPOSITORY_ACTIONS_TOKEN }}
-            -   run: git pull
+
+            -   name: Pull Branch
+                run: git pull
+
             -   name: Sign Commits
                 uses: crazy-max/ghaction-import-gpg@master
                 with:
@@ -52,6 +62,7 @@ jobs:
                     passphrase: ${{ secrets.ACTIONS_GPG_PASSPHRASE }}
                     git_user_signingkey: true
                     git_commit_gpgsign: true
+
             -   name: Automated Version Bump
                 uses: phips28/gh-action-bump-version@master
                 env:
@@ -70,13 +81,17 @@ jobs:
             name: Production
             url: https://inanity.io
         steps:
-            -   uses: actions/checkout@v2
+            -   name: Checkout Branch
+                uses: actions/checkout@v4
                 with:
                     token: ${{ secrets.GITHUB_TOKEN }}
                     fetch-depth: 2
-            -   run: git pull
+
+            -   name: Pull Branch
+                run: git pull
+
             -   name: Cache Node Modules
-                uses: actions/cache@v2
+                uses: actions/cache@v4
                 env:
                     cache-name: cache-node-modules
                 with:
@@ -86,10 +101,13 @@ jobs:
                         ${{ runner.OS }}-build-${{ env.cache-name }}-
                         ${{ runner.OS }}-build-
                         ${{ runner.OS }}-
+
             -   name: Install dependencies
                 run: npm install
+
             -   name: Build Production
                 run: npm run build -- --configuration=production
+
             -   name: Deploy to Firebase Hosting
                 uses: w9jds/firebase-action@master
                 with:

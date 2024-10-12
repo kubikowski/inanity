@@ -8,9 +8,11 @@ jobs:
         name: Lint, Build, & Test
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v2
+            -   name: Checkout Branch
+                uses: actions/checkout@v4
                 with:
                     token: ${{ secrets.GITHUB_TOKEN }}
+
             -   name: Cache Node Modules
                 uses: actions/cache@v2
                 env:
@@ -22,11 +24,15 @@ jobs:
                         ${{ runner.OS }}-build-${{ env.cache-name }}-
                         ${{ runner.OS }}-build-
                         ${{ runner.OS }}-
+
             -   name: Install dependencies
                 run: npm install
+
             -   name: Lint
                 run: npm run lint
+
             -   name: Build
                 run: npm run build -- --configuration=ci
+
             -   name: Test
                 run: npm test -- --configuration=ci
