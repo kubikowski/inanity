@@ -1,11 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
-import { ColorPalettes } from 'src/app/core/colors/models/color-palettes/color-palettes.constant';
-import { ColorTheme } from 'src/app/core/colors/models/color-themes/color-theme.model';
-import { ColorThemes } from 'src/app/core/colors/models/color-themes/color-themes.constant';
-import { ColorsService } from 'src/app/core/colors/services/colors.service';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MovingBackgroundService } from 'src/app/features/background/services/moving-background.service';
 import { DyslexicTextService } from 'src/app/features/dyslexic-text/services/dyslexic-text.service';
+import { HeaderService } from 'src/app/features/navigation/services/header.service';
 
 @Component({
 	selector: 'settings',
@@ -14,8 +10,9 @@ import { DyslexicTextService } from 'src/app/features/dyslexic-text/services/dys
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent implements OnInit {
-	public readonly colorThemes = ColorThemes;
-	public readonly colorPalettes = ColorPalettes;
+	private readonly headerService = inject(HeaderService);
+
+	public readonly settingsItems = this.headerService.settingsItems;
 
 	public readonly minDyslexiaAmount = DyslexicTextService.minAmount;
 	public readonly maxDyslexiaAmount = DyslexicTextService.maxAmount;
@@ -27,7 +24,6 @@ export class SettingsComponent implements OnInit {
 	public movingBackgroundAmount = 5;
 
 	public constructor(
-		private readonly colorsService: ColorsService,
 		private readonly dyslexicTextService: DyslexicTextService,
 		private readonly movingBackgroundService: MovingBackgroundService,
 	) { }
@@ -35,16 +31,6 @@ export class SettingsComponent implements OnInit {
 	public ngOnInit(): void {
 		this.dyslexicTextEnabled = this.dyslexicTextService.isEnabled;
 		this.dyslexiaAmount = this.dyslexicTextService.amount;
-	}
-
-	public toggleTheme(theme: ColorTheme, event: Event): void {
-		event.stopPropagation();
-		this.colorsService.theme = theme;
-	}
-
-	public togglePalette(palette: ColorPalette, event: Event): void {
-		event.stopPropagation();
-		this.colorsService.palette = palette;
 	}
 
 	public toggleDyslexicTextEnabled(): void {

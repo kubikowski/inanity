@@ -1,0 +1,15 @@
+<base-dialog [configuration]="dialogConfiguration()">
+	<main>
+		@if (actionInProgress()) {
+			<div class="loading-spinner">
+				<mat-spinner [diameter]="40"/>
+				<span>{{ loadingMessage }}</span>
+			</div>
+
+		} @else {
+			@for (paragraphText of configuration.paragraphs; track $index) {
+				<p>{{ paragraphText }}</p>
+			}
+		}
+	</main>
+</base-dialog>

@@ -17,91 +17,91 @@ describe('prune', () => {
 	it('should remove all undefined fields and retain all other fields by default', () => {
 		const prunedObject = prune(testObject);
 
-		expect('stringParam'		in prunedObject).toBeTrue();
-		expect('numberParam'		in prunedObject).toBeTrue();
-		expect('arrayParam'			in prunedObject).toBeTrue();
-		expect('objectParam'		in prunedObject).toBeTrue();
-		expect('nullParam1'			in prunedObject).toBeTrue();
-		expect('nullParam2'			in prunedObject).toBeTrue();
-		expect('emptyStringParam'	in prunedObject).toBeTrue();
-		expect('emptyArrayParam'	in prunedObject).toBeTrue();
-		expect('undefinedParam1'	in prunedObject).toBeFalse();
-		expect('undefinedParam2'	in prunedObject).toBeFalse();
+		expect('stringParam'		in prunedObject).toBe(true);
+		expect('numberParam'		in prunedObject).toBe(true);
+		expect('arrayParam'			in prunedObject).toBe(true);
+		expect('objectParam'		in prunedObject).toBe(true);
+		expect('nullParam1'			in prunedObject).toBe(true);
+		expect('nullParam2'			in prunedObject).toBe(true);
+		expect('emptyStringParam'	in prunedObject).toBe(true);
+		expect('emptyArrayParam'	in prunedObject).toBe(true);
+		expect('undefinedParam1'	in prunedObject).toBe(false);
+		expect('undefinedParam2'	in prunedObject).toBe(false);
 	});
 
 	it('should remove all undefined and null fields when setting the pruneNulls flag to true', () => {
 		const prunedObject = prune(testObject, { pruneNulls: true });
 
-		expect('stringParam'		in prunedObject).toBeTrue();
-		expect('numberParam'		in prunedObject).toBeTrue();
-		expect('arrayParam'			in prunedObject).toBeTrue();
-		expect('objectParam'		in prunedObject).toBeTrue();
-		expect('nullParam1'			in prunedObject).toBeFalse();
-		expect('nullParam2'			in prunedObject).toBeFalse();
-		expect('emptyStringParam'	in prunedObject).toBeTrue();
-		expect('emptyArrayParam'	in prunedObject).toBeTrue();
-		expect('undefinedParam1'	in prunedObject).toBeFalse();
-		expect('undefinedParam2'	in prunedObject).toBeFalse();
+		expect('stringParam'		in prunedObject).toBe(true);
+		expect('numberParam'		in prunedObject).toBe(true);
+		expect('arrayParam'			in prunedObject).toBe(true);
+		expect('objectParam'		in prunedObject).toBe(true);
+		expect('nullParam1'			in prunedObject).toBe(false);
+		expect('nullParam2'			in prunedObject).toBe(false);
+		expect('emptyStringParam'	in prunedObject).toBe(true);
+		expect('emptyArrayParam'	in prunedObject).toBe(true);
+		expect('undefinedParam1'	in prunedObject).toBe(false);
+		expect('undefinedParam2'	in prunedObject).toBe(false);
 	});
 
 	it('should remove all undefined and empty array fields when setting the pruneEmptyArrays flag to true', () => {
 		const prunedObject = prune(testObject, { pruneEmptyArrays: true });
 
-		expect('stringParam'		in prunedObject).toBeTrue();
-		expect('numberParam'		in prunedObject).toBeTrue();
-		expect('arrayParam'			in prunedObject).toBeTrue();
-		expect('objectParam'		in prunedObject).toBeTrue();
-		expect('nullParam1'			in prunedObject).toBeTrue();
-		expect('nullParam2'			in prunedObject).toBeTrue();
-		expect('emptyStringParam'	in prunedObject).toBeTrue();
-		expect('emptyArrayParam'	in prunedObject).toBeFalse();
-		expect('undefinedParam1'	in prunedObject).toBeFalse();
-		expect('undefinedParam2'	in prunedObject).toBeFalse();
+		expect('stringParam'		in prunedObject).toBe(true);
+		expect('numberParam'		in prunedObject).toBe(true);
+		expect('arrayParam'			in prunedObject).toBe(true);
+		expect('objectParam'		in prunedObject).toBe(true);
+		expect('nullParam1'			in prunedObject).toBe(true);
+		expect('nullParam2'			in prunedObject).toBe(true);
+		expect('emptyStringParam'	in prunedObject).toBe(true);
+		expect('emptyArrayParam'	in prunedObject).toBe(false);
+		expect('undefinedParam1'	in prunedObject).toBe(false);
+		expect('undefinedParam2'	in prunedObject).toBe(false);
 	});
 
 	it('should remove all undefined, null & empty array fields when setting the pruneNulls & pruneEmptyArrays flags to true', () => {
 		const prunedObject = prune(testObject, { pruneNulls: true, pruneEmptyArrays: true });
 
-		expect('stringParam'		in prunedObject).toBeTrue();
-		expect('numberParam'		in prunedObject).toBeTrue();
-		expect('arrayParam'			in prunedObject).toBeTrue();
-		expect('objectParam'		in prunedObject).toBeTrue();
-		expect('nullParam1'			in prunedObject).toBeFalse();
-		expect('nullParam2'			in prunedObject).toBeFalse();
-		expect('emptyStringParam'	in prunedObject).toBeTrue();
-		expect('emptyArrayParam'	in prunedObject).toBeFalse();
-		expect('undefinedParam1'	in prunedObject).toBeFalse();
-		expect('undefinedParam2'	in prunedObject).toBeFalse();
+		expect('stringParam'		in prunedObject).toBe(true);
+		expect('numberParam'		in prunedObject).toBe(true);
+		expect('arrayParam'			in prunedObject).toBe(true);
+		expect('objectParam'		in prunedObject).toBe(true);
+		expect('nullParam1'			in prunedObject).toBe(false);
+		expect('nullParam2'			in prunedObject).toBe(false);
+		expect('emptyStringParam'	in prunedObject).toBe(true);
+		expect('emptyArrayParam'	in prunedObject).toBe(false);
+		expect('undefinedParam1'	in prunedObject).toBe(false);
+		expect('undefinedParam2'	in prunedObject).toBe(false);
 	});
 
 	it('should remove all undefined and empty string fields when setting the pruneEmptyStrings flags to true', () => {
 		const prunedObject = prune(testObject, { pruneEmptyStrings: true });
 
-		expect('stringParam'		in prunedObject).toBeTrue();
-		expect('numberParam'		in prunedObject).toBeTrue();
-		expect('arrayParam'			in prunedObject).toBeTrue();
-		expect('objectParam'		in prunedObject).toBeTrue();
-		expect('nullParam1'			in prunedObject).toBeTrue();
-		expect('nullParam2'			in prunedObject).toBeTrue();
-		expect('emptyStringParam'	in prunedObject).toBeFalse();
-		expect('emptyArrayParam'	in prunedObject).toBeTrue();
-		expect('undefinedParam1'	in prunedObject).toBeFalse();
-		expect('undefinedParam2'	in prunedObject).toBeFalse();
+		expect('stringParam'		in prunedObject).toBe(true);
+		expect('numberParam'		in prunedObject).toBe(true);
+		expect('arrayParam'			in prunedObject).toBe(true);
+		expect('objectParam'		in prunedObject).toBe(true);
+		expect('nullParam1'			in prunedObject).toBe(true);
+		expect('nullParam2'			in prunedObject).toBe(true);
+		expect('emptyStringParam'	in prunedObject).toBe(false);
+		expect('emptyArrayParam'	in prunedObject).toBe(true);
+		expect('undefinedParam1'	in prunedObject).toBe(false);
+		expect('undefinedParam2'	in prunedObject).toBe(false);
 	});
 
 	it('should remove all undefined, null, empty array & empty string fields when setting the pruneNulls, pruneEmptyArrays & pruneEmptyStrings flags to true', () => {
 		const prunedObject = prune(testObject, { pruneNulls: true, pruneEmptyArrays: true, pruneEmptyStrings: true });
 
-		expect('stringParam'		in prunedObject).toBeTrue();
-		expect('numberParam'		in prunedObject).toBeTrue();
-		expect('arrayParam'			in prunedObject).toBeTrue();
-		expect('objectParam'		in prunedObject).toBeTrue();
-		expect('nullParam1'			in prunedObject).toBeFalse();
-		expect('nullParam2'			in prunedObject).toBeFalse();
-		expect('emptyStringParam'	in prunedObject).toBeFalse();
-		expect('emptyArrayParam'	in prunedObject).toBeFalse();
-		expect('undefinedParam1'	in prunedObject).toBeFalse();
-		expect('undefinedParam2'	in prunedObject).toBeFalse();
+		expect('stringParam'		in prunedObject).toBe(true);
+		expect('numberParam'		in prunedObject).toBe(true);
+		expect('arrayParam'			in prunedObject).toBe(true);
+		expect('objectParam'		in prunedObject).toBe(true);
+		expect('nullParam1'			in prunedObject).toBe(false);
+		expect('nullParam2'			in prunedObject).toBe(false);
+		expect('emptyStringParam'	in prunedObject).toBe(false);
+		expect('emptyArrayParam'	in prunedObject).toBe(false);
+		expect('undefinedParam1'	in prunedObject).toBe(false);
+		expect('undefinedParam2'	in prunedObject).toBe(false);
 	});
 
 	it('should consider strings containing *only* whitespace as "empty string"', () => {
@@ -117,6 +117,6 @@ describe('prune', () => {
 		const prunedObject = prune(test, { pruneEmptyStrings: true });
 
 		expect(Object.keys(prunedObject).length).toEqual(1);
-		expect('f' in prunedObject).toBeTrue();
+		expect('f' in prunedObject).toBe(true);
 	});
 });

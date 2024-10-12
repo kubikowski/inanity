@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { animationFrameScheduler, combineLatest, interval } from 'rxjs';
 import { debounceTime, filter, map, tap } from 'rxjs/operators';
 import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
@@ -31,7 +32,7 @@ export class BackgroundCanvasService extends CanvasService {
 	}
 
 	public handleColorPalette(): void {
-		this.subscriptions.sink = this.colorsService.palette$
+		this.subscriptions.sink = toObservable(this.colorsService.palette)
 			.subscribe(colorPalette => CanvasElement.colorPalette = colorPalette);
 	}
 

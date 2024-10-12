@@ -1,0 +1,23 @@
+<base-dialog [configuration]="dialogConfiguration()">
+	<main>
+		<h5>theme</h5>
+		<mat-divider/>
+		<section>
+			@for (theme of ColorThemes; track theme.themeName) {
+				<theme-picker [theme]="theme"
+							  [class.selected]="selectedTheme().themeName === theme.themeName"
+							  (click)="selectedTheme.set(theme)"/>
+			}
+		</section>
+
+		<h5>palette</h5>
+		<mat-divider/>
+		<section>
+			@for (palette of ColorPalettes; track palette.paletteName) {
+				<palette-picker [palette]="palette"
+								[class.selected]="selectedPalette().paletteName === palette.paletteName"
+								(click)="selectedPalette.set(palette)"/>
+			}
+		</section>
+	</main>
+</base-dialog>

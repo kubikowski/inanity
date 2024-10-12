@@ -278,6 +278,22 @@
 						"format": [
 							"UPPER_CASE"
 						]
+					},
+					{
+						"selector": [
+							"classProperty",
+							"objectLiteralProperty",
+							"typeProperty",
+							"classMethod",
+							"objectLiteralMethod",
+							"typeMethod",
+							"accessor",
+							"enumMember"
+						],
+						"format": null,
+						"modifiers": [
+							"requiresQuotes"
+						]
 					}
 				],
 				"@typescript-eslint/no-explicit-any": "error",

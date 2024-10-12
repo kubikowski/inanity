@@ -1,0 +1,28 @@
+:host{
+	form {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.dialog-body {
+		overflow: auto;
+		overflow-wrap: break-word;
+		max-height: calc(100vh - 12.5rem);
+		flex: 1 1 auto;
+		padding: 1rem;
+
+		&.content-centered {
+			text-align: center;
+		}
+
+		&.padding-omitted {
+			padding: 0;
+		}
+
+		&.scrolling-omitted {
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+}

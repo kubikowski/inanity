@@ -1,49 +1,27 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, OnDestroy, Renderer2, RendererFactory2, RendererStyleFlags2 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
-import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
-import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
-import { BluePalette, ColorPalettes } from 'src/app/core/colors/models/color-palettes/color-palettes.constant';
-import { BaseColorTheme } from 'src/app/core/colors/models/color-themes/base-color-theme.model';
-import { ColorTheme } from 'src/app/core/colors/models/color-themes/color-theme.model';
-import { ColorThemes, LightTheme } from 'src/app/core/colors/models/color-themes/color-themes.constant';
-import { SubSink } from 'subsink';
+import { effect, inject, Injectable, RendererFactory2, RendererStyleFlags2, signal, untracked } from '@angular/core';
+import { BaseColorPalette } from '../models/color-palettes/base-color-palette.model';
+import { ColorPalette } from '../models/color-palettes/color-palette.model';
+import { BluePalette, ColorPalettes } from '../models/color-palettes/color-palettes.constant';
+import { BaseColorTheme } from '../models/color-themes/base-color-theme.model';
+import { ColorTheme } from '../models/color-themes/color-theme.model';
+import { ColorThemes, LightTheme } from '../models/color-themes/color-themes.constant';
 
 @Injectable({ providedIn: 'root' })
-export class ColorsService implements OnDestroy {
-	private readonly subscriptions = new SubSink();
-	private readonly renderer: Renderer2;
+export class ColorsService {
+	private readonly document = inject(DOCUMENT);
+	private readonly body = this.document.body;
+	private readonly element = this.document.documentElement;
+	private readonly renderer = inject(RendererFactory2).createRenderer(this.body, null);
 
-	private readonly body: HTMLElement;
-	private readonly element: HTMLElement;
+	public readonly theme = signal(ColorsService.localStorageTheme);
+	public readonly palette = signal(ColorsService.localStoragePalette);
 
-	@Observed() public theme: ColorTheme;
-	@Observed() public palette: ColorPalette;
-
-	public readonly theme$!: Observable<ColorTheme>;
-	public readonly palette$!: Observable<ColorPalette>;
-
-	public constructor(
-		@Inject(DOCUMENT) private readonly document: Document,
-		private readonly rendererFactory: RendererFactory2,
-	) {
-		this.body = this.document.body;
-		this.element = this.document.documentElement;
-		this.renderer = this.rendererFactory.createRenderer(this.body, null);
-
-		this.theme = ColorsService.localStorageTheme;
-		this.palette = ColorsService.localStoragePalette;
-
-		this.subscriptions.sink = this.theme$
-			.subscribe(theme => this.setTheme(theme));
-		this.subscriptions.sink = this.palette$
-			.subscribe(palette => this.setPalette(palette));
+	public constructor() {
+		effect(() => this.setTheme(this.theme()));
+		effect(() => this.setPalette(this.palette()));
 	}
 
-	public ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
-	}
 
 	// region setters
 	private setTheme(theme: ColorTheme): void {
@@ -61,11 +39,15 @@ export class ColorsService implements OnDestroy {
 	}
 
 	private get computedPalette(): ColorPalette {
-		return (this.palette.theme.themeName !== this.theme.themeName)
-			? this.palette.inverse(this.theme)
-			: this.palette;
+		const theme = untracked(this.theme);
+		const palette = untracked(this.palette);
+
+		return (palette.theme.themeName !== theme.themeName)
+			? palette.inverse(theme)
+			: palette;
 	}
 	// region setters
+
 
 	// region theme handling
 	private static get localStorageTheme(): ColorTheme {
@@ -96,6 +78,7 @@ export class ColorsService implements OnDestroy {
 		});
 	}
 	// endregion theme handling
+
 
 	// region palette handling
 	private static get localStoragePalette(): ColorPalette {

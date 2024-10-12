@@ -1,0 +1,41 @@
+:host {
+	display: grid;
+	grid-template-rows: 1fr 3fr;
+	grid-template-columns: 1fr 3fr;
+	height: 5rem;
+
+	background-color: var(--disabled-background-color);
+
+	overflow: hidden;
+	border: solid 2px transparent;
+	border-radius: 0.5rem;
+	cursor: pointer;
+
+	&.selected {
+		border-color: var(--default-theme-color);
+	}
+
+	.mock-sidebar {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: space-evenly;
+
+		mat-icon {
+			color: var(--light-text-color);
+			--icon-size: 1rem;
+			margin-left: 0.25rem;
+		}
+	}
+
+	.mock-content {
+		padding: 0.5rem;
+
+		strong {
+			display: block;
+			height: 100%;
+			background-color: var(--default-background-color);
+			border-radius: 0.25rem;
+			text-indent: 0.25rem;
+		}
+	}
+}

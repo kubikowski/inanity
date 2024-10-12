@@ -1,0 +1,32 @@
+@switch (configuration().attribute) {
+	@case ('flat') {
+		<button type="button"
+				mat-flat-button
+				[color]="configuration().color"
+				[disabled]="configuration().disabled?.()"
+				[hidden]="configuration().hidden?.()"
+				(click)="doAction()">
+
+			<span>{{ configuration().text() }}</span>
+
+			@if (configuration().icon?.(); as icon) {
+				<mat-icon [class.fill]="configuration().iconFill">{{ icon }}</mat-icon>
+			}
+		</button>
+	}
+	@case ('stroked') {
+		<button type="button"
+				mat-stroked-button
+				[color]="configuration().color"
+				[disabled]="configuration().disabled?.()"
+				[hidden]="configuration().hidden?.()"
+				(click)="doAction()">
+
+			<span>{{ configuration().text() }}</span>
+
+			@if (configuration().icon?.(); as icon) {
+				<mat-icon [class.fill]="configuration().iconFill">{{ icon }}</mat-icon>
+			}
+		</button>
+	}
+}
