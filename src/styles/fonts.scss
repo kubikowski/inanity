@@ -1,0 +1,22 @@
+/* Sans Serif Fonts */
+@use './fonts/lato.font';
+
+/* Serif Fonts */
+@use './fonts/eb-garamond.font';
+
+/* Monospace Fonts */
+@use './fonts/victor-mono.font';
+
+:root {
+	--app-font: var(--serif-font);
+
+	--sans-serif-font: Lato, sans-serif;
+	--serif-font: 'EB Garamond', serif;
+	--monospace-font: 'Victor Mono', monospace;
+
+	--weight-light: 300;
+	--weight-normal: 400;
+	--weight-medium: 500;
+	--weight-semibold: 600;
+	--weight-bold: 700;
+}
