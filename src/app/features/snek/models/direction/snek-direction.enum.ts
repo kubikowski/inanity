@@ -5,15 +5,15 @@ export enum SnekDirection {
 	RIGHT = 'right',
 }
 
-export namespace SnekDirection {
-	export const all: readonly SnekDirection[] = [
+export abstract class SnekDirectionUtil {
+	public static all: readonly SnekDirection[] = [
 		SnekDirection.UP,
 		SnekDirection.DOWN,
 		SnekDirection.LEFT,
 		SnekDirection.RIGHT,
 	];
 
-	export function inverse(direction: SnekDirection | null): SnekDirection | null {
+	public static inverse(direction: SnekDirection | null): SnekDirection | null {
 		switch (direction) {
 			case SnekDirection.UP:
 				return SnekDirection.DOWN;
@@ -28,12 +28,12 @@ export namespace SnekDirection {
 		}
 	}
 
-	export function isValidChange(current: SnekDirection, next: SnekDirection): boolean {
+	public static isValidChange(current: SnekDirection, next: SnekDirection): boolean {
 		return next !== current
-			&& next !== inverse(current);
+			&& next !== this.inverse(current);
 	}
 
-	export function isRotatedRight(parentDirection: SnekDirection, childDirection: SnekDirection): boolean {
+	public static isRotatedRight(parentDirection: SnekDirection, childDirection: SnekDirection): boolean {
 		switch (childDirection) {
 			case SnekDirection.UP:
 				return parentDirection === SnekDirection.LEFT;

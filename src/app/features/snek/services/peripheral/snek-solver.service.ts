@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
 import { filter } from 'rxjs/operators';
+import { Observed } from 'rxjs-observed-decorator';
 import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.function';
 import { SnekDirectionClassifications } from 'src/app/features/snek/models/direction/snek-direction-classifications.model';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';

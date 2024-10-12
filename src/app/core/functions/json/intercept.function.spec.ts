@@ -18,7 +18,9 @@ describe('intercept', () => {
 	}
 
 	// built-ins that you should NOT be sending to an API. But we can still test them 🙃 ☃
-	function simpleFunction() { return 'stuff'; }
+	function simpleFunction() {
+		return 'stuff'; 
+	}
 	const simpleSymbol = Symbol('symbol');
 	const simpleRegExp = /abc/;
 	const simpleError = new Error('error');

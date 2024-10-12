@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
 import { catchError, debounceTime, distinctUntilChanged, map, scan, tap, throttleTime } from 'rxjs/operators';
+import { Observed } from 'rxjs-observed-decorator';
 import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.function';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
 import { SnekGame } from 'src/app/features/snek/models/state/snek-game.model';
@@ -70,7 +70,7 @@ export class SnekStateService implements OnDestroy {
 				scan(gameCounter => gameCounter + 1, 0),
 				map(gameCounter => this.getGameState(gameCounter)),
 				tap(gameState => this.gameState = gameState),
-				catchError(error => this.stopGame(error.message)),
+				catchError((error: Error) => this.stopGame(error.message)),
 			).subscribe();
 	}
 
@@ -109,7 +109,7 @@ export class SnekStateService implements OnDestroy {
 	}
 
 	private static get localStorageHighScore(): number {
-		return JSON.parse(localStorage.getItem('snek-high-score') ?? '0');
+		return JSON.parse(localStorage.getItem('snek-high-score') ?? '0') as number;
 	}
 
 	private static set localStorageHighScore(highScore: number) {

@@ -4,7 +4,7 @@ describe('prune', () => {
 	const testObject = {
 		stringParam: 'value',
 		numberParam: 100,
-		arrayParam: [1, 2, 3],
+		arrayParam: [ 1, 2, 3 ],
 		objectParam: { a: 1, b: 2 },
 		nullParam1: null,
 		nullParam2: null,

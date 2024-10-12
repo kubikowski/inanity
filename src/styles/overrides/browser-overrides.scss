@@ -4,6 +4,8 @@ html, body {
 }
 
 body {
+	--app-font: 'Garamond, "EB Garamond"';
+	font-family: var(--app-font) serif;
 	color: var(--default-text-color);
 	margin: 0;
 }

@@ -1,35 +1,35 @@
 {
 	"compileOnSave": false,
 	"compilerOptions": {
-		"allowUnreachableCode": false,
-		"allowUnusedLabels": false,
-		"exactOptionalPropertyTypes": false,		// https://github.com/angular/components/issues/24078
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitOverride": true,
-		"noImplicitReturns": true,
-		"noPropertyAccessFromIndexSignature": true,
-		"noUncheckedIndexedAccess": true,
-		"noUnusedLocals": false,					// does not integrate with @Observed()
-		"noUnusedParameters": true,
-		"strict": true,
-
-		"baseUrl": "./",
-		"outDir": "./dist/out-tsc",
-		"sourceMap": true,
-		"declaration": false,
-		"downlevelIteration": true,
-		"experimentalDecorators": true,
-		"allowSyntheticDefaultImports": true,
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"importHelpers": true,
-		"target": "es2015",
-		"module": "esNext",
-		"lib": [
-			"esNext",
-			"dom"
-		]
-	},
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "strict": true,
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "esNext",
+    "lib": [
+      "esNext",
+      "dom"
+    ],
+    "useDefineForClassFields": false
+  },
 	"angularCompilerOptions": {
 		"strictTemplates": true,
 		"strictInjectionParameters": true

@@ -1,5 +1,5 @@
-import { difference } from 'src/app/core/functions/set/difference.function';
-import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
+import { difference } from 'set-utilities';
+import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
@@ -31,11 +31,11 @@ export class SnekDirectionClassifications {
 	}
 
 	private static getPossibleDirections(headNode: SnekGridNode, currentDirection: SnekDirection): ReadonlySet<SnekDirection> {
-		const possible = new Set(SnekDirection.all);
+		const possible = new Set(SnekDirectionUtil.all);
 
-		possible.delete(SnekDirection.inverse(currentDirection) as SnekDirection);
+		possible.delete(SnekDirectionUtil.inverse(currentDirection) as SnekDirection);
 
-		SnekDirection.all.forEach(direction => {
+		SnekDirectionUtil.all.forEach(direction => {
 			const next = headNode.next(direction);
 
 			if (!(next instanceof SnekGridNode) || next.type === SnekGridNodeType.SNEK) {

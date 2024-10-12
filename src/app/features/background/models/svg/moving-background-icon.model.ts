@@ -1,4 +1,4 @@
-import { SinIcon } from 'src/app/features/background/models/svg/sin-icon.enum';
+import { SinIcon, SinIconUtil } from 'src/app/features/background/models/svg/sin-icon.enum';
 
 export class MovingBackgroundIcon {
 	private static idCounter = 0;
@@ -10,7 +10,7 @@ export class MovingBackgroundIcon {
 	) { }
 
 	public static random(): MovingBackgroundIcon {
-		const icon = SinIcon.all[ Math.floor(Math.random() * SinIcon.all.length) ] as SinIcon;
+		const icon = SinIconUtil.all[ Math.floor(Math.random() * SinIconUtil.all.length) ] as SinIcon;
 		const position = Math.random() * 100;
 		const id = MovingBackgroundIcon.idCounter++;
 

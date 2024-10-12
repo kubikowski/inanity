@@ -1,4 +1,4 @@
-import ColorName from 'color-name';
+import colorName from 'color-name';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
 
 type RGB = [ number, number, number, number? ];
@@ -108,13 +108,13 @@ export class Color {
 				return getSingleHexColorValues(hexValuesString);
 			case 4: {
 				const [ alpha, red, green, blue ] = getSingleHexColorValues(hexValuesString) as RGBA;
-				return [red, green, blue, alpha / 255];
+				return [ red, green, blue, alpha / 255 ];
 			}
 			case 6:
 				return getDoubleHexColorValues(hexValuesString);
 			case 8: {
 				const [ alpha, red, green, blue ] = getDoubleHexColorValues(hexValuesString) as RGBA;
-				return [red, green, blue, alpha / 255];
+				return [ red, green, blue, alpha / 255 ];
 			}
 			default:
 				throw new InvalidColorString(colorString);
@@ -137,9 +137,9 @@ export class Color {
 	 * @see https://github.com/colorjs/color-name
 	 */
 	private static getNamedColorValues(colorString: string): RGB {
-		const colorName = (ColorName as Record<string, RGB | undefined>)[ colorString ];
-		if (colorName instanceof Array) {
-			return colorName;
+		const _colorName = (colorName as Record<string, RGB | undefined>)[ colorString ];
+		if (_colorName instanceof Array) {
+			return _colorName;
 		} else if (colorString === 'transparent') {
 			return [ 0, 0, 0, 0 ];
 		} else {

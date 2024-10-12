@@ -4,8 +4,8 @@ export const aboutCardData: readonly AboutCardData[] = [
 	{
 		title: 'NATHANIEL HOLDEN',
 		image: {
-			src: 'assets/images/climbing_the_castle.jpg',
-			alt: 'climbing the face of the castle',
+			src: 'assets/images/glacier_sunset.jpg',
+			alt: 'Glacier National Park, some time around sunset',
 		},
 	},
 	{
@@ -17,11 +17,11 @@ export const aboutCardData: readonly AboutCardData[] = [
 			},
 			{
 				title: 'title',
-				value: 'Software Engineer',
+				value: 'Senior Software Engineer',
 			},
 			{
 				title: 'location',
-				value: 'Denver, CO',
+				value: 'Los Angeles, CA',
 			},
 		],
 	},

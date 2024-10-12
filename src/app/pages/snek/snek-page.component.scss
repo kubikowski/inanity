@@ -3,7 +3,7 @@
 :host {
 	@include page-layout(800px);
 
-	.mat-card-content {
+	.mat-mdc-card-content {
 		display: flex;
 		flex-flow: column nowrap;
 		align-items: center;

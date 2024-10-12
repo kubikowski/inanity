@@ -1,34 +1,32 @@
 :host {
-	.mat-card {
+	.mat-mdc-card {
 		overflow: visible;
 
-		.mat-card-header {
+		.mat-mdc-card-header {
 			position: absolute;
 			width: 100%;
+			z-index: 1;
 
-			::ng-deep .mat-card-header-text {
-				width: calc(100% - 32px);
-			}
-
-			.mat-card-title {
+			.mat-mdc-card-title {
 				margin-top: -1.75rem;
 				font-weight: bold;
 				text-align: center;
 			}
 		}
 
-		.mat-card-image {
-			margin: -16px -16px -22px;
+		.mat-mdc-card-image {
 			border-radius: inherit;
 		}
 
-		.mat-card-content {
+		.mat-mdc-card-content {
 			display: grid;
 			grid-template-columns: max-content auto;
 			column-gap: 1.5rem;
+			row-gap: 0.5rem;
 
 			font-size: 1.25rem;
 			line-height: 1.25rem;
+			padding: 16px;
 
 			> span, > small {
 				grid-column: 1;

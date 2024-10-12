@@ -2,9 +2,9 @@ import { NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { Observable, PartialObserver } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
 import { debounceTime, filter } from 'rxjs/operators';
-import { RefreshState } from 'src/app/features/refresh/enums/refresh-state.enum';
+import { Observed } from 'rxjs-observed-decorator';
+import { RefreshState, RefreshStateUtil } from 'src/app/features/refresh/enums/refresh-state.enum';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -42,7 +42,7 @@ export class RefreshIconComponent<T> implements OnInit, AfterViewInit, OnDestroy
 	) {
 		this.subscriptions.sink = this.refreshState$
 			.pipe(
-				filter(refreshState => RefreshState.isFinished(refreshState)),
+				filter(refreshState => RefreshStateUtil.isFinished(refreshState)),
 				debounceTime(this.debounceTime),
 			).subscribe(() => this.refreshState = RefreshState.IDLE);
 

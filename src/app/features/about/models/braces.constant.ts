@@ -23,12 +23,12 @@ export const bracePairs: readonly BracePair[] = [
 	[ '⟬', '⟭' ],
 ];
 
-export namespace Braces {
-	export function random$(): Observable<BracePair> {
-		return timer(0, 1000).pipe(map(() => random()));
+export abstract class Braces {
+	public static random$(): Observable<BracePair> {
+		return timer(0, 1000).pipe(map(() => this.random()));
 	}
 
-	export function random(): BracePair {
+	public static random(): BracePair {
 		return bracePairs[ Math.floor(Math.random() * bracePairs.length) ] as BracePair;
 	}
 }

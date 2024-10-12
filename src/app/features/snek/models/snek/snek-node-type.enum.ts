@@ -1,4 +1,4 @@
-import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
+import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 
 export enum SnekNodeType {
 	HEAD = 'HEAD',
@@ -7,13 +7,13 @@ export enum SnekNodeType {
 	TAIL = 'TAIL',
 }
 
-export namespace SnekNodeType {
-	export function from(parentDirection: SnekDirection, childDirection: SnekDirection): SnekNodeType {
+export abstract class SnekNodeTypeUtil {
+	public static from(parentDirection: SnekDirection, childDirection: SnekDirection): SnekNodeType {
 		if (parentDirection === null) {
 			return SnekNodeType.HEAD;
 		} else if (childDirection === null) {
 			return SnekNodeType.TAIL;
-		} else if (parentDirection === SnekDirection.inverse(childDirection)) {
+		} else if (parentDirection === SnekDirectionUtil.inverse(childDirection)) {
 			return SnekNodeType.BODY_STRAIGHT;
 		} else {
 			return SnekNodeType.BODY_TURNED;

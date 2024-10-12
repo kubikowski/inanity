@@ -18,10 +18,10 @@
  *
  * @param requestBody a valid request body, or null if there is none provided.
  */
-export function intercept(requestBody: unknown | null): unknown | null {
+export function intercept(requestBody: unknown): unknown {
 
 	if (requestBody instanceof Array || requestBody instanceof Set) {
-		const requestBodyClone = <(unknown | null)[]>[];
+		const requestBodyClone = <unknown[]>[];
 
 		requestBody.forEach(value => {
 			requestBodyClone.push(intercept(value));
@@ -31,7 +31,7 @@ export function intercept(requestBody: unknown | null): unknown | null {
 	}
 
 	if (requestBody instanceof Map) {
-		const requestBodyClone = <{ [key: number | string]: unknown | null }>{};
+		const requestBodyClone = <{ [key: number | string]: unknown }>{};
 
 		requestBody.forEach((value, key) => {
 			switch (typeof key) {
@@ -45,10 +45,10 @@ export function intercept(requestBody: unknown | null): unknown | null {
 	}
 
 	if (requestBody instanceof Object) {
-		const entries = Object.entries(requestBody) as [ number | string, unknown | null ][];
+		const entries = Object.entries(requestBody) as [ number | string, unknown ][];
 
 		if (entries.length > 0) {
-			const requestBodyClone = <{ [key: number | string]: unknown | null }>{};
+			const requestBodyClone = <{ [key: number | string]: unknown }>{};
 
 			entries.forEach(([ key, value ]) => {
 				requestBodyClone[key] = intercept(value);

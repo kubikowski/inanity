@@ -1,11 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { interval, Observable, of } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
 import { delay, filter, mergeMap, switchMap } from 'rxjs/operators';
+import { Observed } from 'rxjs-observed-decorator';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { MovingBackgroundIcon } from 'src/app/features/background/models/svg/moving-background-icon.model';
-import { SinIcon } from 'src/app/features/background/models/svg/sin-icon.enum';
+import { SinIconUtil } from 'src/app/features/background/models/svg/sin-icon.enum';
 import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })
@@ -23,10 +23,10 @@ export class MovingBackgroundService implements OnDestroy {
 	public constructor(
 		private readonly svgIconService: SvgIconService,
 	) {
-		this.svgIconService.registerInternalIcons(SinIcon.registry);
+		this.svgIconService.registerInternalIcons(SinIconUtil.registry);
 
-		this.isEnabled = JSON.parse(localStorage.getItem('moving-background') ?? 'true');
-		this.amount = JSON.parse(localStorage.getItem('moving-background-amount') ?? '5');
+		this.isEnabled = JSON.parse(localStorage.getItem('moving-background') ?? 'true') as boolean;
+		this.amount = JSON.parse(localStorage.getItem('moving-background-amount') ?? '5') as number;
 
 		this.initializeIcons();
 		this.persistSettings();

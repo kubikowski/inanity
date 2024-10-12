@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
 import { distinctUntilChanged, map } from 'rxjs/operators';
+import { Observed } from 'rxjs-observed-decorator';
 import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
 import { SubSink } from 'subsink';
 

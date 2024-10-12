@@ -26,7 +26,7 @@ describe('escapeRegExp', () => {
 		const result = escapeRegExp('(?:non-capturing)');
 		expect(result).toBe('\\(\\?\\:non-capturing\\)');
 
-		const expected = new RegExp(escapeRegExp('(?:') + '([^)]+)').exec('(?:non-capturing)')?.[1];
+		const expected = new RegExp(`${escapeRegExp('(?:')  }([^)]+)`).exec('(?:non-capturing)')?.[1];
 		expect(expected).toBe('non-capturing');
 	});
 
@@ -34,7 +34,7 @@ describe('escapeRegExp', () => {
 		const result = escapeRegExp('(?=positive-lookahead)');
 		expect(result).toBe('\\(\\?\\=positive-lookahead\\)');
 
-		const expected = new RegExp(escapeRegExp('(?=') + '([^)]+)').exec('(?=positive-lookahead)')?.[1];
+		const expected = new RegExp(`${escapeRegExp('(?=')  }([^)]+)`).exec('(?=positive-lookahead)')?.[1];
 		expect(expected).toBe('positive-lookahead');
 	});
 
@@ -42,7 +42,7 @@ describe('escapeRegExp', () => {
 		const result = escapeRegExp('(?<=positive-lookbehind)');
 		expect(result).toBe('\\(\\?<\\=positive-lookbehind\\)');
 
-		const expected = new RegExp(escapeRegExp('(?<=') + '([^)]+)').exec('(?<=positive-lookbehind)')?.[1];
+		const expected = new RegExp(`${escapeRegExp('(?<=')  }([^)]+)`).exec('(?<=positive-lookbehind)')?.[1];
 		expect(expected).toBe('positive-lookbehind');
 	});
 
@@ -50,7 +50,7 @@ describe('escapeRegExp', () => {
 		const result = escapeRegExp('(?!negative-lookahead)');
 		expect(result).toBe('\\(\\?\\!negative-lookahead\\)');
 
-		const expected = new RegExp(escapeRegExp('(?!') + '([^)]+)').exec('(?!negative-lookahead)')?.[1];
+		const expected = new RegExp(`${escapeRegExp('(?!')  }([^)]+)`).exec('(?!negative-lookahead)')?.[1];
 		expect(expected).toBe('negative-lookahead');
 	});
 
@@ -58,7 +58,7 @@ describe('escapeRegExp', () => {
 		const result = escapeRegExp('(?<!negative-lookbehind)');
 		expect(result).toBe('\\(\\?<\\!negative-lookbehind\\)');
 
-		const expected = new RegExp(escapeRegExp('(?<!') + '([^)]+)').exec('(?<!negative-lookbehind)')?.[1];
+		const expected = new RegExp(`${escapeRegExp('(?<!')  }([^)]+)`).exec('(?<!negative-lookbehind)')?.[1];
 		expect(expected).toBe('negative-lookbehind');
 	});
 
@@ -66,7 +66,7 @@ describe('escapeRegExp', () => {
 		const result = escapeRegExp('[\\w]+');
 		expect(result).toBe('\\[\\\\w\\]\\+');
 
-		const expected = new RegExp(escapeRegExp('[') + '([^\\]]+)').exec('[character class]')?.[1];
+		const expected = new RegExp(`${escapeRegExp('[')  }([^\\]]+)`).exec('[character class]')?.[1];
 		expect(expected).toBe('character class');
 	});
 

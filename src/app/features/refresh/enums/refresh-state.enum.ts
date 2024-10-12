@@ -5,8 +5,8 @@ export enum RefreshState {
 	ERROR = 'ERROR',
 }
 
-export namespace RefreshState {
-	export function isFinished(refreshState: RefreshState): boolean {
+export abstract class RefreshStateUtil {
+	public static isFinished(refreshState: RefreshState): boolean {
 		switch (refreshState) {
 			case RefreshState.IDLE:
 			case RefreshState.ACTIVE:
@@ -17,7 +17,7 @@ export namespace RefreshState {
 		}
 	}
 
-	export function getIcon(refreshState: RefreshState): string {
+	public static getIcon(refreshState: RefreshState): string {
 		switch (refreshState) {
 			case RefreshState.IDLE:
 			case RefreshState.ACTIVE:
@@ -29,11 +29,11 @@ export namespace RefreshState {
 		}
 	}
 
-	export function getClass(refreshState: RefreshState): string {
+	public static getClass(refreshState: RefreshState): string {
 		return `state-${ refreshState.toLowerCase() }`;
 	}
 
-	export function getTooltip(refreshState: RefreshState, tooltip: string): string {
+	public static getTooltip(refreshState: RefreshState, tooltip: string): string {
 		switch (refreshState) {
 			case RefreshState.IDLE:
 				return `Refresh ${ tooltip }`.trim();
