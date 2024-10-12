@@ -32,7 +32,7 @@ export class ColorThemeDialogComponent extends DialogComponent {
 
 	public initializeDialogConfiguration(): DialogConfiguration {
 		return DialogBuilder.new()
-			.withHeaderTitle('Change Color Theme')
+			.withHeaderTitle('Color Theme')
 			.withSubmitButtonHidden()
 			.withCancelButtonHidden()
 			.build();

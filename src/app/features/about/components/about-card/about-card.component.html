@@ -13,7 +13,7 @@
 		<span>{{ openBrace$ | async }}</span>
 
 		<ng-container *ngFor="let content of data.content">
-			<small>{{ content.title }}:</small>
+			<small><i>{{ content.title }}</i>:</small>
 
 			<ng-container [ngSwitch]="content.linked">
 				<a *ngSwitchCase="true" [href]="'mailto:'+ content.value">
