@@ -3,13 +3,10 @@
 	"compilerOptions": {
 		"outDir": "./out-tsc/spec",
 		"types": [
-			"jasmine",
-			"karma"
+			"jest"
 		]
 	},
 	"files": [
-		"karma.conf.ts",
-		"src/test.ts",
 		"src/polyfills.ts"
 	],
 	"include": [
