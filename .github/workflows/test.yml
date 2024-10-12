@@ -23,4 +23,4 @@ jobs:
                 run: npm run build -- --configuration=ci
 
             -   name: Test
-                run: npm test -- --configuration=ci
+                run: npm test
