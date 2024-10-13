@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AppComponent } from 'src/app/app.component';
 import { CoreModule } from 'src/app/core/core.module';
-import { BackgroundModule } from 'src/app/features/background/background.module';
+import { BackgroundComponent } from 'src/app/features/background/components/background/background.component';
 import { NavigationModule } from 'src/app/features/navigation/navigation.module';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { NavigationModule } from 'src/app/features/navigation/navigation.module'
 		BrowserAnimationsModule,
 		AppRoutingModule,
 		CoreModule,
-		BackgroundModule,
+		BackgroundComponent,
 		NavigationModule,
 	],
 	bootstrap: [ AppComponent ],

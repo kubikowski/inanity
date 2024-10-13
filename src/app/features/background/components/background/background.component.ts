@@ -1,7 +1,10 @@
+import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import { MatDivider } from '@angular/material/divider';
 import { Observable } from 'rxjs';
 import { AnimationFrameService } from 'src/app/core/browser/animation-frame.service';
 import { BackgroundCanvasService } from 'src/app/features/background/services/background-canvas.service';
+import { ClockModule } from 'src/app/features/clock/clock.module';
 
 @Component({
 	selector: 'app-background',
@@ -9,6 +12,10 @@ import { BackgroundCanvasService } from 'src/app/features/background/services/ba
 	styleUrls: [ './background.component.scss' ],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ BackgroundCanvasService ],
+	standalone: true,
+	imports: [
+		AsyncPipe, DecimalPipe, MatDivider, ClockModule,
+	],
 })
 export class BackgroundComponent implements AfterViewInit {
 	public readonly fps$: Observable<number>;

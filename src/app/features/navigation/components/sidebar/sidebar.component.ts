@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 export class SidebarComponent {
 	public readonly navigationConfigs: ReadonlyArray<NavigationConfig>;
 
+	public readonly githubLink = 'https://github.com/kubikowski/inanity';
 	public readonly GitHubIcon = SvgIcon.GITHUB;
 	public readonly version = environment.version;
 
