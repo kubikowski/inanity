@@ -1,0 +1,21 @@
+<base-dialog [configuration]="dialogConfiguration()">
+	<main>
+		<p>The background moves. Did you notice? You sly you.</p>
+		<p>But we can fix that. Go ahead. I won't tell.</p>
+
+		<mat-checkbox class="mat-menu-item" color="primary"
+					  [formControl]="enabledControl"
+					  (change)="toggleMovingBackgroundEnabled()">
+			{{ enabled() ? 'Background Moves' : 'Not anymore' }}
+		</mat-checkbox>
+
+		<p>{{ enabled() ? 'Oh you want some more? Less?' : 'Well never mind then.' }}</p>
+
+		<mat-slider showTickMarks color="primary" min="0" max="20" step="1"
+					[disabled]="!enabled()">
+
+			<input matSliderThumb [formControl]="amountControl"
+				   (change)="setMovingBackgroundAmount()">
+		</mat-slider>
+	</main>
+</base-dialog>

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { BaseDialogFooterButtonComponent } from '../base-dialog-footer-button/ba
 	selector: 'base-dialog-footer',
 	templateUrl: './base-dialog-footer.component.html',
 	styleUrls: [ './base-dialog-footer.component.scss' ],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [ BaseDialogFooterButtonComponent ],
 	host: {

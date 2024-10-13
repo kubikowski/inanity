@@ -1,4 +1,4 @@
-import { Component, signal, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { BaseDialogComponent } from 'src/app/features/dialogs/components/base-dialog/base-dialog.component';
 import { DialogBuilder } from '../../models/builder/dialog.builder';
@@ -10,8 +10,9 @@ import { DialogComponent } from '../dialog.component';
 	selector: 'confirm-dialog',
 	templateUrl: './confirm-dialog.component.html',
 	styleUrls: [ './confirm-dialog.component.scss' ],
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
+	standalone: true,
 	imports: [ MatProgressSpinner, BaseDialogComponent ],
 })
 export class ConfirmDialogComponent extends DialogComponent<ConfirmDialogConfiguration> {

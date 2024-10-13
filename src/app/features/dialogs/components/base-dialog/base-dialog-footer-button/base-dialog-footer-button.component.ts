@@ -1,4 +1,4 @@
-import { Component, input, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, untracked } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { DialogFooterButtonConfiguration } from '../../../models/configuration/dialog-configuration.model';
@@ -7,6 +7,7 @@ import { DialogFooterButtonConfiguration } from '../../../models/configuration/d
 	selector: 'base-dialog-footer-button',
 	templateUrl: './base-dialog-footer-button.component.html',
 	styleUrls: [ './base-dialog-footer-button.component.scss' ],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [ MatButton, MatIcon ],
 })

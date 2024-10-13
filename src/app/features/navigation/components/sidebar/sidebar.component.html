@@ -15,13 +15,13 @@
 </section>
 
 <mat-toolbar>
-	<button mat-icon-button>
+	<a mat-icon-button [href]="githubLink">
 		<mat-icon [svgIcon]="GitHubIcon"></mat-icon>
-	</button>
+	</a>
 
 	<span class="github-wrapper">
 		<span>v{{ version }}</span>
-		<a href="https://github.com/kubikowski/inanity">
+		<a [href]="githubLink">
 			<dyslexic-text text="inanity github"></dyslexic-text>
 		</a>
 	</span>

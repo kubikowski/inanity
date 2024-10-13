@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@angular/core';
 import { DialogConfiguration } from '../../models/configuration/dialog-configuration.model';
 import { BaseDialogFooterComponent } from './base-dialog-footer/base-dialog-footer.component';
 import { BaseDialogHeaderComponent } from './base-dialog-header/base-dialog-header.component';
@@ -7,6 +7,8 @@ import { BaseDialogHeaderComponent } from './base-dialog-header/base-dialog-head
 	selector: 'base-dialog',
 	templateUrl: './base-dialog.component.html',
 	styleUrls: [ './base-dialog.component.scss' ],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
 		BaseDialogFooterComponent,

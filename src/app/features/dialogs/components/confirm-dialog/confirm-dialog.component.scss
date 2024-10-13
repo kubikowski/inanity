@@ -1,12 +1,15 @@
-.loading-spinner {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	font-size: 16px;
+confirm-dialog {
 
-	span {
-		margin-top: .6em;
+	.loading-spinner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		font-size: 16px;
+
+		span {
+			margin-top: .6em;
+		}
 	}
 }
