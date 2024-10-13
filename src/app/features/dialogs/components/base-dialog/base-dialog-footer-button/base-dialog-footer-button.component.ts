@@ -5,8 +5,8 @@ import { DialogFooterButtonConfiguration } from '../../../models/configuration/d
 
 @Component({
 	selector: 'base-dialog-footer-button',
-	templateUrl: './base-dialog-footer-button.component.html',
-	styleUrls: [ './base-dialog-footer-button.component.scss' ],
+	templateUrl: 'base-dialog-footer-button.component.html',
+	styleUrl: 'base-dialog-footer-button.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [ MatButton, MatIcon ],

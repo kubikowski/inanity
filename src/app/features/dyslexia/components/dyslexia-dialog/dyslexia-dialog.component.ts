@@ -13,8 +13,8 @@ import { DyslexicTextService } from 'src/app/features/dyslexia/services/dyslexic
 
 @Component({
 	selector: 'dyslexia-dialog',
-	templateUrl: './dyslexia-dialog.component.html',
-	styleUrl: './dyslexia-dialog.component.scss',
+	templateUrl: 'dyslexia-dialog.component.html',
+	styleUrl: 'dyslexia-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [

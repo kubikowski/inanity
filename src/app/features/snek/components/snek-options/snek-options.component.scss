@@ -1,11 +1,11 @@
 :host {
-	.results {
-		display: flex;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
 
-		span {
-			font-size: 1.5rem;
-			font-weight: bold;
-			padding-right: 2rem;
-		}
+	.result {
+		font-size: 1.5rem;
+		font-weight: bold;
+		padding-right: 2rem;
 	}
 }

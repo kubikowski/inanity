@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 
-@Pipe({ name: 'snekDirection' })
+@Pipe({ name: 'snekDirection', standalone: true })
 export class SnekDirectionPipe implements PipeTransform {
 
 	public transform(parentDirection: SnekDirection | null, childDirection: SnekDirection | null): SnekDirection | null {

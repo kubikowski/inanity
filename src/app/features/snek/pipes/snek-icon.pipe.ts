@@ -1,14 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 import { SnekNodeType } from 'src/app/features/snek/models/snek/snek-node-type.enum';
 import { SnekIcon } from 'src/app/features/snek/models/svg/snek-icon.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 
-@Pipe({ name: 'snekIcon' })
+@Pipe({ name: 'snekIcon', standalone: true })
 export class SnekIconPipe implements PipeTransform {
-
-	public constructor(
-		private readonly snekStateService: SnekStateService,
-	) { }
+	private readonly snekStateService = inject(SnekStateService);
 
 	public transform(snekNoteType: SnekNodeType | null): SnekIcon {
 		switch (snekNoteType) {

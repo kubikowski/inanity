@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 import { SnekSolverService } from 'src/app/features/snek/services/peripheral/snek-solver.service';
@@ -8,25 +10,25 @@ import { SubSink } from 'subsink';
 
 @Component({
 	selector: 'snek-options',
-	templateUrl: './snek-options.component.html',
-	styleUrls: [ './snek-options.component.scss' ],
+	templateUrl: 'snek-options.component.html',
+	styleUrl: 'snek-options.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: true,
+	imports: [
+		AsyncPipe, MatIcon, MatSlideToggle, ReactiveFormsModule,
+	],
 })
 export class SnekOptionsComponent {
+	private readonly snekStateService = inject(SnekStateService);
+	private readonly snekSolverService = inject(SnekSolverService);
 	private readonly subscriptions = new SubSink();
 
-	public readonly score$!: Observable<number>;
-	public readonly highScore$!: Observable<number>;
+	public readonly score$ = this.snekStateService.score$;
+	public readonly highScore$ = this.snekStateService.highScore$;
 
 	public solverEnabled: FormControl<boolean>;
 
-	public constructor(
-		private readonly snekStateService: SnekStateService,
-		private readonly snekSolverService: SnekSolverService,
-	) {
-		this.score$ = this.snekStateService.score$;
-		this.highScore$ = this.snekStateService.highScore$;
-
+	public constructor() {
 		this.solverEnabled = this.initializeSolverEnabled();
 	}
 

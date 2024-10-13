@@ -1,19 +1,24 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
 import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
+import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 import { GongStatusUpdate } from 'src/app/pages/gong/models/gong-status-update.model';
 
 @Component({
 	selector: 'gong-page',
 	templateUrl: './gong-page.component.html',
-	styleUrls: [ './gong-page.component.scss' ],
+	styleUrl: './gong-page.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: true,
+	imports: [
+		DatePipe, MatCardModule, MatIcon,
+		DyslexicTextComponent,
+	],
 })
 export class GongPageComponent {
-	public readonly statusUpdates: ReadonlyArray<GongStatusUpdate>;
-
-	public constructor() {
-		this.statusUpdates = GongPageComponent.getStatusUpdates();
-	}
+	public readonly statusUpdates = GongPageComponent.getStatusUpdates();
 
 	private static getStatusUpdates(): ReadonlyArray<GongStatusUpdate> {
 		return [

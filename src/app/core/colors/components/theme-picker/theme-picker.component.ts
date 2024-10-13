@@ -5,8 +5,8 @@ import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 
 @Component({
 	selector: 'theme-picker',
-	templateUrl: './theme-picker.component.html',
-	styleUrls: [ './theme-picker.component.scss' ],
+	templateUrl: 'theme-picker.component.html',
+	styleUrl: 'theme-picker.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [ MatIcon ],

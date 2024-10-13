@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FeatureFlagGuard } from 'src/app/core/guards/feature-flag.guard';
+import { Routes } from '@angular/router';
+import { FeatureFlagGuard } from 'src/app/core/routing/feature-flag.guard';
 
-const routes: Routes = [
+export const routes: Routes = [
 	{
 		path: '',
 		redirectTo: '/snek',
@@ -35,9 +34,3 @@ const routes: Routes = [
 		],
 	},
 ];
-
-@NgModule({
-	imports: [ RouterModule.forRoot(routes) ],
-	exports: [ RouterModule ],
-})
-export class AppRoutingModule { }

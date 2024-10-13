@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { JoystickOutputData } from 'nipplejs';
-import { Observable } from 'rxjs';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
-import { SnekGame } from 'src/app/features/snek/models/state/snek-game.model';
+import { JoystickComponent } from 'src/app/features/joystick/joystick.component';
+import { SnekGridNodeComponent } from 'src/app/features/snek/components/snek-grid-node/snek-grid-node.component';
 import { SnekIconUtil } from 'src/app/features/snek/models/svg/snek-icon.enum';
 import { SnekResolutionService } from 'src/app/features/snek/services/core/snek-resolution.service';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
@@ -10,26 +11,26 @@ import { SnekUserInputService } from 'src/app/features/snek/services/core/snek-u
 
 @Component({
 	selector: 'snek-grid',
-	templateUrl: './snek-grid.component.html',
-	styleUrls: [ './snek-grid.component.scss' ],
+	templateUrl: 'snek-grid.component.html',
+	styleUrl: 'snek-grid.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: true,
+	imports: [
+		AsyncPipe, JoystickComponent, SnekGridNodeComponent,
+	],
 })
 export class SnekGridComponent {
-	public readonly snekGame$!: Observable<SnekGame>;
-	public readonly snekWidth$!: Observable<number>;
-	public readonly snekHeight$!: Observable<number>;
+	private readonly svgIconService = inject(SvgIconService);
+	private readonly snekResolutionService = inject(SnekResolutionService);
+	private readonly snekStateService = inject(SnekStateService);
+	private readonly snekUserInputService = inject(SnekUserInputService);
 
-	public constructor(
-		private readonly svgIconService: SvgIconService,
-		private readonly snekResolutionService: SnekResolutionService,
-		private readonly snekStateService: SnekStateService,
-		private readonly snekUserInputService: SnekUserInputService,
-	) {
+	public readonly snekGame$ = this.snekStateService.snekGame$;
+	public readonly snekWidth$ = this.snekResolutionService.snekWidth$;
+	public readonly snekHeight$ = this.snekResolutionService.snekHeight$;
+
+	public constructor() {
 		this.svgIconService.registerInternalIconPack(SnekIconUtil.location, SnekIconUtil.namespace);
-
-		this.snekGame$ = this.snekStateService.snekGame$;
-		this.snekWidth$ = this.snekResolutionService.snekWidth$;
-		this.snekHeight$ = this.snekResolutionService.snekHeight$;
 	}
 
 	public handleJoystick(event: JoystickOutputData): void {

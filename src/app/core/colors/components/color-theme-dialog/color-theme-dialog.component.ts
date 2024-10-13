@@ -12,8 +12,8 @@ import { ThemePickerComponent } from '../theme-picker/theme-picker.component';
 
 @Component({
 	selector: 'color-theme-dialog',
-	templateUrl: './color-theme-dialog.component.html',
-	styleUrls: [ './color-theme-dialog.component.scss' ],
+	templateUrl: 'color-theme-dialog.component.html',
+	styleUrl: 'color-theme-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [

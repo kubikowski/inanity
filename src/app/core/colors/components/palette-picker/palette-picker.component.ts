@@ -4,8 +4,8 @@ import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-pa
 
 @Component({
 	selector: 'palette-picker',
-	templateUrl: './palette-picker.component.html',
-	styleUrls: [ './palette-picker.component.scss' ],
+	templateUrl: 'palette-picker.component.html',
+	styleUrl: 'palette-picker.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [ MatIcon ],

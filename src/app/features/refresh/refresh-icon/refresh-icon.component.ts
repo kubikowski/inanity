@@ -1,17 +1,27 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { Observable, PartialObserver } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { Observed } from 'rxjs-observed-decorator';
 import { RefreshState, RefreshStateUtil } from 'src/app/features/refresh/enums/refresh-state.enum';
+import { RefreshClassPipe } from 'src/app/features/refresh/pipes/refresh-class.pipe';
+import { RefreshIconPipe } from 'src/app/features/refresh/pipes/refresh-icon.pipe';
+import { RefreshTooltipPipe } from 'src/app/features/refresh/pipes/refresh-tooltip.pipe';
 import { SubSink } from 'subsink';
 
 @Component({
 	selector: 'refresh-icon',
 	templateUrl: './refresh-icon.component.html',
-	styleUrls: [ './refresh-icon.component.scss' ],
+	styleUrl: './refresh-icon.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: true,
+	imports: [
+		AsyncPipe, MatIcon, MatTooltip,
+		RefreshClassPipe, RefreshIconPipe, RefreshTooltipPipe,
+	],
 })
 export class RefreshIconComponent<T> implements OnInit, AfterViewInit, OnDestroy {
 	private readonly subscriptions = new SubSink();

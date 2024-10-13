@@ -1,21 +1,24 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
+import { SnekDirectionPipe } from 'src/app/features/snek/pipes/snek-direction.pipe';
+import { SnekIconPipe } from 'src/app/features/snek/pipes/snek-icon.pipe';
 
 @Component({
 	selector: 'snek-grid-node',
-	templateUrl: './snek-grid-node.component.html',
-	styleUrls: [ './snek-grid-node.component.scss' ],
+	templateUrl: 'snek-grid-node.component.html',
+	styleUrl: 'snek-grid-node.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: true,
+	imports: [
+		AsyncPipe, MatIcon,
+		SnekIconPipe, SnekDirectionPipe,
+	],
 })
-export class SnekGridNodeComponent implements OnInit {
+export class SnekGridNodeComponent {
+	public readonly snekGridNode = input.required<SnekGridNode>();
+
 	public readonly SnekGridNodeType = SnekGridNodeType;
-
-	@Input() public snekGridNode!: SnekGridNode;
-
-	public ngOnInit(): void {
-		if (typeof this.snekGridNode === 'undefined') {
-			throw new Error('missing input: snekGridNode');
-		}
-	}
 }
