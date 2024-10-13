@@ -1,0 +1,25 @@
+<base-dialog [configuration]="dialogConfiguration()">
+	<main>
+		<p><dyslexic-text text="Oh you thought you were safe from the text moving, huh?"/></p>
+		<p><dyslexic-text text="This ain't no static website. But I'm happy to have bamboozled you."/></p>
+
+		<mat-checkbox class="mat-menu-item" color="primary"
+					  [formControl]="enabledControl"
+					  (change)="toggleMovingBackgroundEnabled()">
+			{{ enabled() ? 'Dyslexic Text' : 'Yeah nah' }}
+		</mat-checkbox>
+
+		@if (enabled()) {
+			<p><dyslexic-text text="Yeah make it worse, why not. Might as well, while you're here."/></p>
+		} @else {
+			<p>Why did I even bother adding this feature, huh?</p>
+		}
+
+		<mat-slider showTickMarks color="primary" [min]="minAmount" [max]="maxAmount" step="1"
+					[disabled]="!enabled()">
+
+			<input matSliderThumb [formControl]="amountControl"
+				   (change)="setMovingBackgroundAmount()">
+		</mat-slider>
+	</main>
+</base-dialog>

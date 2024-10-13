@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CoreModule } from 'src/app/core/core.module';
-import { DyslexicTextModule } from 'src/app/features/dyslexic-text/dyslexic-text.module';
+import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 import { HeaderComponent } from 'src/app/features/navigation/components/header/header.component';
 import { SettingsComponent } from 'src/app/features/navigation/components/settings/settings.component';
 import { SidebarComponent } from 'src/app/features/navigation/components/sidebar/sidebar.component';
@@ -10,12 +10,12 @@ import { SidebarItemComponent } from 'src/app/features/navigation/components/sid
 	declarations: [
 		HeaderComponent,
 		SettingsComponent,
-		SidebarItemComponent,
 		SidebarComponent,
+		SidebarItemComponent,
 	],
 	imports: [
 		CoreModule,
-		DyslexicTextModule,
+		DyslexicTextComponent,
 	],
 	exports: [
 		HeaderComponent,
