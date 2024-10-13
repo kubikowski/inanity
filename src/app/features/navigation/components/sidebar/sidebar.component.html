@@ -4,25 +4,29 @@
 	</button>
 
 	<span class="title-wrapper">
-		<dyslexic-text text="inanity"></dyslexic-text>
+		<dyslexic-text text="inanity"/>
 	</span>
 </mat-toolbar>
 
 <section class="nav-items">
-	<sidebar-item *ngFor="let config of navigationConfigs"
-				  [config]="config">
-	</sidebar-item>
+	@for (config of navigationConfigs; track $index) {
+		<sidebar-item [config]="config"/>
+	}
+
 </section>
+
+<fonts/>
 
 <mat-toolbar>
 	<a mat-icon-button [href]="githubLink">
-		<mat-icon [svgIcon]="GitHubIcon"></mat-icon>
+		<mat-icon [svgIcon]="GitHubIcon"/>
 	</a>
 
 	<span class="github-wrapper">
 		<span>v{{ version }}</span>
+
 		<a [href]="githubLink">
-			<dyslexic-text text="inanity github"></dyslexic-text>
+			<dyslexic-text text="inanity github"/>
 		</a>
 	</span>
 </mat-toolbar>

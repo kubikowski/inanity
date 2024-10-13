@@ -5,7 +5,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AppComponent } from 'src/app/app.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { BackgroundComponent } from 'src/app/features/background/components/background/background.component';
-import { NavigationModule } from 'src/app/features/navigation/navigation.module';
+import { HeaderComponent } from 'src/app/features/navigation/components/header/header.component';
+import { SidebarComponent } from 'src/app/features/navigation/components/sidebar/sidebar.component';
 
 @NgModule({
 	declarations: [ AppComponent ],
@@ -15,7 +16,8 @@ import { NavigationModule } from 'src/app/features/navigation/navigation.module'
 		AppRoutingModule,
 		CoreModule,
 		BackgroundComponent,
-		NavigationModule,
+		HeaderComponent,
+		SidebarComponent,
 	],
 	bootstrap: [ AppComponent ],
 })

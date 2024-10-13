@@ -1,25 +1,26 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 import { NavigationConfig } from 'src/app/features/navigation/models/navigation-config.model';
 import { NavigationService } from 'src/app/features/navigation/services/navigation.service';
 
 @Component({
 	selector: 'sidebar-item',
-	templateUrl: './sidebar-item.component.html',
-	styleUrls: [ './sidebar-item.component.scss' ],
+	templateUrl: 'sidebar-item.component.html',
+	styleUrl: 'sidebar-item.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: true,
+	imports: [
+		RouterLink, RouterLinkActive, MatCardModule, MatIcon,
+		DyslexicTextComponent,
+	],
 })
-export class SidebarItemComponent implements OnInit {
-	@Input() public config!: NavigationConfig;
+export class SidebarItemComponent {
+	private readonly navigationService = inject(NavigationService);
 
-	public constructor(
-		private readonly navigationService: NavigationService,
-	) { }
-
-	public ngOnInit(): void {
-		if (typeof this.config === 'undefined') {
-			throw new Error('missing input: config');
-		}
-	}
+	public readonly config = input.required<NavigationConfig>();
 
 	public toggleSidenav(event: Event): void {
 		(event.currentTarget as HTMLElement).blur();
