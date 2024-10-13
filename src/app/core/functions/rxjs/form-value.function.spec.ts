@@ -1,4 +1,4 @@
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { firstValueFrom, Observable } from 'rxjs';
 import { formValue } from './form-value.function';
 
@@ -8,7 +8,7 @@ describe('formValue', () => {
 	let value$: Observable<string | null>;
 
 	beforeEach(() => {
-		control = new FormControl<string | null>(null, Validators.required);
+		control = new FormControl<string | null>(null);
 
 		value$ = formValue(control);
 	});
