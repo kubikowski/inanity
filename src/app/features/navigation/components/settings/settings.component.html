@@ -9,25 +9,4 @@
 			<span>{{ headerItem.title }}</span>
 		</button>
 	}
-
-	<button mat-menu-item [matMenuTriggerFor]="dyslexicText">
-		Dyslexic Text
-	</button>
-</mat-menu>
-
-<mat-menu #dyslexicText="matMenu">
-	<mat-checkbox class="mat-menu-item" color="primary"
-				  [(ngModel)]="dyslexicTextEnabled"
-				  (ngModelChange)="toggleDyslexicTextEnabled()"
-				  (click)="$event.stopPropagation()">
-		Enabled
-	</mat-checkbox>
-	<mat-slider color="primary"
-				[min]="minDyslexiaAmount"
-				[max]="maxDyslexiaAmount"
-				[disabled]="!dyslexicTextEnabled"
-				[(ngModel)]="dyslexiaAmount"
-				(ngModelChange)="setDyslexiaAmount()"
-				(click)="$event.stopPropagation()">
-	</mat-slider>
 </mat-menu>

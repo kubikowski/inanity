@@ -1,17 +1,12 @@
 import { NgModule } from '@angular/core';
-import { DyslexicTextModule } from 'src/app/features/dyslexic-text/dyslexic-text.module';
-import { BackgroundPageRoutingModule } from 'src/app/pages/background/background-page-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 import { BackgroundPageComponent } from 'src/app/pages/background/background-page.component';
 
-@NgModule({
-	declarations: [
-		BackgroundPageComponent,
-	],
-	imports: [
-		DyslexicTextModule,
-	],
-	exports: [
-		BackgroundPageRoutingModule,
-	],
-})
+const routes: Routes = [ {
+	path: '',
+	component: BackgroundPageComponent,
+	data: { title: 'noise' },
+} ];
+
+@NgModule({ imports: [ RouterModule.forChild(routes) ] })
 export class BackgroundPageModule { }

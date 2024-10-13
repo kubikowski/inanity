@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 
 @Component({
 	selector: 'background-page',
@@ -13,5 +14,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 		}`,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: true,
+	imports: [ DyslexicTextComponent ],
 })
 export class BackgroundPageComponent { }
