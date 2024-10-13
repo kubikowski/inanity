@@ -13,12 +13,9 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		MatToolbar,
-		MatIconButton,
-		MatIcon,
-		DyslexicTextComponent,
-		SettingsComponent
-	]
+		MatIcon, MatIconButton, MatToolbar,
+		DyslexicTextComponent, SettingsComponent,
+	],
 })
 export class HeaderComponent {
 	private readonly navigationService = inject(NavigationService);
