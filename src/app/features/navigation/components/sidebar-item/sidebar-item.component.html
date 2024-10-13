@@ -1,14 +1,14 @@
 <a class="sidebar-item"
-   [routerLink]="[ config.route ]"
+   [routerLink]="[ config().route ]"
    routerLinkActive="active-route"
    (click)="toggleSidenav($event)">
 
 	<mat-card>
 		<mat-card-header>
-			<mat-icon mat-card-avatar [svgIcon]="config.icon"></mat-icon>
+			<mat-icon mat-card-avatar [svgIcon]="config().icon"/>
 
 			<mat-card-title>
-				<dyslexic-text [text]="config.title"></dyslexic-text>
+				<dyslexic-text [text]="config().title"/>
 			</mat-card-title>
 		</mat-card-header>
 	</mat-card>

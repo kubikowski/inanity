@@ -1,0 +1,28 @@
+:host {
+	font-size: 12px;
+	display: flex;
+	flex-flow: column nowrap;
+	padding: 1rem;
+	gap: 1rem;
+
+	> .font-info {
+		display: flex;
+		flex-flow: column nowrap;
+
+		&.serif {
+			font-family: var(--serif-font);
+		}
+
+		&.sans-serif {
+			font-family: var(--sans-serif-font);
+		}
+
+		&.monospace {
+			font-family: var(--monospace-font);
+		}
+
+		> a {
+			color: inherit;
+		}
+	}
+}
