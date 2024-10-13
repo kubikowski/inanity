@@ -15,10 +15,10 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
 	providers: [
-		provideHttpClient(),
 		provideAnimations(),
-		{ provide: MAT_ICON_DEFAULT_OPTIONS, useValue: { fontSet: 'material-symbols-rounded' } },
+		provideHttpClient(),
 		provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+		{ provide: MAT_ICON_DEFAULT_OPTIONS, useValue: { fontSet: 'material-symbols-rounded' } },
 		provideRouter(routes),
 	],
 }).catch(err => console.error(err));

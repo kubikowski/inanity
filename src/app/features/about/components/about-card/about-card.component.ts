@@ -21,36 +21,12 @@ export class AboutCardComponent {
 	private readonly braces = toSignal(Braces.random$());
 
 	public readonly openBrace = computed(() => {
-		const [ openBrace ] = this.braces() ?? [ null, null ];
+		const [ openBrace ] = this.braces() ?? [ ];
 		return openBrace;
 	});
 
 	public readonly closeBrace = computed(() => {
-		const [ , closeBrace ] = this.braces() ?? [ null, null ];
+		const [ , closeBrace ] = this.braces() ?? [ ];
 		return closeBrace;
 	});
-
-	// @Observed() private openBrace?: string;
-	// @Observed() private closeBrace?: string;
-	//
-	// public readonly openBrace$!: Observable<string>;
-	// public readonly closeBrace$!: Observable<string>;
-
-	// public constructor() {
-	// 	this.subscriptions.sink =
-	// 		.subscribe(([ openBrace, closeBrace ]) => {
-	// 			this.openBrace = openBrace;
-	// 			this.closeBrace = closeBrace;
-	// 		});
-	// }
-	//
-	// public ngOnInit(): void {
-	// 	if (typeof this.data === 'undefined') {
-	// 		console.error('missing input: data');
-	// 	}
-	// }
-	//
-	// public ngOnDestroy(): void {
-	// 	this.subscriptions.unsubscribe();
-	// }
 }
