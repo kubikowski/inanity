@@ -1,12 +1,10 @@
-<section class="results">
-	<mat-icon>spa</mat-icon>
-	<span>{{ score$ | async }}</span>
+<mat-icon>spa</mat-icon>
+<span class="result">{{ score$ | async }}</span>
 
-	<mat-icon>star</mat-icon>
-	<span>{{ highScore$ | async }}</span>
+<mat-icon>star</mat-icon>
+<span class="result">{{ highScore$ | async }}</span>
 
-	<mat-slide-toggle color="primary"
-					  [formControl]="solverEnabled">
-		Enable Auto Solver
-	</mat-slide-toggle>
-</section>
+<mat-slide-toggle color="primary"
+				  [formControl]="solverEnabled">
+	Enable Auto Solver
+</mat-slide-toggle>

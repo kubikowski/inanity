@@ -3,13 +3,12 @@
 		  [style.height]="((snekHeight$ | async) ?? 0) * 20 + 'px'">
 </joystick>
 
-<ng-container *ngIf="snekGame$ | async as snekGame">
-
-	<div class="snek-grid-row"
-		 *ngFor="let snekGridRow of snekGame.grid">
-
-		<snek-grid-node *ngFor="let snekGridNode of snekGridRow"
-						[snekGridNode]="snekGridNode">
-		</snek-grid-node>
-	</div>
-</ng-container>
+@if (snekGame$ | async; as snekGame) {
+	@for (snekGridRow of snekGame.grid; track $index) {
+		<div class="snek-grid-row">
+			@for (snekGridNode of snekGridRow; track $index) {
+				<snek-grid-node [snekGridNode]="snekGridNode"/>
+			}
+		</div>
+	}
+}

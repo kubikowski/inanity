@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { SnekGridComponent } from 'src/app/features/snek/components/snek-grid/snek-grid.component';
+import { SnekOptionsComponent } from 'src/app/features/snek/components/snek-options/snek-options.component';
 import { SnekDialogService } from 'src/app/features/snek/services/core/snek-dialog.service';
 import { SnekResolutionService } from 'src/app/features/snek/services/core/snek-resolution.service';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
@@ -9,8 +11,8 @@ import { SnekStatisticsService } from 'src/app/features/snek/services/peripheral
 @Component({
 	selector: 'snek',
 	template: `
-		<snek-grid></snek-grid>
-		<snek-options></snek-options>
+		<snek-grid/>
+		<snek-options/>
 	`,
 	styles: [ `:host {
 		display: flex;
@@ -26,16 +28,14 @@ import { SnekStatisticsService } from 'src/app/features/snek/services/peripheral
 		SnekSolverService,
 		SnekStatisticsService,
 	],
+	standalone: true,
+	imports: [ SnekGridComponent, SnekOptionsComponent ],
 })
 export class SnekComponent {
-
-	public constructor(
-		private readonly snekDialogService: SnekDialogService,
-		private readonly snekResolutionService: SnekResolutionService,
-		private readonly snekStateService: SnekStateService,
-		private readonly snekUserInputService: SnekUserInputService,
-		private readonly snekSolverService: SnekSolverService,
-		private readonly snekStatisticsService: SnekStatisticsService,
-	) { }
-
+	private readonly snekDialogService = inject(SnekDialogService);
+	private readonly snekResolutionService = inject(SnekResolutionService);
+	private readonly snekStateService = inject(SnekStateService);
+	private readonly snekUserInputService = inject(SnekUserInputService);
+	private readonly snekSolverService = inject(SnekSolverService);
+	private readonly snekStatisticsService = inject(SnekStatisticsService);
 }

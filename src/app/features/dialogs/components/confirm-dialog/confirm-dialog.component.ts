@@ -8,8 +8,8 @@ import { DialogComponent } from '../dialog.component';
 
 @Component({
 	selector: 'confirm-dialog',
-	templateUrl: './confirm-dialog.component.html',
-	styleUrls: [ './confirm-dialog.component.scss' ],
+	templateUrl: 'confirm-dialog.component.html',
+	styleUrl: 'confirm-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,

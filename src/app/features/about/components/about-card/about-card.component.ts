@@ -1,42 +1,56 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { MatCardModule } from '@angular/material/card';
 import { AboutCardData } from 'src/app/features/about/models/about-card-data.interface';
 import { Braces } from 'src/app/features/about/models/braces.constant';
-import { SubSink } from 'subsink';
+import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 
 @Component({
 	selector: 'about-card',
-	templateUrl: './about-card.component.html',
-	styleUrls: [ './about-card.component.scss' ],
+	templateUrl: 'about-card.component.html',
+	styleUrl: 'about-card.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: true,
+	imports: [
+		MatCardModule, DyslexicTextComponent,
+	],
 })
-export class AboutCardComponent implements OnInit, OnDestroy {
-	private readonly subscriptions = new SubSink();
+export class AboutCardComponent {
+	public readonly data = input.required<AboutCardData>();
 
-	@Observed() private openBrace?: string;
-	@Observed() private closeBrace?: string;
+	private readonly braces = toSignal(Braces.random$());
 
-	public readonly openBrace$!: Observable<string>;
-	public readonly closeBrace$!: Observable<string>;
+	public readonly openBrace = computed(() => {
+		const [ openBrace ] = this.braces() ?? [ null, null ];
+		return openBrace;
+	});
 
-	@Input() public data!: AboutCardData;
+	public readonly closeBrace = computed(() => {
+		const [ , closeBrace ] = this.braces() ?? [ null, null ];
+		return closeBrace;
+	});
 
-	public constructor() {
-		this.subscriptions.sink = Braces.random$()
-			.subscribe(([ openBrace, closeBrace ]) => {
-				this.openBrace = openBrace;
-				this.closeBrace = closeBrace;
-			});
-	}
+	// @Observed() private openBrace?: string;
+	// @Observed() private closeBrace?: string;
+	//
+	// public readonly openBrace$!: Observable<string>;
+	// public readonly closeBrace$!: Observable<string>;
 
-	public ngOnInit(): void {
-		if (typeof this.data === 'undefined') {
-			console.error('missing input: data');
-		}
-	}
-
-	public ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
-	}
+	// public constructor() {
+	// 	this.subscriptions.sink =
+	// 		.subscribe(([ openBrace, closeBrace ]) => {
+	// 			this.openBrace = openBrace;
+	// 			this.closeBrace = closeBrace;
+	// 		});
+	// }
+	//
+	// public ngOnInit(): void {
+	// 	if (typeof this.data === 'undefined') {
+	// 		console.error('missing input: data');
+	// 	}
+	// }
+	//
+	// public ngOnDestroy(): void {
+	// 	this.subscriptions.unsubscribe();
+	// }
 }

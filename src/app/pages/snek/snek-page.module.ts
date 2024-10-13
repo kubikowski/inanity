@@ -1,21 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CoreModule } from 'src/app/core/core.module';
-import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
-import { SnekModule } from 'src/app/features/snek/snek.module';
-import { SnekPageRoutingModule } from 'src/app/pages/snek/snek-page-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 import { SnekPageComponent } from 'src/app/pages/snek/snek-page.component';
 
-@NgModule({
-	declarations: [
-		SnekPageComponent,
-	],
-	imports: [
-		CoreModule,
-		DyslexicTextComponent,
-		SnekModule,
-	],
-	exports: [
-		SnekPageRoutingModule,
-	],
-})
+const routes: Routes = [ {
+	path: '',
+	component: SnekPageComponent,
+	data: { title: 'snek' },
+} ];
+
+@NgModule({ imports: [ RouterModule.forChild(routes) ] })
 export class SnekPageModule { }

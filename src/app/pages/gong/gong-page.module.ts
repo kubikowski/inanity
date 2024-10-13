@@ -1,19 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CoreModule } from 'src/app/core/core.module';
-import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
-import { GongPageRoutingModule } from 'src/app/pages/gong/gong-page-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 import { GongPageComponent } from 'src/app/pages/gong/gong-page.component';
 
-@NgModule({
-	declarations: [
-		GongPageComponent,
-	],
-	imports: [
-		CoreModule,
-		DyslexicTextComponent,
-	],
-	exports: [
-		GongPageRoutingModule,
-	],
-})
+const routes: Routes = [ {
+	path: '',
+	component: GongPageComponent,
+	data: {
+		featureFlag: true,
+		title: 'gong',
+	},
+} ];
+
+@NgModule({ imports: [ RouterModule.forChild(routes) ] })
 export class GongPageModule { }

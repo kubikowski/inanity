@@ -1,14 +1,24 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
 import { ThemePalette } from '@angular/material/core';
+import { MatTooltip } from '@angular/material/tooltip';
 import { Observable } from 'rxjs';
 import { Observed } from 'rxjs-observed-decorator';
 import { RefreshState } from 'src/app/features/refresh/enums/refresh-state.enum';
+import { RefreshTooltipPipe } from 'src/app/features/refresh/pipes/refresh-tooltip.pipe';
+import { RefreshIconComponent } from 'src/app/features/refresh/refresh-icon/refresh-icon.component';
 
 @Component({
 	selector: 'refresh-button',
-	templateUrl: './refresh-button.component.html',
-	styleUrls: [ './refresh-button.component.scss' ],
+	templateUrl: 'refresh-button.component.html',
+	styleUrl: 'refresh-button.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: true,
+	imports: [
+		AsyncPipe, MatIconButton, MatTooltip,
+		RefreshIconComponent, RefreshTooltipPipe,
+	],
 })
 export class RefreshButtonComponent<T> implements OnInit {
 	public readonly RefreshState = RefreshState;

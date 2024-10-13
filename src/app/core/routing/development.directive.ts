@@ -1,4 +1,4 @@
-import { Directive, isDevMode, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, inject, isDevMode, TemplateRef, ViewContainerRef } from '@angular/core';
 
 /**
  * `*development` Directive
@@ -8,13 +8,12 @@ import { Directive, isDevMode, TemplateRef, ViewContainerRef } from '@angular/co
  * @example
  * <div *development>...</div>
  */
-@Directive({ selector: '[development]' })
+@Directive({ selector: '[development]', standalone: true })
 export class DevelopmentDirective<T> {
+	private readonly templateRef = inject(TemplateRef<T>);
+	private readonly viewContainer = inject(ViewContainerRef);
 
-	public constructor(
-		private readonly templateRef: TemplateRef<T>,
-		private readonly viewContainer: ViewContainerRef,
-	) {
+	public constructor() {
 		if (isDevMode()) {
 			this.viewContainer.createEmbeddedView(this.templateRef);
 		}

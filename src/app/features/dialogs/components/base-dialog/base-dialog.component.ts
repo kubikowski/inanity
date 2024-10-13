@@ -5,8 +5,8 @@ import { BaseDialogHeaderComponent } from './base-dialog-header/base-dialog-head
 
 @Component({
 	selector: 'base-dialog',
-	templateUrl: './base-dialog.component.html',
-	styleUrls: [ './base-dialog.component.scss' ],
+	templateUrl: 'base-dialog.component.html',
+	styleUrl: 'base-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,

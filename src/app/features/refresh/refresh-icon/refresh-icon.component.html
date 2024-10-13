@@ -1,15 +1,16 @@
 <ng-template #template>
-	<mat-icon
-		*ngIf="refreshState$ | async as state"
-		[class]="state | refreshClass"
-		[matTooltip]="state | refreshTooltip: tooltip"
-		[matTooltipDisabled]="tooltipDisabled"
-		[color]="color"
-		[style.width]="size"
-		[style.height]="size"
-		[style.font-size]="size"
-		(click)="handleClick()"
-	>
-		{{ state | refreshIcon }}
-	</mat-icon>
+	@if (refreshState$ | async; as state) {
+		<mat-icon
+			[class]="state | refreshClass"
+			[matTooltip]="state | refreshTooltip: tooltip"
+			[matTooltipDisabled]="tooltipDisabled"
+			[color]="color"
+			[style.width]="size"
+			[style.height]="size"
+			[style.font-size]="size"
+			(click)="handleClick()"
+		>
+			{{ state | refreshIcon }}
+		</mat-icon>
+	}
 </ng-template>

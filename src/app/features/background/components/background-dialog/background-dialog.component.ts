@@ -12,8 +12,8 @@ import { DialogConfiguration } from 'src/app/features/dialogs/models/configurati
 
 @Component({
 	selector: 'background-dialog',
-	templateUrl: './background-dialog.component.html',
-	styleUrl: './background-dialog.component.scss',
+	templateUrl: 'background-dialog.component.html',
+	styleUrl: 'background-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [

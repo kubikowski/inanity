@@ -8,8 +8,8 @@ import { BaseDialogFooterButtonComponent } from '../base-dialog-footer-button/ba
 
 @Component({
 	selector: 'base-dialog-footer',
-	templateUrl: './base-dialog-footer.component.html',
-	styleUrls: [ './base-dialog-footer.component.scss' ],
+	templateUrl: 'base-dialog-footer.component.html',
+	styleUrl: 'base-dialog-footer.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [ BaseDialogFooterButtonComponent ],

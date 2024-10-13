@@ -1,19 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CoreModule } from 'src/app/core/core.module';
-import { AboutModule } from 'src/app/features/about/about.module';
-import { AboutPageRoutingModule } from 'src/app/pages/about/about-page-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 import { AboutPageComponent } from 'src/app/pages/about/about-page.component';
 
-@NgModule({
-	declarations: [
-		AboutPageComponent,
-	],
-	imports: [
-		CoreModule,
-		AboutModule,
-	],
-	exports: [
-		AboutPageRoutingModule,
-	],
-})
+const routes: Routes = [ {
+	path: '',
+	component: AboutPageComponent,
+	data: {
+		featureFlag: true,
+		title: 'about me',
+	},
+} ];
+
+@NgModule({ imports: [ RouterModule.forChild(routes) ] })
 export class AboutPageModule { }

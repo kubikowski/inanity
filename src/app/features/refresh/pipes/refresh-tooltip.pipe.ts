@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { RefreshState, RefreshStateUtil } from 'src/app/features/refresh/enums/refresh-state.enum';
 
-@Pipe({ name: 'refreshTooltip' })
+@Pipe({ name: 'refreshTooltip', standalone: true })
 export class RefreshTooltipPipe implements PipeTransform {
 
 	public transform(refreshState: RefreshState, tooltip: string): string {

@@ -4,7 +4,8 @@ import { create, JoystickManager, JoystickManagerOptions, JoystickOutputData } f
 @Component({
 	selector: 'joystick',
 	template: '',
-	styleUrls: [ './joystick.component.scss' ],
+	styleUrl: 'joystick.component.scss',
+	standalone: true,
 })
 export class JoystickComponent implements AfterViewInit, OnDestroy {
 	private joystickManager!: JoystickManager;

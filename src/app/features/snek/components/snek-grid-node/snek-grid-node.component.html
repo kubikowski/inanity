@@ -1,14 +1,11 @@
-<ng-container [ngSwitch]="snekGridNode.type$ | async">
-
-	<ng-container *ngSwitchCase="SnekGridNodeType.SNEK">
-		<mat-icon
-			*ngIf="snekGridNode.snekNode$ | async as snekNode"
-			[svgIcon]="snekNode.type$ | async | snekIcon"
-			[class]="snekNode.parentDirection$ | async | snekDirection : (snekNode.childDirection$ | async)"
-		></mat-icon>
-	</ng-container>
-
-	<ng-container *ngSwitchCase="SnekGridNodeType.FUD">
+@switch (snekGridNode().type$ | async) {
+	@case (SnekGridNodeType.SNEK) {
+		@if (snekGridNode().snekNode$ | async; as snekNode) {
+			<mat-icon [svgIcon]="snekNode.type$ | async | snekIcon"
+					  [class]="snekNode.parentDirection$ | async | snekDirection : (snekNode.childDirection$ | async)"/>
+		}
+	}
+	@case (SnekGridNodeType.FUD) {
 		<div class="fud"></div>
-	</ng-container>
-</ng-container>
+	}
+}

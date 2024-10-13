@@ -1,3 +1,4 @@
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { interval, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,6 +10,8 @@ import { SubSink } from 'subsink';
 	selector: 'clock',
 	template: '{{ time$ | async | date: \'shortTime\' }}',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: true,
+	imports: [ AsyncPipe, DatePipe ],
 })
 export class ClockComponent implements OnDestroy {
 	private readonly subscriptions = new SubSink();

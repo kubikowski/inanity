@@ -1,4 +1,3 @@
-<about-card
-	*ngFor="let data of aboutCardData"
-	[data]="data"
-></about-card>
+@for (data of aboutCardData; track $index) {
+	<about-card [data]="data"/>
+}
