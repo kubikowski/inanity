@@ -8,14 +8,15 @@
 	</span>
 </mat-toolbar>
 
-<section class="nav-items">
-	@for (config of navigationConfigs; track $index) {
-		<sidebar-item [config]="config"/>
-	}
+<section class="sidebar-content">
+	<section class="nav-items">
+		@for (config of navigationConfigs; track $index) {
+			<sidebar-item [config]="config"/>
+		}
+	</section>
 
+	<fonts/>
 </section>
-
-<fonts/>
 
 <mat-toolbar>
 	<a mat-icon-button [href]="githubLink">
