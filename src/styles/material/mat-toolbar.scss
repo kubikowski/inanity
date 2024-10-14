@@ -1,0 +1,7 @@
+body:is(.light-theme, .dark-theme) {
+	--navigation-height: var(--mat-toolbar-standard-height);
+
+	@media (max-width: 599px) {
+		--navigation-height: var(--mat-toolbar-mobile-height);
+	}
+}

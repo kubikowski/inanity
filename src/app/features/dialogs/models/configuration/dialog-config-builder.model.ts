@@ -16,7 +16,7 @@ export class DialogConfigBuilder<Data = unknown> {
 		this.config = new MatDialogConfig<Data>();
 		this.config.data = data;
 		this.config.position = {
-			top: '65px',
+			top: 'calc(var(--navigation-height) + 0.5rem)',
 		};
 
 		if (sizeOption !== null) {
