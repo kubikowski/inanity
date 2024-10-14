@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
+import { computed, inject, Injectable, untracked } from '@angular/core';
 import { animationFrameScheduler, combineLatest, interval } from 'rxjs';
-import { debounceTime, filter, map, tap } from 'rxjs/operators';
-import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
+import { debounceTime, filter } from 'rxjs/operators';
 import { ColorsService } from 'src/app/core/colors/services/colors.service';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { Circle } from 'src/app/features/background/models/circle.model';
@@ -11,30 +9,13 @@ import { MovingBackgroundService } from 'src/app/features/background/services/mo
 
 @Injectable()
 export class BackgroundCanvasService extends CanvasService {
-	private canvasTopOffset = 0;
-	private mousePosition: [ number, number ] = [ 0, 0 ];
+	private readonly colorsService = inject(ColorsService);
+	private readonly movingBackgroundService = inject(MovingBackgroundService);
 
-	public constructor(
-		private readonly colorsService: ColorsService,
-		private readonly movingBackgroundService: MovingBackgroundService,
-		screenDetectorService: ScreenDetectorService,
-	) {
-		super(screenDetectorService);
-
-		this.handleMousePosition();
-		this.handleColorPalette();
-	}
-
-	public handleMousePosition(): void {
-		this.subscriptions.sink = this.screenDetectorService.mousePosition$
-			.pipe(map(([ x, y ]) => [ x * this.pixelDensity, (y - this.canvasTopOffset) * this.pixelDensity ] as [ number, number ]))
-			.subscribe(mousePosition => this.mousePosition = mousePosition);
-	}
-
-	public handleColorPalette(): void {
-		this.subscriptions.sink = toObservable(this.colorsService.palette)
-			.subscribe(colorPalette => CanvasElement.colorPalette = colorPalette);
-	}
+	private readonly mousePosition = computed<[ number, number ]>(() => {
+		const [ x, y ] = this.screenDetectorService.mousePosition();
+		return [ x * this.pixelDensity(), (y - this.canvasTopOffset()) * this.pixelDensity() ];
+	});
 
 	public override initialize(canvas: HTMLCanvasElement): void {
 		super.initialize(canvas);
@@ -45,15 +26,6 @@ export class BackgroundCanvasService extends CanvasService {
 
 	protected override initializeCanvasSize(): void {
 		super.initializeCanvasSize();
-
-		this.subscriptions.sink = this.screenDetectorService.screenWidth$
-			.subscribe(screenWidth => this.rawCanvasWidth = screenWidth);
-
-		this.subscriptions.sink = this.screenDetectorService.screenHeight$
-			.pipe(
-				tap(() => this.canvasTopOffset = this.canvas.getBoundingClientRect().top),
-				map(screenHeight => screenHeight - this.canvasTopOffset),
-			).subscribe(rawCanvasHeight => this.rawCanvasHeight = rawCanvasHeight);
 
 		this.subscriptions.sink = this.canvasWidth$
 			.subscribe(canvasWidth => CanvasElement.canvasWidth = canvasWidth);
@@ -69,11 +41,19 @@ export class BackgroundCanvasService extends CanvasService {
 	}
 
 	private renderFrame(): void {
-		this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+		const context = untracked(this.context);
+		const mousePosition = untracked(this.mousePosition);
+		const colorPalette = untracked(this.colorsService.palette);
 
-		this.canvasElements.forEach(canvasElement => canvasElement.referenceMousePosition(this.mousePosition));
-		this.canvasElements.forEach(canvasElement => canvasElement.move());
-		this.canvasElements.forEach(canvasElement => canvasElement.draw(this.context));
+		if (context !== null) {
+			context.clearRect(0, 0, untracked(this.canvasWidth), untracked(this.canvasHeight));
+
+			for (const canvasElement of this.canvasElements) {
+				canvasElement.referenceMousePosition(mousePosition);
+				canvasElement.move();
+				canvasElement.draw(context, colorPalette);
+			}
+		}
 	}
 
 	private initializeCanvasElements(): void {
@@ -92,7 +72,7 @@ export class BackgroundCanvasService extends CanvasService {
 
 	private removeOutOfBoundCircles(): void {
 		const outOfBoundCircles = new Set(this.circles
-			.filter(circle => !circle.inBoundaries(this.canvasWidth, this.canvasHeight)));
+			.filter(circle => !circle.inBoundaries(untracked(this.canvasWidth), untracked(this.canvasHeight))));
 
 		this.canvasElements = this.canvasElements
 			.filter(canvasElement => !outOfBoundCircles.has(canvasElement as Circle));

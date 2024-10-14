@@ -1,19 +1,16 @@
-import { Observable } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
+import { signal } from '@angular/core';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';
 
 export class SnekGridNode {
-	@Observed() public type = SnekGridNodeType.BLANK;
-	@Observed() private snekNode: SnekNode | null = null;
+	public readonly type = signal(SnekGridNodeType.BLANK);
+	public readonly snekNode = signal<SnekNode | null>(null);
+
 	private _up!: SnekGridNode | null;
 	private _down!: SnekGridNode | null;
 	private _left!: SnekGridNode | null;
 	private _right!: SnekGridNode | null;
-
-	public readonly type$!: Observable<SnekGridNodeType>;
-	public readonly snekNode$!: Observable<SnekNode>;
 
 	private constructor(
 		public readonly width: number,
@@ -32,18 +29,18 @@ export class SnekGridNode {
 	}
 
 	public attachSnekNode(snekNode: SnekNode): void {
-		this.snekNode = snekNode;
-		this.type = SnekGridNodeType.SNEK;
+		this.snekNode.set(snekNode);
+		this.type.set(SnekGridNodeType.SNEK);
 	}
 
 	public attachFud(): void {
 		this.detachSnekNode();
-		this.type = SnekGridNodeType.FUD;
+		this.type.set(SnekGridNodeType.FUD);
 	}
 
 	public detachSnekNode(): void {
-		this.snekNode = null;
-		this.type = SnekGridNodeType.BLANK;
+		this.snekNode.set(null);
+		this.type.set(SnekGridNodeType.BLANK);
 	}
 
 	public next(direction: SnekDirection): SnekGridNode | null {

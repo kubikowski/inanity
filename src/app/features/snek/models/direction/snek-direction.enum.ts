@@ -33,7 +33,19 @@ export abstract class SnekDirectionUtil {
 			&& next !== this.inverse(current);
 	}
 
-	public static isRotatedRight(parentDirection: SnekDirection, childDirection: SnekDirection): boolean {
+	public static nodeDirection(parentDirection: SnekDirection | null, childDirection: SnekDirection | null): SnekDirection | null {
+		if (parentDirection === null) {
+			return this.inverse(childDirection);
+		} else if (childDirection === null || parentDirection === this.inverse(childDirection)) {
+			return parentDirection;
+		} else {
+			return (this.isRotatedRight(parentDirection, childDirection))
+				? parentDirection
+				: childDirection;
+		}
+	}
+
+	private static isRotatedRight(parentDirection: SnekDirection, childDirection: SnekDirection): boolean {
 		switch (childDirection) {
 			case SnekDirection.UP:
 				return parentDirection === SnekDirection.LEFT;

@@ -1,6 +1,6 @@
 <joystick (move)="handleJoystick($event)"
-		  [style.width]="((snekWidth$ | async) ?? 0) * 20 + 'px'"
-		  [style.height]="((snekHeight$ | async) ?? 0) * 20 + 'px'">
+		  [style.width]="snekWidth() * 20 + 'px'"
+		  [style.height]="snekHeight() * 20 + 'px'">
 </joystick>
 
 @if (snekGame$ | async; as snekGame) {

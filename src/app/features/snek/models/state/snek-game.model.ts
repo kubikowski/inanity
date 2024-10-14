@@ -1,3 +1,4 @@
+import { untracked } from '@angular/core';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
@@ -64,7 +65,8 @@ export class SnekGame {
 		const nextGridNode = (snekGridNode.width + 1 === this._width)
 			? this.at(0, snekGridNode.height + 1) as SnekGridNode
 			: snekGridNode.next(SnekDirection.RIGHT) as SnekGridNode;
-		return (nextGridNode.type === SnekGridNodeType.BLANK)
+
+		return (untracked(nextGridNode.type) === SnekGridNodeType.BLANK)
 			? nextGridNode
 			: this.findNextBlankGridNode(nextGridNode);
 	}

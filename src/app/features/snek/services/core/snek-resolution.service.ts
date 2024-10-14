@@ -1,67 +1,33 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { Observed } from 'rxjs-observed-decorator';
+import { computed, inject, Injectable } from '@angular/core';
 import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
-import { SubSink } from 'subsink';
 
 @Injectable()
-export class SnekResolutionService implements OnDestroy {
-	private readonly subscriptions = new SubSink();
+export class SnekResolutionService {
+	private readonly screenDetectorService = inject(ScreenDetectorService);
 
-	private readonly optimalSnekWidth = 35;
-	private readonly optimalSnekHeight = 25;
+	private static readonly optimalSnekWidth = 35;
+	private static readonly optimalSnekHeight = 25;
 
-	@Observed() public snekWidth!: number;
-	@Observed() public snekHeight!: number;
-	@Observed('subject') private onResolutionChange?: [ number, number ];
 
-	public readonly snekWidth$!: Observable<number>;
-	public readonly snekHeight$!: Observable<number>;
-	public readonly onResolutionChange$!: Observable<[ number, number ]>;
+	public readonly snekWidth = computed(
+		() => this.getSnekWidth(this.screenDetectorService.screenWidth()));
 
-	public constructor(
-		private readonly screenDetectorService: ScreenDetectorService,
-	) {
-		this.initializeSnekWidth();
-		this.initializeSnekHeight();
-		this.initializeResolutionChange();
-	}
+	public readonly snekHeight = computed(
+		() => this.getSnekHeight(this.screenDetectorService.screenHeight()));
 
-	public ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
-	}
+	public readonly onResolutionChange = computed(
+		() => [ this.snekWidth(), this.snekHeight() ]);
 
-	private initializeSnekWidth(): void {
-		this.subscriptions.sink = this.screenDetectorService.screenWidth$
-			.pipe(
-				map(screenWidth => this.getSnekWidth(screenWidth)),
-				distinctUntilChanged(),
-			).subscribe(snekWidth => this.snekWidth = snekWidth);
-	}
-
-	private initializeSnekHeight(): void {
-		this.subscriptions.sink = this.screenDetectorService.screenHeight$
-			.pipe(
-				map(screenHeight => this.getSnekHeight(screenHeight)),
-				distinctUntilChanged(),
-			).subscribe(snekHeight => this.snekHeight = snekHeight);
-	}
-
-	private initializeResolutionChange(): void {
-		this.subscriptions.sink = combineLatest([ this.snekWidth$, this.snekHeight$ ])
-			.subscribe(([ snekWidth, snekHeight ]) => this.onResolutionChange = [ snekWidth, snekHeight ]);
-	}
 
 	private getSnekWidth(screenWidth: number): number {
 		const screenDependentSnekWidth = Math.floor(screenWidth / 20) - 3;
 
-		return Math.min(screenDependentSnekWidth, this.optimalSnekWidth);
+		return Math.min(screenDependentSnekWidth, SnekResolutionService.optimalSnekWidth);
 	}
 
 	private getSnekHeight(screenHeight: number): number {
 		const screenDependentSnekHeight = Math.floor(screenHeight / 20) - 12;
 
-		return Math.min(screenDependentSnekHeight, this.optimalSnekHeight);
+		return Math.min(screenDependentSnekHeight, SnekResolutionService.optimalSnekHeight);
 	}
 }

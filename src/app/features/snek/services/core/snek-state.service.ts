@@ -1,4 +1,5 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, untracked } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { Observable, of, Subscription, timer } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, scan, tap, throttleTime } from 'rxjs/operators';
 import { Observed } from 'rxjs-observed-decorator';
@@ -16,7 +17,7 @@ export class SnekStateService implements OnDestroy {
 	public playing = false;
 	public paused = false;
 
-	public readonly initialSnekLength = 3;
+	public static readonly initialSnekLength = 3;
 
 	@Observed() public snekGame!: SnekGame;
 	@Observed() public score!: number;
@@ -48,7 +49,7 @@ export class SnekStateService implements OnDestroy {
 		SnekStateService.localStorageHighScore = this.score ?? 0;
 
 		const { snekWidth, snekHeight } = this.snekResolutionService;
-		this.snekGame = SnekGame.new(snekWidth, snekHeight, this.initialSnekLength);
+		this.snekGame = SnekGame.new(untracked(snekWidth), untracked(snekHeight), SnekStateService.initialSnekLength);
 
 		this.score = 0;
 		this.highScore = SnekStateService.localStorageHighScore;
@@ -88,11 +89,11 @@ export class SnekStateService implements OnDestroy {
 	}
 
 	private getGameState(gameCounter: number): SnekGameState {
-		return SnekGameState.from(this.snekGame, this.initialSnekLength, gameCounter);
+		return SnekGameState.from(this.snekGame, SnekStateService.initialSnekLength, gameCounter);
 	}
 
 	private initializeGridResolution(): void {
-		this.subscriptions.sink = this.snekResolutionService.onResolutionChange$
+		this.subscriptions.sink = toObservable(this.snekResolutionService.onResolutionChange)
 			.pipe(debounceTime(0), throttleTime(250))
 			.subscribe(() => (this.playing)
 				? this.stopGame('resolution changed')

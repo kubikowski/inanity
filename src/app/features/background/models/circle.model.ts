@@ -1,4 +1,5 @@
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
+import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 
@@ -72,11 +73,11 @@ export class Circle extends CanvasElement {
 		this.y += this.dy;
 	}
 
-	public draw(context: CanvasRenderingContext2D): void {
+	public draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
 		context.beginPath();
 		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-		context.strokeStyle = Circle.colorPalette[this.colorKey];
-		context.fillStyle = Circle.colorPalette[this.colorKey];
+		context.strokeStyle = colorPalette[this.colorKey];
+		context.fillStyle = colorPalette[this.colorKey];
 		context.stroke();
 		context.fill();
 	}

@@ -1,29 +1,18 @@
-import { Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
+import { inject, Injectable, OnDestroy, RendererFactory2, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ScreenDetectorService implements OnDestroy {
-	private readonly renderer: Renderer2;
+	private readonly renderer = inject(RendererFactory2).createRenderer(null, null);
 
 	private readonly resizeListenerUnsubscribeCallback: () => void;
 	private readonly mouseMoveListenerUnsubscribeCallback: () => void;
 
-	@Observed() private screenWidth!: number;
-	@Observed() private screenHeight!: number;
-	@Observed() private pixelDensity!: number;
-	@Observed() private mousePosition: [ number, number ] = [ 0, 0 ];
+	public readonly screenWidth = signal<number>(0);
+	public readonly screenHeight = signal<number>(0);
+	public readonly pixelDensity = signal<number>(0);
+	public readonly mousePosition = signal<[ number, number ]>([ 0, 0 ]);
 
-	public readonly screenWidth$!: Observable<number>;
-	public readonly screenHeight$!: Observable<number>;
-	public readonly pixelDensity$!: Observable<number>;
-	public readonly mousePosition$!: Observable<[ number, number ]>;
-
-	public constructor(
-		private readonly rendererFactory: RendererFactory2,
-	) {
-		this.renderer = this.rendererFactory.createRenderer(null, null);
-
+	public constructor() {
 		this.detectScreenSize();
 		this.resizeListenerUnsubscribeCallback =
 			this.renderer.listen('window', 'resize', this.detectScreenSize.bind(this));
@@ -40,14 +29,14 @@ export class ScreenDetectorService implements OnDestroy {
 	private detectScreenSize(): void {
 		const { innerWidth, innerHeight, devicePixelRatio } = window;
 
-		this.screenWidth = innerWidth;
-		this.screenHeight = innerHeight;
-		this.pixelDensity = devicePixelRatio;
+		this.screenWidth.set(innerWidth);
+		this.screenHeight.set(innerHeight);
+		this.pixelDensity.set(devicePixelRatio);
 	}
 
 	private detectMouseLocation(mouseMove: MouseEvent): void {
 		const { clientX, clientY } = mouseMove;
 
-		this.mousePosition = [ clientX, clientY ];
+		this.mousePosition.set([ clientX, clientY ]);
 	}
 }
