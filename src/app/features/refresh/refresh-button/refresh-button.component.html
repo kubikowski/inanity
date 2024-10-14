@@ -1,16 +1,16 @@
-@if (refreshState$ | async; as state) {
-	<button mat-icon-button [color]="color"
-			[matTooltip]="state | refreshTooltip: tooltip"
-			[matTooltipDisabled]="tooltipDisabled"
+@if (refreshState(); as state) {
+	<button mat-icon-button [color]="color()"
+			[matTooltip]="state | refreshTooltip: tooltip()"
+			[matTooltipDisabled]="tooltipDisabled()"
 			[disabled]="state !== RefreshState.IDLE"
 			(click)="handleClick($event)">
 
 		<refresh-icon
-			[refresh$]="refresh$"
-			[doRefresh$]="doRefresh$"
+			[refresh$]="refresh$()"
+			[doRefresh]="doRefresh()"
 			[tooltipDisabled]="true"
-			[debounceTime]="debounceTime"
-			(refreshStateChange)="refreshState = $event"
+			[debounceTime]="debounceTime()"
+			(refreshStateChange)="refreshState.set($event)"
 		/>
 	</button>
 }

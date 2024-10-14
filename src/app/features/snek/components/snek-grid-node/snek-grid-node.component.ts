@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
@@ -12,8 +11,7 @@ import { SnekIconPipe } from 'src/app/features/snek/pipes/snek-icon.pipe';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		AsyncPipe, MatIcon,
-		SnekIconPipe,
+		MatIcon, SnekIconPipe,
 	],
 })
 export class SnekGridNodeComponent {

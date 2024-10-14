@@ -4,8 +4,11 @@ import { inject, Injectable, OnDestroy, RendererFactory2, signal } from '@angula
 export class ScreenDetectorService implements OnDestroy {
 	private readonly renderer = inject(RendererFactory2).createRenderer(null, null);
 
-	private readonly resizeListenerUnsubscribeCallback: () => void;
-	private readonly mouseMoveListenerUnsubscribeCallback: () => void;
+	private readonly resizeListenerUnsubscribeCallback =
+		this.renderer.listen('window', 'resize', this.detectScreenSize.bind(this));
+
+	private readonly mouseMoveListenerUnsubscribeCallback =
+		this.renderer.listen('window', 'mousemove', this.detectMouseLocation.bind(this));
 
 	public readonly screenWidth = signal<number>(0);
 	public readonly screenHeight = signal<number>(0);
@@ -14,11 +17,6 @@ export class ScreenDetectorService implements OnDestroy {
 
 	public constructor() {
 		this.detectScreenSize();
-		this.resizeListenerUnsubscribeCallback =
-			this.renderer.listen('window', 'resize', this.detectScreenSize.bind(this));
-
-		this.mouseMoveListenerUnsubscribeCallback =
-			this.renderer.listen('window', 'mousemove', this.detectMouseLocation.bind(this));
 	}
 
 	public ngOnDestroy(): void {

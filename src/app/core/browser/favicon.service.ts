@@ -1,19 +1,13 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { inject, Injectable, RendererFactory2 } from '@angular/core';
 import { FaviconRef, FaviconUtil } from 'src/app/core/svg/favicon-ref.enum';
 
 @Injectable({ providedIn: 'root' })
 export class FaviconService {
-	private readonly head: HTMLHeadElement;
-	private readonly renderer: Renderer2;
+	private readonly head = inject(DOCUMENT).head;
+	private readonly renderer = inject(RendererFactory2).createRenderer(this.head, null);
 
-	public constructor(
-		@Inject(DOCUMENT) private readonly document: Document,
-		private readonly rendererFactory: RendererFactory2,
-	) {
-		this.head = this.document.head;
-		this.renderer = this.rendererFactory.createRenderer(this.head, null);
-
+	public constructor() {
 		this.replaceFavicon(FaviconUtil.getDefault());
 	}
 

@@ -1,4 +1,4 @@
-import { AsyncPipe, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, untracked, viewChild } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { AnimationFrameService } from 'src/app/core/browser/animation-frame.service';
@@ -13,7 +13,7 @@ import { ClockComponent } from 'src/app/features/clock/clock.component';
 	providers: [ BackgroundCanvasService ],
 	standalone: true,
 	imports: [
-		AsyncPipe, DecimalPipe, MatDivider, ClockComponent,
+		DecimalPipe, MatDivider, ClockComponent,
 	],
 })
 export class BackgroundComponent implements AfterViewInit {
@@ -21,7 +21,7 @@ export class BackgroundComponent implements AfterViewInit {
 	private readonly animationFrameService = inject(AnimationFrameService);
 
 	private readonly canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
-	public readonly fps$ = this.animationFrameService.fps$;
+	public readonly fps = this.animationFrameService.fps;
 
 	public ngAfterViewInit(): void {
 		this.backgroundCanvasService.initialize(untracked(this.canvas).nativeElement);
