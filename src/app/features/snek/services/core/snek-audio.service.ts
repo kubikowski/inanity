@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { SnekAudio } from 'src/app/features/snek/models/audio/snek-audio.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
@@ -6,13 +6,12 @@ import { SubSink } from 'subsink';
 
 @Injectable()
 export class SnekAudioService implements OnDestroy {
+	private readonly snekStateService = inject(SnekStateService);
 	private readonly subscriptions = new SubSink();
 
 	private readonly soundEffects = this.initializeSoundEffects();
 
-	public constructor(
-		private readonly snekStateService: SnekStateService,
-	) {
+	public constructor() {
 		this.initializeScoreEvents();
 		this.initializeGameOverEvents();
 	}

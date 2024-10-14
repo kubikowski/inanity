@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
+import { inject, Injectable, OnDestroy, Renderer2 } from '@angular/core';
 import { JoystickOutputData } from 'nipplejs';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -9,27 +9,22 @@ import { SubSink } from 'subsink';
 
 @Injectable()
 export class SnekUserInputService implements OnDestroy {
+	private readonly snekStateService = inject(SnekStateService);
 	private readonly subscriptions = new SubSink();
-	private readonly listenerUnsubscribeCallback: () => void;
+
+	private readonly listenerUnsubscribeCallback = inject(Renderer2)
+		.listen('document', 'keydown', this.handleKeyDown.bind(this));
 
 	@Observed() private commandQueue: ReadonlyArray<SnekDirection> = [];
 	private readonly commandQueue$!: Observable<ReadonlyArray<SnekDirection>>;
 
-	public constructor(
-		private readonly renderer: Renderer2,
-		private readonly snekStateService: SnekStateService,
-	) {
+	public constructor() {
 		this.initializeCommandQueue();
-		this.listenerUnsubscribeCallback = this.keyDownEventListener;
 	}
 
 	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 		this.listenerUnsubscribeCallback();
-	}
-
-	private get keyDownEventListener(): () => void {
-		return this.renderer.listen('document', 'keydown', this.handleKeyDown.bind(this));
 	}
 
 	private handleKeyDown(keyboardEvent: KeyboardEvent): void {

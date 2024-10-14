@@ -15,6 +15,7 @@
 		display: flex;
 		flex-flow: row nowrap;
 		color: var(--dark-text-color);
+		font-weight: var(--weight-medium);
 		position: absolute;
 		bottom: var(--navigation-height);
 		right: 0.5rem;
