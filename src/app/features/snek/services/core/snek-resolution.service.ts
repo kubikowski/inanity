@@ -8,14 +8,13 @@ export class SnekResolutionService {
 	private static readonly optimalSnekWidth = 35;
 	private static readonly optimalSnekHeight = 25;
 
-
 	public readonly snekWidth = computed(
 		() => this.getSnekWidth(this.screenDetectorService.screenWidth()));
 
 	public readonly snekHeight = computed(
 		() => this.getSnekHeight(this.screenDetectorService.screenHeight()));
 
-	public readonly onResolutionChange = computed(
+	public readonly resolution = computed<[ number, number ]>(
 		() => [ this.snekWidth(), this.snekHeight() ]);
 
 

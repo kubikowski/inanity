@@ -1,23 +1,25 @@
-import { inject, Injectable, OnDestroy } from '@angular/core';
-import { filter, map } from 'rxjs/operators';
+import { effect, inject, Injectable } from '@angular/core';
 import { SnekAudio } from 'src/app/features/snek/models/audio/snek-audio.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
-import { SubSink } from 'subsink';
 
 @Injectable()
-export class SnekAudioService implements OnDestroy {
+export class SnekAudioService {
 	private readonly snekStateService = inject(SnekStateService);
-	private readonly subscriptions = new SubSink();
 
 	private readonly soundEffects = this.initializeSoundEffects();
 
 	public constructor() {
-		this.initializeScoreEvents();
-		this.initializeGameOverEvents();
-	}
+		effect(async () => {
+			const score = this.snekStateService.score();
+			await this.scoreEvent(score);
+		});
 
-	public ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
+		effect(async () => {
+			const gameOverMessage = this.snekStateService.gameOver();
+			if (typeof gameOverMessage !== 'undefined') {
+				await this.gameOverEvent(gameOverMessage);
+			}
+		});
 	}
 
 	private initializeSoundEffects(): ReadonlyMap<SnekAudio, HTMLAudioElement> {
@@ -34,17 +36,17 @@ export class SnekAudioService implements OnDestroy {
 		return soundEffects;
 	}
 
-	private initializeScoreEvents(): void {
-		this.subscriptions.sink = this.snekStateService.score$
-			.pipe(
-				filter(score => score !== 0),
-				map(score => score % 10 === 0 ? SnekAudio.SCORE_MEDIUM : SnekAudio.SCORE_SMALL),
-			).subscribe(soundEffectName => this.playSoundEffect(soundEffectName));
+	private async scoreEvent(score: number): Promise<void> {
+		if (score !== 0) {
+			const soundEffectName = (score % 10 === 0)
+				? SnekAudio.SCORE_MEDIUM : SnekAudio.SCORE_SMALL;
+
+			await this.playSoundEffect(soundEffectName);
+		}
 	}
 
-	private initializeGameOverEvents(): void {
-		this.subscriptions.sink = this.snekStateService.gameOver$
-			.subscribe(() => this.playSoundEffect(SnekAudio.GAME_OVER));
+	private async gameOverEvent(_gameOverMessage: string): Promise<void> {
+		await this.playSoundEffect(SnekAudio.GAME_OVER);
 	}
 
 	private async playSoundEffect(soundEffectName: SnekAudio): Promise<void> {

@@ -1,41 +1,30 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { distinctUntilKeyChanged, filter, map, tap } from 'rxjs/operators';
-import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.function';
+import { effect, inject, Injectable } from '@angular/core';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
-import { SubSink } from 'subsink';
 
 @Injectable()
-export class SnekStatisticsService implements OnDestroy {
-	private readonly subscriptions = new SubSink();
+export class SnekStatisticsService {
+	private readonly snekStateService = inject(SnekStateService);
 
-	private gameStateLog: SnekGameState[] = [];
+	private gameStateLog = <SnekGameState[]>[];
 
-	public constructor(
-		private readonly snekStateService: SnekStateService,
-	) {
-		this.logGameState();
-		this.printGameStateLog();
-	}
+	public constructor() {
+		effect(() => {
+			const previousScore = this.gameStateLog[this.gameStateLog.length - 1]?.score ?? 0;
+			const currentGameState = this.snekStateService.gameState();
 
-	public ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
-	}
+			if (currentGameState.score !== previousScore) {
+				this.gameStateLog.push(currentGameState);
+			}
+		});
 
-	private logGameState(): void {
-		this.subscriptions.sink = this.snekStateService.gameState$
-			.pipe(
-				notNullFilter(),
-				distinctUntilKeyChanged('score'),
-			).subscribe(gameState => this.gameStateLog.push(gameState));
-	}
+		effect(() => {
+			const gameOverMessage = this.snekStateService.gameOver();
 
-	private printGameStateLog(): void {
-		this.subscriptions.sink = this.snekStateService.gameOver$
-			.pipe(
-				filter(gameStateLog => gameStateLog.length > 0),
-				map(() => this.gameStateLog[this.gameStateLog.length - 1]?.format()),
-				tap(gameStateLog => console.log(gameStateLog)),
-			).subscribe(() => this.gameStateLog = []);
+			if (typeof gameOverMessage !== 'undefined') {
+				console.log(this.gameStateLog);
+				this.gameStateLog = [];
+			}
+		});
 	}
 }

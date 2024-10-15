@@ -1,4 +1,4 @@
-import { inject, Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform, untracked } from '@angular/core';
 import { SnekNodeType } from 'src/app/features/snek/models/snek/snek-node-type.enum';
 import { SnekIcon } from 'src/app/features/snek/models/svg/snek-icon.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
@@ -25,7 +25,7 @@ export class SnekIconPipe implements PipeTransform {
 	}
 
 	private get evenTiming(): boolean {
-		const gameCounter = this.snekStateService.gameState?.gameCounter ?? 0;
+		const gameCounter = untracked(this.snekStateService.gameState)?.gameCounter ?? 0;
 
 		return (gameCounter % 4) > 1;
 	}

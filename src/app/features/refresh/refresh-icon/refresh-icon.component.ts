@@ -4,6 +4,7 @@ import { ThemePalette } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Observable, PartialObserver } from 'rxjs';
+import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { RefreshState, RefreshStateUtil } from 'src/app/features/refresh/enums/refresh-state.enum';
 import { RefreshClassPipe } from 'src/app/features/refresh/pipes/refresh-class.pipe';
 import { RefreshIconPipe } from 'src/app/features/refresh/pipes/refresh-icon.pipe';
@@ -49,7 +50,7 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 			if (RefreshStateUtil.isFinished(refreshState)) {
 				setTimeout(() => this.refreshState.set(RefreshState.IDLE));
 			}
-		}, { allowSignalWrites: true });
+		}, allowWrites);
 
 		effect(() => {
 			this.refreshStateChange.emit(this.refreshState());
@@ -61,7 +62,7 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 			if (typeof doRefresh !== 'undefined') {
 				this.handleClick();
 			}
-		}, { allowSignalWrites: true });
+		}, allowWrites);
 	}
 
 	public ngAfterViewInit(): void {

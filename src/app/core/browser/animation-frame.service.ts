@@ -5,7 +5,7 @@ import { computePrevious } from 'src/app/core/functions/signal/compute-previous.
 export class AnimationFrameService implements OnDestroy {
 
 	private static enabled = true;
-	private static frameAverage = 120;
+	private static frameAverage = 601;
 
 	public readonly onAnimationFrame = signal<DOMHighResTimeStamp>(performance.now());
 
@@ -14,7 +14,7 @@ export class AnimationFrameService implements OnDestroy {
 	public readonly fps = computed(() => {
 		const timestamps = this.timestamps();
 		const msBetweenTimestamps = (timestamps?.[timestamps?.length - 1] ?? 0) - (timestamps?.[0] ?? 0);
-		return Math.floor(1000 * AnimationFrameService.frameAverage / msBetweenTimestamps);
+		return Math.floor(1000 * (timestamps.length - 1) / msBetweenTimestamps);
 	});
 
 	public constructor() {

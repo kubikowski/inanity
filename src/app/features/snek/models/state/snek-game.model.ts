@@ -1,18 +1,23 @@
-import { untracked } from '@angular/core';
+import { signal, untracked } from '@angular/core';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
 import { Snek } from 'src/app/features/snek/models/snek/snek.model';
 
 export class SnekGame {
+	public static readonly initialSnekLength = 3;
+
 	private readonly _grid: ReadonlyArray<ReadonlyArray<SnekGridNode>>;
 	private readonly _snek: Snek;
 	private _fudNode!: SnekGridNode;
+	private _counter = 0;
+
+	private readonly _gameOver = signal<string | undefined>(undefined);
+	public readonly gameOver = this._gameOver.asReadonly();
 
 	private constructor(
 		private readonly _width: number,
 		private readonly _height: number,
-		initialSnekLength: number,
 	) {
 		this._grid = Array.from(Array(this._height),
 			(_row, height) => Array.from(Array(this._width),
@@ -20,13 +25,13 @@ export class SnekGame {
 		this.initializeGridNodes();
 
 		const tailGridNode = this.at(1, Math.floor(this._height / 2)) as SnekGridNode;
-		this._snek = Snek.new(initialSnekLength, tailGridNode);
+		this._snek = Snek.new(SnekGame.initialSnekLength, tailGridNode);
 
 		this.spawnFud();
 	}
 
-	public static new(width: number, height: number, initialSnekLength: number): SnekGame {
-		return new SnekGame(width, height, initialSnekLength);
+	public static new(width: number, height: number): SnekGame {
+		return new SnekGame(width, height);
 	}
 
 	private initializeGridNodes(): void {
@@ -42,8 +47,13 @@ export class SnekGame {
 	}
 
 	public moveSnek(): void {
-		if (this.snek.move()) {
-			this.spawnFud();
+		try {
+			this._counter++;
+			if (this.snek.move()) {
+				this.spawnFud();
+			}
+		} catch (error) {
+			this._gameOver.set((error as Error).message);
 		}
 	}
 
@@ -85,5 +95,9 @@ export class SnekGame {
 
 	public get fudNode(): SnekGridNode {
 		return this._fudNode;
+	}
+
+	public get counter(): number {
+		return this._counter;
 	}
 }
