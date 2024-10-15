@@ -11,17 +11,19 @@
 		left: 0;
 	}
 
-	> h5 {
+	> h6 {
 		display: flex;
 		flex-flow: row nowrap;
 		color: var(--dark-text-color);
+		font-weight: var(--weight-medium);
 		position: absolute;
-		bottom: 3.875rem;
-		right: 0.25rem;
+		bottom: var(--navigation-height);
+		right: 0.5rem;
 
 		.mat-divider {
 			border-color: var(--border-color);
-			margin: 0 0.25rem;
+			margin: 0 0.5rem;
+			--mat-divider-width: 2px;
 		}
 	}
 }

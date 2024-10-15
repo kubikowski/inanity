@@ -1,10 +1,14 @@
 base-dialog {
+	display: flex;
+	flex-flow: column nowrap;
+	max-height: calc(100vh - var(--navigation-height) - 1rem);
+	overflow: hidden;
+
 	> .dialog-body {
-		overflow: auto;
-		overflow-wrap: break-word;
-		max-height: calc(100vh - 12.5rem);
 		flex: 1 1 auto;
 		padding: 1rem;
+		overflow: hidden auto;
+		overflow-wrap: break-word;
 
 		&.content-centered {
 			text-align: center;

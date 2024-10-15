@@ -1,65 +1,35 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Observed } from 'rxjs-observed-decorator';
-import { clamp } from 'src/app/core/functions/number/clamp.function';
-import { DyslexicWord } from 'src/app/features/dyslexia/models/dyslexic-word.model';
-import { SubSink } from 'subsink';
+import { effect, Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
-export class DyslexicTextService implements OnDestroy {
-	private readonly subscriptions = new SubSink();
+export class DyslexicTextService {
 
 	public static readonly minAmount = 0;
 	public static readonly maxAmount = 100;
+	public static readonly wordCombinations = new Map<string, readonly string[]>();
 
-	@Observed() public isEnabled: boolean;
-	@Observed() public amount: number;
-
-	public readonly isEnabled$!: Observable<boolean>;
-	public readonly amount$!: Observable<number>;
-
-	private readonly wordCombinations = new Map<string, readonly string[]>();
+	public readonly enabled = signal(DyslexicTextService.persistEnabled);
+	public readonly amount = signal(DyslexicTextService.persistAmount);
 
 	public constructor() {
-		this.isEnabled = JSON.parse(localStorage.getItem('dyslexic-text') ?? 'true') as boolean;
-		this.amount = JSON.parse(localStorage.getItem('dyslexia-amount') ?? '25') as number;
-
-		this.persistSettings();
+		effect(() => {
+			DyslexicTextService.persistEnabled = this.enabled();
+			DyslexicTextService.persistAmount = this.amount();
+		});
 	}
 
-	public ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
+	private static get persistEnabled(): boolean {
+		return JSON.parse(localStorage.getItem('dyslexic-text') ?? 'true') as boolean;
 	}
 
-	private persistSettings(): void {
-		this.subscriptions.sink = this.isEnabled$
-			.subscribe(isEnabled => localStorage.setItem('dyslexic-text', String(isEnabled)));
-
-		this.subscriptions.sink = this.amount$
-			.subscribe(amount => localStorage.setItem('dyslexia-amount', String(amount)));
+	private static set persistEnabled(enabled: boolean) {
+		localStorage.setItem('dyslexic-text', String(enabled));
 	}
 
-	public getDyslexicWord(word: string): string {
-		if (!this.isEnabled) {
-			return word;
-		}
-
-		const combinations = this.getCombinations(word);
-
-		const dyslexiaAmount = clamp(DyslexicTextService.minAmount, this.amount, DyslexicTextService.maxAmount);
-		const combinationIndex = Math.floor(Math.random() * combinations.length * DyslexicTextService.maxAmount / dyslexiaAmount);
-
-		return combinations[combinationIndex]
-			?? word;
+	private static get persistAmount(): number {
+		return JSON.parse(localStorage.getItem('dyslexia-amount') ?? '5') as number;
 	}
 
-	private getCombinations(word: string): readonly string[] {
-		if (!this.wordCombinations.has(word)) {
-			const combinations = DyslexicWord.from(word).combinations;
-
-			this.wordCombinations.set(word, combinations);
-		}
-
-		return this.wordCombinations.get(word) as readonly string[];
+	private static set persistAmount(amount: number) {
+		localStorage.setItem('dyslexia-amount', String(amount));
 	}
 }

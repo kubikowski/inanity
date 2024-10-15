@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, ElementRef, inject, input, OnDestroy, output, untracked } from '@angular/core';
 import { create, JoystickManager, JoystickManagerOptions, JoystickOutputData } from 'nipplejs';
 
 @Component({
@@ -7,41 +7,36 @@ import { create, JoystickManager, JoystickManagerOptions, JoystickOutputData } f
 	styleUrl: 'joystick.component.scss',
 	standalone: true,
 })
-export class JoystickComponent implements AfterViewInit, OnDestroy {
-	private joystickManager!: JoystickManager;
+export class JoystickComponent implements OnDestroy {
+	public readonly options = input<JoystickManagerOptions>({ });
 
-	@Input() public options: JoystickManagerOptions = { };
+	public readonly activate = output<JoystickOutputData>();
+	public readonly move = output<JoystickOutputData>();
+	public readonly release = output<JoystickOutputData>();
 
-	@Output() public activate = new EventEmitter<JoystickOutputData>();
-	@Output() public move = new EventEmitter<JoystickOutputData>();
-	@Output() public release = new EventEmitter<JoystickOutputData>();
-
-	public constructor(
-		private readonly elementRef: ElementRef,
-	) { }
-
-	public ngAfterViewInit(): void {
-		this.initializeJoystick();
-	}
+	private readonly elementRef = inject(ElementRef);
+	private readonly joystickManager = this.initializeJoystick();
 
 	public ngOnDestroy(): void {
 		this.joystickManager.destroy();
 	}
 
-	private initializeJoystick(): void {
-		this.joystickManager = create({ ...this.defaultOptions, ...this.options });
+	private initializeJoystick(): JoystickManager {
+		const joystickManager = create({ ...this.defaultOptions, ...untracked(this.options) });
 
-		this.joystickManager.on('start', (_event, nipple) => {
+		joystickManager.on('start', (_event, nipple) => {
 			this.activate.emit(nipple);
 		});
 
-		this.joystickManager.on('move', (_event, nipple) => {
+		joystickManager.on('move', (_event, nipple) => {
 			this.move.emit(nipple);
 		});
 
-		this.joystickManager.on('end', (_event, nipple) => {
+		joystickManager.on('end', (_event, nipple) => {
 			this.release.emit(nipple);
 		});
+
+		return joystickManager;
 	}
 
 	private get defaultOptions(): JoystickManagerOptions {

@@ -1,28 +1,26 @@
-import { AsyncPipe, DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { interval, Observable } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnDestroy, signal, untracked } from '@angular/core';
+import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Observed } from 'rxjs-observed-decorator';
 import { ClockUtil } from 'src/app/features/clock/clock-util.function';
 import { SubSink } from 'subsink';
 
 @Component({
 	selector: 'clock',
-	template: '{{ time$ | async | date: \'shortTime\' }}',
+	template: '{{ time() | date: \'shortTime\' }}',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-	imports: [ AsyncPipe, DatePipe ],
+	imports: [ DatePipe ],
 })
 export class ClockComponent implements OnDestroy {
 	private readonly subscriptions = new SubSink();
 
-	@Observed() private time = ClockUtil.getStartTime();
-	public readonly time$!: Observable<Date>;
+	public readonly time = signal(ClockUtil.getStartTime());
 
 	public constructor() {
 		this.subscriptions.sink = interval(1000)
-			.pipe(map(() => ClockUtil.countDown(this.time)))
-			.subscribe(time => this.time = time);
+			.pipe(map(() => ClockUtil.countDown(untracked(this.time))))
+			.subscribe(time => this.time.set(time));
 	}
 
 	public ngOnDestroy(): void {

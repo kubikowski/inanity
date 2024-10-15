@@ -1,37 +1,45 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { Observed } from 'rxjs-observed-decorator';
+import { computed, effect, inject, Injectable, OnDestroy, signal, untracked } from '@angular/core';
 import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { SubSink } from 'subsink';
 
 @Injectable()
 export abstract class CanvasService implements OnDestroy {
+	protected readonly screenDetectorService = inject(ScreenDetectorService);
 	protected readonly subscriptions = new SubSink();
 
-	protected canvas!: HTMLCanvasElement;
-	protected context!: CanvasRenderingContext2D;
+	protected readonly canvas = signal<HTMLCanvasElement | null>(null);
+	protected readonly context = computed(() => this.canvas()?.getContext('2d') ?? null);
 
-	@Observed() protected rawCanvasWidth = 0;
-	@Observed() protected rawCanvasHeight = 0;
-	@Observed() protected canvasWidth = 0;
-	@Observed() protected canvasHeight = 0;
-	@Observed() protected pixelDensity = 1;
+	protected readonly canvasTopOffset = computed(() => this.canvas()?.getBoundingClientRect().top ?? 0);
+	protected readonly rawCanvasWidth = this.screenDetectorService.screenWidth.asReadonly();
+	protected readonly rawCanvasHeight = computed(() => this.screenDetectorService.screenHeight() - this.canvasTopOffset());
 
-	protected readonly rawCanvasWidth$!: Observable<number>;
-	protected readonly rawCanvasHeight$!: Observable<number>;
-	protected readonly canvasWidth$!: Observable<number>;
-	protected readonly canvasHeight$!: Observable<number>;
-	protected readonly pixelDensity$!: Observable<number>;
+	protected readonly pixelDensity = this.screenDetectorService.pixelDensity.asReadonly();
+	protected readonly canvasWidth = computed(() => Math.floor(this.rawCanvasWidth() * this.pixelDensity()));
+	protected readonly canvasHeight = computed(() => Math.floor(this.rawCanvasHeight() * this.pixelDensity()));
 
 	protected canvasElements = Array<CanvasElement>();
 
-	protected constructor(
-		protected readonly screenDetectorService: ScreenDetectorService,
-	) {
-		this.subscriptions.sink = this.screenDetectorService.pixelDensity$
-			.subscribe(pixelDensity => this.pixelDensity = pixelDensity);
+	protected constructor() {
+		effect(() => {
+			const context = this.context();
+
+			if (context !== null) {
+				context.scale(this.pixelDensity(), this.pixelDensity());
+			}
+		});
+
+		effect(() => {
+			const canvas = untracked(this.canvas);
+
+			if (canvas !== null) {
+				canvas.style.height = `${ this.rawCanvasHeight() }px`;
+				canvas.style.width = `${ this.rawCanvasWidth() }px`;
+				canvas.width = this.canvasWidth();
+				canvas.height = this.canvasHeight();
+			}
+		});
 	}
 
 	public ngOnDestroy(): void {
@@ -39,28 +47,6 @@ export abstract class CanvasService implements OnDestroy {
 	}
 
 	public initialize(canvas: HTMLCanvasElement): void {
-		this.canvas = canvas;
-		this.context = canvas.getContext('2d') as CanvasRenderingContext2D;
-
-		this.initializeCanvasSize();
-	}
-
-	protected initializeCanvasSize(): void {
-		this.subscriptions.sink = this.pixelDensity$
-			.subscribe(pixelDensity => this.context.scale(pixelDensity, pixelDensity));
-
-		this.subscriptions.sink = combineLatest([ this.rawCanvasWidth$, this.pixelDensity$ ])
-			.pipe(
-				tap(([ rawCanvasWidth ]) => this.canvas.style.width = `${ rawCanvasWidth }px`),
-				map(([ rawCanvasWidth, pixelDensity ]) => Math.floor(rawCanvasWidth * pixelDensity)),
-				tap(canvasWidth => this.canvasWidth = canvasWidth),
-			).subscribe(canvasWidth => this.canvas.width = canvasWidth);
-
-		this.subscriptions.sink = combineLatest([ this.rawCanvasHeight$, this.pixelDensity$ ])
-			.pipe(
-				tap(([ rawCanvasHeight ]) => this.canvas.style.height = `${ rawCanvasHeight }px`),
-				map(([ rawCanvasHeight, pixelDensity ]) => Math.floor(rawCanvasHeight * pixelDensity)),
-				tap(canvasHeight => this.canvasHeight = canvasHeight),
-			).subscribe(canvasHeight => this.canvas.height = canvasHeight);
+		this.canvas.set(canvas);
 	}
 }

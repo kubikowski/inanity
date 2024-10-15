@@ -28,10 +28,10 @@ export class DyslexiaDialogComponent extends DialogComponent {
 	public readonly minAmount = DyslexicTextService.minAmount;
 	public readonly maxAmount = DyslexicTextService.maxAmount;
 
-	public readonly enabledControl = new FormControl(this.dyslexicTextService.isEnabled, { nonNullable: true });
+	public readonly enabledControl = new FormControl(untracked(this.dyslexicTextService.enabled), { nonNullable: true });
 	public readonly enabled = toSignal(formValue(this.enabledControl));
 
-	public readonly amountControl = new FormControl(this.dyslexicTextService.amount, { nonNullable: true });
+	public readonly amountControl = new FormControl(untracked(this.dyslexicTextService.amount), { nonNullable: true });
 	public readonly amount = toSignal(this.amountControl.valueChanges);
 
 	public initializeDialogConfiguration(): DialogConfiguration {
@@ -46,7 +46,7 @@ export class DyslexiaDialogComponent extends DialogComponent {
 		const enabled = untracked(this.enabled);
 
 		if (typeof enabled !== 'undefined') {
-			this.dyslexicTextService.isEnabled = enabled;
+			this.dyslexicTextService.enabled.set(enabled);
 		}
 	}
 
@@ -54,7 +54,7 @@ export class DyslexiaDialogComponent extends DialogComponent {
 		const amount = untracked(this.amount);
 
 		if (typeof amount !== 'undefined') {
-			this.dyslexicTextService.amount = amount;
+			this.dyslexicTextService.amount.set(amount);
 		}
 	}
 }

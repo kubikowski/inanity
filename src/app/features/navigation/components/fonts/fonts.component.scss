@@ -1,8 +1,7 @@
 :host {
-	font-size: 12px;
+	font-size: 10px;
 	display: flex;
 	flex-flow: column nowrap;
-	padding: 1rem;
 	gap: 1rem;
 
 	> .font-info {
@@ -23,6 +22,7 @@
 
 		> a {
 			color: inherit;
+			width: max-content;
 		}
 	}
 }

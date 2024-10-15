@@ -1,12 +1,13 @@
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
+import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 
 type ColorKey = keyof BaseColorPalette;
 
 export class Circle extends CanvasElement {
-	private static maxRadius = 40;
-	private static minRadius = 10;
+	private static readonly maxRadius = 40;
+	private static readonly minRadius = 10;
 
 	private constructor(
 		private x: number,
@@ -20,12 +21,12 @@ export class Circle extends CanvasElement {
 		super();
 	}
 
-	public static random(): Circle {
+	public static random(canvasWidth: number, canvasHeight: number): Circle {
 		const dRadius = Math.floor((Math.random() - 0.5) * Circle.minRadius);
 		const radius = Circle.minRadius + dRadius;
 
-		const x = Math.random() * (Circle.canvasWidth - radius * 2) + radius;
-		const y = Math.random() * (Circle.canvasHeight - radius * 2) + radius;
+		const x = Math.random() * (canvasWidth - radius * 2) + radius;
+		const y = Math.random() * (canvasHeight - radius * 2) + radius;
 
 		const dx = Math.random() - 0.5;
 		const dy = Math.random() - 0.5;
@@ -55,14 +56,14 @@ export class Circle extends CanvasElement {
 		}
 	}
 
-	public move(): void {
-		if (this.x + Circle.minRadius + this.dRadius >= Circle.canvasWidth ||
+	public move(canvasWidth: number, canvasHeight: number): void {
+		if (this.x + Circle.minRadius + this.dRadius >= canvasWidth ||
 			this.x - Circle.minRadius - this.dRadius <= 0) {
 
 			this.dx = -this.dx;
 		}
 
-		if (this.y + Circle.minRadius + this.dRadius >= Circle.canvasHeight ||
+		if (this.y + Circle.minRadius + this.dRadius >= canvasHeight ||
 			this.y - Circle.minRadius - this.dRadius <= 0) {
 
 			this.dy = -this.dy;
@@ -72,11 +73,11 @@ export class Circle extends CanvasElement {
 		this.y += this.dy;
 	}
 
-	public draw(context: CanvasRenderingContext2D): void {
+	public draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
 		context.beginPath();
 		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-		context.strokeStyle = Circle.colorPalette[this.colorKey];
-		context.fillStyle = Circle.colorPalette[this.colorKey];
+		context.strokeStyle = colorPalette[this.colorKey];
+		context.fillStyle = colorPalette[this.colorKey];
 		context.stroke();
 		context.fill();
 	}

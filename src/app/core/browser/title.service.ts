@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
@@ -6,14 +6,14 @@ import { SubSink } from 'subsink';
 
 @Injectable({ providedIn: 'root' })
 export class TitleService implements OnDestroy {
+	private readonly title = inject(Title);
+	private readonly router = inject(Router);
+	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly subscriptions = new SubSink();
-	private readonly DEFAULT_TITLE = 'inanity';
 
-	public constructor(
-		private readonly title: Title,
-		private readonly router: Router,
-		private readonly activatedRoute: ActivatedRoute,
-	) {
+	private static readonly DEFAULT_TITLE = 'inanity';
+
+	public constructor() {
 		this.handleTitleChanges();
 	}
 
@@ -32,7 +32,7 @@ export class TitleService implements OnDestroy {
 
 	private getRouteTitle(): string {
 		let route = this.activatedRoute;
-		let title = this.DEFAULT_TITLE;
+		let title = TitleService.DEFAULT_TITLE;
 
 		while (route.firstChild !== null) {
 			const parentRoute = route;

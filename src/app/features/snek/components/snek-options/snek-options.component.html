@@ -1,10 +1,11 @@
 <mat-icon>spa</mat-icon>
-<span class="result">{{ score$ | async }}</span>
+<span class="result">{{ score() }}</span>
 
 <mat-icon>star</mat-icon>
-<span class="result">{{ highScore$ | async }}</span>
+<span class="result">{{ highScore() }}</span>
 
 <mat-slide-toggle color="primary"
-				  [formControl]="solverEnabled">
+				  [formControl]="solverEnabledControl"
+				  (change)="toggleSolverEnabled()">
 	Enable Auto Solver
 </mat-slide-toggle>

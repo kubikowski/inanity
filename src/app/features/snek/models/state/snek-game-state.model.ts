@@ -11,11 +11,12 @@ export class SnekGameState {
 		public readonly gameCounter: number,
 	) { }
 
-	public static from(snekGame: SnekGame, initialSnekLength: number, gameCounter: number): SnekGameState {
+	public static from(snekGame: SnekGame): SnekGameState {
 		const headNode = snekGame.snek.head.snekGridNode;
 		const fudNode = snekGame.fudNode;
 		const direction = snekGame.snek.direction;
-		const score = snekGame.snek.length - initialSnekLength;
+		const score = snekGame.snek.length - SnekGame.initialSnekLength;
+		const gameCounter = snekGame.counter;
 
 		return new SnekGameState(headNode, fudNode, direction, score, gameCounter);
 	}

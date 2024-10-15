@@ -1,111 +1,76 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, of, Subscription, timer } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, scan, tap, throttleTime } from 'rxjs/operators';
-import { Observed } from 'rxjs-observed-decorator';
-import { notNullFilter } from 'src/app/core/functions/rxjs/not-null-filter.function';
+import { computed, effect, inject, Injectable, signal, untracked } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { timer } from 'rxjs';
+import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
+import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
 import { SnekGame } from 'src/app/features/snek/models/state/snek-game.model';
 import { SnekResolutionService } from 'src/app/features/snek/services/core/snek-resolution.service';
-import { SubSink } from 'subsink';
 
 @Injectable()
-export class SnekStateService implements OnDestroy {
-	private readonly subscriptions = new SubSink();
-	private gameCounterSubscription: Subscription | undefined;
+export class SnekStateService {
+	private readonly snekResolutionService = inject(SnekResolutionService);
 
-	public playing = false;
-	public paused = false;
+	public readonly directionInput = signal<SnekDirection | undefined>(undefined);
+	public readonly resetInput = signal(false);
 
-	public readonly initialSnekLength = 3;
+	public readonly paused = computed(() =>
+		(this.resetInput()) || (typeof this.gameOver() !== 'undefined'));
+	public readonly playing = computed(() =>
+		(!this.paused()) && (typeof this.directionInput() !== 'undefined'));
 
-	@Observed() public snekGame!: SnekGame;
-	@Observed() public score!: number;
-	@Observed() public highScore!: number;
-	@Observed() public gameState: SnekGameState | null = null;
-	@Observed('subject') private gameOver?: string;
+	public readonly gameClock = toSignal(timer(100, 100));
+	public readonly snekGame = signal(SnekGame.new(...untracked(this.snekResolutionService.resolution)));
+	public readonly gameState = signal(SnekGameState.from(untracked(this.snekGame)));
 
-	public readonly snekGame$!: Observable<SnekGame>;
-	public readonly score$!: Observable<number>;
-	public readonly highScore$!: Observable<number>;
-	public readonly gameState$!: Observable<SnekGameState | null>;
-	public readonly gameOver$!: Observable<string>;
+	public readonly score = computed(() => this.gameState()?.score ?? 0);
+	public readonly gameOver = computed(() => this.snekGame()?.gameOver());
 
-	public constructor(
-		private readonly snekResolutionService: SnekResolutionService,
-	) {
-		this.initializeGridResolution();
-		this.initializeScore();
+	public readonly highScore = computed(() => {
+		this.resetInput();
+		return SnekStateService.localStorageHighScore;
+	});
 
-		this.resetSnekGame();
-	}
-
-	public ngOnDestroy(): void {
-		this.stopGame('de-rendering snek');
-		this.subscriptions.unsubscribe();
+	public constructor() {
+		effect(() => this.initializeGame(), allowWrites);
+		effect(() => this.initializeGameState(), allowWrites);
+		effect(() => this.persistHighScore());
 	}
 
 	public resetSnekGame(): void {
-		SnekStateService.localStorageHighScore = this.score ?? 0;
-
-		const { snekWidth, snekHeight } = this.snekResolutionService;
-		this.snekGame = SnekGame.new(snekWidth, snekHeight, this.initialSnekLength);
-
-		this.score = 0;
-		this.highScore = SnekStateService.localStorageHighScore;
-
-		this.paused = false;
+		/* set, and then promptly clear, reset flag */
+		this.resetInput.set(true);
+		this.directionInput.set(undefined);
+		setTimeout(() => this.resetInput.set(false));
 	}
 
-	public play(): void {
-		if (!this.playing) {
-			this.playing = true;
-			this.startGame();
+	private initializeGame(): void {
+		const resolution = this.snekResolutionService.resolution();
+		this.resetInput();
+
+		this.snekGame.set(SnekGame.new(...resolution));
+	}
+
+	private initializeGameState(): void {
+		const direction = untracked(this.directionInput);
+		const playing = this.playing();
+		const snekGame = this.snekGame();
+		this.gameClock();
+
+		if (playing && typeof direction !== 'undefined') {
+			snekGame.snek.direction = direction;
+			snekGame.moveSnek();
+
+			this.gameState.set(SnekGameState.from(snekGame));
 		}
 	}
 
-	private startGame(): void {
-		this.gameCounterSubscription = timer(100, 100)
-			.pipe(
-				tap(() => this.snekGame.moveSnek()),
-				scan(gameCounter => gameCounter + 1, 0),
-				map(gameCounter => this.getGameState(gameCounter)),
-				tap(gameState => this.gameState = gameState),
-				catchError((error: Error) => this.stopGame(error.message)),
-			).subscribe();
-	}
+	private persistHighScore(): void {
+		const gameOverMessage = this.gameOver();
 
-	private stopGame(gameOverMessage: string): Observable<string> {
-		this.paused = true;
-
-		if (this.playing) {
-			this.playing = false;
-			this.gameCounterSubscription?.unsubscribe();
-
-			this.gameOver = gameOverMessage;
+		if (typeof gameOverMessage !== 'undefined') {
+			SnekStateService.localStorageHighScore = untracked(this.score);
 		}
-
-		return of(gameOverMessage);
-	}
-
-	private getGameState(gameCounter: number): SnekGameState {
-		return SnekGameState.from(this.snekGame, this.initialSnekLength, gameCounter);
-	}
-
-	private initializeGridResolution(): void {
-		this.subscriptions.sink = this.snekResolutionService.onResolutionChange$
-			.pipe(debounceTime(0), throttleTime(250))
-			.subscribe(() => (this.playing)
-				? this.stopGame('resolution changed')
-				: this.resetSnekGame());
-	}
-
-	private initializeScore(): void {
-		this.subscriptions.sink = this.gameState$
-			.pipe(
-				notNullFilter(),
-				map(gameState => gameState.score),
-				distinctUntilChanged(),
-			).subscribe(score => this.score = score);
 	}
 
 	private static get localStorageHighScore(): number {

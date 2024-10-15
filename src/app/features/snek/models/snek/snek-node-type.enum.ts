@@ -8,7 +8,7 @@ export enum SnekNodeType {
 }
 
 export abstract class SnekNodeTypeUtil {
-	public static from(parentDirection: SnekDirection, childDirection: SnekDirection): SnekNodeType {
+	public static from(parentDirection: SnekDirection | null, childDirection: SnekDirection | null): SnekNodeType {
 		if (parentDirection === null) {
 			return SnekNodeType.HEAD;
 		} else if (childDirection === null) {

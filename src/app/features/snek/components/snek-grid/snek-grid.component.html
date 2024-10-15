@@ -1,9 +1,9 @@
 <joystick (move)="handleJoystick($event)"
-		  [style.width]="((snekWidth$ | async) ?? 0) * 20 + 'px'"
-		  [style.height]="((snekHeight$ | async) ?? 0) * 20 + 'px'">
+		  [style.width]="snekWidth() * 20 + 'px'"
+		  [style.height]="snekHeight() * 20 + 'px'">
 </joystick>
 
-@if (snekGame$ | async; as snekGame) {
+@if (snekGame(); as snekGame) {
 	@for (snekGridRow of snekGame.grid; track $index) {
 		<div class="snek-grid-row">
 			@for (snekGridNode of snekGridRow; track $index) {

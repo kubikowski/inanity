@@ -8,6 +8,7 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 		`:host {
 			text-align: center;
 			text-decoration: underline;
+			text-shadow: var(--shadow-color) 2px 2px 2px;
 		}`,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,

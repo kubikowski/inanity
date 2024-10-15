@@ -1,8 +1,9 @@
-@switch (snekGridNode().type$ | async) {
+@switch (snekGridNode().type()) {
 	@case (SnekGridNodeType.SNEK) {
-		@if (snekGridNode().snekNode$ | async; as snekNode) {
-			<mat-icon [svgIcon]="snekNode.type$ | async | snekIcon"
-					  [class]="snekNode.parentDirection$ | async | snekDirection : (snekNode.childDirection$ | async)"/>
+
+		@if (snekGridNode().snekNode(); as snekNode) {
+			<mat-icon [svgIcon]="snekNode.type() | snekIcon"
+					  [class]="snekNode.direction()"/>
 		}
 	}
 	@case (SnekGridNodeType.FUD) {

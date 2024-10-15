@@ -1,20 +1,19 @@
-import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Observed } from 'rxjs-observed-decorator';
+import { computed, signal, untracked } from '@angular/core';
 import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
-import { SnekNodeType, SnekNodeTypeUtil } from 'src/app/features/snek/models/snek/snek-node-type.enum';
+import { SnekNodeTypeUtil } from 'src/app/features/snek/models/snek/snek-node-type.enum';
 
 export class SnekNode {
 	private _parent: SnekNode | null = null;
 
-	@Observed() private parentDirection: SnekDirection | null = null;
-	@Observed() private childDirection: SnekDirection | null;
+	private readonly parentDirection = signal<SnekDirection | null>(null);
+	private readonly childDirection = signal<SnekDirection | null>(null);
 
-	public readonly parentDirection$!: Observable<SnekDirection>;
-	public readonly childDirection$!: Observable<SnekDirection>;
+	public readonly type = computed(
+		() => SnekNodeTypeUtil.from(this.parentDirection(), this.childDirection()));
 
-	public readonly type$: Observable<SnekNodeType>;
+	public readonly direction = computed(
+		() => SnekDirectionUtil.nodeDirection(this.parentDirection(), this.childDirection()));
 
 	private constructor(
 		public readonly snekGridNode: SnekGridNode,
@@ -23,14 +22,11 @@ export class SnekNode {
 	) {
 		snekGridNode.attachSnekNode(this);
 
-		this.childDirection = childDirection;
+		this.childDirection.set(childDirection);
 
 		if (this._child instanceof SnekNode) {
 			this._child.addHead(this);
 		}
-
-		this.type$ = combineLatest([ this.parentDirection$, this.childDirection$ ])
-			.pipe(map(([ _parentDirection, _childDirection ]) => SnekNodeTypeUtil.from(_parentDirection, _childDirection)));
 	}
 
 	public static initialHead(snekGridNode: SnekGridNode): SnekNode {
@@ -57,7 +53,7 @@ export class SnekNode {
 		}
 
 		this._parent = head;
-		this.parentDirection = SnekDirectionUtil.inverse(head.childDirection);
+		this.parentDirection.set(SnekDirectionUtil.inverse(untracked(head.childDirection)));
 	}
 
 	public removeTail(): void {
@@ -66,6 +62,6 @@ export class SnekNode {
 		}
 
 		this._child = null;
-		this.childDirection = null;
+		this.childDirection.set(null);
 	}
 }

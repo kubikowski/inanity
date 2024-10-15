@@ -8,9 +8,10 @@
 			z-index: 1;
 
 			.mat-mdc-card-title {
-				margin-top: -2.125rem;
-				font-weight: bold;
+				margin-top: -1.875rem;
+				font-weight: var(--weight-semibold);
 				text-align: center;
+				text-shadow: var(--shadow-color) 2px 2px 2px;
 			}
 		}
 

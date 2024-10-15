@@ -24,10 +24,10 @@ import { DialogConfiguration } from 'src/app/features/dialogs/models/configurati
 export class BackgroundDialogComponent extends DialogComponent {
 	private readonly movingBackgroundService = inject(MovingBackgroundService);
 
-	public readonly enabledControl = new FormControl(this.movingBackgroundService.isEnabled, { nonNullable: true });
+	public readonly enabledControl = new FormControl(untracked(this.movingBackgroundService.enabled), { nonNullable: true });
 	public readonly enabled = toSignal(formValue(this.enabledControl));
 
-	public readonly amountControl = new FormControl(this.movingBackgroundService.amount, { nonNullable: true });
+	public readonly amountControl = new FormControl(untracked(this.movingBackgroundService.amount), { nonNullable: true });
 	public readonly amount = toSignal(this.amountControl.valueChanges);
 
 	public initializeDialogConfiguration(): DialogConfiguration {
@@ -42,7 +42,7 @@ export class BackgroundDialogComponent extends DialogComponent {
 		const enabled = untracked(this.enabled);
 
 		if (typeof enabled !== 'undefined') {
-			this.movingBackgroundService.isEnabled = enabled;
+			this.movingBackgroundService.enabled.set(enabled);
 		}
 	}
 
@@ -50,7 +50,7 @@ export class BackgroundDialogComponent extends DialogComponent {
 		const amount = untracked(this.amount);
 
 		if (typeof amount !== 'undefined') {
-			this.movingBackgroundService.amount = amount;
+			this.movingBackgroundService.amount.set(amount);
 		}
 	}
 }

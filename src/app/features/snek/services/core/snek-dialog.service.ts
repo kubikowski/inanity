@@ -1,33 +1,29 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { effect, inject, Injectable, untracked } from '@angular/core';
 import { DialogConfigBuilder } from 'src/app/features/dialogs/models/configuration/dialog-config-builder.model';
 import { DialogService } from 'src/app/features/dialogs/services/dialog.service';
 import { SnekResultsDialogComponent } from 'src/app/features/snek/components/dialog/snek-results-dialog/snek-results-dialog.component';
 import { SnekResults } from 'src/app/features/snek/models/state/snek-results.interface';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
-import { SubSink } from 'subsink';
 
 @Injectable()
-export class SnekDialogService implements OnDestroy {
-	private readonly subscriptions = new SubSink();
+export class SnekDialogService {
+	private readonly dialogService = inject(DialogService);
+	private readonly snekStateService = inject(SnekStateService);
 
-	public constructor(
-		private readonly dialogService: DialogService,
-		private readonly snekStateService: SnekStateService,
-	) {
-		this.subscriptions.sink = this.snekStateService.gameOver$
-			.subscribe(gameOverMessage => this.openResultsDialog(gameOverMessage));
-	}
+	public constructor() {
+		effect(() => {
+			const gameOverMessage = this.snekStateService.gameOver();
 
-	public ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
+			if (typeof gameOverMessage !== 'undefined') {
+				this.openResultsDialog(gameOverMessage);
+			}
+		});
 	}
 
 	private openResultsDialog(gameOverMessage: string): void {
-		const { score, highScore } = this.snekStateService;
-
 		const data: SnekResults = {
-			score,
-			highScore,
+			score: untracked(this.snekStateService.score),
+			highScore: untracked(this.snekStateService.highScore),
 			gameOverMessage,
 		};
 

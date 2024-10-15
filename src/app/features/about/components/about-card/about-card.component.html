@@ -16,7 +16,7 @@
 			<span>{{ openBrace() }}</span>
 
 			@for (content of data().content; track $index) {
-				<small><i>{{ content.title }}</i>:</small>
+				<small><i>{{ content.title }}:</i></small>
 
 				@if (content.linked) {
 					<a [href]="'mailto:'+ content.value">
