@@ -1,9 +1,11 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, effect, inject, input, OnDestroy, output, signal, TemplateRef, untracked, viewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, computed, effect, inject, input, OnDestroy, output, signal, TemplateRef, untracked, viewChild, ViewContainerRef } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ThemePalette } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { Observable, PartialObserver } from 'rxjs';
+import { delay, Observable, PartialObserver } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { RefreshState, RefreshStateUtil } from 'src/app/features/refresh/enums/refresh-state.enum';
 import { RefreshClassPipe } from 'src/app/features/refresh/pipes/refresh-class.pipe';
@@ -38,20 +40,27 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 	/* css size string */
 	public readonly size = input<string>();
 
-	public readonly refreshState = signal(RefreshState.IDLE);
+	private readonly nextState = signal(RefreshState.IDLE);
+	private readonly finished = toSignal(toObservable(this.nextState).pipe(
+		map(finishedState => RefreshStateUtil.isFinished(finishedState)),
+		delay(this.debounceTime())));
+
+	public readonly refreshState = computed(() => {
+		const nextState = this.nextState();
+		const finished = this.finished();
+
+		if (finished && nextState !== RefreshState.ACTIVE) {
+			return RefreshState.IDLE;
+		} else {
+			return nextState;
+		}
+	});
+
 	public readonly refreshStateChange = output<RefreshState>();
 
 	private readonly template = viewChild.required<TemplateRef<NgTemplateOutlet>>('template');
 
 	public constructor() {
-		effect(() => {
-			const refreshState = this.refreshState();
-
-			if (RefreshStateUtil.isFinished(refreshState)) {
-				setTimeout(() => this.refreshState.set(RefreshState.IDLE));
-			}
-		}, allowWrites);
-
 		effect(() => {
 			this.refreshStateChange.emit(this.refreshState());
 		});
@@ -75,7 +84,7 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 
 	public handleClick(): void {
 		if (untracked(this.refreshState) === RefreshState.IDLE) {
-			this.refreshState.set(RefreshState.ACTIVE);
+			this.nextState.set(RefreshState.ACTIVE);
 
 			this.subscriptions.sink = untracked(this.refresh$)
 				.subscribe(this.refreshObserver);
@@ -84,8 +93,8 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 
 	private get refreshObserver(): PartialObserver<T> {
 		return {
-			error: () => this.refreshState.set(RefreshState.ERROR),
-			complete: () => this.refreshState.set(RefreshState.COMPLETE),
+			error: () => this.nextState.set(RefreshState.ERROR),
+			complete: () => this.nextState.set(RefreshState.COMPLETE),
 		};
 	}
 }
