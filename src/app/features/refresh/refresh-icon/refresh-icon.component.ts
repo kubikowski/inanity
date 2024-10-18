@@ -1,14 +1,14 @@
-import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, effect, inject, input, OnDestroy, output, signal, TemplateRef, untracked, viewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, OnDestroy, output, signal, untracked } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ThemePalette } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { Observable, PartialObserver } from 'rxjs';
+import { delayWhen, Observable, of, PartialObserver, timer } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { RefreshState, RefreshStateUtil } from 'src/app/features/refresh/enums/refresh-state.enum';
 import { RefreshClassPipe } from 'src/app/features/refresh/pipes/refresh-class.pipe';
 import { RefreshIconPipe } from 'src/app/features/refresh/pipes/refresh-icon.pipe';
-import { RefreshTooltipPipe } from 'src/app/features/refresh/pipes/refresh-tooltip.pipe';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -17,13 +17,11 @@ import { SubSink } from 'subsink';
 	styleUrl: './refresh-icon.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-	imports: [
-		MatIcon, MatTooltip,
-		RefreshClassPipe, RefreshIconPipe, RefreshTooltipPipe,
-	],
+	imports: [ MatIcon, RefreshClassPipe, RefreshIconPipe ],
+	hostDirectives: [ MatTooltip ],
 })
-export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
-	private readonly viewContainerRef = inject(ViewContainerRef);
+export class RefreshIconComponent<T> implements OnDestroy {
+	private readonly matTooltip = inject(MatTooltip);
 	private readonly subscriptions = new SubSink();
 
 	public readonly refresh$ = input.required<Observable<T>>();
@@ -38,22 +36,31 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 	/* css size string */
 	public readonly size = input<string>();
 
-	public readonly refreshState = signal(RefreshState.IDLE);
-	public readonly refreshStateChange = output<RefreshState>();
+	private readonly nextState = signal(RefreshState.IDLE);
+	private readonly finished = toSignal(toObservable(this.nextState).pipe(
+		map(finishedState => RefreshStateUtil.isFinished(finishedState)),
+		delayWhen(finished => finished ? timer(this.debounceTime()) : of(null))));
 
-	private readonly template = viewChild.required<TemplateRef<NgTemplateOutlet>>('template');
+	public readonly refreshStateOutput = output<RefreshState>({ alias: 'refreshState' });
+	public readonly refreshState = computed<RefreshState>(() => {
+		const nextState = this.nextState();
+		const finished = this.finished();
+
+		if (finished && nextState !== RefreshState.ACTIVE) {
+			return RefreshState.IDLE;
+		} else {
+			return nextState;
+		}
+	});
 
 	public constructor() {
 		effect(() => {
-			const refreshState = this.refreshState();
-
-			if (RefreshStateUtil.isFinished(refreshState)) {
-				setTimeout(() => this.refreshState.set(RefreshState.IDLE));
-			}
-		}, allowWrites);
+			this.matTooltip.message = RefreshStateUtil.getTooltip(this.refreshState(), this.tooltip());
+			this.matTooltip.disabled = this.tooltipDisabled();
+		});
 
 		effect(() => {
-			this.refreshStateChange.emit(this.refreshState());
+			this.refreshStateOutput.emit(this.refreshState());
 		});
 
 		effect(() => {
@@ -65,17 +72,13 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 		}, allowWrites);
 	}
 
-	public ngAfterViewInit(): void {
-		this.viewContainerRef.createEmbeddedView(untracked(this.template));
-	}
-
 	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
 	}
 
 	public handleClick(): void {
 		if (untracked(this.refreshState) === RefreshState.IDLE) {
-			this.refreshState.set(RefreshState.ACTIVE);
+			this.nextState.set(RefreshState.ACTIVE);
 
 			this.subscriptions.sink = untracked(this.refresh$)
 				.subscribe(this.refreshObserver);
@@ -84,8 +87,8 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 
 	private get refreshObserver(): PartialObserver<T> {
 		return {
-			error: () => this.refreshState.set(RefreshState.ERROR),
-			complete: () => this.refreshState.set(RefreshState.COMPLETE),
+			error: () => this.nextState.set(RefreshState.ERROR),
+			complete: () => this.nextState.set(RefreshState.COMPLETE),
 		};
 	}
 }

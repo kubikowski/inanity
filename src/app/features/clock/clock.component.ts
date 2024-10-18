@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { interval } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { stateful } from 'src/app/core/functions/signal/stateful.function';
 import { ClockUtil } from 'src/app/features/clock/clock-util.function';
-import { SubSink } from 'subsink';
 
 @Component({
 	selector: 'clock',
@@ -12,18 +12,11 @@ import { SubSink } from 'subsink';
 	standalone: true,
 	imports: [ DatePipe ],
 })
-export class ClockComponent implements OnDestroy {
-	private readonly subscriptions = new SubSink();
+export class ClockComponent {
+	private readonly clockCycle = toSignal(interval(1000));
 
-	public readonly time = signal(ClockUtil.getStartTime());
-
-	public constructor() {
-		this.subscriptions.sink = interval(1000)
-			.pipe(map(() => ClockUtil.countDown(untracked(this.time))))
-			.subscribe(time => this.time.set(time));
-	}
-
-	public ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
-	}
+	public readonly time = stateful(ClockUtil.getStartTime(), time => {
+		this.clockCycle();
+		return ClockUtil.countDown(time);
+	});
 }

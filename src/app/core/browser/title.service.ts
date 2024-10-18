@@ -1,33 +1,30 @@
-import { inject, Injectable, OnDestroy } from '@angular/core';
+import { effect, inject, Injectable } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { SubSink } from 'subsink';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class TitleService implements OnDestroy {
+export class TitleService {
 	private readonly title = inject(Title);
 	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
-	private readonly subscriptions = new SubSink();
 
 	private static readonly DEFAULT_TITLE = 'inanity';
 
+	private readonly routeTitle = toSignal(this.router.events.pipe(
+		filter(event => event instanceof NavigationEnd),
+		map(() => this.getRouteTitle()),
+	));
+
 	public constructor() {
-		this.handleTitleChanges();
-	}
+		effect(() => {
+			const routeTitle = this.routeTitle();
 
-	public ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
-	}
-
-	private handleTitleChanges(): void {
-		this.subscriptions.sink = this.router.events
-			.pipe(
-				filter(event => event instanceof NavigationEnd),
-				map(() => this.getRouteTitle()),
-				distinctUntilChanged(),
-			).subscribe(routeTitle => this.title.setTitle(routeTitle));
+			if (typeof routeTitle !== 'undefined') {
+				this.title.setTitle(routeTitle);
+			}
+		});
 	}
 
 	private getRouteTitle(): string {

@@ -1,5 +1,5 @@
-import { computed, Injectable, OnDestroy, signal } from '@angular/core';
-import { computePrevious } from 'src/app/core/functions/signal/compute-previous.function';
+import { computed, Injectable, OnDestroy, signal, untracked } from '@angular/core';
+import { stateful } from 'src/app/core/functions/signal/stateful.function';
 
 @Injectable({ providedIn: 'root' })
 export class AnimationFrameService implements OnDestroy {
@@ -9,11 +9,12 @@ export class AnimationFrameService implements OnDestroy {
 
 	public readonly onAnimationFrame = signal<DOMHighResTimeStamp>(performance.now());
 
-	private readonly timestamps = computePrevious(this.onAnimationFrame, AnimationFrameService.frameAverage);
+	private readonly timestamps = stateful([ untracked(this.onAnimationFrame) ], timestamps =>
+		[ ...timestamps.slice((timestamps.length <= AnimationFrameService.frameAverage) ? 0 : 1), this.onAnimationFrame() ]);
 
 	public readonly fps = computed(() => {
 		const timestamps = this.timestamps();
-		const msBetweenTimestamps = (timestamps?.[timestamps?.length - 1] ?? 0) - (timestamps?.[0] ?? 0);
+		const msBetweenTimestamps = (timestamps[timestamps.length - 1] ?? 0) - (timestamps[0] ?? 0);
 		return Math.floor(1000 * (timestamps.length - 1) / msBetweenTimestamps);
 	});
 

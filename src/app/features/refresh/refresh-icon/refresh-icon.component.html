@@ -1,14 +1,8 @@
-<ng-template #template>
-	@if (refreshState(); as state) {
-		<mat-icon
-			[class]="state | refreshClass"
-			[matTooltip]="state | refreshTooltip: tooltip()"
-			[matTooltipDisabled]="tooltipDisabled()"
-			[color]="color()"
-			[style.--icon-size]="size()"
-			(click)="handleClick()"
-		>
-			{{ state | refreshIcon }}
-		</mat-icon>
-	}
-</ng-template>
+<mat-icon
+	[class]="refreshState() | refreshClass"
+	[color]="color()"
+	[style.--icon-size]="size()"
+	(click)="handleClick()"
+>
+	{{ refreshState() | refreshIcon }}
+</mat-icon>
