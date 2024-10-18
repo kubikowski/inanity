@@ -3,7 +3,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ThemePalette } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { delay, Observable, PartialObserver } from 'rxjs';
+import { delayWhen, Observable, of, PartialObserver, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { RefreshState, RefreshStateUtil } from 'src/app/features/refresh/enums/refresh-state.enum';
@@ -39,7 +39,7 @@ export class RefreshIconComponent<T> implements OnDestroy {
 	private readonly nextState = signal(RefreshState.IDLE);
 	private readonly finished = toSignal(toObservable(this.nextState).pipe(
 		map(finishedState => RefreshStateUtil.isFinished(finishedState)),
-		delay(this.debounceTime())));
+		delayWhen(finished => finished ? timer(this.debounceTime()) : of(null))));
 
 	public readonly refreshStateOutput = output<RefreshState>({ alias: 'refreshState' });
 	public readonly refreshState = computed<RefreshState>(() => {
