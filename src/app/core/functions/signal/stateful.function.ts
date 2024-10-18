@@ -9,7 +9,7 @@ export function stateful<T>(initial: T, computation: (state: T) => T): Signal<T>
 	});
 }
 
-export function statefulFrom<T>(initial: Signal<T>, computation: (state: T) => T): Signal<T> {
+export function stateOf<T>(initial: Signal<T>, computation: (state: T) => T): Signal<T> {
 	let initialization = untracked(initial);
 	let state = initialization;
 

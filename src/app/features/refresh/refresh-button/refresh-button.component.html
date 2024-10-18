@@ -1,7 +1,5 @@
 @if (refreshState(); as state) {
 	<button mat-icon-button [color]="color()"
-			[matTooltip]="state | refreshTooltip: tooltip()"
-			[matTooltipDisabled]="tooltipDisabled()"
 			[disabled]="state !== RefreshState.IDLE"
 			(click)="handleClick($event)">
 
@@ -10,7 +8,7 @@
 			[doRefresh]="doRefresh()"
 			[tooltipDisabled]="true"
 			[debounceTime]="debounceTime()"
-			(refreshStateChange)="refreshState.set($event)"
+			(refreshState)="refreshState.set($event)"
 		/>
 	</button>
 }

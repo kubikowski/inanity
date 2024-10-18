@@ -1,5 +1,4 @@
-import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, computed, effect, inject, input, OnDestroy, output, signal, TemplateRef, untracked, viewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, OnDestroy, output, signal, untracked } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ThemePalette } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
@@ -10,7 +9,6 @@ import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant
 import { RefreshState, RefreshStateUtil } from 'src/app/features/refresh/enums/refresh-state.enum';
 import { RefreshClassPipe } from 'src/app/features/refresh/pipes/refresh-class.pipe';
 import { RefreshIconPipe } from 'src/app/features/refresh/pipes/refresh-icon.pipe';
-import { RefreshTooltipPipe } from 'src/app/features/refresh/pipes/refresh-tooltip.pipe';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -19,13 +17,11 @@ import { SubSink } from 'subsink';
 	styleUrl: './refresh-icon.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-	imports: [
-		MatIcon, MatTooltip,
-		RefreshClassPipe, RefreshIconPipe, RefreshTooltipPipe,
-	],
+	imports: [ MatIcon, RefreshClassPipe, RefreshIconPipe ],
+	hostDirectives: [ MatTooltip ],
 })
-export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
-	private readonly viewContainerRef = inject(ViewContainerRef);
+export class RefreshIconComponent<T> implements OnDestroy {
+	private readonly matTooltip = inject(MatTooltip);
 	private readonly subscriptions = new SubSink();
 
 	public readonly refresh$ = input.required<Observable<T>>();
@@ -45,7 +41,8 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 		map(finishedState => RefreshStateUtil.isFinished(finishedState)),
 		delay(this.debounceTime())));
 
-	public readonly refreshState = computed(() => {
+	public readonly refreshStateOutput = output<RefreshState>({ alias: 'refreshState' });
+	public readonly refreshState = computed<RefreshState>(() => {
 		const nextState = this.nextState();
 		const finished = this.finished();
 
@@ -56,13 +53,14 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 		}
 	});
 
-	public readonly refreshStateChange = output<RefreshState>();
-
-	private readonly template = viewChild.required<TemplateRef<NgTemplateOutlet>>('template');
-
 	public constructor() {
 		effect(() => {
-			this.refreshStateChange.emit(this.refreshState());
+			this.matTooltip.message = RefreshStateUtil.getTooltip(this.refreshState(), this.tooltip());
+			this.matTooltip.disabled = this.tooltipDisabled();
+		});
+
+		effect(() => {
+			this.refreshStateOutput.emit(this.refreshState());
 		});
 
 		effect(() => {
@@ -72,10 +70,6 @@ export class RefreshIconComponent<T> implements AfterViewInit, OnDestroy {
 				this.handleClick();
 			}
 		}, allowWrites);
-	}
-
-	public ngAfterViewInit(): void {
-		this.viewContainerRef.createEmbeddedView(untracked(this.template));
 	}
 
 	public ngOnDestroy(): void {
