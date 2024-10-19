@@ -1,9 +1,11 @@
-<header class="dialog-header">
-	<h4 class="dialog-title">{{ configuration().title() }}</h4>
+@if (configuration().title()) {
+	<header class="dialog-header">
+		<h4 class="dialog-title">{{ configuration().title() }}</h4>
 
-	@if (configuration().tooltip(); as tooltip) {
-		@defer {
-			<mat-icon [matTooltip]="tooltip">info</mat-icon>
+		@if (configuration().tooltip(); as tooltip) {
+			@defer {
+				<mat-icon [matTooltip]="tooltip">info</mat-icon>
+			}
 		}
-	}
-</header>
+	</header>
+}
