@@ -1,0 +1,9 @@
+<base-dialog [configuration]="dialogConfiguration()">
+	<main>
+		@if (authSuccess()) {
+		} @else if (authFailure()) {
+		} @else {
+			<section id="firebaseui-auth-container"></section>
+		}
+	</main>
+</base-dialog>

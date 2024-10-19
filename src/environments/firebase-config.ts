@@ -1,4 +1,5 @@
 import { FirebaseOptions } from '@firebase/app';
+import 'firebase/compat/auth';
 
 export const firebaseConfig: FirebaseOptions = {
 	projectId: 'inanity-io',
