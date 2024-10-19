@@ -1,4 +1,5 @@
 import { signal, untracked } from '@angular/core';
+import { Random } from 'src/app/core/functions/number/random.function';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
@@ -7,6 +8,7 @@ import { Snek } from 'src/app/features/snek/models/snek/snek.model';
 export class SnekGame {
 	public static readonly initialSnekLength = 3;
 
+	private readonly _seed: number;
 	private readonly _grid: ReadonlyArray<ReadonlyArray<SnekGridNode>>;
 	private readonly _snek: Snek;
 	private _fudNode!: SnekGridNode;
@@ -19,6 +21,9 @@ export class SnekGame {
 		private readonly _width: number,
 		private readonly _height: number,
 	) {
+		this._seed = Math.floor(Math.random() * 0x10000);
+		Random.seed(this._seed);
+
 		this._grid = Array.from(Array(this._height),
 			(_row, height) => Array.from(Array(this._width),
 				(_node, width) => SnekGridNode.new(width, height)));
@@ -63,7 +68,7 @@ export class SnekGame {
 	}
 
 	private findBlankGridNode(): SnekGridNode {
-		const randomIndex = Math.floor(Math.random() * ((this._width * this._height) - this._snek.length));
+		const randomIndex = Math.floor(Random.float() * ((this._width * this._height) - this._snek.length));
 		let currentSnekGridNode = this.at(0, 0) as SnekGridNode;
 		for (let currentIndex = 0; currentIndex < randomIndex; currentIndex++) {
 			currentSnekGridNode = this.findNextBlankGridNode(currentSnekGridNode);
