@@ -1,11 +1,21 @@
 :host {
+	position: relative;
 	display: flex;
 	flex-flow: column nowrap;
 	width: max-content;
 	border: solid 2px var(--border-color);
 	border-radius: 5px;
 	user-select: none;
-	overflow: hidden;
+
+	> .snek-seed {
+		position: absolute;
+		bottom: -0.5rem;
+		right: 25px;
+		font-family: var(--monospace-font);
+		color: var(--default-text-color);
+		font-size: 10px;
+		z-index: 1;
+	}
 
 	> .snek-grid-row {
 		display: flex;

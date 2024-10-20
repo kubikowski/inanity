@@ -2,39 +2,41 @@
  * Seeded implementation of the Linear Congruential Generator [LCG]
  * https://en.wikipedia.org/wiki/Linear_congruential_generator
  */
-export abstract class Random {
+export class Random {
 
 	// LCG using GCC's constants
 	private static readonly m = BigInt(0x80000000); // 2**31;
 	private static readonly a = BigInt(1103515245);
 	private static readonly c = BigInt(12345);
 
-	// initial state is the random seed
-	private static state = BigInt(21);
+	private constructor(
+		// initial state is the random seed
+		private state: bigint,
+	) { }
 
-	// seed can be reset at any time
-	public static seed(seed: number): void {
-		this.state = BigInt(seed);
+	// seeded random, chosen by fair dice roll
+	public static seeded(seed = 21): Random {
+		return new Random(BigInt(seed));
 	}
 
 	// next 32-bit integer
-	public static int(): number {
-		this.state = (this.a * this.state + this.c) % this.m;
+	public int(): number {
+		this.state = (Random.a * this.state + Random.c) % Random.m;
 		return Number(this.state);
 	}
 
 	// next float from [0,1]
-	public static float(): number {
-		return this.int() / (Number(this.m) - 1);
+	public float(): number {
+		return this.int() / (Number(Random.m) - 1);
 	}
 
 	// uniform distribution
-	public static uniform(min: number, max: number): number {
+	public uniform(min: number, max: number): number {
 		return Math.floor(this.float() * (max - min) + min);
 	}
 
 	// Box-Muller normal distribution
-	public static normal(min: number, max: number, skew = 1): number {
+	public normal(min: number, max: number, skew = 1): number {
 		const u = this.float();
 		const v = this.float();
 

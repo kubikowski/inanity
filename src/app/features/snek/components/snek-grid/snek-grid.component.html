@@ -1,7 +1,11 @@
 <joystick (move)="handleJoystick($event)"
 		  [style.width]="snekWidth() * 20 + 'px'"
-		  [style.height]="snekHeight() * 20 + 'px'">
-</joystick>
+		  [style.height]="snekHeight() * 20 + 'px'"/>
+
+<span class="snek-seed"
+	  [matTooltip]="'Random Seed: ' + snekSeed()">
+	{{ snekSeed() }}
+</span>
 
 @if (snekGame(); as snekGame) {
 	@for (snekGridRow of snekGame.grid; track $index) {
