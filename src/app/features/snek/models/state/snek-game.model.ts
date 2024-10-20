@@ -68,8 +68,8 @@ export class SnekGame {
 	}
 
 	private findBlankGridNode(): SnekGridNode {
-		const randomIndex = Math.floor(Random.float() * ((this._width * this._height) - this._snek.length));
-		let currentSnekGridNode = this.at(0, 0) as SnekGridNode;
+		const randomIndex = Random.uniform(0, (this._width * this._height) - this._snek.length);
+		let currentSnekGridNode = this.validateBlankGridNode(this.at(0, 0) as SnekGridNode);
 		for (let currentIndex = 0; currentIndex < randomIndex; currentIndex++) {
 			currentSnekGridNode = this.findNextBlankGridNode(currentSnekGridNode);
 		}
@@ -77,13 +77,26 @@ export class SnekGame {
 	}
 
 	private findNextBlankGridNode(snekGridNode: SnekGridNode): SnekGridNode {
-		const nextGridNode = (snekGridNode.width + 1 === this._width)
-			? this.at(0, snekGridNode.height + 1) as SnekGridNode
-			: snekGridNode.next(SnekDirection.RIGHT) as SnekGridNode;
+		const nextGridNode = this.findNextGridNode(snekGridNode);
+		return this.validateBlankGridNode(nextGridNode);
+	}
 
-		return (untracked(nextGridNode.type) === SnekGridNodeType.BLANK)
-			? nextGridNode
-			: this.findNextBlankGridNode(nextGridNode);
+	private findNextGridNode(snekGridNode: SnekGridNode): SnekGridNode {
+		if (snekGridNode.width + 1 < this._width) {
+			return snekGridNode.next(SnekDirection.RIGHT) as SnekGridNode;
+		} else if (snekGridNode.height + 1 < this._height) {
+			return this.at(0, snekGridNode.height + 1) as SnekGridNode;
+		} else {
+			return this.at(0, 0) as SnekGridNode;
+		}
+	}
+
+	private validateBlankGridNode(snekGridNode: SnekGridNode): SnekGridNode {
+		if (untracked(snekGridNode.type) === SnekGridNodeType.BLANK) {
+			return snekGridNode;
+		} else {
+			return this.findNextBlankGridNode(snekGridNode);
+		}
 	}
 
 	private at(width: number, height: number): SnekGridNode | null {
