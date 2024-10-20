@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { MatTooltip } from '@angular/material/tooltip';
 import { JoystickOutputData } from 'nipplejs';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { JoystickComponent } from 'src/app/features/joystick/joystick.component';
@@ -15,7 +16,7 @@ import { SnekUserInputService } from 'src/app/features/snek/services/core/snek-u
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		JoystickComponent, SnekGridNodeComponent,
+		MatTooltip, JoystickComponent, SnekGridNodeComponent,
 	],
 })
 export class SnekGridComponent {
@@ -25,6 +26,7 @@ export class SnekGridComponent {
 	private readonly snekUserInputService = inject(SnekUserInputService);
 
 	public readonly snekGame = this.snekStateService.snekGame;
+	public readonly snekSeed = computed(() => `#${ this.snekGame().seed.toString(16).padStart(4, '0') }`);
 	public readonly snekWidth = this.snekResolutionService.snekWidth;
 	public readonly snekHeight = this.snekResolutionService.snekHeight;
 
