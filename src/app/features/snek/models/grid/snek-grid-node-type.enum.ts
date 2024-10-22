@@ -1,5 +1,5 @@
 export enum SnekGridNodeType {
 	BLANK = 'blank',
-	FUD = 'fud',
+	FOOD = 'food',
 	SNEK = 'snek',
 }

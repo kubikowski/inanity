@@ -5,22 +5,24 @@ import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.m
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';
 
 export class Snek {
-	private _head: SnekNode;
-	private _tail: SnekNode;
-	private _length: number;
-	private _currentDirection: SnekDirection;
-	private _nextDirection: SnekDirection;
+
+	#head: SnekNode;
+	#tail: SnekNode;
+	#length: number;
+
+	#currentDirection: SnekDirection;
+	#nextDirection: SnekDirection;
 
 	private constructor(
 		length: number,
 		tailGridNode: SnekGridNode,
 	) {
-		this._head = this._tail = SnekNode.initialHead(tailGridNode);
-		this._length = 1;
-		this._currentDirection = SnekDirection.RIGHT;
-		this._nextDirection = SnekDirection.RIGHT;
+		this.#head = this.#tail = SnekNode.initialHead(tailGridNode);
+		this.#length = 1;
+		this.#currentDirection = SnekDirection.RIGHT;
+		this.#nextDirection = SnekDirection.RIGHT;
 
-		for (let i = 1; i < length; i++) {
+		for (let index = this.#length; index < length; index++) {
 			this.addHead();
 		}
 	}
@@ -30,8 +32,8 @@ export class Snek {
 	}
 
 	public move(): boolean {
-		this._currentDirection = this._nextDirection;
-		const nextSnekGridNode = this._head.snekGridNode.next(this._nextDirection);
+		this.#currentDirection = this.#nextDirection;
+		const nextSnekGridNode = this.#head.snekGridNode.next(this.#nextDirection);
 
 		if (!(nextSnekGridNode instanceof SnekGridNode)) {
 			throw new Error('come join me in the wall');
@@ -40,12 +42,14 @@ export class Snek {
 		switch (untracked(nextSnekGridNode.type)) {
 			case SnekGridNodeType.BLANK:
 				return this.moveOn();
-			case SnekGridNodeType.FUD:
+			case SnekGridNodeType.FOOD:
 				return this.moveOnUp();
 			case SnekGridNodeType.SNEK:
-				if (nextSnekGridNode === this._tail.snekGridNode) {
+				if (nextSnekGridNode === this.#tail.snekGridNode) {
 					return this.moveOn();
-				} else throw new Error('stop hitting yourself');
+				} else {
+					throw new Error('stop hitting yourself');
+				}
 		}
 	}
 
@@ -61,34 +65,41 @@ export class Snek {
 	}
 
 	private addHead(): void {
-		const nextSnekGridNode = this._head.snekGridNode.next(this._nextDirection) as SnekGridNode;
-		this._head = SnekNode.newHead(nextSnekGridNode, this._head, this._nextDirection);
-		this._length++;
+		const nextSnekGridNode = this.#head.snekGridNode.next(this.#nextDirection) as SnekGridNode;
+
+		this.#head = SnekNode.newHead(nextSnekGridNode, this.#head, this.#nextDirection);
+		this.#length++;
 	}
 
 	private removeTail(): void {
-		this._tail.snekGridNode.detachSnekNode();
-		const newTail = this._tail.parent as SnekNode;
+		this.#tail.snekGridNode.detachSnekNode();
+
+		const newTail = this.#tail.parent as SnekNode;
 		newTail.removeTail();
-		this._tail = newTail;
-		this._length--;
+
+		this.#tail = newTail;
+		this.#length--;
 	}
 
 	public get head(): SnekNode {
-		return this._head;
+		return this.#head;
+	}
+
+	public get tail(): SnekNode {
+		return this.#tail;
 	}
 
 	public get length(): number {
-		return this._length;
+		return this.#length;
 	}
 
 	public get direction(): SnekDirection {
-		return this._currentDirection;
+		return this.#currentDirection;
 	}
 
 	public set direction(direction: SnekDirection) {
-		if (this._currentDirection !== SnekDirectionUtil.inverse(direction)) {
-			this._nextDirection = direction;
+		if (this.#currentDirection !== SnekDirectionUtil.inverse(direction)) {
+			this.#nextDirection = direction;
 		}
 	}
 }

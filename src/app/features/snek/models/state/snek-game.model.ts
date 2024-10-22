@@ -14,7 +14,7 @@ export class SnekGame {
 	private readonly _grid: ReadonlyArray<ReadonlyArray<SnekGridNode>>;
 	private readonly _snek: Snek;
 
-	private _fudNode!: SnekGridNode;
+	private _foodNode!: SnekGridNode;
 	private _counter = 0;
 
 	private readonly _gameOver = signal<string | undefined>(undefined);
@@ -35,7 +35,7 @@ export class SnekGame {
 		const tailGridNode = this.at(1, Math.floor(this._height / 2)) as SnekGridNode;
 		this._snek = Snek.new(SnekGame.initialSnekLength, tailGridNode);
 
-		this.spawnFud();
+		this.spawnFood();
 	}
 
 	public static new(width: number, height: number): SnekGame {
@@ -58,16 +58,16 @@ export class SnekGame {
 		try {
 			this._counter++;
 			if (this.snek.move()) {
-				this.spawnFud();
+				this.spawnFood();
 			}
 		} catch (error) {
 			this._gameOver.set((error as Error).message);
 		}
 	}
 
-	private spawnFud(): void {
-		this._fudNode = this.findBlankGridNode();
-		this._fudNode.attachFud();
+	private spawnFood(): void {
+		this._foodNode = this.findBlankGridNode();
+		this._foodNode.attachFood();
 	}
 
 	private findBlankGridNode(): SnekGridNode {
@@ -117,8 +117,8 @@ export class SnekGame {
 		return this._snek;
 	}
 
-	public get fudNode(): SnekGridNode {
-		return this._fudNode;
+	public get foodNode(): SnekGridNode {
+		return this._foodNode;
 	}
 
 	public get counter(): number {

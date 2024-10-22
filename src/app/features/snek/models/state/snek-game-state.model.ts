@@ -5,7 +5,8 @@ import { SnekGame } from 'src/app/features/snek/models/state/snek-game.model';
 export class SnekGameState {
 	private constructor(
 		public readonly headNode: SnekGridNode,
-		public readonly fudNode: SnekGridNode,
+		public readonly tailNode: SnekGridNode,
+		public readonly foodNode: SnekGridNode,
 		public readonly direction: SnekDirection,
 		public readonly score: number,
 		public readonly gameCounter: number,
@@ -13,25 +14,30 @@ export class SnekGameState {
 
 	public static from(snekGame: SnekGame): SnekGameState {
 		const headNode = snekGame.snek.head.snekGridNode;
-		const fudNode = snekGame.fudNode;
+		const tailNode = snekGame.snek.tail.snekGridNode;
+		const foodNode = snekGame.foodNode;
 		const direction = snekGame.snek.direction;
 		const score = snekGame.snek.length - SnekGame.initialSnekLength;
 		const gameCounter = snekGame.counter;
 
-		return new SnekGameState(headNode, fudNode, direction, score, gameCounter);
+		return new SnekGameState(headNode, tailNode, foodNode, direction, score, gameCounter);
 	}
 
 	public format(): ThisType<SnekGameState> {
-		const { headNode, fudNode, direction, score, gameCounter } = this;
+		const { headNode, tailNode, foodNode, direction, score, gameCounter } = this;
 
 		return {
 			headNode: {
 				width: headNode.width,
 				height: headNode.height,
 			},
-			fudNode: {
-				width: fudNode.width,
-				height: fudNode.height,
+			tailNode: {
+				width: tailNode.width,
+				height: tailNode.height,
+			},
+			foodNode: {
+				width: foodNode.width,
+				height: foodNode.height,
 			},
 			direction,
 			score,

@@ -33,9 +33,9 @@ export class SnekGridNode {
 		this.type.set(SnekGridNodeType.SNEK);
 	}
 
-	public attachFud(): void {
+	public attachFood(): void {
 		this.detachSnekNode();
-		this.type.set(SnekGridNodeType.FUD);
+		this.type.set(SnekGridNodeType.FOOD);
 	}
 
 	public detachSnekNode(): void {

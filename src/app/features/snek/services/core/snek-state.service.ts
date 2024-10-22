@@ -55,14 +55,14 @@ export class SnekStateService {
 		const direction = untracked(this.directionInput);
 		const playing = this.playing();
 		const snekGame = this.snekGame();
-		this.gameClock();
 
 		if (playing && typeof direction !== 'undefined') {
+			this.gameClock();
 			snekGame.snek.direction = direction;
 			snekGame.moveSnek();
-
-			this.gameState.set(SnekGameState.from(snekGame));
 		}
+
+		this.gameState.set(SnekGameState.from(snekGame));
 	}
 
 	private persistHighScore(): void {
