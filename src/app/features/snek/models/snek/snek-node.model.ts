@@ -10,8 +10,8 @@ export class SnekNode {
 	#parentDirection: SnekDirection | null = null;
 	#childDirection: SnekDirection | null = null;
 
-	#type = SnekNodeType.HEAD;
-	#direction: SnekDirection | null = null;
+	#type!: SnekNodeType;
+	#direction!: SnekDirection | null;
 
 	private constructor(
 		public readonly snekGridNode: SnekGridNode,

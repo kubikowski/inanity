@@ -1,4 +1,4 @@
-import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
+import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';
 import { SnekIcon } from 'src/app/features/snek/models/svg/snek-icon.enum';
@@ -68,11 +68,17 @@ export class SnekGridNode {
 		}
 	}
 
-	public get type(): SnekGridNodeType {
-		return this.#type;
+	public getIconRotation(): number {
+		return SnekDirectionUtil.getIconRotation(this.#snekNode?.direction ?? null);
 	}
 
-	public get snekNode(): SnekNode | null {
-		return this.#snekNode;
+	public getIconTranslation(): [ number, number ] {
+		const [ widthOffset, heightOffset ] = SnekDirectionUtil.getIconTranslation(this.#snekNode?.direction ?? null);
+
+		return [ this.width * 20 + widthOffset, this.height * 20 + heightOffset ];
+	}
+
+	public get type(): SnekGridNodeType {
+		return this.#type;
 	}
 }

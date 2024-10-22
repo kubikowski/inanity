@@ -3,7 +3,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { pairwise } from 'src/app/core/functions/signal/pairwise.function';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { CanvasService } from 'src/app/features/background/services/canvas.service';
-import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';
@@ -86,22 +85,29 @@ export class SnekCanvasService extends CanvasService {
 		const snekIcon = snekGridNode.getIcon(gameCounter);
 		if (snekIcon === null) return;
 
-		const svgPath = (untracked(this.svgElements)?.[snekIcon]?.firstElementChild ?? null) as SVGPathElement | null;
+		const svgPath = this.getIcon(snekIcon);
 		if (svgPath === null) return;
 
-		const nodeValue = svgPath.attributes.getNamedItem('d')?.nodeValue ?? null;
-		if (nodeValue === null) return;
+		const pathString = svgPath.attributes.getNamedItem('d')?.nodeValue ?? null;
+		if (pathString === null) return;
 
 		const domMatrix = svgPath.ownerSVGElement?.createSVGMatrix()
-			.translate(...SnekCanvasService.getSvgTranslation(snekGridNode))
-			.rotate(SnekCanvasService.getSvgRotation(snekGridNode))
+			.translate(...snekGridNode.getIconTranslation())
+			.rotate(snekGridNode.getIconRotation())
 			.scale(20 / 100);
 
 		const path = new Path2D();
-		path.addPath(new Path2D(nodeValue), domMatrix);
+		path.addPath(new Path2D(pathString), domMatrix);
 
 		context.fillStyle = this.getIconColor(snekGridNode.type);
 		context.fill(path);
+	}
+
+	private getIcon(snekIcon: SnekIcon): SVGPathElement | null {
+		const svgElements = untracked(this.svgElements);
+		const svgElement = svgElements?.[snekIcon] ?? null;
+
+		return (svgElement?.firstElementChild ?? null) as SVGPathElement | null;
 	}
 
 	private getIconColor(snekGridNodeType: SnekGridNodeType): string {
@@ -114,37 +120,6 @@ export class SnekCanvasService extends CanvasService {
 			case SnekGridNodeType.FOOD: {
 				return palette.colorDarkest;
 			}
-		}
-	}
-
-	private static getSvgTranslation(snekGridNode: SnekGridNode): [ number, number ] {
-		const headWidth = snekGridNode.width * 20;
-		const headHeight = snekGridNode.height * 20;
-
-		switch (snekGridNode.snekNode?.direction) {
-			default:
-			case SnekDirection.RIGHT:
-				return [ headWidth, headHeight ];
-			case SnekDirection.DOWN:
-				return [ headWidth + 20, headHeight ];
-			case SnekDirection.LEFT:
-				return [ headWidth + 20, headHeight + 20 ];
-			case SnekDirection.UP:
-				return [ headWidth, headHeight + 20 ];
-		}
-	}
-
-	private static getSvgRotation(snekGridNode: SnekGridNode): number {
-		switch (snekGridNode.snekNode?.direction) {
-			default:
-			case SnekDirection.RIGHT:
-				return 0;
-			case SnekDirection.DOWN:
-				return 90;
-			case SnekDirection.LEFT:
-				return 180;
-			case SnekDirection.UP:
-				return 270;
 		}
 	}
 }
