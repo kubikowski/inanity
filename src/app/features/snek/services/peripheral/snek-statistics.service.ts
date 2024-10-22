@@ -21,7 +21,7 @@ export class SnekStatisticsService {
 		effect(() => {
 			const gameOverMessage = this.snekStateService.gameOver();
 
-			if (typeof gameOverMessage !== 'undefined') {
+			if (gameOverMessage !== null) {
 				console.log(this.gameStateLog);
 				this.gameStateLog = [];
 			}

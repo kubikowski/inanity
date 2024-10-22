@@ -1,4 +1,3 @@
-import { untracked } from '@angular/core';
 import { difference } from 'set-utilities';
 import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
@@ -19,11 +18,11 @@ export class SnekDirectionClassifications {
 	}
 
 	public static from(gameState: SnekGameState): SnekDirectionClassifications {
-		const { headNode, fudNode, direction } = gameState;
+		const { headNode, foodNode, direction } = gameState;
 
 		const possible = this.getPossibleDirections(headNode, direction);
 
-		const optimal = this.getOptimalDirections(headNode, fudNode)
+		const optimal = this.getOptimalDirections(headNode, foodNode)
 			.filter(optimalDirection => possible.has(optimalDirection));
 
 		const subOptimal = this.getSubOptimalDirections(possible, optimal);
@@ -39,7 +38,7 @@ export class SnekDirectionClassifications {
 		SnekDirectionUtil.all.forEach(direction => {
 			const next = headNode.next(direction);
 
-			if (!(next instanceof SnekGridNode) || untracked(next.type) === SnekGridNodeType.SNEK) {
+			if (!(next instanceof SnekGridNode) || next.type === SnekGridNodeType.SNEK) {
 				possible.delete(direction);
 			}
 		});
@@ -47,27 +46,27 @@ export class SnekDirectionClassifications {
 		return possible;
 	}
 
-	private static getOptimalDirections(headNode: SnekGridNode, fudNode: SnekGridNode): SnekDirection[] {
+	private static getOptimalDirections(headNode: SnekGridNode, foodNode: SnekGridNode): SnekDirection[] {
 		return [
-			this.getOptimalHorizontalDirection(headNode, fudNode),
-			this.getOptimalVerticalDirection(headNode, fudNode),
+			this.getOptimalHorizontalDirection(headNode, foodNode),
+			this.getOptimalVerticalDirection(headNode, foodNode),
 		].filter(value => value !== null) as SnekDirection[];
 	}
 
-	private static getOptimalHorizontalDirection(headNode: SnekGridNode, fudNode: SnekGridNode): SnekDirection | null {
-		if (fudNode.width > headNode.width) {
+	private static getOptimalHorizontalDirection(headNode: SnekGridNode, foodNode: SnekGridNode): SnekDirection | null {
+		if (foodNode.width > headNode.width) {
 			return SnekDirection.RIGHT;
-		} else if (fudNode.width < headNode.width) {
+		} else if (foodNode.width < headNode.width) {
 			return SnekDirection.LEFT;
 		} else {
 			return null;
 		}
 	}
 
-	private static getOptimalVerticalDirection(headNode: SnekGridNode, fudNode: SnekGridNode): SnekDirection | null {
-		if (fudNode.height > headNode.height) {
+	private static getOptimalVerticalDirection(headNode: SnekGridNode, foodNode: SnekGridNode): SnekDirection | null {
+		if (foodNode.height > headNode.height) {
 			return SnekDirection.DOWN;
-		} else if (fudNode.height < headNode.height) {
+		} else if (foodNode.height < headNode.height) {
 			return SnekDirection.UP;
 		} else {
 			return null;

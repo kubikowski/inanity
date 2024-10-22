@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { effect, inject, Injectable, RendererFactory2, RendererStyleFlags2, signal, untracked } from '@angular/core';
+import { computed, effect, inject, Injectable, RendererFactory2, RendererStyleFlags2, signal } from '@angular/core';
 import { BaseColorPalette } from '../models/color-palettes/base-color-palette.model';
 import { ColorPalette } from '../models/color-palettes/color-palette.model';
 import { BluePalette, ColorPalettes } from '../models/color-palettes/color-palettes.constant';
@@ -17,6 +17,8 @@ export class ColorsService {
 	public readonly theme = signal(ColorsService.localStorageTheme);
 	public readonly palette = signal(ColorsService.localStoragePalette);
 
+	public readonly computedPalette = computed(() => this.getComputedPalette());
+
 	public constructor() {
 		effect(() => this.setTheme(this.theme()));
 		effect(() => this.setPalette(this.palette()));
@@ -29,18 +31,18 @@ export class ColorsService {
 		this.documentBodyThemeClass = theme;
 		this.cssThemeVariables = theme;
 
-		this.cssPaletteVariables = this.computedPalette;
+		this.cssPaletteVariables = this.getComputedPalette();
 	}
 
 	private setPalette(palette: ColorPalette): void {
 		ColorsService.localStoragePalette = palette;
 
-		this.cssPaletteVariables = this.computedPalette;
+		this.cssPaletteVariables = this.getComputedPalette();
 	}
 
-	private get computedPalette(): ColorPalette {
-		const theme = untracked(this.theme);
-		const palette = untracked(this.palette);
+	private getComputedPalette(): ColorPalette {
+		const theme = this.theme();
+		const palette = this.palette();
 
 		return (palette.theme.themeName !== theme.themeName)
 			? palette.inverse(theme)

@@ -1,20 +1,25 @@
 import { computed, effect, inject, Injectable, untracked } from '@angular/core';
 import { animationFrameScheduler, interval } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ColorsService } from 'src/app/core/colors/services/colors.service';
+import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { Circle } from 'src/app/features/background/models/circle.model';
 import { CanvasService } from 'src/app/features/background/services/canvas.service';
 import { MovingBackgroundService } from 'src/app/features/background/services/moving-background.service';
 
 @Injectable()
 export class BackgroundCanvasService extends CanvasService {
-	private readonly colorsService = inject(ColorsService);
 	private readonly movingBackgroundService = inject(MovingBackgroundService);
+
+	protected readonly canvasTopOffset = computed(() => this.canvas()?.getBoundingClientRect().top ?? 0);
+	protected readonly rawCanvasWidth = this.screenDetectorService.screenWidth.asReadonly();
+	protected readonly rawCanvasHeight = computed(() => this.screenDetectorService.screenHeight() - this.canvasTopOffset());
 
 	private readonly mousePosition = computed<[ number, number ]>(() => {
 		const [ x, y ] = this.screenDetectorService.mousePosition();
 		return [ x * this.pixelDensity(), (y - this.canvasTopOffset()) * this.pixelDensity() ];
 	});
+
+	protected canvasElements = Array<CanvasElement>();
 
 	public constructor() {
 		super();

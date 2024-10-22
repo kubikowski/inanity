@@ -57,4 +57,32 @@ export abstract class SnekDirectionUtil {
 				return parentDirection === SnekDirection.UP;
 		}
 	}
+
+	public static getIconRotation(direction: SnekDirection | null): number {
+		switch (direction) {
+			default:
+			case SnekDirection.RIGHT:
+				return 0;
+			case SnekDirection.DOWN:
+				return 90;
+			case SnekDirection.LEFT:
+				return 180;
+			case SnekDirection.UP:
+				return 270;
+		}
+	}
+
+	public static getIconTranslation(direction: SnekDirection | null): [ number, number ] {
+		switch (direction) {
+			default:
+			case SnekDirection.RIGHT:
+				return [ 0, 0 ];
+			case SnekDirection.DOWN:
+				return [ 20, 0 ];
+			case SnekDirection.LEFT:
+				return [ 20, 20 ];
+			case SnekDirection.UP:
+				return [ 0, 20 ];
+		}
+	}
 }

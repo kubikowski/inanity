@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { forkJoin, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ExternalSvgIcon } from 'src/app/core/svg/external-svg-icon.enum';
 import { InternalSvgIcon } from 'src/app/core/svg/internal-svg-icon.enum';
 
@@ -56,6 +58,28 @@ export class SvgIconService {
 			this.matIconRegistry.addSvgIconSetInNamespace(namespace, safeResourceUrl);
 		} else {
 			this.matIconRegistry.addSvgIconSet(safeResourceUrl);
+		}
+	}
+
+	public getIcons<T extends string>(iconKeys: T[]): Observable<Record<T, SVGElement>> {
+		return forkJoin(iconKeys.map(iconKey => this.getIcon(iconKey)))
+			.pipe(map(icons => {
+				const iconMap = <Record<T, SVGElement>>{};
+
+				for (let index = 0; index < iconKeys.length; index++) {
+					iconMap[iconKeys[index] as T] = icons[index] as SVGElement;
+				}
+
+				return iconMap;
+			}));
+	}
+
+	public getIcon(iconKey: string): Observable<SVGElement> {
+		if (iconKey.includes(':')) {
+			const [ parsedNamespace, parsedIconKey ] = iconKey.split(':') as [ string, string ];
+			return this.matIconRegistry.getNamedSvgIcon(parsedIconKey, parsedNamespace);
+		} else {
+			return this.matIconRegistry.getNamedSvgIcon(iconKey);
 		}
 	}
 }
