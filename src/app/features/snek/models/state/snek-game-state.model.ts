@@ -10,6 +10,7 @@ export class SnekGameState {
 		public readonly direction: SnekDirection,
 		public readonly score: number,
 		public readonly gameCounter: number,
+		public readonly gameOver: string | null,
 	) { }
 
 	public static from(snekGame: SnekGame): SnekGameState {
@@ -19,12 +20,13 @@ export class SnekGameState {
 		const direction = snekGame.snek.direction;
 		const score = snekGame.snek.length - SnekGame.initialSnekLength;
 		const gameCounter = snekGame.counter;
+		const gameOver = snekGame.gameOver;
 
-		return new SnekGameState(headNode, tailNode, foodNode, direction, score, gameCounter);
+		return new SnekGameState(headNode, tailNode, foodNode, direction, score, gameCounter, gameOver);
 	}
 
 	public format(): ThisType<SnekGameState> {
-		const { headNode, tailNode, foodNode, direction, score, gameCounter } = this;
+		const { headNode, tailNode, foodNode, direction, score, gameCounter, gameOver } = this;
 
 		return {
 			headNode: {
@@ -42,6 +44,7 @@ export class SnekGameState {
 			direction,
 			score,
 			gameCounter,
+			gameOver,
 		};
 	}
 }

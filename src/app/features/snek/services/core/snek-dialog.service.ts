@@ -14,7 +14,7 @@ export class SnekDialogService {
 		effect(() => {
 			const gameOverMessage = this.snekStateService.gameOver();
 
-			if (typeof gameOverMessage !== 'undefined') {
+			if (gameOverMessage !== null) {
 				this.openResultsDialog(gameOverMessage);
 			}
 		});

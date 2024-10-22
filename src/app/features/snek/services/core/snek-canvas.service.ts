@@ -6,7 +6,6 @@ import { CanvasService } from 'src/app/features/background/services/canvas.servi
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
-import { SnekNodeTypeUtil } from 'src/app/features/snek/models/snek/snek-node-type.enum';
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';
 import { SnekIcon } from 'src/app/features/snek/models/svg/snek-icon.enum';
 import { SnekResolutionService } from 'src/app/features/snek/services/core/snek-resolution.service';
@@ -34,6 +33,7 @@ export class SnekCanvasService extends CanvasService {
 	private initializeGame(): void {
 		const context = this.context();
 		const svgElements = this.svgElements();
+		this.colorsService.computedPalette();
 		const snekGame = this.snekStateService.snekGame();
 		if (context === null || typeof svgElements === 'undefined') return;
 
@@ -57,6 +57,7 @@ export class SnekCanvasService extends CanvasService {
 		const context = this.context();
 		const svgElements = this.svgElements();
 		const [ currentState, previousState ] = this.pairwiseState();
+		this.colorsService.computedPalette();
 		if (context === null || typeof svgElements === 'undefined') return;
 
 		if (typeof previousState !== 'undefined' && previousState.gameCounter < currentState.gameCounter) {
@@ -82,16 +83,13 @@ export class SnekCanvasService extends CanvasService {
 	private drawSnekNode(context: CanvasRenderingContext2D, snekGridNode: SnekGridNode, gameCounter: number): void {
 		this.drawGridNode(context, snekGridNode.width, snekGridNode.height);
 
-		const snekGridNodeType = untracked(snekGridNode.type);
-		const snekNode = untracked(snekGridNode.snekNode);
-		const snekIcon = this.getSnekIcon(snekGridNodeType, snekNode, gameCounter);
+		const snekIcon = snekGridNode.getIcon(gameCounter);
 		if (snekIcon === null) return;
 
 		const svgPath = (untracked(this.svgElements)?.[snekIcon]?.firstElementChild ?? null) as SVGPathElement | null;
 		if (svgPath === null) return;
 
-		const d = svgPath.attributes.getNamedItem('d');
-		const nodeValue = d?.nodeValue ?? null;
+		const nodeValue = svgPath.attributes.getNamedItem('d')?.nodeValue ?? null;
 		if (nodeValue === null) return;
 
 		const domMatrix = svgPath.ownerSVGElement?.createSVGMatrix()
@@ -102,24 +100,8 @@ export class SnekCanvasService extends CanvasService {
 		const path = new Path2D();
 		path.addPath(new Path2D(nodeValue), domMatrix);
 
-		context.fillStyle = this.getIconColor(snekGridNodeType);
+		context.fillStyle = this.getIconColor(snekGridNode.type);
 		context.fill(path);
-	}
-
-	private getSnekIcon(snekGridNodeType: SnekGridNodeType, snekNode: SnekNode | null, gameCounter: number): SnekIcon | null {
-		switch (snekGridNodeType) {
-			case SnekGridNodeType.SNEK: {
-				const type = untracked(snekNode!.type);
-
-				return SnekNodeTypeUtil.getIcon(type, gameCounter);
-			}
-			case SnekGridNodeType.FOOD: {
-				return SnekIcon.FOOD;
-			}
-			case SnekGridNodeType.BLANK: {
-				return null;
-			}
-		}
 	}
 
 	private getIconColor(snekGridNodeType: SnekGridNodeType): string {
@@ -139,12 +121,7 @@ export class SnekCanvasService extends CanvasService {
 		const headWidth = snekGridNode.width * 20;
 		const headHeight = snekGridNode.height * 20;
 
-		const snekNode = untracked(snekGridNode.snekNode);
-		if (snekNode === null) {
-			return [ headWidth, headHeight ];
-		}
-
-		switch (untracked(snekNode.direction)) {
+		switch (snekGridNode.snekNode?.direction) {
 			default:
 			case SnekDirection.RIGHT:
 				return [ headWidth, headHeight ];
@@ -158,12 +135,7 @@ export class SnekCanvasService extends CanvasService {
 	}
 
 	private static getSvgRotation(snekGridNode: SnekGridNode): number {
-		const snekNode = untracked(snekGridNode.snekNode);
-		if (snekNode === null) {
-			return 0;
-		}
-
-		switch (untracked(snekNode.direction)) {
+		switch (snekGridNode.snekNode?.direction) {
 			default:
 			case SnekDirection.RIGHT:
 				return 0;

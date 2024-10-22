@@ -1,31 +1,31 @@
-import { computed, signal, untracked } from '@angular/core';
 import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
-import { SnekNodeTypeUtil } from 'src/app/features/snek/models/snek/snek-node-type.enum';
+import { SnekNodeType, SnekNodeTypeUtil } from 'src/app/features/snek/models/snek/snek-node-type.enum';
+import { SnekIcon } from 'src/app/features/snek/models/svg/snek-icon.enum';
 
 export class SnekNode {
-	private _parent: SnekNode | null = null;
+	#parent: SnekNode | null = null;
+	#child: SnekNode | null;
 
-	private readonly parentDirection = signal<SnekDirection | null>(null);
-	private readonly childDirection = signal<SnekDirection | null>(null);
+	#parentDirection: SnekDirection | null = null;
+	#childDirection: SnekDirection | null = null;
 
-	public readonly type = computed(
-		() => SnekNodeTypeUtil.from(this.parentDirection(), this.childDirection()));
-
-	public readonly direction = computed(
-		() => SnekDirectionUtil.nodeDirection(this.parentDirection(), this.childDirection()));
+	#type = SnekNodeType.HEAD;
+	#direction: SnekDirection | null = null;
 
 	private constructor(
 		public readonly snekGridNode: SnekGridNode,
-		private _child: SnekNode | null,
+		child: SnekNode | null,
 		childDirection: SnekDirection | null,
 	) {
 		snekGridNode.attachSnekNode(this);
 
-		this.childDirection.set(childDirection);
+		this.#child = child;
+		this.#childDirection = childDirection;
+		this.updateMetadata();
 
-		if (this._child instanceof SnekNode) {
-			this._child.addHead(this);
+		if (this.#child instanceof SnekNode) {
+			this.#child.addHead(this);
 		}
 	}
 
@@ -39,29 +39,48 @@ export class SnekNode {
 		return new SnekNode(snekGridNode, child, childDirection);
 	}
 
-	public get parent(): SnekNode | null {
-		return this._parent;
-	}
-
-	public get child(): SnekNode | null {
-		return this._child;
-	}
-
 	public addHead(head: SnekNode): void {
-		if (this._parent instanceof SnekNode) {
+		if (this.#parent instanceof SnekNode) {
 			throw new Error('be like the hydra');
 		}
 
-		this._parent = head;
-		this.parentDirection.set(SnekDirectionUtil.inverse(untracked(head.childDirection)));
+		this.#parent = head;
+		this.#parentDirection = SnekDirectionUtil.inverse(head.#childDirection);
+		this.updateMetadata();
 	}
 
 	public removeTail(): void {
-		if (!(this._child instanceof SnekNode)) {
+		if (!(this.#child instanceof SnekNode)) {
 			throw new Error('if i had a tail');
 		}
 
-		this._child = null;
-		this.childDirection.set(null);
+		this.#child = null;
+		this.#childDirection = null;
+		this.updateMetadata();
+	}
+
+	private updateMetadata(): void {
+		this.#type = SnekNodeTypeUtil.from(this.#parentDirection, this.#childDirection);
+		this.#direction = SnekDirectionUtil.nodeDirection(this.#parentDirection, this.#childDirection);
+	}
+
+	public getIcon(gameCounter: number): SnekIcon {
+		return SnekNodeTypeUtil.getIcon(this.#type, gameCounter);
+	}
+
+	public get parent(): SnekNode | null {
+		return this.#parent;
+	}
+
+	public get child(): SnekNode | null {
+		return this.#child;
+	}
+
+	public get type(): SnekNodeType {
+		return this.#type;
+	}
+
+	public get direction(): SnekDirection | null {
+		return this.#direction;
 	}
 }

@@ -16,7 +16,8 @@ export class SnekAudioService {
 
 		effect(async () => {
 			const gameOverMessage = this.snekStateService.gameOver();
-			if (typeof gameOverMessage !== 'undefined') {
+
+			if (gameOverMessage !== null) {
 				await this.gameOverEvent(gameOverMessage);
 			}
 		});

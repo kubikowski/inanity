@@ -11,20 +11,20 @@ import { SnekResolutionService } from 'src/app/features/snek/services/core/snek-
 export class SnekStateService {
 	private readonly snekResolutionService = inject(SnekResolutionService);
 
-	public readonly directionInput = signal<SnekDirection | undefined>(undefined);
+	public readonly directionInput = signal<SnekDirection | null>(null);
 	public readonly resetInput = signal(false);
 
 	public readonly paused = computed(() =>
-		(this.resetInput()) || (typeof this.gameOver() !== 'undefined'));
+		(this.resetInput()) || (this.gameOver() !== null));
 	public readonly playing = computed(() =>
-		(!this.paused()) && (typeof this.directionInput() !== 'undefined'));
+		(!this.paused()) && (this.directionInput() !== null));
 
 	public readonly gameClock = toSignal(timer(100, 100));
 	public readonly snekGame = signal(SnekGame.new(...untracked(this.snekResolutionService.resolution)));
 	public readonly gameState = signal(SnekGameState.from(untracked(this.snekGame)));
 
-	public readonly score = computed(() => this.gameState()?.score ?? 0);
-	public readonly gameOver = computed(() => this.snekGame()?.gameOver());
+	public readonly score = computed(() => this.gameState().score);
+	public readonly gameOver = computed(() => this.gameState().gameOver);
 
 	public readonly highScore = computed(() => {
 		this.resetInput();
@@ -40,7 +40,7 @@ export class SnekStateService {
 	public resetSnekGame(): void {
 		/* set, and then promptly clear, reset flag */
 		this.resetInput.set(true);
-		this.directionInput.set(undefined);
+		this.directionInput.set(null);
 		setTimeout(() => this.resetInput.set(false));
 	}
 
@@ -56,7 +56,7 @@ export class SnekStateService {
 		const playing = this.playing();
 		const snekGame = this.snekGame();
 
-		if (playing && typeof direction !== 'undefined') {
+		if (playing && direction !== null) {
 			this.gameClock();
 			snekGame.snek.direction = direction;
 			snekGame.moveSnek();
@@ -68,7 +68,7 @@ export class SnekStateService {
 	private persistHighScore(): void {
 		const gameOverMessage = this.gameOver();
 
-		if (typeof gameOverMessage !== 'undefined') {
+		if (gameOverMessage !== null) {
 			SnekStateService.localStorageHighScore = untracked(this.score);
 		}
 	}

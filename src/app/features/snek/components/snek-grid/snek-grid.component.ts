@@ -2,7 +2,6 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, computed, ElementRef
 import { MatTooltip } from '@angular/material/tooltip';
 import { JoystickOutputData } from 'nipplejs';
 import { JoystickComponent } from 'src/app/features/joystick/joystick.component';
-import { SnekGridNodeComponent } from 'src/app/features/snek/components/snek-grid-node/snek-grid-node.component';
 import { SnekCanvasService } from 'src/app/features/snek/services/core/snek-canvas.service';
 import { SnekResolutionService } from 'src/app/features/snek/services/core/snek-resolution.service';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
@@ -14,9 +13,7 @@ import { SnekUserInputService } from 'src/app/features/snek/services/core/snek-u
 	styleUrl: 'snek-grid.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-	imports: [
-		MatTooltip, JoystickComponent, SnekGridNodeComponent,
-	],
+	imports: [ MatTooltip, JoystickComponent ],
 })
 export class SnekGridComponent implements AfterViewInit {
 	private readonly snekCanvasService = inject(SnekCanvasService);

@@ -1,4 +1,3 @@
-import { untracked } from '@angular/core';
 import { difference } from 'set-utilities';
 import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
@@ -39,7 +38,7 @@ export class SnekDirectionClassifications {
 		SnekDirectionUtil.all.forEach(direction => {
 			const next = headNode.next(direction);
 
-			if (!(next instanceof SnekGridNode) || untracked(next.type) === SnekGridNodeType.SNEK) {
+			if (!(next instanceof SnekGridNode) || next.type === SnekGridNodeType.SNEK) {
 				possible.delete(direction);
 			}
 		});

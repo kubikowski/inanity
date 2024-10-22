@@ -1,4 +1,3 @@
-import { untracked } from '@angular/core';
 import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
@@ -39,7 +38,7 @@ export class Snek {
 			throw new Error('come join me in the wall');
 		}
 
-		switch (untracked(nextSnekGridNode.type)) {
+		switch (nextSnekGridNode.type) {
 			case SnekGridNodeType.BLANK:
 				return this.moveOn();
 			case SnekGridNodeType.FOOD:
