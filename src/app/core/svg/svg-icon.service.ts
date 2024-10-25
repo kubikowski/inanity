@@ -61,8 +61,8 @@ export class SvgIconService {
 		}
 	}
 
-	public getIcons<T extends string>(iconKeys: T[]): Observable<Record<T, SVGElement>> {
-		return forkJoin(iconKeys.map(iconKey => this.getIcon(iconKey)))
+	public getIcons<T extends string>(iconKeys: T[], namespace?: string): Observable<Record<T, SVGElement>> {
+		return forkJoin(iconKeys.map(iconKey => this.getIcon(iconKey, namespace)))
 			.pipe(map(icons => {
 				const iconMap = <Record<T, SVGElement>>{};
 
@@ -74,12 +74,12 @@ export class SvgIconService {
 			}));
 	}
 
-	public getIcon(iconKey: string): Observable<SVGElement> {
+	public getIcon(iconKey: string, namespace?: string): Observable<SVGElement> {
 		if (iconKey.includes(':')) {
 			const [ parsedNamespace, parsedIconKey ] = iconKey.split(':') as [ string, string ];
 			return this.matIconRegistry.getNamedSvgIcon(parsedIconKey, parsedNamespace);
 		} else {
-			return this.matIconRegistry.getNamedSvgIcon(iconKey);
+			return this.matIconRegistry.getNamedSvgIcon(iconKey, namespace);
 		}
 	}
 }

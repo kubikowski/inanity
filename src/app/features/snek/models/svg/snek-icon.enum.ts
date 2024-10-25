@@ -1,13 +1,23 @@
 export enum SnekIcon {
-	BODY_STRAIGHT = 'snek:snek-body-straight',
-	BODY_TURNED = 'snek:snek-body-turned',
-	FOOD = 'snek:snek-food',
-	HEAD_DEFAULT = 'snek:snek-head-default',
-	HEAD_TONGUE = 'snek:snek-head-tongue',
-	TAIL = 'snek:snek-tail',
+	BODY_STRAIGHT = 'snek-body-straight',
+	BODY_TURNED = 'snek-body-turned',
+	FOOD = 'snek-food',
+	HEAD_DEFAULT = 'snek-head-default',
+	HEAD_TONGUE = 'snek-head-tongue',
+	TAIL = 'snek-tail',
+}
+
+export enum SnekIconPack {
+	SMOOTH = 'smooth',
+	DOTTED = 'dotted',
 }
 
 export abstract class SnekIconUtil {
-	public static location = 'snek/icon-pack';
-	public static namespace = 'snek';
+	public static getLocation(snekIconPack: SnekIconPack): string {
+		return `snek/${ snekIconPack }/${ snekIconPack }-snek-icon-pack`;
+	}
+
+	public static getNamespace(snekIconPack: SnekIconPack): string {
+		return `snek-${ snekIconPack }`;
+	}
 }
