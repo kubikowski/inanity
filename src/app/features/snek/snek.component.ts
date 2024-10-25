@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { SnekGridComponent } from 'src/app/features/snek/components/snek-grid/snek-grid.component';
 import { SnekOptionsComponent } from 'src/app/features/snek/components/snek-options/snek-options.component';
-import { SnekIconUtil } from 'src/app/features/snek/models/svg/snek-icon.enum';
+import { SnekIconPack, SnekIconUtil } from 'src/app/features/snek/models/svg/snek-icon.enum';
 import { SnekAudioService } from 'src/app/features/snek/services/core/snek-audio.service';
 import { SnekCanvasService } from 'src/app/features/snek/services/core/snek-canvas.service';
 import { SnekDialogService } from 'src/app/features/snek/services/core/snek-dialog.service';
@@ -39,7 +39,8 @@ import { SnekStatisticsService } from 'src/app/features/snek/services/peripheral
 })
 export class SnekComponent {
 	public constructor() {
-		inject(SvgIconService).registerInternalIconPack(SnekIconUtil.location, SnekIconUtil.namespace);
+		inject(SvgIconService).registerInternalIconPack(SnekIconUtil.getLocation(SnekIconPack.SMOOTH), SnekIconUtil.getNamespace(SnekIconPack.SMOOTH));
+		inject(SvgIconService).registerInternalIconPack(SnekIconUtil.getLocation(SnekIconPack.DOTTED), SnekIconUtil.getNamespace(SnekIconPack.DOTTED));
 
 		inject(SnekAudioService);
 		inject(SnekCanvasService);

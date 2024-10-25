@@ -6,7 +6,7 @@ import { CanvasService } from 'src/app/features/background/services/canvas.servi
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';
-import { SnekIcon } from 'src/app/features/snek/models/svg/snek-icon.enum';
+import { SnekIcon, SnekIconPack, SnekIconUtil } from 'src/app/features/snek/models/svg/snek-icon.enum';
 import { SnekResolutionService } from 'src/app/features/snek/services/core/snek-resolution.service';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 
@@ -19,7 +19,8 @@ export class SnekCanvasService extends CanvasService {
 	protected readonly rawCanvasWidth = computed(() => this.snekResolutionService.snekWidth() * 20);
 	protected readonly rawCanvasHeight = computed(() => this.snekResolutionService.snekHeight() * 20);
 
-	private readonly svgElements = toSignal(this.svgIconService.getIcons(Object.values(SnekIcon)));
+	private readonly namespace = SnekIconUtil.getNamespace(SnekIconPack.DOTTED);
+	private readonly svgElements = toSignal(this.svgIconService.getIcons(Object.values(SnekIcon), this.namespace));
 	private readonly pairwiseState = pairwise(this.snekStateService.gameState);
 
 	public constructor() {
