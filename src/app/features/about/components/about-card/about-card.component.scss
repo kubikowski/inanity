@@ -1,4 +1,10 @@
 :host {
+	grid-row-end: span 2;
+
+	&.large-format {
+		grid-row-end: span 3;
+	}
+
 	.mat-mdc-card {
 		.mat-mdc-card-header {
 			position: absolute;
@@ -48,6 +54,6 @@
 }
 
 .desktop :host.large-format {
-	grid-row-end: span 2;
+	grid-row-end: span 5;
 	grid-column-end: span 2;
 }
