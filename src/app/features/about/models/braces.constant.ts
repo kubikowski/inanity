@@ -1,7 +1,7 @@
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export type BracePair = [ string, string ];
+export type BracePair = readonly [ string, string ];
 
 export const bracePairs: readonly BracePair[] = [
 	/* ascii */

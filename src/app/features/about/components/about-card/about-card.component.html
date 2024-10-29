@@ -12,7 +12,7 @@
 	}
 
 	@if (data().content) {
-		<mat-card-content>
+		<mat-card-content class="content">
 			<span>{{ openBrace() }}</span>
 
 			@for (content of data().content; track $index) {
@@ -28,6 +28,14 @@
 			}
 
 			<span>{{ closeBrace() }}</span>
+		</mat-card-content>
+	}
+
+	@if (data().paragraphs) {
+		<mat-card-content class="paragraphs">
+			@for (paragraph of data().paragraphs; track $index) {
+				<p [innerHtml]="paragraph"></p>
+			}
 		</mat-card-content>
 	}
 </mat-card>

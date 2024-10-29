@@ -1,14 +1,16 @@
 export interface AboutCardData {
-	title: string;
+	readonly title: string;
 
-	image?: {
-		src: string;
-		alt: string;
+	readonly image?: {
+		readonly src: string;
+		readonly alt: string;
 	};
 
-	content?: {
-		title: string;
-		value: string;
-		linked?: boolean;
+	readonly content?: {
+		readonly title: string;
+		readonly value: string;
+		readonly linked?: boolean;
 	}[];
+
+	readonly paragraphs?: string[];
 }

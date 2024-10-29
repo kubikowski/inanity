@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
-import { NavigationConfig } from 'src/app/features/navigation/models/navigation-config.model';
+import { NavigationItem } from 'src/app/features/navigation/models/navigation-item.model';
 import { NavigationService } from 'src/app/features/navigation/services/navigation.service';
 
 @Component({
@@ -20,7 +20,7 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 export class SidebarItemComponent {
 	private readonly navigationService = inject(NavigationService);
 
-	public readonly config = input.required<NavigationConfig>();
+	public readonly navigationItem = input.required<NavigationItem>();
 
 	public toggleSidenav(event: Event): void {
 		(event.currentTarget as HTMLElement).blur();

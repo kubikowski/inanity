@@ -6,8 +6,7 @@ const routes: Routes = [ {
 	path: '',
 	component: AboutPageComponent,
 	data: {
-		featureFlag: true,
-		title: 'about me',
+		title: 'about',
 	},
 } ];
 
