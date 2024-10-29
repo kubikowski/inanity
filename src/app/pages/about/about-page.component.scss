@@ -1,5 +1,5 @@
 @use 'src/styles/mixins/page-layout' as *;
 
 :host {
-	@include page-layout(500px);
+	@include page-layout(400px);
 }

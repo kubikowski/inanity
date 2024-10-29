@@ -1,18 +1,18 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
+import { ScreenService } from 'src/app/core/browser/services/screen.service';
 
 @Injectable()
 export class SnekResolutionService {
-	private readonly screenDetectorService = inject(ScreenDetectorService);
+	private readonly screenService = inject(ScreenService);
 
 	private static readonly optimalSnekWidth = 35;
 	private static readonly optimalSnekHeight = 25;
 
 	public readonly snekWidth = computed(
-		() => this.getSnekWidth(this.screenDetectorService.screenWidth()));
+		() => this.getSnekWidth(this.screenService.screenWidth()));
 
 	public readonly snekHeight = computed(
-		() => this.getSnekHeight(this.screenDetectorService.screenHeight()));
+		() => this.getSnekHeight(this.screenService.screenHeight()));
 
 	public readonly resolution = computed<[ number, number ]>(
 		() => [ this.snekWidth(), this.snekHeight() ]);

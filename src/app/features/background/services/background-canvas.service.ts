@@ -11,11 +11,11 @@ export class BackgroundCanvasService extends CanvasService {
 	private readonly movingBackgroundService = inject(MovingBackgroundService);
 
 	protected readonly canvasTopOffset = computed(() => this.canvas()?.getBoundingClientRect().top ?? 0);
-	protected readonly rawCanvasWidth = this.screenDetectorService.screenWidth.asReadonly();
-	protected readonly rawCanvasHeight = computed(() => this.screenDetectorService.screenHeight() - this.canvasTopOffset());
+	protected readonly rawCanvasWidth = this.screenService.screenWidth.asReadonly();
+	protected readonly rawCanvasHeight = computed(() => this.screenService.screenHeight() - this.canvasTopOffset());
 
 	private readonly mousePosition = computed<[ number, number ]>(() => {
-		const [ x, y ] = this.screenDetectorService.mousePosition();
+		const [ x, y ] = this.screenService.mousePosition();
 		return [ x * this.pixelDensity(), (y - this.canvasTopOffset()) * this.pixelDensity() ];
 	});
 

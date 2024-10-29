@@ -14,6 +14,9 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	imports: [
 		MatCardModule, DyslexicTextComponent,
 	],
+	host: {
+		'[class.large-format]': 'data().image',
+	},
 })
 export class AboutCardComponent {
 	public readonly data = input.required<AboutCardData>();
