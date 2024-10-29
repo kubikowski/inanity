@@ -22,7 +22,6 @@ export abstract class CanvasService implements OnDestroy {
 
 	protected constructor() {
 		effect(() => this.setCanvasResolution());
-		effect(() => this.setContextScale());
 	}
 
 	public ngOnDestroy(): void {
@@ -37,18 +36,10 @@ export abstract class CanvasService implements OnDestroy {
 		const canvas = this.canvas();
 
 		if (canvas !== null) {
-			canvas.style.height = `${ this.rawCanvasHeight() }px`;
 			canvas.style.width = `${ this.rawCanvasWidth() }px`;
+			canvas.style.height = `${ this.rawCanvasHeight() }px`;
 			canvas.width = this.canvasWidth();
 			canvas.height = this.canvasHeight();
-		}
-	}
-
-	private setContextScale(): void {
-		const context = this.context();
-
-		if (context !== null) {
-			context.scale(this.pixelDensity(), this.pixelDensity());
 		}
 	}
 }

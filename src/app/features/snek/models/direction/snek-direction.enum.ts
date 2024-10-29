@@ -72,17 +72,17 @@ export abstract class SnekDirectionUtil {
 		}
 	}
 
-	public static getIconTranslation(direction: SnekDirection | null): [ number, number ] {
+	public static getIconTranslation(direction: SnekDirection | null, scalar: number): [ number, number ] {
 		switch (direction) {
 			default:
 			case SnekDirection.RIGHT:
 				return [ 0, 0 ];
 			case SnekDirection.DOWN:
-				return [ 20, 0 ];
+				return [ scalar, 0 ];
 			case SnekDirection.LEFT:
-				return [ 20, 20 ];
+				return [ scalar, scalar ];
 			case SnekDirection.UP:
-				return [ 0, 20 ];
+				return [ 0, scalar ];
 		}
 	}
 }
