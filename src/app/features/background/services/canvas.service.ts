@@ -1,11 +1,11 @@
 import { computed, effect, inject, Injectable, OnDestroy, Signal, signal } from '@angular/core';
-import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
+import { ScreenService } from 'src/app/core/browser/services/screen.service';
 import { ColorsService } from 'src/app/core/colors/services/colors.service';
 import { SubSink } from 'subsink';
 
 @Injectable()
 export abstract class CanvasService implements OnDestroy {
-	protected readonly screenDetectorService = inject(ScreenDetectorService);
+	protected readonly screenService = inject(ScreenService);
 	protected readonly colorsService = inject(ColorsService);
 	protected readonly subscriptions = new SubSink();
 
@@ -15,7 +15,7 @@ export abstract class CanvasService implements OnDestroy {
 	protected abstract readonly rawCanvasWidth: Signal<number>;
 	protected abstract readonly rawCanvasHeight: Signal<number>;
 
-	protected readonly pixelDensity = this.screenDetectorService.pixelDensity.asReadonly();
+	protected readonly pixelDensity = this.screenService.pixelDensity.asReadonly();
 	protected readonly canvasWidth = computed(() => Math.floor(this.rawCanvasWidth() * this.pixelDensity()));
 	protected readonly canvasHeight = computed(() => Math.floor(this.rawCanvasHeight() * this.pixelDensity()));
 

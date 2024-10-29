@@ -1,10 +1,10 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, inject, untracked, viewChild } from '@angular/core';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
-import { AnimationFrameService } from 'src/app/core/browser/animation-frame.service';
-import { FaviconService } from 'src/app/core/browser/favicon.service';
-import { ScreenDetectorService } from 'src/app/core/browser/screen-detector.service';
-import { TitleService } from 'src/app/core/browser/title.service';
+import { AnimationFrameService } from 'src/app/core/browser/services/animation-frame.service';
+import { FaviconService } from 'src/app/core/browser/services/favicon.service';
+import { ScreenService } from 'src/app/core/browser/services/screen.service';
+import { TitleService } from 'src/app/core/browser/services/title.service';
 import { ColorsService } from 'src/app/core/colors/services/colors.service';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { BackgroundComponent } from 'src/app/features/background/components/background/background.component';
@@ -27,7 +27,7 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 export class AppComponent implements AfterViewInit {
 	private readonly animationFrameService = inject(AnimationFrameService);
 	private readonly faviconService = inject(FaviconService);
-	private readonly screenDetectorService = inject(ScreenDetectorService);
+	private readonly screenService = inject(ScreenService);
 	private readonly titleService = inject(TitleService);
 	private readonly colorsService = inject(ColorsService);
 	private readonly svgIconService = inject(SvgIconService);
