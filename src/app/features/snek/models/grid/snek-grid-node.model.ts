@@ -68,6 +68,15 @@ export class SnekGridNode {
 		}
 	}
 
+	public getFallbackIcon(): SnekIcon | null {
+		switch (this.#type) {
+			case SnekGridNodeType.SNEK:
+				return this.#snekNode?.getFallbackIcon() ?? null;
+			default:
+				return null;
+		}
+	}
+
 	public getIconRotation(): number {
 		return SnekDirectionUtil.getIconRotation(this.#snekNode?.direction ?? null);
 	}

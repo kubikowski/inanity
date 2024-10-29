@@ -68,6 +68,10 @@ export class SnekNode {
 		return SnekNodeTypeUtil.getIcon(this.#type, gameCounter);
 	}
 
+	public getFallbackIcon(): SnekIcon | null {
+		return SnekNodeTypeUtil.getFallbackIcon(this.#type);
+	}
+
 	public get parent(): SnekNode | null {
 		return this.#parent;
 	}
