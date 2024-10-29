@@ -16,6 +16,7 @@ export class SnekCanvasService extends CanvasService {
 	private readonly snekStateService = inject(SnekStateService);
 	private readonly svgIconService = inject(SvgIconService);
 
+	private readonly scalar = computed(() => this.pixelDensity() * 20);
 	protected readonly rawCanvasWidth = computed(() => this.snekResolutionService.snekWidth() * 20);
 	protected readonly rawCanvasHeight = computed(() => this.snekResolutionService.snekHeight() * 20);
 
@@ -72,12 +73,13 @@ export class SnekCanvasService extends CanvasService {
 
 	private drawGridNode(context: CanvasRenderingContext2D, width: number, height: number) {
 		const colorTheme = untracked(this.colorsService.theme);
+		const scalar = untracked(this.scalar);
 
 		context.fillStyle = ((width + height) % 2 === 1)
 			? colorTheme.colorDefaultBackground
 			: colorTheme.colorAccentBackground;
 
-		context.fillRect(width * 20, height * 20, 20, 20);
+		context.fillRect(width * scalar, height * scalar, scalar, scalar);
 	}
 
 	private drawSnekNode(context: CanvasRenderingContext2D, snekGridNode: SnekGridNode, gameCounter: number): void {
@@ -92,10 +94,11 @@ export class SnekCanvasService extends CanvasService {
 		const pathString = svgPath.attributes.getNamedItem('d')?.nodeValue ?? null;
 		if (pathString === null) return;
 
+		const scalar = untracked(this.scalar);
 		const domMatrix = svgPath.ownerSVGElement?.createSVGMatrix()
-			.translate(...snekGridNode.getIconTranslation())
+			.translate(...snekGridNode.getIconTranslation(scalar))
 			.rotate(snekGridNode.getIconRotation())
-			.scale(20 / 100);
+			.scale(scalar / 100);
 
 		const path = new Path2D();
 		path.addPath(new Path2D(pathString), domMatrix);

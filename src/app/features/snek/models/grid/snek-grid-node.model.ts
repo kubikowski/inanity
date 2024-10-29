@@ -72,10 +72,10 @@ export class SnekGridNode {
 		return SnekDirectionUtil.getIconRotation(this.#snekNode?.direction ?? null);
 	}
 
-	public getIconTranslation(): [ number, number ] {
-		const [ widthOffset, heightOffset ] = SnekDirectionUtil.getIconTranslation(this.#snekNode?.direction ?? null);
+	public getIconTranslation(scalar: number): [ number, number ] {
+		const [ widthOffset, heightOffset ] = SnekDirectionUtil.getIconTranslation(this.#snekNode?.direction ?? null, scalar);
 
-		return [ this.width * 20 + widthOffset, this.height * 20 + heightOffset ];
+		return [ this.width * scalar + widthOffset, this.height * scalar + heightOffset ];
 	}
 
 	public get type(): SnekGridNodeType {
