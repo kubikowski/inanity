@@ -26,6 +26,27 @@ export const aboutCardData: readonly AboutCardData[] = [
 		],
 	},
 	{
+		title: 'INANITY',
+		paragraphs: [
+			'<b>noun:</b>',
+			'The quality or state of being inane.',
+			'<i>a.</i> vapid, pointless, and lacking substance',
+			'<i>b.</i> shallow and silly',
+		],
+	},
+	{
+		title: '',
+		paragraphs: [
+			'This website is my personal code playground.',
+			'It is intended to be playful.',
+			`Whoever you are, whenever you're reading this. The website is probably incomplete.
+			Most likely, some scheme I had fell through. And there are still traces of it left floating around.`,
+			'But hey',
+			'☕ If you like it, dont buy me a coffee!',
+			'Save your $5 and write me an email!',
+		],
+	},
+	{
 		title: 'CONTACT',
 		content: [
 			{

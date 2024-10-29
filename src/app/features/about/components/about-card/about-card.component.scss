@@ -1,7 +1,5 @@
 :host {
 	.mat-mdc-card {
-		overflow: visible;
-
 		.mat-mdc-card-header {
 			position: absolute;
 			width: 100%;
@@ -19,7 +17,7 @@
 			border-radius: inherit;
 		}
 
-		.mat-mdc-card-content {
+		.mat-mdc-card-content.content {
 			display: grid;
 			grid-template-columns: max-content auto;
 			column-gap: 1.5rem;
@@ -40,6 +38,11 @@
 			> dyslexic-text, > a {
 				grid-column: 2;
 			}
+		}
+
+		.mat-mdc-card-content.paragraphs {
+			padding: 24px 16px;
+			font-size: 16px;
 		}
 	}
 }
