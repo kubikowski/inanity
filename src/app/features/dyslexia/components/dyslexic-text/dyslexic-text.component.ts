@@ -9,7 +9,8 @@ import { SubSink } from 'subsink';
 
 @Component({
 	selector: 'dyslexic-text',
-	template: '{{ outputText() }}',
+	template: '',
+	host: { '[innerHTML]': 'outputText()' },
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 })
