@@ -1,7 +1,15 @@
 <base-dialog [configuration]="dialogConfiguration()">
 	<main>
-		<p><dyslexic-text text="Oh you thought you were safe from the text moving, huh?"/></p>
-		<p><dyslexic-text text="This ain't no static website. But I'm happy to have bamboozled you."/></p>
+		<p><dyslexic-text text="
+			Have you recently wondered whether you have dyslexia?
+		"/></p>
+		<p><dyslexic-text text="
+			Every once in a while you look at a page, and you could swear that the words are moving on you.
+			But you blink and its gone. Those slippery words.
+		"/></p>
+		<p><dyslexic-text text="
+			Well, I'm happy to have bamboozled you.
+		"/></p>
 
 		<mat-checkbox class="mat-menu-item" color="primary"
 					  [formControl]="enabledControl"
@@ -12,7 +20,7 @@
 		@if (enabled()) {
 			<p><dyslexic-text text="Yeah make it worse, why not. Might as well, while you're here."/></p>
 		} @else {
-			<p>Why did I even bother adding this feature, huh?</p>
+			<p>Oh you have your own dyslexia? Why didn't you say so earlier?</p>
 		}
 
 		<mat-slider showTickMarks color="primary" [min]="minAmount" [max]="maxAmount" step="1"

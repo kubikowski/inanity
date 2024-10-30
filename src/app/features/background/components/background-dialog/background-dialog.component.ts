@@ -9,6 +9,7 @@ import { BaseDialogComponent } from 'src/app/features/dialogs/components/base-di
 import { DialogComponent } from 'src/app/features/dialogs/components/dialog.component';
 import { DialogBuilder } from 'src/app/features/dialogs/models/builder/dialog.builder';
 import { DialogConfiguration } from 'src/app/features/dialogs/models/configuration/dialog-configuration.model';
+import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 
 @Component({
 	selector: 'background-dialog',
@@ -18,7 +19,7 @@ import { DialogConfiguration } from 'src/app/features/dialogs/models/configurati
 	standalone: true,
 	imports: [
 		MatCheckbox, MatSlider, MatSliderThumb, ReactiveFormsModule,
-		BaseDialogComponent,
+		BaseDialogComponent, DyslexicTextComponent,
 	],
 })
 export class BackgroundDialogComponent extends DialogComponent {

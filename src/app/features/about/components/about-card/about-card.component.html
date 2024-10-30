@@ -34,7 +34,7 @@
 	@if (data().paragraphs) {
 		<mat-card-content class="paragraphs">
 			@for (paragraph of data().paragraphs; track $index) {
-				<p [innerHtml]="paragraph"></p>
+				<p><dyslexic-text [text]="paragraph"/></p>
 			}
 		</mat-card-content>
 	}
