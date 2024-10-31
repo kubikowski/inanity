@@ -49,6 +49,16 @@
 		.mat-mdc-card-content.paragraphs {
 			padding: 24px 16px;
 			font-size: 16px;
+
+			p:first-of-type:first-letter {
+				color: var(--default-text-color);
+				font-family: var(--initial-font);
+				font-weight: var(--weight-normal);
+				font-size: 60px;
+				padding-right: 3px;
+				float: left;
+				text-indent: 0;
+			}
 		}
 	}
 }

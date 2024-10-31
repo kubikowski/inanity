@@ -19,7 +19,7 @@ export class SnekResultsDialogComponent extends DialogComponent<SnekResults> {
 
 	public initializeDialogConfiguration(): DialogConfiguration {
 		return DialogBuilder.new()
-			.withHeaderTitle(this.isNewHighScore() ? 'Congratulations!' : 'woof')
+			.withHeaderTitle(this.isNewHighScore() ? 'Congratulations!' : 'Woof')
 			.withSubmitButtonText(this.isNewHighScore() ? '🤌' : 'woof')
 			.withCancelButtonText(this.isNewHighScore() ? '✨' : 'woof')
 			.build();
