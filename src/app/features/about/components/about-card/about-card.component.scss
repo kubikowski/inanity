@@ -12,7 +12,7 @@
 			z-index: 1;
 
 			.mat-mdc-card-title {
-				margin-top: -1.875rem;
+				margin-top: -30px;
 				font-weight: var(--weight-semibold);
 				text-align: center;
 				text-shadow: var(--shadow-color) 2px 2px 2px;
@@ -50,14 +50,19 @@
 			padding: 24px 16px;
 			font-size: 16px;
 
-			p:first-of-type:first-letter {
-				color: var(--default-text-color);
-				font-family: var(--initial-font);
-				font-weight: var(--weight-normal);
-				font-size: 60px;
-				padding-right: 3px;
-				float: left;
-				text-indent: 0;
+			p:first-of-type {
+				--initial-size: 55px;
+
+				&:first-letter {
+					color: var(--default-text-color);
+					font-family: var(--initial-font);
+					font-weight: var(--weight-normal);
+					font-size: var(--initial-size);
+					line-height: var(--initial-size);
+					padding-right: 3px;
+					float: left;
+					text-indent: 0;
+				}
 			}
 		}
 	}
