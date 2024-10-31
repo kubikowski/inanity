@@ -20,7 +20,7 @@ export class SnekCanvasService extends CanvasService {
 	protected readonly rawCanvasWidth = computed(() => this.snekResolutionService.snekWidth() * 20);
 	protected readonly rawCanvasHeight = computed(() => this.snekResolutionService.snekHeight() * 20);
 
-	private readonly namespace = SnekIconUtil.getNamespace(SnekIconPack.DRAGON);
+	private readonly namespace = SnekIconUtil.getNamespace(SnekIconPack.DOTTED);
 	private readonly svgElements = toSignal(this.svgIconService.getIcons(Object.values(SnekIcon), this.namespace));
 	private readonly pairwiseState = pairwise(this.snekStateService.gameState);
 
@@ -85,11 +85,7 @@ export class SnekCanvasService extends CanvasService {
 	private drawSnekNode(context: CanvasRenderingContext2D, snekGridNode: SnekGridNode, gameCounter: number): void {
 		this.drawGridNode(context, snekGridNode.width, snekGridNode.height);
 
-		const snekIcon = snekGridNode.getIcon(gameCounter);
-		const fallbackSnekIcon = snekGridNode.getFallbackIcon();
-		if (snekIcon === null && fallbackSnekIcon === null) return;
-
-		const svgPath = this.getIcon(snekIcon, fallbackSnekIcon);
+		const svgPath = this.getIcon(snekGridNode, gameCounter);
 		if (svgPath === null) return;
 
 		const pathString = svgPath.attributes.getNamedItem('d')?.nodeValue ?? null;
@@ -108,15 +104,20 @@ export class SnekCanvasService extends CanvasService {
 		context.fill(path);
 	}
 
-	private getIcon(snekIcon: SnekIcon | null, fallbackSnekIcon: SnekIcon | null): SVGPathElement | null {
+	private getIcon(snekGridNode: SnekGridNode, gameCounter: number): SVGPathElement | null {
 		const svgElements = untracked(this.svgElements);
-		const svgElement = (snekIcon !== null)
-			? svgElements?.[snekIcon] ?? null
-			: (fallbackSnekIcon !== null)
-				? svgElements?.[fallbackSnekIcon] ?? null
-				: null;
+		if (typeof svgElements === 'undefined') return null;
 
-		return (svgElement?.firstElementChild ?? null) as SVGPathElement | null;
+		const snekIconOptions = snekGridNode.getIconOptions(gameCounter);
+		for (const snekIcon of snekIconOptions) {
+			const svgElement = svgElements[snekIcon];
+
+			if (svgElement !== null) {
+				return svgElement.firstElementChild as SVGPathElement | null;
+			}
+		}
+
+		return null;
 	}
 
 	private getIconColor(snekGridNodeType: SnekGridNodeType): string {

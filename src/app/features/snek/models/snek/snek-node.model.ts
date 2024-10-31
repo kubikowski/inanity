@@ -64,12 +64,8 @@ export class SnekNode {
 		this.#direction = SnekDirectionUtil.nodeDirection(this.#parentDirection, this.#childDirection);
 	}
 
-	public getIcon(gameCounter: number): SnekIcon {
-		return SnekNodeTypeUtil.getIcon(this.#type, gameCounter);
-	}
-
-	public getFallbackIcon(): SnekIcon | null {
-		return SnekNodeTypeUtil.getFallbackIcon(this.#type);
+	public getIconOptions(gameCounter: number): SnekIcon[] {
+		return SnekNodeTypeUtil.getIconOptions(this.#type, gameCounter);
 	}
 
 	public get parent(): SnekNode | null {

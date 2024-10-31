@@ -57,23 +57,14 @@ export class SnekGridNode {
 		}
 	}
 
-	public getIcon(gameCounter: number): SnekIcon | null {
+	public getIconOptions(gameCounter: number): SnekIcon[] {
 		switch (this.#type) {
 			case SnekGridNodeType.SNEK:
-				return this.#snekNode?.getIcon(gameCounter) ?? null;
+				return this.#snekNode?.getIconOptions(gameCounter) ?? [];
 			case SnekGridNodeType.FOOD:
-				return SnekIcon.FOOD;
+				return [ SnekIcon.FOOD ];
 			case SnekGridNodeType.BLANK:
-				return null;
-		}
-	}
-
-	public getFallbackIcon(): SnekIcon | null {
-		switch (this.#type) {
-			case SnekGridNodeType.SNEK:
-				return this.#snekNode?.getFallbackIcon() ?? null;
-			default:
-				return null;
+				return [];
 		}
 	}
 

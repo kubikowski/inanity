@@ -1,8 +1,8 @@
 export enum SnekIcon {
 	BODY_STRAIGHT = 'snek-body-straight',
 	BODY_TURNED = 'snek-body-turned',
-	BODY_TURNED_CLOCKWISE = 'snek-body-turned-clockwise',
-	BODY_TURNED_COUNTERCLOCKWISE = 'snek-body-turned-counterclockwise',
+	BODY_TURNED_CCW = 'snek-body-turned-ccw',
+	BODY_TURNED_CW = 'snek-body-turned-cw',
 	FOOD = 'snek-food',
 	HEAD_DEFAULT = 'snek-head-default',
 	HEAD_TONGUE = 'snek-head-tongue',
