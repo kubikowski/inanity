@@ -3,6 +3,7 @@
 
 /* Serif Fonts */
 @use './fonts/eb-garamond.font';
+@use './fonts/eb-garamond-initials.font';
 
 /* Monospace Fonts */
 @use './fonts/victor-mono.font';
@@ -12,6 +13,7 @@
 
 	--sans-serif-font: Lato, sans-serif;
 	--serif-font: 'EB Garamond', serif;
+	--initial-font: 'EB Garamond Initials', var(--serif-font);
 	--monospace-font: 'Victor Mono', monospace;
 
 	--weight-light: 300;

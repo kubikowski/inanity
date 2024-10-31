@@ -2,14 +2,14 @@ import { AboutCardData } from 'src/app/features/about/models/about-card-data.int
 
 export const aboutCardData: readonly AboutCardData[] = [
 	{
-		title: 'NATHANIEL HOLDEN',
+		title: 'Nathaniel Holden',
 		image: {
 			src: 'assets/images/glacier_sunset.jpg',
 			alt: 'Glacier National Park, some time around sunset',
 		},
 	},
 	{
-		title: 'ABOUT',
+		title: 'About',
 		content: [
 			{
 				title: 'name',
@@ -26,9 +26,9 @@ export const aboutCardData: readonly AboutCardData[] = [
 		],
 	},
 	{
-		title: 'INANITY',
+		title: 'Inanity',
 		paragraphs: [
-			'<b>noun:</b>',
+			'<b>Noun:</b>',
 			'The quality or state of being inane.',
 			'<i>a.</i> vapid, pointless, and lacking substance',
 			'<i>b.</i> shallow and silly',
@@ -47,7 +47,7 @@ export const aboutCardData: readonly AboutCardData[] = [
 		],
 	},
 	{
-		title: 'CONTACT',
+		title: 'Contact',
 		content: [
 			{
 				title: 'email',
