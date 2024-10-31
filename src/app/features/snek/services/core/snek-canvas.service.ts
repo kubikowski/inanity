@@ -85,10 +85,7 @@ export class SnekCanvasService extends CanvasService {
 	private drawSnekNode(context: CanvasRenderingContext2D, snekGridNode: SnekGridNode, gameCounter: number): void {
 		this.drawGridNode(context, snekGridNode.width, snekGridNode.height);
 
-		const snekIcon = snekGridNode.getIcon(gameCounter);
-		if (snekIcon === null) return;
-
-		const svgPath = this.getIcon(snekIcon);
+		const svgPath = this.getIcon(snekGridNode, gameCounter);
 		if (svgPath === null) return;
 
 		const pathString = svgPath.attributes.getNamedItem('d')?.nodeValue ?? null;
@@ -107,11 +104,20 @@ export class SnekCanvasService extends CanvasService {
 		context.fill(path);
 	}
 
-	private getIcon(snekIcon: SnekIcon): SVGPathElement | null {
+	private getIcon(snekGridNode: SnekGridNode, gameCounter: number): SVGPathElement | null {
 		const svgElements = untracked(this.svgElements);
-		const svgElement = svgElements?.[snekIcon] ?? null;
+		if (typeof svgElements === 'undefined') return null;
 
-		return (svgElement?.firstElementChild ?? null) as SVGPathElement | null;
+		const snekIconOptions = snekGridNode.getIconOptions(gameCounter);
+		for (const snekIcon of snekIconOptions) {
+			const svgElement = svgElements[snekIcon];
+
+			if (svgElement !== null) {
+				return svgElement.firstElementChild as SVGPathElement | null;
+			}
+		}
+
+		return null;
 	}
 
 	private getIconColor(snekGridNodeType: SnekGridNodeType): string {

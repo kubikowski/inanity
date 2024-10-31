@@ -41,6 +41,7 @@ export class SnekComponent {
 	public constructor() {
 		inject(SvgIconService).registerInternalIconPack(SnekIconUtil.getLocation(SnekIconPack.SMOOTH), SnekIconUtil.getNamespace(SnekIconPack.SMOOTH));
 		inject(SvgIconService).registerInternalIconPack(SnekIconUtil.getLocation(SnekIconPack.DOTTED), SnekIconUtil.getNamespace(SnekIconPack.DOTTED));
+		inject(SvgIconService).registerInternalIconPack(SnekIconUtil.getLocation(SnekIconPack.DRAGON), SnekIconUtil.getNamespace(SnekIconPack.DRAGON));
 
 		inject(SnekAudioService);
 		inject(SnekCanvasService);

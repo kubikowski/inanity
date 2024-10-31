@@ -3,6 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ErrorEmission, ignoreError } from 'src/app/core/functions/rxjs/ignore-error.function';
 import { ExternalSvgIcon } from 'src/app/core/svg/external-svg-icon.enum';
 import { InternalSvgIcon } from 'src/app/core/svg/internal-svg-icon.enum';
 
@@ -61,25 +62,27 @@ export class SvgIconService {
 		}
 	}
 
-	public getIcons<T extends string>(iconKeys: T[], namespace?: string): Observable<Record<T, SVGElement>> {
+	public getIcons<T extends string>(iconKeys: T[], namespace?: string): Observable<Record<T, SVGElement | null>> {
 		return forkJoin(iconKeys.map(iconKey => this.getIcon(iconKey, namespace)))
 			.pipe(map(icons => {
-				const iconMap = <Record<T, SVGElement>>{};
+				const iconMap = <Record<T, SVGElement | null>>{};
 
 				for (let index = 0; index < iconKeys.length; index++) {
-					iconMap[iconKeys[index] as T] = icons[index] as SVGElement;
+					iconMap[iconKeys[index] as T] = icons[index] as SVGElement | null;
 				}
 
 				return iconMap;
 			}));
 	}
 
-	public getIcon(iconKey: string, namespace?: string): Observable<SVGElement> {
+	public getIcon(iconKey: string, namespace?: string): Observable<SVGElement | null> {
 		if (iconKey.includes(':')) {
 			const [ parsedNamespace, parsedIconKey ] = iconKey.split(':') as [ string, string ];
-			return this.matIconRegistry.getNamedSvgIcon(parsedIconKey, parsedNamespace);
+			return this.matIconRegistry.getNamedSvgIcon(parsedIconKey, parsedNamespace)
+				.pipe(ignoreError(ErrorEmission.NULL));
 		} else {
-			return this.matIconRegistry.getNamedSvgIcon(iconKey, namespace);
+			return this.matIconRegistry.getNamedSvgIcon(iconKey, namespace)
+				.pipe(ignoreError(ErrorEmission.NULL));
 		}
 	}
 }

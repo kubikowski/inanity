@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<g id="snek-body-straight">
+		<path d="m0 10h100v20h-100z"/>
+	</g>
+</svg>
