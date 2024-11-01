@@ -1,6 +1,6 @@
 import { effect, inject, Injectable, untracked } from '@angular/core';
-import { DialogConfigBuilder } from 'src/app/features/dialogs/models/configuration/dialog-config-builder.model';
-import { DialogService } from 'src/app/features/dialogs/services/dialog.service';
+import { DialogConfigBuilder } from 'src/app/core/dialogs/models/configuration/dialog-config-builder.model';
+import { DialogService } from 'src/app/core/dialogs/services/dialog.service';
 import { SnekResultsDialogComponent } from 'src/app/features/snek/components/dialog/snek-results-dialog/snek-results-dialog.component';
 import { SnekResults } from 'src/app/features/snek/models/state/snek-results.interface';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';

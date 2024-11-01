@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
-import { BaseDialogComponent } from 'src/app/features/dialogs/components/base-dialog/base-dialog.component';
-import { DialogComponent } from 'src/app/features/dialogs/components/dialog.component';
-import { DialogBuilder } from 'src/app/features/dialogs/models/builder/dialog.builder';
-import { DialogConfiguration } from 'src/app/features/dialogs/models/configuration/dialog-configuration.model';
+import { BaseDialogComponent } from 'src/app/core/dialogs/components/base-dialog/base-dialog.component';
+import { DialogComponent } from 'src/app/core/dialogs/components/dialog.component';
+import { DialogBuilder } from 'src/app/core/dialogs/models/builder/dialog.builder';
+import { DialogConfiguration } from 'src/app/core/dialogs/models/configuration/dialog-configuration.model';
 import { ColorPalettes } from '../../models/color-palettes/color-palettes.constant';
 import { ColorThemes } from '../../models/color-themes/color-themes.constant';
 import { ColorsService } from '../../services/colors.service';

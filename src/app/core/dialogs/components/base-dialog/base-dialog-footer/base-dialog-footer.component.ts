@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DialogResolution } from 'src/app/features/dialogs/models/dialog-resolution.enum';
 import { DialogFooterButtonConfiguration, DialogFooterConfiguration } from '../../../models/configuration/dialog-configuration.model';
+import { DialogResolution } from '../../../models/dialog-resolution.enum';
 import { BaseDialogFooterButtonComponent } from '../base-dialog-footer-button/base-dialog-footer-button.component';
 
 @Component({

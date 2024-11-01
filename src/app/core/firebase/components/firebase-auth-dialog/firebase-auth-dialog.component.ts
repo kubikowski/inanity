@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, computed, effect, inject, ViewEncapsulation } from '@angular/core';
+import { BaseDialogComponent } from 'src/app/core/dialogs/components/base-dialog/base-dialog.component';
+import { DialogComponent } from 'src/app/core/dialogs/components/dialog.component';
+import { DialogBuilder } from 'src/app/core/dialogs/models/builder/dialog.builder';
+import { DialogConfiguration } from 'src/app/core/dialogs/models/configuration/dialog-configuration.model';
+import { DialogResolution } from 'src/app/core/dialogs/models/dialog-resolution.enum';
 import { FirebaseService } from 'src/app/core/firebase/services/firebase.service';
-import { BaseDialogComponent } from 'src/app/features/dialogs/components/base-dialog/base-dialog.component';
-import { DialogComponent } from 'src/app/features/dialogs/components/dialog.component';
-import { DialogBuilder } from 'src/app/features/dialogs/models/builder/dialog.builder';
-import { DialogConfiguration } from 'src/app/features/dialogs/models/configuration/dialog-configuration.model';
-import { DialogResolution } from 'src/app/features/dialogs/models/dialog-resolution.enum';
 
 @Component({
 	selector: 'firebase-auth-dialog',

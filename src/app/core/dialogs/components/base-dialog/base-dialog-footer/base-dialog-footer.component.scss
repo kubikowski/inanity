@@ -3,8 +3,7 @@
 	display: flex;
 	flex-flow: row-reverse nowrap;
 	justify-content: flex-start;
-	background-color: var(--accent-background-color);
-	border-top: 1px solid var(--border-color);
+	border-top: 1px solid var(--dark-border-color);
 
 	&.has-cancel-button {
 		justify-content: space-between;
@@ -17,4 +16,12 @@
 	button:disabled {
 		cursor: not-allowed;
 	}
+}
+
+.light-theme :host {
+	background-color: var(--accent-background-color);
+}
+
+.dark-theme :host {
+	background-color: var(--disabled-background-color);
 }

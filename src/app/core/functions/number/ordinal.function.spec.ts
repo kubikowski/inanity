@@ -19,72 +19,72 @@ describe('ordinal', () => {
 	const thirteens =   [ -1313, -13, 13, 1313 ] as const;
 
 	describe('standards', () => {
-		it('should convert …0 → \'th\'', () => {
+		it('should convert …0 → ‘th’', () => {
 			zeroes.forEach(zero =>
 				expect(ordinal(zero)).toBe('th'));
 		});
 
 		// excluding elevens
-		it('should convert …1 → \'st\'', () => {
+		it('should convert …1 → ‘st’', () => {
 			ones.forEach(one =>
 				expect(ordinal(one)).toBe('st'));
 		});
 
 		// excluding twelves
-		it('should convert …2 → \'nd\'', () => {
+		it('should convert …2 → ‘nd’', () => {
 			twos.forEach(two =>
 				expect(ordinal(two)).toBe('nd'));
 		});
 
 		// excluding thirteens
-		it('should convert …3 → \'rd\'', () => {
+		it('should convert …3 → ‘rd’', () => {
 			threes.forEach(three =>
 				expect(ordinal(three)).toBe('rd'));
 		});
 
-		it('should convert …4 → \'th\'', () => {
+		it('should convert …4 → ‘th’', () => {
 			fours.forEach(four =>
 				expect(ordinal(four)).toBe('th'));
 		});
 
-		it('should convert …5 → \'th\'', () => {
+		it('should convert …5 → ‘th’', () => {
 			fives.forEach(five =>
 				expect(ordinal(five)).toBe('th'));
 		});
 
-		it('should convert …6 → \'th\'', () => {
+		it('should convert …6 → ‘th’', () => {
 			sixes.forEach(six =>
 				expect(ordinal(six)).toBe('th'));
 		});
 
-		it('should convert …7 → \'th\'', () => {
+		it('should convert …7 → ‘th’', () => {
 			sevens.forEach(seven =>
 				expect(ordinal(seven)).toBe('th'));
 		});
 
-		it('should convert …8 → \'th\'', () => {
+		it('should convert …8 → ‘th’', () => {
 			eights.forEach(eight =>
 				expect(ordinal(eight)).toBe('th'));
 		});
 
-		it('should convert …9 → \'th\'', () => {
+		it('should convert …9 → ‘th’', () => {
 			nines.forEach(nine =>
 				expect(ordinal(nine)).toBe('th'));
 		});
 	});
 
 	describe('outliers', () => {
-		it('should convert …11 → \'th\'', () => {
+		it('should convert …11 → ‘th’', () => {
 			elevens.forEach(eleven =>
 				expect(ordinal(eleven)).toBe('th'));
 		});
 
-		it('should convert …12 → \'th\'', () => {
+		it('should convert …12 → ‘th’', () => {
 			twelves.forEach(twelve =>
 				expect(ordinal(twelve)).toBe('th'));
 		});
 
-		it('should convert …13 → \'th\'', () => {
+		it('should convert …13 → ‘th’', () => {
 			thirteens.forEach(thirteen =>
 				expect(ordinal(thirteen)).toBe('th'));
 		});
