@@ -3,12 +3,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
+import { BaseDialogComponent } from 'src/app/core/dialogs/components/base-dialog/base-dialog.component';
+import { DialogComponent } from 'src/app/core/dialogs/components/dialog.component';
+import { DialogBuilder } from 'src/app/core/dialogs/models/builder/dialog.builder';
+import { DialogConfiguration } from 'src/app/core/dialogs/models/configuration/dialog-configuration.model';
 import { formValue } from 'src/app/core/functions/rxjs/form-value.function';
 import { MovingBackgroundService } from 'src/app/features/background/services/moving-background.service';
-import { BaseDialogComponent } from 'src/app/features/dialogs/components/base-dialog/base-dialog.component';
-import { DialogComponent } from 'src/app/features/dialogs/components/dialog.component';
-import { DialogBuilder } from 'src/app/features/dialogs/models/builder/dialog.builder';
-import { DialogConfiguration } from 'src/app/features/dialogs/models/configuration/dialog-configuration.model';
 import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 
 @Component({

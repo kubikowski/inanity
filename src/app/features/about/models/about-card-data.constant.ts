@@ -38,7 +38,7 @@ export const aboutCardData: readonly AboutCardData[] = [
 		title: '',
 		paragraphs: [
 			'This website acts as my personal code sandbox. It is intended to be playful.',
-			`Whoever you are, whenever you're reading this. The website is probably incomplete.
+			`Whoever you are, whenever you’re reading this. The website is probably incomplete.
 			Most likely, some scheme I had fell through. And there are still traces of it left floating around.`,
 			'But hey',
 			'☕ If you like it, dont buy me a coffee!',

@@ -61,6 +61,7 @@ code {
 a {
 	cursor: pointer;
 	text-decoration: none;
+	width: max-content;
 
 	&:not(.mat-mdc-icon-button) {
 		color: var(--default-theme-color);

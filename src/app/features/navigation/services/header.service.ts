@@ -1,8 +1,8 @@
 import { computed, inject, Injectable, isDevMode } from '@angular/core';
 import { ColorThemeDialogComponent } from 'src/app/core/colors/components/color-theme-dialog/color-theme-dialog.component';
+import { DialogService } from 'src/app/core/dialogs/services/dialog.service';
 import { FirebaseAuthDialogComponent } from 'src/app/core/firebase/components/firebase-auth-dialog/firebase-auth-dialog.component';
 import { BackgroundDialogComponent } from 'src/app/features/background/components/background-dialog/background-dialog.component';
-import { DialogService } from 'src/app/features/dialogs/services/dialog.service';
 import { DyslexiaDialogComponent } from 'src/app/features/dyslexia/components/dyslexia-dialog/dyslexia-dialog.component';
 import { HeaderItem } from '../models/header-item.model';
 

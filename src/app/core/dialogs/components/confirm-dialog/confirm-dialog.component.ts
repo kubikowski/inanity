@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { BaseDialogComponent } from 'src/app/features/dialogs/components/base-dialog/base-dialog.component';
 import { DialogBuilder } from '../../models/builder/dialog.builder';
 import { ConfirmDialogConfiguration } from '../../models/configuration/confirm-dialog-configuration.model';
 import { DialogResolution } from '../../models/dialog-resolution.enum';
+import { BaseDialogComponent } from '../base-dialog/base-dialog.component';
 import { DialogComponent } from '../dialog.component';
 
 @Component({

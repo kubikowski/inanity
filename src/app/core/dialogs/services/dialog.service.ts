@@ -1,9 +1,9 @@
 import { ComponentType } from '@angular/cdk/overlay';
 import { inject, Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmDialogConfiguration } from 'src/app/features/dialogs/models/configuration/confirm-dialog-configuration.model';
-import { DialogConfigBuilder } from 'src/app/features/dialogs/models/configuration/dialog-config-builder.model';
 import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogConfiguration } from '../models/configuration/confirm-dialog-configuration.model';
+import { DialogConfigBuilder } from '../models/configuration/dialog-config-builder.model';
 import { DialogResolution } from '../models/dialog-resolution.enum';
 
 @Injectable({ providedIn: 'root' })

@@ -19,7 +19,7 @@ describe('formValue', () => {
 		expect(value).toBeNull();
 	});
 
-	it('should return the correct value when subscribing after the form\'s value has been modified', async () => {
+	it('should return the correct value when subscribing after the form’s value has been modified', async () => {
 		const validValue = 'a valid value';
 		control.setValue(validValue);
 
