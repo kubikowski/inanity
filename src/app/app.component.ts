@@ -8,6 +8,7 @@ import { TitleService } from 'src/app/core/browser/services/title.service';
 import { ColorsService } from 'src/app/core/colors/services/colors.service';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { BackgroundComponent } from 'src/app/features/background/components/background/background.component';
+import { BackgroundService } from 'src/app/features/background/services/background.service';
 import { HeaderComponent } from 'src/app/features/navigation/components/header/header.component';
 import { SidebarComponent } from 'src/app/features/navigation/components/sidebar/sidebar.component';
 import { HeaderService } from 'src/app/features/navigation/services/header.service';
@@ -31,8 +32,11 @@ export class AppComponent implements AfterViewInit {
 	private readonly titleService = inject(TitleService);
 	private readonly colorsService = inject(ColorsService);
 	private readonly svgIconService = inject(SvgIconService);
+	private readonly backgroundService = inject(BackgroundService);
 	private readonly headerService = inject(HeaderService);
 	private readonly navigationService = inject(NavigationService);
+
+	public readonly backgroundEnabled = this.backgroundService.enabled;
 
 	private readonly sidenav = viewChild.required<MatSidenav>('sidenav');
 	public ngAfterViewInit(): void {

@@ -1,8 +1,7 @@
 :host {
 	.mat-sidenav-container {
 		color: var(--dark-text-color);
-		background-color: var(--lightest-theme-color);
-		background-image: linear-gradient(to top, var(--default-background-color), transparent);
+		background-color: var(--default-background-color);
 
 		.mat-sidenav {
 			width: 17.5rem;

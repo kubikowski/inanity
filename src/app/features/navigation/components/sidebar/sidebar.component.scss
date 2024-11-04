@@ -1,6 +1,7 @@
 :host {
 	display: flex;
 	flex-flow: column nowrap;
+	background-color: var(--default-background-color);
 	height: 100%;
 	overflow: hidden;
 

@@ -8,7 +8,7 @@ import { DialogComponent } from 'src/app/core/dialogs/components/dialog.componen
 import { DialogBuilder } from 'src/app/core/dialogs/models/builder/dialog.builder';
 import { DialogConfiguration } from 'src/app/core/dialogs/models/configuration/dialog-configuration.model';
 import { formValue } from 'src/app/core/functions/rxjs/form-value.function';
-import { MovingBackgroundService } from 'src/app/features/background/services/moving-background.service';
+import { BackgroundService } from 'src/app/features/background/services/background.service';
 import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 
 @Component({
@@ -23,12 +23,15 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	],
 })
 export class BackgroundDialogComponent extends DialogComponent {
-	private readonly movingBackgroundService = inject(MovingBackgroundService);
+	private readonly backgroundService = inject(BackgroundService);
 
-	public readonly enabledControl = new FormControl(untracked(this.movingBackgroundService.enabled), { nonNullable: true });
+	public readonly enabledControl = new FormControl(untracked(this.backgroundService.enabled), { nonNullable: true });
 	public readonly enabled = toSignal(formValue(this.enabledControl));
 
-	public readonly amountControl = new FormControl(untracked(this.movingBackgroundService.amount), { nonNullable: true });
+	public readonly movingControl = new FormControl(untracked(this.backgroundService.moving), { nonNullable: true });
+	public readonly moving = toSignal(formValue(this.movingControl));
+
+	public readonly amountControl = new FormControl(untracked(this.backgroundService.amount), { nonNullable: true });
 	public readonly amount = toSignal(this.amountControl.valueChanges);
 
 	public initializeDialogConfiguration(): DialogConfiguration {
@@ -39,11 +42,21 @@ export class BackgroundDialogComponent extends DialogComponent {
 			.build();
 	}
 
-	public toggleMovingBackgroundEnabled(): void {
+	public toggleBackgroundEnabled(): void {
 		const enabled = untracked(this.enabled);
 
 		if (typeof enabled !== 'undefined') {
-			this.movingBackgroundService.enabled.set(enabled);
+			this.backgroundService.enabled.set(enabled);
+		}
+	}
+
+	public toggleBackgroundMoving(): void {
+		const enabled = untracked(this.enabled);
+		const moving = untracked(this.moving);
+
+		if (typeof enabled !== 'undefined' && typeof moving !== 'undefined') {
+			this.backgroundService.enabled.set(enabled || moving);
+			this.backgroundService.moving.set(moving);
 		}
 	}
 
@@ -51,7 +64,7 @@ export class BackgroundDialogComponent extends DialogComponent {
 		const amount = untracked(this.amount);
 
 		if (typeof amount !== 'undefined') {
-			this.movingBackgroundService.amount.set(amount);
+			this.backgroundService.amount.set(amount);
 		}
 	}
 }
