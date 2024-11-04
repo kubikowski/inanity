@@ -3,12 +3,12 @@ import { animationFrameScheduler, interval } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { Circle } from 'src/app/features/background/models/circle.model';
-import { CanvasService } from 'src/app/features/background/services/canvas.service';
-import { MovingBackgroundService } from 'src/app/features/background/services/moving-background.service';
+import { BackgroundService } from './background.service';
+import { CanvasService } from './canvas.service';
 
 @Injectable()
 export class BackgroundCanvasService extends CanvasService {
-	private readonly movingBackgroundService = inject(MovingBackgroundService);
+	private readonly backgroundService = inject(BackgroundService);
 
 	protected readonly canvasTopOffset = computed(() => this.canvas()?.getBoundingClientRect().top ?? 0);
 	protected readonly rawCanvasWidth = this.screenService.screenWidth.asReadonly();
@@ -25,7 +25,7 @@ export class BackgroundCanvasService extends CanvasService {
 		super();
 
 		effect(() => {
-			this.manageCircles(this.movingBackgroundService.amount(), this.canvasWidth(), this.canvasHeight());
+			this.manageCircles(this.backgroundService.amount(), this.canvasWidth(), this.canvasHeight());
 		});
 	}
 
@@ -37,7 +37,7 @@ export class BackgroundCanvasService extends CanvasService {
 
 	private initializeFrameRefresh(): void {
 		this.subscriptions.sink = interval(10, animationFrameScheduler)
-			.pipe(filter(() => untracked(this.movingBackgroundService.enabled)))
+			.pipe(filter(() => untracked(this.backgroundService.moving)))
 			.subscribe(() => this.renderFrame());
 	}
 

@@ -9,22 +9,30 @@
 		"/></p>
 
 		<mat-checkbox class="mat-menu-item" color="primary"
-					  [formControl]="enabledControl"
-					  (change)="toggleMovingBackgroundEnabled()">
-			{{ enabled() ? 'Background Moves' : 'Not anymore' }}
+					  [formControl]="movingControl"
+					  (change)="toggleBackgroundMoving()">
+			{{ moving() ? 'Background Moves' : 'Not anymore' }}
 		</mat-checkbox>
 
-		@if (enabled()) {
+		@if (moving()) {
 			<p><dyslexic-text text="Oh you want some more? Less?"/></p>
 		} @else {
-			<p><dyslexic-text text="Well never mind then."/></p>
+			<p><dyslexic-text text="Well never mind then. Do you even want the background gradient?"/></p>
 		}
 
-		<mat-slider showTickMarks color="primary" min="0" max="20" step="1"
-					[disabled]="!enabled()">
+		@if (moving()) {
+			<mat-slider showTickMarks color="primary" min="0" max="20" step="1"
+						[disabled]="!moving()">
 
-			<input matSliderThumb [formControl]="amountControl"
-				   (change)="setMovingBackgroundAmount()">
-		</mat-slider>
+				<input matSliderThumb [formControl]="amountControl"
+					   (change)="setMovingBackgroundAmount()">
+			</mat-slider>
+		} @else {
+			<mat-checkbox class="mat-menu-item" color="primary"
+						  [formControl]="enabledControl"
+						  (change)="toggleBackgroundEnabled()">
+				{{ enabled() ? 'Ah okay' : 'Nah we’ll keep it professional.' }}
+			</mat-checkbox>
+		}
 	</main>
 </base-dialog>

@@ -1,11 +1,11 @@
-.spin {
-	-webkit-animation: spin 2s infinite linear;
-	animation: spin 2s infinite linear;
+@mixin spin($duration: 2s) {
+	-webkit-animation: spin $duration infinite linear;
+	animation: spin $duration infinite linear;
 }
 
-.pulse {
-	-webkit-animation: spin 1s infinite steps(8);
-	animation: spin 1s infinite steps(8);
+@mixin pulse($duration: 2s, $steps: 8) {
+	-webkit-animation: spin $duration infinite steps($steps);
+	animation: spin $duration infinite steps($steps);
 }
 
 @-webkit-keyframes spin {
