@@ -1,4 +1,6 @@
-@mixin truncated() {
+truncated.truncated {
+	display: block;
+	width: 100%;
 	overflow: hidden;
 	white-space: nowrap;
 	word-break: break-word;
