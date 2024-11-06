@@ -1,4 +1,4 @@
-.demo-colors {
+@mixin demo-colors {
 	/* Light Theme Default Colors */
 	--info-color: #00b3ee;
 	--success-color: #5cb85c;
@@ -35,8 +35,8 @@
 	--selected-background-color-transparent: rgba(3, 157, 221, 0.15);
 }
 
-:not(.default-transition):not(.custom-transition) {
+@mixin color-transition($duration: 250ms) {
 	transition-property: color, text-shadow, background-color, border-color, box-shadow, fill;
-	transition-duration: 250ms;
+	transition-duration: $duration;
 	transition-timing-function: cubic-bezier(.3642, 0, .6358, 1);
 }

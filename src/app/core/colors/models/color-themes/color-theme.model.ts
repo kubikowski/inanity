@@ -18,6 +18,7 @@ export class ColorTheme extends BaseColorTheme {
 		public readonly disabledTextColor: Color,
 		public readonly lightTextColor: Color,
 
+		public readonly prefers: 'light' | 'dark',
 		public readonly themeName: string,
 		public readonly displayName: string,
 	) {

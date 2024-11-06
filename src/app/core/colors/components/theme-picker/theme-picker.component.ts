@@ -23,10 +23,10 @@ export class ThemePickerComponent {
 	public readonly backgroundColor = computed(() => this.theme().colorDefaultBackground);
 	public readonly color = computed(() => this.theme().colorDefaultText);
 	public readonly message = computed(() => {
-		switch (this.theme().themeName) {
-			case 'light-theme':
+		switch (this.theme().prefers) {
+			case 'light':
 				return 'Have a nice day!';
-			case 'dark-theme':
+			case 'dark':
 				return 'Have a nice night!';
 			default:
 				return this.theme().themeName;

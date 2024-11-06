@@ -44,9 +44,9 @@ export class ColorsService {
 		const theme = this.theme();
 		const palette = this.palette();
 
-		return (palette.theme.themeName !== theme.themeName)
+		return (theme.prefers === 'dark')
 			? palette.inverse(theme)
-			: palette;
+			: palette.copy();
 	}
 	// region setters
 
@@ -65,9 +65,9 @@ export class ColorsService {
 
 	private set documentBodyThemeClass(theme: ColorTheme) {
 		ColorThemes.forEach(colorTheme =>
-			this.renderer.removeClass(this.body, colorTheme.themeName));
+			this.renderer.removeClass(this.body, `${ colorTheme.prefers }-theme`));
 
-		this.renderer.addClass(this.body, theme.themeName);
+		this.renderer.addClass(this.body, `${ theme.prefers }-theme`);
 	}
 
 	private set cssThemeVariables(theme: ColorTheme) {

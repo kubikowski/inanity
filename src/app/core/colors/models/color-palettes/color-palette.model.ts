@@ -35,6 +35,26 @@ export class ColorPalette extends BaseColorPalette {
 	}
 
 	/**
+	 * Makes a direct copy of the palette.
+	 *
+	 * @return - a new ColorPalette with copied values
+	 */
+	public copy(): ColorPalette {
+		return new ColorPalette(
+			this.lightestColor,
+			this.lighterColor,
+			this.lightColor,
+			this.defaultColor,
+			this.darkColor,
+			this.darkerColor,
+			this.darkestColor,
+			this.paletteName,
+			this.displayName,
+			this.theme,
+		);
+	}
+
+	/**
 	 * Inverse the palette's values, so that the darkest color becomes the lightest and so on.
 	 *
 	 * @param theme - the new ColorTheme to base generated palette variables on.
