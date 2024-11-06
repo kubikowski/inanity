@@ -9,7 +9,7 @@ export const aboutCardData: readonly AboutCardData[] = [
 		},
 	},
 	{
-		title: 'About',
+		title: 'Author',
 		content: [
 			{
 				title: 'name',

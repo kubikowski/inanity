@@ -30,3 +30,11 @@ base-dialog {
 		}
 	}
 }
+
+.light-theme base-dialog {
+	background-color: var(--default-background-color);
+}
+
+.dark-theme base-dialog {
+	background-color: var(--accent-background-color);
+}

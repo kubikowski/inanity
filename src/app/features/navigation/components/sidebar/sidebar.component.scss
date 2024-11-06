@@ -2,6 +2,7 @@
 	display: flex;
 	flex-flow: column nowrap;
 	background-color: var(--default-background-color);
+	color: var(--default-text-color);
 	height: 100%;
 	overflow: hidden;
 
@@ -9,9 +10,8 @@
 		justify-content: space-between;
 
 		> .title-wrapper {
-			color: var(--default-text-color);
 			line-height: 2.5rem;
-			background-color: var(--hover-background-color);
+			background-color: var(--accent-background-color);
 			border-radius: 0.5rem;
 			padding: 0 0.75rem;
 		}

@@ -25,7 +25,7 @@ export const bracePairs: readonly BracePair[] = [
 
 export abstract class Braces {
 	public static random$(): Observable<BracePair> {
-		return timer(0, 1000).pipe(map(() => this.random()));
+		return timer(0, 2000).pipe(map(() => this.random()));
 	}
 
 	public static random(): BracePair {
