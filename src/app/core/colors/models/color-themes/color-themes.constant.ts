@@ -34,7 +34,7 @@ export const PaperTheme = new ColorTheme(
 	Color.fromString('rgba(0, 0, 0, 0.87)'),
 	Color.fromString('#616f77'),
 	Color.fromString('#95a2a9'),
-	Color.fromString('white'),
+	Color.fromString('#fffbf7'),
 	'light',
 	'paper-theme',
 	'Paper',

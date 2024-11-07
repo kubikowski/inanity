@@ -9,6 +9,7 @@ import { ColorsService } from 'src/app/core/colors/services/colors.service';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { BackgroundComponent } from 'src/app/features/background/components/background/background.component';
 import { BackgroundService } from 'src/app/features/background/services/background.service';
+import { FooterComponent } from 'src/app/features/navigation/components/footer/footer.component';
 import { HeaderComponent } from 'src/app/features/navigation/components/header/header.component';
 import { SidebarComponent } from 'src/app/features/navigation/components/sidebar/sidebar.component';
 import { HeaderService } from 'src/app/features/navigation/services/header.service';
@@ -22,7 +23,7 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 	standalone: true,
 	imports: [
 		RouterOutlet, MatSidenavModule,
-		HeaderComponent, SidebarComponent, BackgroundComponent,
+		HeaderComponent, FooterComponent, SidebarComponent, BackgroundComponent,
 	],
 })
 export class AppComponent implements AfterViewInit {

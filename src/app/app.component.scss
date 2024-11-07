@@ -1,21 +1,30 @@
-:host {
-	.mat-sidenav-container {
-		color: var(--dark-text-color);
-		background-color: var(--default-background-color);
-
-		.mat-sidenav {
-			width: 17.5rem;
-		}
-	}
-}
-
-:host,
-.mat-sidenav-container,
-.mat-sidenav-content,
-section {
+@mixin fitted {
 	display: flex;
 	flex-flow: column nowrap;
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
+}
+
+:host {
+	@include fitted;
+
+	.mat-sidenav-container {
+		background-color: var(--default-background-color);
+		color: var(--default-text-color);
+		@include fitted;
+
+		.mat-sidenav {
+			width: 17.5rem;
+		}
+
+		.mat-sidenav-content {
+			@include fitted;
+		}
+
+		section.app-content {
+			@include fitted;
+			overflow-y: auto;
+		}
+	}
 }

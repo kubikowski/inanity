@@ -1,13 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject, isDevMode } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
-import { BackgroundService } from 'src/app/features/background/services/background.service';
 import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 import { FontsComponent } from 'src/app/features/navigation/components/fonts/fonts.component';
 import { SidebarItemComponent } from 'src/app/features/navigation/components/sidebar-item/sidebar-item.component';
-import { NavigationItem } from 'src/app/features/navigation/models/navigation-item.model';
 import { NavigationService } from 'src/app/features/navigation/services/navigation.service';
 import { environment } from 'src/environments/environment';
 
@@ -23,18 +21,9 @@ import { environment } from 'src/environments/environment';
 	],
 })
 export class SidebarComponent {
-	private readonly backgroundService = inject(BackgroundService);
 	private readonly navigationService = inject(NavigationService);
 
-	private readonly navigationItems = computed(() => ([
-		NavigationItem.from('About', SvgIcon.GOAT, '/about'),
-		NavigationItem.from('Snek', SvgIcon.SNAKE, '/snek'),
-		NavigationItem.from('Gong', SvgIcon.GONG, '/gong', isDevMode()),
-		NavigationItem.from('Noise', SvgIcon.GONG, '/background', this.backgroundService.enabled()),
-	]));
-
-	public readonly enabledNavigationItems = computed(() => this.navigationItems()
-		.filter(navigationItem => navigationItem.enabled));
+	public readonly navigationItems = this.navigationService.navigationItems;
 
 	public readonly githubLink = 'https://github.com/kubikowski/inanity';
 	public readonly GitHubIcon = SvgIcon.GITHUB;

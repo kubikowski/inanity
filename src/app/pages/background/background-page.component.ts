@@ -4,7 +4,7 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 @Component({
 	selector: 'background-page',
 	template: `
-		<h1><dyslexic-text text="Pure Background Noise"/></h1>
+		<h2><dyslexic-text text="Pure Background Noise"/></h2>
 	`,
 	styles: [
 		`:host {

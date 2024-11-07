@@ -3,6 +3,7 @@ export enum InternalSvgIcon {
 	GONG = 'gong',
 	ONI = 'oni',
 	SNAKE = 'snake',
+	SPRINTER = 'sprinter',
 	STACK = 'stack',
 	WHEEL = 'wheel',
 }

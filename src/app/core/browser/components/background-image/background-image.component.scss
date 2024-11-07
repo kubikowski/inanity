@@ -1,5 +1,8 @@
 background-image.background-image {
-	display: block;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
 	width: 100%;
 	background-attachment: fixed;
 	background-position: center;
