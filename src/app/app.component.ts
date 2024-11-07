@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, inject, untracked, viewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, untracked, viewChild, ViewEncapsulation } from '@angular/core';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
 import { AnimationFrameService } from 'src/app/core/browser/services/animation-frame.service';
@@ -20,6 +20,7 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 	templateUrl: 'app.component.html',
 	styleUrl: 'app.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
 		RouterOutlet, MatSidenavModule,

@@ -6,7 +6,7 @@
 	overflow: hidden;
 }
 
-:host {
+app-root {
 	@include fitted;
 
 	.mat-sidenav-container {
@@ -25,6 +25,10 @@
 		section.app-content {
 			@include fitted;
 			overflow-y: auto;
+
+			.page {
+				flex: 1;
+			}
 		}
 	}
 }

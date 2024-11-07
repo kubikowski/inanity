@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
+import { Page } from 'src/app/core/browser/components/page/page.directive';
 import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 import { SnekComponent } from 'src/app/features/snek/snek.component';
@@ -16,6 +17,6 @@ import { SnekComponent } from 'src/app/features/snek/snek.component';
 		DyslexicTextComponent, SnekComponent,
 	],
 })
-export class SnekPageComponent {
+export class SnekPageComponent extends Page {
 	public readonly SnekIcon = SvgIcon.SNAKE;
 }

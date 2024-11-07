@@ -1,5 +1,7 @@
+@use 'src/styles/mixins/content-layout' as *;
+
 :host {
 	display: flex;
 	min-height: 600px;
-	padding: 2rem;
+	@include content-layout;
 }

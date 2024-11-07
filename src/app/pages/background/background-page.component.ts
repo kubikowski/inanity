@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Page } from 'src/app/core/browser/components/page/page.directive';
 import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 
 @Component({
@@ -19,4 +20,4 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	standalone: true,
 	imports: [ DyslexicTextComponent ],
 })
-export class BackgroundPageComponent { }
+export class BackgroundPageComponent extends Page { }

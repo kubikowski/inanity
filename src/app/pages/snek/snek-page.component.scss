@@ -1,7 +1,7 @@
-@use 'src/styles/mixins/page-layout' as *;
+@use 'src/styles/mixins/card-layout' as *;
 
 :host {
-	@include page-layout(800px);
+	@include card-layout(800px);
 
 	.mat-mdc-card-content {
 		display: flex;
