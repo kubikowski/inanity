@@ -1,0 +1,19 @@
+:host {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+
+	> h6 {
+		display: flex;
+		flex-flow: row nowrap;
+		color: var(--disabled-text-color);
+		font-weight: var(--weight-medium);
+		font-size: 10px;
+
+		&:not(:last-child) {
+			margin-bottom: 0;
+		}
+	}
+}

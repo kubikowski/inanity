@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@a
 
 @Component({
 	selector: 'background-image',
-	template: '',
+	template: '<ng-content/>',
 	styleUrl: 'background-image.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,

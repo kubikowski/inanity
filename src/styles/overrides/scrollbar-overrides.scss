@@ -1,36 +1,40 @@
 :not(.default-scrollbars) {
 
 	// Webkit Scrollbar Overrides
-	&::-webkit-scrollbar {
-		width: .5rem;
-		height: .5rem;
-	}
-
-	&::-webkit-scrollbar-button {
-		display: none;
-	}
-
-	&::-webkit-scrollbar-track {
-		border-radius: 0.5rem;
-		background-color: transparent;
-	}
-
-	&::-webkit-scrollbar-thumb {
-		border-radius: .5rem;
-		background-color: var(--disabled-background-color);
-		box-shadow: inset 0 0 0 var(--shadow-color);
-		transition: box-shadow 200ms;
-
-		&:hover {
-			box-shadow: inset 0 0 1px var(--shadow-color);
+	@supports (-webkit-appearance: none) {
+		&::-webkit-scrollbar {
+			width: .5rem;
+			height: .5rem;
 		}
 
-		&:active {
-			box-shadow: inset 0 0 2px var(--shadow-color);
+		&::-webkit-scrollbar-button {
+			display: none;
+		}
+
+		&::-webkit-scrollbar-track {
+			border-radius: 0.5rem;
+			background-color: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			border-radius: .5rem;
+			background-color: var(--disabled-background-color);
+			box-shadow: inset 0 0 0 var(--shadow-color);
+			transition: box-shadow 200ms;
+
+			&:hover {
+				box-shadow: inset 0 0 1px var(--shadow-color);
+			}
+
+			&:active {
+				box-shadow: inset 0 0 2px var(--shadow-color);
+			}
 		}
 	}
 
 	// Firefox Scrollbar Overrides
-	scrollbar-color: var(--disabled-background-color) transparent;
-	scrollbar-width: thin;
+	@supports (-moz-appearance: none) {
+		scrollbar-color: var(--disabled-background-color) transparent;
+		scrollbar-width: thin;
+	}
 }

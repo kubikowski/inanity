@@ -6,11 +6,12 @@
 	<mat-sidenav-content>
 		<app-header/>
 
-		<section>
+		<section class="app-content">
 			@if (backgroundEnabled()) {
 				<app-background/>
 			}
 			<router-outlet/>
+			<app-footer/>
 		</section>
 	</mat-sidenav-content>
 </mat-sidenav-container>

@@ -23,6 +23,10 @@ export const routes: Routes = [
 				loadChildren: () => import('src/app/pages/gong/gong-page.module')
 					.then(module => module.GongPageModule),
 			}, {
+				path: 'sprinter',
+				loadChildren: () => import('src/app/pages/sprinter/sprinter-page.module')
+					.then(module => module.SprinterPageModule),
+			}, {
 				path: 'snek',
 				loadChildren: () => import('src/app/pages/snek/snek-page.module')
 					.then(module => module.SnekPageModule),

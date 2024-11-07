@@ -10,7 +10,7 @@
 
 <section class="sidebar-content">
 	<section class="nav-items">
-		@for (navigationItem of enabledNavigationItems(); track $index) {
+		@for (navigationItem of navigationItems(); track $index) {
 			<sidebar-item [navigationItem]="navigationItem"/>
 		}
 	</section>
