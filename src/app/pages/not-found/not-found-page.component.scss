@@ -1,8 +1,8 @@
-@use 'src/styles/mixins/page-layout' as *;
+@use 'src/styles/mixins/card-layout' as *;
 @use 'src/styles/mixins/spin' as *;
 
 :host {
-	@include page-layout(800px);
+	@include card-layout(800px);
 
 	.mat-icon {
 		@include pulse(6s);

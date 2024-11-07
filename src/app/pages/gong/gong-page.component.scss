@@ -1,7 +1,6 @@
-@use 'src/styles/mixins/page-layout' as *;
+@use 'src/styles/mixins/card-layout' as *;
 
 :host {
-	flex: 1;
 	display: flex;
 	flex-flow: column nowrap;
 
@@ -12,6 +11,6 @@
 	}
 
 	.status-updates {
-		@include page-layout();
+		@include card-layout();
 	}
 }

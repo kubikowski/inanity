@@ -1,5 +1,5 @@
-@use 'src/styles/mixins/page-layout' as *;
+@use 'src/styles/mixins/card-layout' as *;
 
 :host {
-	@include page-layout(400px);
+	@include card-layout(400px);
 }

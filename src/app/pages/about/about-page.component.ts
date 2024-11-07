@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Page } from 'src/app/core/browser/components/page/page.directive';
 import { AboutCardComponent } from 'src/app/features/about/components/about-card/about-card.component';
 import { aboutCardData } from 'src/app/features/about/models/about-card-data.constant';
 
@@ -10,6 +11,6 @@ import { aboutCardData } from 'src/app/features/about/models/about-card-data.con
 	standalone: true,
 	imports: [ AboutCardComponent ],
 })
-export class AboutPageComponent {
+export class AboutPageComponent extends Page {
 	public readonly aboutCardData = aboutCardData;
 }
