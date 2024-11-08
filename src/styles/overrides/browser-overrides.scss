@@ -10,6 +10,10 @@ body {
 	font-size: 14px;
 	line-height: 1.5;
 	text-align: left;
+
+	&:is(.tablet, .desktop) {
+		font-size: 16px;
+	}
 }
 
 * {
@@ -52,9 +56,23 @@ b, strong {
 	font-weight: var(--weight-semibold);
 }
 
+pre code {
+	display: block;
+	padding: 0.5rem;
+	text-wrap: wrap;
+}
+
 code {
 	font-family: var(--monospace-font);
 	font-weight: var(--weight-medium);
+	background-color: var(--accent-background-color);
+	border: solid 1px var(--border-color);
+	border-radius: 4px;
+	padding: 0 0.5rem;
+}
+
+img {
+	max-width: 100%;
 }
 
 

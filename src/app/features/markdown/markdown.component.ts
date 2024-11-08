@@ -1,11 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, input, OnDestroy, OnInit, signal } from '@angular/core';
+import markdownit from 'markdown-it';
 import { SubSink } from 'subsink';
+
+const MarkdownIt = markdownit;
+const md = MarkdownIt({
+	html: true,
+	typographer: true,
+});
 
 @Component({
 	selector: 'markdown',
-	templateUrl: 'markdown.component.html',
+	template: '',
 	styleUrl: 'markdown.component.scss',
+	host: { '[innerHTML]': 'markdownHtml()' },
 	standalone: true,
 })
 export class MarkdownComponent implements OnInit, OnDestroy {
@@ -15,9 +23,9 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 	public readonly url = input.required<string>();
 	public readonly markdown = signal<string | null>(null);
 
-	public readonly markdownLines = computed(() => {
+	public readonly markdownHtml = computed(() => {
 		const markdown = this.markdown();
-		return (markdown !== null) ? markdown.split('\n') : null;
+		return (markdown !== null) ? md.render(markdown) : null;
 	});
 
 	public ngOnInit(): void {

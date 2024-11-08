@@ -1,6 +1,5 @@
 @use 'src/styles/mixins/content-layout' as *;
 
 :host {
-	display: block;
-	@include content-layout;
+	@include content-page();
 }
