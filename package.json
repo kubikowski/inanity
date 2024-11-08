@@ -26,6 +26,7 @@
     "color-name": "2.0.0",
     "firebase": "10.14.1",
     "firebaseui": "6.1.0",
+    "markdown-it": "14.1.0",
     "nipplejs": "0.10.2",
     "rxjs": "7.8.1",
     "set-utilities": "1.5.7",
@@ -34,7 +35,7 @@
     "zone.js": "0.14.10"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "18.2.8",
+    "@angular-devkit/build-angular": "18.2.11",
     "@angular-eslint/builder": "18.3.1",
     "@angular-eslint/eslint-plugin": "18.3.1",
     "@angular-eslint/eslint-plugin-template": "18.3.1",
@@ -44,6 +45,7 @@
     "@angular/compiler-cli": "18.2.8",
     "@types/color-name": "1.1.1",
     "@types/jest": "29.5.13",
+    "@types/markdown-it": "14.1.2",
     "@types/node": "22.7.5",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",

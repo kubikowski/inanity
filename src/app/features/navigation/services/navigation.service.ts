@@ -10,6 +10,7 @@ export class NavigationService {
 
 	public readonly navigationItems = computed(() => ([
 		NavigationItem.from('About', SvgIcon.GOAT, '/about'),
+		NavigationItem.from('Set Theory', SvgIcon.SET_UTILITIES, '/set-utilities'),
 		NavigationItem.from('Snek', SvgIcon.SNAKE, '/snek'),
 		NavigationItem.from('Sprinter', SvgIcon.SPRINTER, '/sprinter', isDevMode()),
 		NavigationItem.from('Gong', SvgIcon.GONG, '/gong', isDevMode()),

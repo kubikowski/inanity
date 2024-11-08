@@ -1,8 +1,7 @@
+@use 'src/styles/mixins/content-layout' as *;
+
 :host {
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: center;
-	padding: 2rem 0;
+	@include content-page();
 
 	h1 {
 		text-align: center;

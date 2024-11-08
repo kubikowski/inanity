@@ -1,21 +1,29 @@
-@mixin content-layout {
+@mixin content-page {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	padding: 2rem 0;
+}
 
+@mixin flex-content-layout($content-gap) {
+	width: calc(800px + 2 * $content-gap);
+	max-width: 100%;
+	padding: $content-gap;
+}
+
+@mixin content-layout {
 	@media	(max-width: 599.98px) and (orientation: portrait),
 			(max-width: 959.98px) and (orientation: landscape) {
-		width: 100%;
-		padding: 1rem;
+		@include flex-content-layout(1rem);
 	}
 
 	@media	(min-width: 600px) and (max-width: 839.98px) and (orientation: portrait),
 			(min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape) {
-		width: 100%;
-		padding: 1.5rem;
+		@include flex-content-layout(1.5rem);
 	}
 
 	@media	(min-width: 840px) and (orientation: portrait),
 			(min-width: 1280px) and (orientation: landscape) {
-		width: calc(800px + 6rem);
-		padding: 3rem;
-		gap: 3rem;
+		@include flex-content-layout(3rem);
 	}
 }
