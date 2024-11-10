@@ -1,6 +1,21 @@
 @use 'src/styles/mixins/content-layout' as *;
 
-:host {
+markdown {
 	display: block;
 	@include content-layout;
+
+	.hljs-keyword {
+		color: var(--danger-color);
+		font-weight: var(--weight-normal);
+		font-style: italic;
+	}
+
+	.hljs-title {
+		color: var(--warning-color);
+		font-style: italic;
+	}
+
+	.hljs-string {
+		color: var(--success-color);
+	}
 }

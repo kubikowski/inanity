@@ -1,4 +1,3 @@
-@use 'src/styles/mixins/card-layout' as *;
 @use 'src/styles/mixins/content-layout' as *;
 
 :host {
@@ -6,9 +5,5 @@
 
 	h2 {
 		text-shadow: var(--shadow-color) 2px 2px 2px;
-	}
-
-	.status-updates {
-		@include card-layout;
 	}
 }
