@@ -29,8 +29,8 @@ export class ColorPalette extends BaseColorPalette {
 			darkestColor.toString(),
 
 			/* Selected Background Colors */
-			defaultColor.withAlpha(0.15).imposeOn(theme.defaultBackgroundColor).toString(),
-			defaultColor.withAlpha(0.15).toString(),
+			defaultColor.withAlpha(0.20).imposeOn(theme.defaultBackgroundColor).toString(),
+			defaultColor.withAlpha(0.20).toString(),
 		);
 	}
 

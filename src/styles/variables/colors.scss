@@ -31,8 +31,8 @@
 	--darker-theme-color: #047ec5;
 	--darkest-theme-color: #036ea6;
 
-	--selected-background-color: rgb(217, 240, 250);
-	--selected-background-color-transparent: rgba(3, 157, 221, 0.15);
+	--selected-background-color: rgb(205, 235, 248);
+	--selected-background-color-transparent: rgba(3, 157, 221, 0.2);
 }
 
 @mixin color-transition($duration: 250ms) {

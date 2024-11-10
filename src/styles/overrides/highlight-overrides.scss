@@ -1,0 +1,14 @@
+:not(.default-selection) {
+
+	// Webkit Selection Overrides
+	::selection {
+		color: var(--dark-text-color);
+		background-color: var(--selected-background-color);
+	}
+
+	// Firefox Selection Overrides
+	::-moz-selection {
+		color: var(--dark-text-color);
+		background-color: var(--selected-background-color);
+	}
+}
