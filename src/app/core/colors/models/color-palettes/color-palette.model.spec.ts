@@ -86,12 +86,12 @@ describe('Color Palette', () => {
 
 		it('should contain correct colorSelected', () => {
 			const { colorSelectedBackground } = BluePalette;
-			expect(colorSelectedBackground).toBe('rgb(217, 240, 250)');
+			expect(colorSelectedBackground).toBe('rgb(205, 235, 248)');
 		});
 
 		it('should contain correct colorSelectedOpaque', () => {
 			const { colorSelectedBackgroundTransparent } = BluePalette;
-			expect(colorSelectedBackgroundTransparent).toBe('rgba(3, 157, 221, 0.15)');
+			expect(colorSelectedBackgroundTransparent).toBe('rgba(3, 157, 221, 0.2)');
 		});
 	});
 
@@ -135,12 +135,12 @@ describe('Color Palette', () => {
 
 		it('should contain correct colorSelectedBackground', () => {
 			const { colorSelectedBackground } = bluePaletteInverse;
-			expect(colorSelectedBackground).toBe('rgb(29, 52, 61)');
+			expect(colorSelectedBackground).toBe('rgb(27, 58, 71)');
 		});
 
 		it('should contain correct colorSelectedBackgroundTransparent', () => {
 			const { colorSelectedBackgroundTransparent } = bluePaletteInverse;
-			expect(colorSelectedBackgroundTransparent).toBe('rgba(3, 157, 221, 0.15)');
+			expect(colorSelectedBackgroundTransparent).toBe('rgba(3, 157, 221, 0.2)');
 		});
 	});
 });
