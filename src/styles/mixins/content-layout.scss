@@ -2,7 +2,6 @@
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: center;
-	padding: 2rem 0;
 }
 
 @mixin flex-content-layout($content-gap) {

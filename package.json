@@ -26,6 +26,7 @@
     "color-name": "2.0.0",
     "firebase": "10.14.1",
     "firebaseui": "6.1.0",
+    "highlight.js": "11.10.0",
     "markdown-it": "14.1.0",
     "nipplejs": "0.10.2",
     "rxjs": "7.8.1",
