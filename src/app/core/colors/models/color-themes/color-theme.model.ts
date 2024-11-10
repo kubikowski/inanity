@@ -4,8 +4,15 @@ import { Color } from 'src/app/core/colors/models/color.model';
 export class ColorTheme extends BaseColorTheme {
 	public static readonly infoColor = Color.fromString('#00b3ee');
 	public static readonly successColor = Color.fromString('#5cb85c');
+	// public static readonly successColor = Color.fromString('#6AAB73'); // Intellij Dark Theme String Color
+	// public static readonly successColor = Color.fromString('#0a7248'); // Pantone PMS 18-6032 TSX [Putting Green]
 	public static readonly warningColor = Color.fromString('#f0ad4e');
+	// public static readonly warningColor = Color.fromString('#ff6c2f'); // Pantone 021 U [Orange]
+	// public static readonly warningColor = Color.fromString('#ff6d2b'); // Pantone 15-1360 TN [Shocking Orange]
+	// public static readonly warningColor = Color.fromString('#c7622b'); // Pantone 16-1448 TPX [Burnt Orange]
+	// public static readonly warningColor = Color.fromString('#ffad4a'); // Pantone 14-1050 TPX [Marigold]
 	public static readonly dangerColor = Color.fromString('#d9534f');
+	// public static readonly dangerColor = Color.fromString('#d93744'); // Pantone 17-1663 TCX [Bittersweet]
 	public static readonly shadowColor = Color.fromString('black');
 
 	public constructor(
