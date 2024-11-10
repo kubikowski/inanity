@@ -15,12 +15,12 @@ export const BluePalette = new ColorPalette(
 
 export const GreenPalette = new ColorPalette(
 	Color.fromString('#70ee7a'),
-	Color.fromString('#3cd070'),
-	Color.fromString('#50c878'),
-	Color.fromString('#3cb371'),
-	Color.fromString('#00a86b'),
+	Color.fromString('#3cd070'), // UFO Green
+	Color.fromString('#50c878'), // Paris Green
+	Color.fromString('#3cb371'), // Medium Sea Green
+	Color.fromString('#00a86b'), // Jade
 	Color.fromString('#009060'),
-	Color.fromString('#00755e'),
+	Color.fromString('#00755e'), // Pantone 568 CP [Tropical Rain Forest]
 	'green-palette',
 	'Moss',
 );
@@ -49,14 +49,15 @@ export const RedPalette = new ColorPalette(
 	'Crimson',
 );
 
+/** rejected */
 export const OrangePalette = new ColorPalette(
 	Color.fromString('#ffe808'),
-	Color.fromString('#ffcc00'),
-	Color.fromString('#ffa812'),
-	Color.fromString('#ff7f00'),
-	Color.fromString('#f94d00'),
-	Color.fromString('#e62020'),
-	Color.fromString('#c90016'),
+	Color.fromString('#ffcc00'), // Tangerine Yellow
+	Color.fromString('#ffa812'), // Dark Tangerine
+	Color.fromString('#ff7f00'), // Orange (color wheel)
+	Color.fromString('#f94d00'), // Tangelo
+	Color.fromString('#e62020'), // Lust
+	Color.fromString('#c90016'), // Harvard Crimson
 	'orange-palette',
 	'Combustion',
 );
