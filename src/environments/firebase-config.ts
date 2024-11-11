@@ -9,4 +9,5 @@ export const firebaseConfig: FirebaseOptions = {
 	storageBucket: 'inanity-io.appspot.com',
 	messagingSenderId: '808517338781',
 	appId: '1:808517338781:web:708b1ae12e2b61455ef674',
+	measurementId: 'G-P6MMR5SMNX',
 };
