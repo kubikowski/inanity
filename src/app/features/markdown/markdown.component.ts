@@ -1,22 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, input, OnDestroy, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import hljs from 'highlight.js';
-import markdownit from 'markdown-it';
+import { Marked } from 'marked';
+import { baseUrl } from 'marked-base-url';
+import { markedHighlight } from 'marked-highlight';
+import { markedSmartypants } from 'marked-smartypants';
 import { SubSink } from 'subsink';
-
-const md = markdownit({
-	html: true,
-	typographer: true,
-	highlight: function (str: string, lang: string): string {
-		if (lang && hljs.getLanguage(lang)) {
-			try {
-				return hljs.highlight(str, { language: lang }).value;
-			} catch (__) { /* empty */ }
-		}
-
-		return ''; // use external default escaping
-	},
-});
 
 @Component({
 	selector: 'markdown',
@@ -31,11 +20,12 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 	private readonly subscriptions = new SubSink();
 
 	public readonly url = input.required<string>();
+	public readonly marked = computed(() => this.initializeMarked(this.url()));
 	public readonly markdown = signal<string | null>(null);
 
 	public readonly markdownHtml = computed(() => {
 		const markdown = this.markdown();
-		return (markdown !== null) ? md.render(markdown) : null;
+		return (markdown !== null) ? this.marked().parse(markdown) : null;
 	});
 
 	public ngOnInit(): void {
@@ -45,5 +35,24 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 
 	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();
+	}
+
+	private initializeMarked(url: string): Marked {
+		return new Marked(
+			baseUrl(MarkdownComponent.relativeUrl(url)),
+			markedHighlight({
+				emptyLangClass: 'hljs',
+				langPrefix: 'hljs language-',
+				highlight(_code: string, _lang: string, _info: string): string {
+					const language = hljs.getLanguage(_lang) ? _lang : 'plaintext';
+					return hljs.highlight(_code, { language }).value;
+				},
+			}),
+			markedSmartypants(),
+		);
+	}
+
+	private static relativeUrl(url: string): string {
+		return `${ url.split('/').slice(0, -1).join('/') }/`;
 	}
 }

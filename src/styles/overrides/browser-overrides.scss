@@ -25,7 +25,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: var(--weight-normal);
 	line-height: 1.2;
 	margin-top: 0;
-	margin-bottom: 0.5rem;
+	margin-bottom: 1rem;
 }
 
 h1 {
@@ -54,7 +54,7 @@ h6 {
 
 p {
 	margin-top: 0;
-	margin-bottom: 0.5rem;
+	margin-bottom: 1rem;
 }
 
 b, strong {
@@ -72,13 +72,17 @@ code {
 	font-family: var(--monospace-font);
 	font-weight: var(--weight-medium);
 	background-color: var(--accent-background-color);
-	border: solid 1px var(--border-color);
 	border-radius: 4px;
 	padding: 0 0.5rem;
 }
 
 img {
 	max-width: 100%;
+}
+
+img + em {
+	display: block;
+	text-align: center;
 }
 
 
