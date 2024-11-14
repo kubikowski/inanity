@@ -28,10 +28,10 @@ export const aboutCardData: readonly AboutCardData[] = [
 	{
 		title: 'Inanity',
 		paragraphs: [
-			'<b>Noun:</b>',
-			'The quality or state of being inane.',
-			'<i>a.</i> vapid, pointless, & lacking substance',
-			'<i>b.</i> shallow & silly',
+			`<b>Noun:</b>
+			<br>The quality or state of being inane.`,
+			`&emsp;<i>a.</i>&ensp; vapid, pointless, & lacking substance
+			<br>&emsp;<i>b.</i>&ensp; shallow & silly`,
 		],
 	},
 	{
