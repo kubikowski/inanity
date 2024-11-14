@@ -47,3 +47,6 @@ testem.log
 Thumbs.db
 /.firebase
 debug.log
+
+# External Content
+src/assets/sprinter
