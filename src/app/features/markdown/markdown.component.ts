@@ -1,10 +1,15 @@
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, computed, inject, input, OnDestroy, OnInit, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, effect, inject, input, OnDestroy, OnInit, signal, ViewEncapsulation } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import hljs from 'highlight.js';
 import { Marked } from 'marked';
 import { baseUrl } from 'marked-base-url';
+import { getHeadingList, gfmHeadingId, resetHeadings } from 'marked-gfm-heading-id';
 import { markedHighlight } from 'marked-highlight';
 import { markedSmartypants } from 'marked-smartypants';
+import { debounceTime } from 'rxjs';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -17,6 +22,9 @@ import { SubSink } from 'subsink';
 })
 export class MarkdownComponent implements OnInit, OnDestroy {
 	private readonly http = inject(HttpClient);
+	private readonly document = inject(DOCUMENT);
+	private readonly domSanitizer = inject(DomSanitizer);
+	private readonly route = inject(ActivatedRoute);
 	private readonly subscriptions = new SubSink();
 
 	public readonly url = input.required<string>();
@@ -25,8 +33,15 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 
 	public readonly markdownHtml = computed(() => {
 		const markdown = this.markdown();
-		return (markdown !== null) ? this.marked().parse(markdown) : null;
+		if (markdown === null) return null;
+
+		const parsed = this.marked().parse(markdown) as string;
+		return this.domSanitizer.bypassSecurityTrustHtml(parsed);
 	});
+
+	public constructor() {
+		effect(() => this.initializeScrollToHeading());
+	}
 
 	public ngOnInit(): void {
 		this.subscriptions.sink = this.http.get(this.url(), { responseType: 'text' })
@@ -38,8 +53,11 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 	}
 
 	private initializeMarked(url: string): Marked {
-		return new Marked(
+		resetHeadings();
+
+		return new Marked({ gfm: true }).use(
 			baseUrl(MarkdownComponent.relativeUrl(url)),
+			gfmHeadingId({ prefix: 'heading-' }),
 			markedHighlight({
 				emptyLangClass: 'hljs',
 				langPrefix: 'hljs language-',
@@ -54,5 +72,23 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 
 	private static relativeUrl(url: string): string {
 		return `${ url.split('/').slice(0, -1).join('/') }/`;
+	}
+
+	private initializeScrollToHeading(): void {
+		if (this.markdownHtml() !== null) {
+			this.subscriptions.unsubscribe();
+			this.subscriptions.sink = this.route.fragment
+				.pipe(debounceTime(200))
+				.subscribe(fragment => this.scrollToHeading(fragment));
+		}
+	}
+
+	private scrollToHeading(fragment: string | null): void {
+		const headingIds = new Set(getHeadingList().map(heading => heading.id));
+		const headingId = `heading-${ fragment }`;
+
+		if (fragment !== null && headingIds.has(headingId)) {
+			this.document.getElementById(headingId)?.scrollIntoView({ behavior: 'smooth' });
+		}
 	}
 }
