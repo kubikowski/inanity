@@ -19,10 +19,12 @@ export class DyslexicWord {
 	public get combinations(): readonly string[] {
 		const allCombinations = [ this.word ];
 
-		for (let movingDistance = 0; movingDistance < this.middleLetters.length - 1; movingDistance++) {
-			const combinations = this.getCombinationsByMovingDistance(movingDistance);
+		if (!this.isWellKnownWord()) {
+			for (let movingDistance = 0; movingDistance < this.middleLetters.length - 1; movingDistance++) {
+				const combinations = this.getCombinationsByMovingDistance(movingDistance);
 
-			allCombinations.push(...combinations);
+				allCombinations.push(...combinations);
+			}
 		}
 
 		return allCombinations;
@@ -48,5 +50,21 @@ export class DyslexicWord {
 		const backwardLetters = this.middleLetters.slice(movingLetterIndex + 1, movingLetterIndex + movingDistance + 2);
 
 		return this.firstLetter + startingLetters + backwardLetters + forwardLetter + endingLetters + this.lastLetter;
+	}
+
+	/**
+	 * Can be extended to account for any or all:
+	 * - HTML Elements: <main>
+	 * - HTML Entities: &copy;
+	 */
+	private isWellKnownWord(): boolean {
+		switch (this.word) {
+			case 'emsp':
+			case 'ensp':
+			case 'nbsp':
+				return true;
+			default:
+				return false;
+		}
 	}
 }
