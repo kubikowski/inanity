@@ -16,5 +16,6 @@ fi
 
 rm -rf "$assets";
 mkdir -p "$assets";
-cp -r "$temp/pages/." "$assets";
+cp -r "$temp/images" "$assets";
+cp -r "$temp/pages" "$assets";
 rm -rf "$temp";

@@ -30,6 +30,7 @@
     "highlight.js": "11.10.0",
     "marked": "15.0.0",
     "marked-base-url": "1.1.6",
+    "marked-gfm-heading-id": "4.1.1",
     "marked-highlight": "2.2.1",
     "marked-smartypants": "1.1.9",
     "nipplejs": "0.10.2",
