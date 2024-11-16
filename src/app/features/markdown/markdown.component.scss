@@ -1,5 +1,4 @@
 @use 'src/styles/mixins/content-layout' as *;
-@use 'src/styles/variables/colors' as *;
 
 markdown {
 	display: block;
@@ -18,28 +17,5 @@ markdown {
 
 	.hljs-string {
 		color: var(--success-color);
-	}
-
-	.fragment-anchor {
-		color: var(--lightest-theme-color);
-		padding-right: 0.5rem;
-		text-decoration: none;
-		@include color-transition(200ms);
-
-		&:hover {
-			color: var(--default-theme-color);
-			text-decoration: none;
-		}
-	}
-}
-
-.desktop markdown .fragment-anchor {
-	position: absolute;
-	left: calc(-0.5rem - var(--icon-size));
-	color: transparent;
-
-	&:hover {
-		color: var(--default-theme-color);
-		text-decoration: none;
 	}
 }
