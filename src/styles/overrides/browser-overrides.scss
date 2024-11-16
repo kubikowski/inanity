@@ -22,6 +22,7 @@ body {
 
 
 h1, h2, h3, h4, h5, h6 {
+	position: relative;
 	font-weight: var(--weight-normal);
 	line-height: 1.2;
 	margin-top: 0;
@@ -29,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	font-size: 4rem;
+	font-size: 3rem;
 	text-decoration: underline;
 	margin-top: 2.5rem;
 }

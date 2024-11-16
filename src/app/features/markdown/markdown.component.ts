@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, computed, effect, inject, input, OnDestroy, OnInit, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, effect, inject, Injector, input, OnDestroy, OnInit, signal, untracked, ViewEncapsulation } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import hljs from 'highlight.js';
@@ -10,6 +11,8 @@ import { getHeadingList, gfmHeadingId, resetHeadings } from 'marked-gfm-heading-
 import { markedHighlight } from 'marked-highlight';
 import { markedSmartypants } from 'marked-smartypants';
 import { debounceTime } from 'rxjs';
+import { RouterService } from 'src/app/core/browser/services/router.service';
+import { FragmentAnchorComponent } from 'src/app/features/markdown/fragment-anchor.component';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -24,6 +27,8 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 	private readonly http = inject(HttpClient);
 	private readonly document = inject(DOCUMENT);
 	private readonly domSanitizer = inject(DomSanitizer);
+	private readonly injector = inject(Injector);
+	private readonly routerService = inject(RouterService);
 	private readonly route = inject(ActivatedRoute);
 	private readonly subscriptions = new SubSink();
 
@@ -40,7 +45,10 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 	});
 
 	public constructor() {
+		this.defineAnchors();
+
 		effect(() => this.initializeScrollToHeading());
+		effect(() => this.initializeAnchors());
 	}
 
 	public ngOnInit(): void {
@@ -78,7 +86,7 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 		if (this.markdownHtml() !== null) {
 			this.subscriptions.unsubscribe();
 			this.subscriptions.sink = this.route.fragment
-				.pipe(debounceTime(200))
+				.pipe(debounceTime(0))
 				.subscribe(fragment => this.scrollToHeading(fragment));
 		}
 	}
@@ -89,6 +97,35 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 
 		if (fragment !== null && headingIds.has(headingId)) {
 			this.document.getElementById(headingId)?.scrollIntoView({ behavior: 'smooth' });
+		}
+	}
+
+	private defineAnchors(): void {
+		if (typeof customElements.get('fragment-anchor') === 'undefined') {
+			const element = createCustomElement(FragmentAnchorComponent, { injector: this.injector });
+			customElements.define('fragment-anchor', element);
+		}
+	}
+
+	private initializeAnchors(): void {
+		if (this.markdownHtml() !== null) {
+			setTimeout(() => this.addAnchors());
+		}
+	}
+
+	private addAnchors(): void {
+		const headingIds = getHeadingList().map(heading => heading.id);
+		const currentUrl = untracked(this.routerService.currentUrl);
+
+		for (const headingId of headingIds) {
+			const fragment = headingId.replace('heading-', '#');
+
+			if (fragment !== '#') {
+				const link = currentUrl + fragment;
+				const anchor = `<fragment-anchor link="${ link }"/>`;
+
+				this.document.getElementById(headingId)?.insertAdjacentHTML('afterbegin', anchor);
+			}
 		}
 	}
 }

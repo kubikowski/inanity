@@ -1,0 +1,36 @@
+@use 'src/styles/variables/colors' as *;
+
+:host {
+	display: inline-block;
+
+	.fragment-anchor {
+		display: flex;
+		align-items: center;
+		height: 100%;
+		padding-right: 0.5rem;
+
+		color: var(--lightest-theme-color);
+		text-decoration: none;
+		@include color-transition(200ms);
+
+		&:hover {
+			color: var(--default-theme-color);
+			text-decoration: none;
+		}
+	}
+}
+
+.desktop :host {
+	display: unset;
+
+	.fragment-anchor {
+		position: absolute;
+		left: calc(-0.5rem - var(--icon-size));
+		color: transparent;
+
+		&:hover {
+			color: var(--default-theme-color);
+			text-decoration: none;
+		}
+	}
+}
