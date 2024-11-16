@@ -3,14 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, computed, effect, inject, Injector, input, OnDestroy, OnInit, signal, untracked, ViewEncapsulation } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
 import hljs from 'highlight.js';
 import { Marked } from 'marked';
 import { baseUrl } from 'marked-base-url';
 import { getHeadingList, gfmHeadingId, resetHeadings } from 'marked-gfm-heading-id';
 import { markedHighlight } from 'marked-highlight';
 import { markedSmartypants } from 'marked-smartypants';
-import { debounceTime } from 'rxjs';
 import { RouterService } from 'src/app/core/browser/services/router.service';
 import { FragmentAnchorComponent } from 'src/app/features/markdown/fragment-anchor.component';
 import { SubSink } from 'subsink';
@@ -29,7 +27,6 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 	private readonly domSanitizer = inject(DomSanitizer);
 	private readonly injector = inject(Injector);
 	private readonly routerService = inject(RouterService);
-	private readonly route = inject(ActivatedRoute);
 	private readonly subscriptions = new SubSink();
 
 	public readonly url = input.required<string>();
@@ -83,11 +80,10 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 	}
 
 	private initializeScrollToHeading(): void {
-		if (this.markdownHtml() !== null) {
-			this.subscriptions.unsubscribe();
-			this.subscriptions.sink = this.route.fragment
-				.pipe(debounceTime(0))
-				.subscribe(fragment => this.scrollToHeading(fragment));
+		const fragment = this.routerService.currentFragment();
+
+		if (this.markdownHtml() !== null && fragment !== '') {
+			setTimeout(() => this.scrollToHeading(fragment));
 		}
 	}
 
