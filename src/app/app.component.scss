@@ -20,11 +20,12 @@ app-root {
 
 		.mat-sidenav-content {
 			@include fitted;
+			overflow-y: auto;
 		}
 
 		section.app-content {
 			@include fitted;
-			overflow-y: auto;
+			overflow-y: visible;
 
 			.page {
 				flex: 1;
