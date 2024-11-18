@@ -5,7 +5,7 @@ import { ColorPalette } from '../models/color-palettes/color-palette.model';
 import { BluePalette, ColorPalettes } from '../models/color-palettes/color-palettes.constant';
 import { BaseColorTheme } from '../models/color-themes/base-color-theme.model';
 import { ColorTheme } from '../models/color-themes/color-theme.model';
-import { ColorThemes, LightTheme } from '../models/color-themes/color-themes.constant';
+import { ColorThemes, PaperTheme } from '../models/color-themes/color-themes.constant';
 
 @Injectable({ providedIn: 'root' })
 export class ColorsService {
@@ -13,6 +13,9 @@ export class ColorsService {
 	private readonly body = this.document.body;
 	private readonly element = this.document.documentElement;
 	private readonly renderer = inject(RendererFactory2).createRenderer(this.body, null);
+
+	private static readonly DEFAULT_THEME = PaperTheme;
+	private static readonly DEFAULT_PALETTE = BluePalette;
 
 	public readonly theme = signal(ColorsService.localStorageTheme);
 	public readonly palette = signal(ColorsService.localStoragePalette);
@@ -56,7 +59,7 @@ export class ColorsService {
 		const themeName = localStorage.getItem('theme');
 
 		return ColorThemes.find(colorTheme => colorTheme.themeName === themeName)
-			?? LightTheme;
+			?? ColorsService.DEFAULT_THEME;
 	}
 
 	private static set localStorageTheme(theme: ColorTheme) {
@@ -87,7 +90,7 @@ export class ColorsService {
 		const paletteName = localStorage.getItem('palette');
 
 		return ColorPalettes.find(colorPalette => colorPalette.paletteName === paletteName)
-			?? BluePalette;
+			?? ColorsService.DEFAULT_PALETTE;
 	}
 
 	private static set localStoragePalette(palette: ColorPalette) {
