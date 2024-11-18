@@ -25,7 +25,32 @@ export const GreenPalette = new ColorPalette(
 	'Moss',
 );
 
+export const PurplePalette = new ColorPalette(
+	Color.fromString('#dbd5eb'),
+	Color.fromString('#cdc4e3'),
+	Color.fromString('#b2a4d4'), // Pantone 15-3817 TPX Lavender
+	Color.fromString('#9e8dc9'),
+	Color.fromString('#826db0'),
+	Color.fromString('#7058a4'),
+	Color.fromString('#5f4b8b'), // Pantone 18-3838 TCX Ultra Violet
+	'purple-palette',
+	'Lavender',
+);
+
 export const PinkPalette = new ColorPalette(
+	Color.fromString('#fdb4c8'),
+	Color.fromString('#fda1ba'),
+	Color.fromString('#fc8eac'),
+	Color.fromString('#fb7b9e'),
+	Color.fromString('#fa4274'),
+	Color.fromString('#f92e66'),
+	Color.fromString('#d4063e'),
+	'pink-palette',
+	'Flamingo',
+);
+
+/** rejected in favor of flamingo */
+export const RhubarbPalette = new ColorPalette(
 	Color.fromString('#fdb4c8'),
 	Color.fromString('#fda1ba'),
 	Color.fromString('#fc8eac'),
@@ -38,13 +63,13 @@ export const PinkPalette = new ColorPalette(
 );
 
 export const RedPalette = new ColorPalette(
+	Color.fromString('#f77786'),
+	Color.fromString('#f66878'),
+	Color.fromString('#f5495d'),
 	Color.fromString('#f4364c'), // Pantone 1787 C
 	Color.fromString('#ef3340'), // Pantone Red 032 C
 	Color.fromString('#d50032'), // Pantone 199 C
 	Color.fromString('#cd001a'), // Pantone 3546 C
-	Color.fromString('#b80f0a'),
-	Color.fromString('#9b111e'),
-	Color.fromString('#7e0b02'),
 	'red-palette',
 	'Crimson',
 );
@@ -77,6 +102,7 @@ export const TanPalette = new ColorPalette(
 export const ColorPalettes = [
 	BluePalette,
 	GreenPalette,
+	PurplePalette,
 	PinkPalette,
 	RedPalette,
 	TanPalette,
