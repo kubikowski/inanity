@@ -22,8 +22,14 @@
 						"main": "src/main.ts",
 						"polyfills": "src/polyfills.ts",
 						"tsConfig": "tsconfig.app.json",
+						"preserveSymlinks": true,
 						"assets": [
-							"src/assets",
+							{
+								"followSymlinks": true,
+								"input": "src/assets",
+								"glob": "**/*",
+								"output": "/assets/"
+							},
 							"src/favicon.ico",
 							"src/.webmanifest"
 						],
