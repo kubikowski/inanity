@@ -49,4 +49,5 @@ Thumbs.db
 debug.log
 
 # External Content
+src/assets/scratch
 src/assets/sprinter

@@ -1,36 +1,33 @@
 @use 'src/styles/mixins/colors' as *;
 
 :host {
-	display: inline-block;
+	display: inline-flex;
 
-	.fragment-anchor {
-		display: flex;
-		align-items: center;
-		height: 100%;
-		padding-right: 0.5rem;
+	--icon-button-pad: 6px;
+	--icon-button-size: calc(var(--icon-size) + 2 * 6px);
 
-		color: var(--light-theme-color);
-		text-decoration: none;
+	> .mat-mdc-icon-button.fragment-anchor {
+		padding: var(--icon-button-pad);
+		--mdc-icon-button-state-layer-size: var(--icon-button-size);
+
+		color: var(--disabled-text-color);
 		@include color-transition(200ms);
 
 		&:hover {
 			color: var(--default-theme-color);
-			text-decoration: none;
 		}
 	}
 }
 
+.mobile :host {
+	margin-left: -1rem;
+}
+
+.tablet :host {
+	margin-right: 0.5rem;
+}
+
 .desktop :host {
-	display: unset;
-
-	.fragment-anchor {
-		position: absolute;
-		left: calc(-0.5rem - var(--icon-size));
-		color: transparent;
-
-		&:hover {
-			color: var(--default-theme-color);
-			text-decoration: none;
-		}
-	}
+	margin-left: calc(-0.5rem - var(--icon-button-size));
+	margin-right: 0.5rem;
 }
