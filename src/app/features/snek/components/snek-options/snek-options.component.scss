@@ -4,8 +4,10 @@
 	align-items: center;
 
 	.result {
+		display: flex;
+		align-items: center;
 		font-size: 1.25rem;
 		font-weight: var(--weight-semibold);
-		padding-right: 2rem;
+		margin-right: 2rem;
 	}
 }

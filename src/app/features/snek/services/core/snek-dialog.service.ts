@@ -27,8 +27,11 @@ export class SnekDialogService {
 			gameOverMessage,
 		};
 
+		const dialogConfig = DialogConfigBuilder.default(data)
+			.withoutAutoFocus();
+
 		const dialogRef = this.dialogService.static(
-			SnekResultsDialogComponent, DialogConfigBuilder.default(data));
+			SnekResultsDialogComponent, dialogConfig);
 
 		dialogRef.afterClosed()
 			.subscribe(() => this.snekStateService.resetSnekGame());

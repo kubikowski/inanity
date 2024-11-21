@@ -1,0 +1,45 @@
+:host {
+	position: absolute;
+	display: flex;
+	flex-flow: row nowrap;
+	width: calc(100% + 2px);
+	height: calc(100% + 2px);
+	top: -1px;
+	left: -1px;
+
+	--snek-border: solid 2px var(--border-color);
+
+	> .border-left {
+		border: var(--snek-border);
+		border-radius: 4px 0 0 4px;
+		border-right: none;
+		width: calc(100% - 61px);
+	}
+
+	> .border-right {
+		border: var(--snek-border);
+		border-radius: 0 4px 4px 0;
+		border-left: none;
+		width: 21px;
+	}
+
+	> .border-text {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: space-between;
+		align-items: center;
+		width: 40px;
+		height: calc(100% + 6px);
+
+		> .border-top {
+			border-top: var(--snek-border);
+			width: 100%;
+		}
+
+		> .snek-seed {
+			font-family: var(--monospace-font);
+			color: var(--default-text-color);
+			font-size: 10px;
+		}
+	}
+}
