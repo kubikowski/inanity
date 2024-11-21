@@ -4,4 +4,8 @@
 	flex-flow: column nowrap;
 	width: max-content;
 	user-select: none;
+
+	canvas {
+		border-radius: 3px;
+	}
 }

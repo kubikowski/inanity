@@ -25,6 +25,7 @@ app-root {
 
 		section.app-content {
 			@include fitted;
+			align-items: center;
 			overflow-y: visible;
 
 			.page {
