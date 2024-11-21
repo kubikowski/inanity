@@ -23,6 +23,10 @@ export class SnekGame {
 		width: number,
 		height: number,
 	) {
+		if (width < 5 || height < 5) {
+			throw new Error(`Snek Grid is too small: ${ width } x ${ height }`);
+		}
+
 		this.#width = width;
 		this.#height = height;
 		this.#grid = Array.from(Array(this.#height),

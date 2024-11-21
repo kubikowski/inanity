@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatTooltip } from '@angular/material/tooltip';
 import { formValue } from 'src/app/core/functions/rxjs/form-value.function';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 import { SnekSolverService } from 'src/app/features/snek/services/peripheral/snek-solver.service';
@@ -14,7 +15,7 @@ import { SnekSolverService } from 'src/app/features/snek/services/peripheral/sne
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		MatIcon, MatSlideToggle, ReactiveFormsModule,
+		MatIcon, MatSlideToggle, ReactiveFormsModule, MatTooltip,
 	],
 })
 export class SnekOptionsComponent {
