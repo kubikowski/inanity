@@ -1,14 +1,11 @@
-@use 'src/styles/mixins/card-layout' as *;
+@use 'src/styles/mixins/content-layout' as *;
 
 :host {
-	@include card-layout(800px);
+	@include content-page;
+	@include content-layout;
 
-	.mat-mdc-card-content {
-		display: flex;
-		flex-flow: column nowrap;
-		align-items: center;
-		justify-content: center;
-		padding: 1rem;
+	.mat-mdc-card {
+		background-color: transparent;
+		box-shadow: none;
 	}
 }
-

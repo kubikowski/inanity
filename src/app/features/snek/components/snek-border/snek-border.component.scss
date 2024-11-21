@@ -1,3 +1,11 @@
+.light-theme :host {
+	--snek-border-color: var(--accent-background-color);
+}
+
+.dark-theme :host {
+	--snek-border-color: var(--default-background-color);
+}
+
 :host {
 	position: absolute;
 	display: flex;
@@ -7,18 +15,19 @@
 	top: -1px;
 	left: -1px;
 
-	--snek-border: solid 2px var(--border-color);
+	--snek-border: solid 2px var(--snek-border-color);
+	--snek-border-radius: 4px;
 
 	> .border-left {
 		border: var(--snek-border);
-		border-radius: 4px 0 0 4px;
+		border-radius: var(--snek-border-radius) 0 0 var(--snek-border-radius);
 		border-right: none;
 		width: calc(100% - 61px);
 	}
 
 	> .border-right {
 		border: var(--snek-border);
-		border-radius: 0 4px 4px 0;
+		border-radius: 0 var(--snek-border-radius) var(--snek-border-radius) 0;
 		border-left: none;
 		width: 21px;
 	}
@@ -38,7 +47,7 @@
 
 		> .snek-seed {
 			font-family: var(--monospace-font);
-			color: var(--default-text-color);
+			color: var(--disabled-text-color);
 			font-size: 10px;
 		}
 	}

@@ -1,9 +1,11 @@
+import { DOCUMENT } from '@angular/common';
 import { computed, inject, Injectable } from '@angular/core';
 import { ScreenService } from 'src/app/core/browser/services/screen.service';
 
 @Injectable()
 export class SnekResolutionService {
 	private readonly screenService = inject(ScreenService);
+	private readonly body = inject(DOCUMENT).body;
 
 	private static readonly optimalSnekWidth = 35;
 	private static readonly optimalSnekHeight = 25;
@@ -25,8 +27,16 @@ export class SnekResolutionService {
 	}
 
 	private getSnekHeight(screenHeight: number): number {
-		const screenDependentSnekHeight = Math.floor(screenHeight / 20) - 12;
+		const navigationHeight = this.getNavigationHeight();
+		const screenDependentSnekHeight = Math.floor((screenHeight - navigationHeight) / 20) - 5;
 
 		return Math.min(screenDependentSnekHeight, SnekResolutionService.optimalSnekHeight);
+	}
+
+	private getNavigationHeight(): number {
+		const style = window.getComputedStyle(this.body);
+		const navigationHeight = style.getPropertyValue('--navigation-height');
+
+		return +navigationHeight.replace('px', '');
 	}
 }
