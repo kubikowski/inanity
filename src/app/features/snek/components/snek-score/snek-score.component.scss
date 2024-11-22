@@ -1,10 +1,9 @@
 :host {
 	display: flex;
 	align-items: center;
-	padding: 2px;
-	gap: 2px;
-	background-color: var(--default-background-color);
-	border: solid 1px var(--border-color);
+	gap: 3px;
+	background-color: var(--accent-background-color);
+	border: solid 3px var(--accent-background-color);
 	border-radius: 2px;
 	overflow: hidden;
 
@@ -12,12 +11,12 @@
 		font-size: 1.25rem;
 		font-family: var(--monospace-font);
 		font-weight: var(--weight-semibold);
-		padding: 0 2px;
-		background-color: var(--accent-background-color);
-		border: solid 1px var(--border-color);
+		background-color: var(--default-background-color);
+		border: solid 1px var(--default-background-color);
 		border-radius: 2px;
-		width: calc(1rem + 1px);
+		width: 1.25rem;
 		height: 2rem;
+		text-align: center;
 		overflow: hidden;
 	}
 }
