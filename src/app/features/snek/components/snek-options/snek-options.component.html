@@ -1,15 +1,8 @@
-<span class="result" [matTooltip]="'Score: ' + score()">
-	<mat-icon>spa</mat-icon>
-	{{ score() }}
-</span>
-
-<span class="result" [matTooltip]="'High Score: ' + highScore()">
-	<mat-icon>star</mat-icon>
-	{{ highScore() }}
-</span>
+<snek-score [score]="score()" tooltip="Score" icon="spa"/>
+<snek-score [score]="highScore()" tooltip="High Score" icon="star"/>
 
 <mat-slide-toggle color="primary"
 				  [formControl]="solverEnabledControl"
 				  (change)="toggleSolverEnabled()">
-	Enable Auto Solver
+	Auto Solver
 </mat-slide-toggle>

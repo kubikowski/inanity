@@ -1,0 +1,23 @@
+:host {
+	display: flex;
+	align-items: center;
+	padding: 2px;
+	gap: 2px;
+	background-color: var(--default-background-color);
+	border: solid 1px var(--border-color);
+	border-radius: 2px;
+	overflow: hidden;
+
+	.digit {
+		font-size: 1.25rem;
+		font-family: var(--monospace-font);
+		font-weight: var(--weight-semibold);
+		padding: 0 2px;
+		background-color: var(--accent-background-color);
+		border: solid 1px var(--border-color);
+		border-radius: 2px;
+		width: calc(1rem + 1px);
+		height: 2rem;
+		overflow: hidden;
+	}
+}

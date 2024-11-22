@@ -1,0 +1,10 @@
+<mat-icon>{{ icon() }}</mat-icon>
+
+@for (digit of displayedDigits(); track $index) {
+	<span class="digit">
+
+		@if (digit !== null) {
+			<div @slideUp>{{ digit }}</div>
+		}
+	</span>
+}

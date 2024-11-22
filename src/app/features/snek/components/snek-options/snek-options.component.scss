@@ -2,12 +2,6 @@
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
-
-	.result {
-		display: flex;
-		align-items: center;
-		font-size: 1.25rem;
-		font-weight: var(--weight-semibold);
-		margin-right: 2rem;
-	}
+	padding-top: 0.5rem;
+	gap: 2rem;
 }
