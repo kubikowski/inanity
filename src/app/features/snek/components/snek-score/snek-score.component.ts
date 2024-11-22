@@ -11,9 +11,7 @@ import { formatSnekScore } from 'src/app/features/snek/models/state/snek-score.f
 	templateUrl: 'snek-score.component.html',
 	styleUrl: 'snek-score.component.scss',
 	standalone: true,
-	imports: [
-		MatIcon,
-	],
+	imports: [ MatIcon ],
 	hostDirectives: [ MatTooltip ],
 	animations: [ SlideUpAnimation ],
 })
