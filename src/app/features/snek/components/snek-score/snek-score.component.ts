@@ -4,7 +4,6 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { delay } from 'rxjs';
 import { SlideUpAnimation } from 'src/app/core/animations/slide-up.animation';
-import { formatSnekScore } from 'src/app/features/snek/models/state/snek-score.function';
 
 @Component({
 	selector: 'snek-score',
@@ -22,7 +21,7 @@ export class SnekScoreComponent {
 	public readonly tooltip = input.required<string>();
 	public readonly icon = input.required<string>();
 
-	private readonly currentDigits = computed(() => formatSnekScore(this.score()));
+	private readonly currentDigits = computed(() => SnekScoreComponent.formatDigits(this.score()));
 	private readonly previousDigits = toSignal(toObservable(this.currentDigits).pipe(delay(100)));
 
 	public readonly displayedDigits = computed(() => this.getDisplayedDigits());
@@ -33,6 +32,10 @@ export class SnekScoreComponent {
 
 	private updateTooltip(): void {
 		this.matTooltip.message = `${ this.tooltip() }: ${ this.currentDigits() }`;
+	}
+
+	private static formatDigits(score: number): string {
+		return score.toString().padStart(3, '0');
 	}
 
 	private getDisplayedDigits(): (string | null)[] {
