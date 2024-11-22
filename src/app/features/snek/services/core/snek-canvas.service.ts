@@ -38,6 +38,8 @@ export class SnekCanvasService extends CanvasService {
 		const snekGame = this.snekStateService.snekGame();
 		if (context === null || typeof svgElements === 'undefined') return;
 
+		this.drawBackground(context);
+
 		const snekWidth = untracked(this.snekResolutionService.snekWidth);
 		const snekHeight = untracked(this.snekResolutionService.snekHeight);
 
@@ -71,7 +73,16 @@ export class SnekCanvasService extends CanvasService {
 		this.drawSnekNode(context, currentState.foodNode, currentState.gameCounter);
 	}
 
-	private drawGridNode(context: CanvasRenderingContext2D, width: number, height: number) {
+	private drawBackground(context: CanvasRenderingContext2D): void {
+		const colorTheme = untracked(this.colorsService.theme);
+		const width = untracked(this.canvasWidth);
+		const height = untracked(this.canvasHeight);
+
+		context.fillStyle = colorTheme.colorDefaultBackground;
+		context.fillRect(0, 0, width, height);
+	}
+
+	private drawGridNode(context: CanvasRenderingContext2D, width: number, height: number): void {
 		const colorTheme = untracked(this.colorsService.theme);
 		const scalar = untracked(this.scalar);
 
