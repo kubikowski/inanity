@@ -3,25 +3,5 @@
 	flex-flow: row nowrap;
 	align-items: center;
 	padding-top: 0.5rem;
-
-	.result {
-		display: flex;
-		align-items: center;
-		margin-right: 2rem;
-		gap: 2px;
-		padding: 2px;
-		background-color: var(--default-background-color);
-		border: solid 1px var(--border-color);
-		border-radius: 2px;
-
-		.digit {
-			font-size: 1.25rem;
-			font-family: var(--monospace-font);
-			font-weight: var(--weight-semibold);
-			padding: 0 2px;
-			background-color: var(--accent-background-color);
-			border: solid 1px var(--border-color);
-			border-radius: 2px;
-		}
-	}
+	gap: 2rem;
 }

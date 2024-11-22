@@ -1,16 +1,5 @@
-<span class="result" [matTooltip]="'Score: ' + score()">
-	<mat-icon>spa</mat-icon>
-	@for (digit of score(); track $index) {
-		<span class="digit">{{ digit }}</span>
-	}
-</span>
-
-<span class="result" [matTooltip]="'High Score: ' + highScore()">
-	<mat-icon>star</mat-icon>
-	@for (digit of highScore(); track $index) {
-		<span class="digit">{{ digit }}</span>
-	}
-</span>
+<snek-score [score]="score()" tooltip="Score" icon="spa"/>
+<snek-score [score]="highScore()" tooltip="High Score" icon="star"/>
 
 <mat-slide-toggle color="primary"
 				  [formControl]="solverEnabledControl"
