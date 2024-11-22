@@ -1,11 +1,15 @@
 <span class="result" [matTooltip]="'Score: ' + score()">
 	<mat-icon>spa</mat-icon>
-	{{ score() }}
+	@for (digit of score(); track $index) {
+		<span class="digit">{{ digit }}</span>
+	}
 </span>
 
 <span class="result" [matTooltip]="'High Score: ' + highScore()">
 	<mat-icon>star</mat-icon>
-	{{ highScore() }}
+	@for (digit of highScore(); track $index) {
+		<span class="digit">{{ digit }}</span>
+	}
 </span>
 
 <mat-slide-toggle color="primary"

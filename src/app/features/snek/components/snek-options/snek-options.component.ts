@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, untracked } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
@@ -22,8 +22,8 @@ export class SnekOptionsComponent {
 	private readonly snekStateService = inject(SnekStateService);
 	private readonly snekSolverService = inject(SnekSolverService);
 
-	public readonly score = this.snekStateService.score;
-	public readonly highScore = this.snekStateService.highScore;
+	public readonly score = computed(() => SnekOptionsComponent.formatScore(this.snekStateService.score()));
+	public readonly highScore = computed(() => SnekOptionsComponent.formatScore(this.snekStateService.highScore()));
 
 	public readonly solverEnabledControl = new FormControl<boolean>(untracked(this.snekSolverService.enabled), { nonNullable: true });
 	private readonly solverEnabled = toSignal(formValue(this.solverEnabledControl));
@@ -34,5 +34,9 @@ export class SnekOptionsComponent {
 		if (typeof enabled !== 'undefined') {
 			this.snekSolverService.enabled.set(enabled);
 		}
+	}
+
+	private static formatScore(score: number): string {
+		return score.toString().padStart(3, '0');
 	}
 }
