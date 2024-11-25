@@ -4,6 +4,7 @@ import { computed, effect, inject, Injectable, OnDestroy, RendererFactory2, sign
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 import { ScreenDisplay } from '../models/screen-display.enum';
+import { ScreenOrientation } from '../models/screen-orientation.enum';
 
 @Injectable({ providedIn: 'root' })
 export class ScreenService implements OnDestroy {
@@ -24,6 +25,17 @@ export class ScreenService implements OnDestroy {
 			return ScreenDisplay.TABLET;
 		} else {
 			return ScreenDisplay.DESKTOP;
+		}
+	});
+
+	public readonly isLandscapeView = toSignal(this.observer.observe('(orientation: landscape)')
+		.pipe(map(breakpointState => breakpointState.matches)));
+
+	public readonly screenOrientation = computed(() => {
+		if (this.isLandscapeView()) {
+			return ScreenOrientation.LANDSCAPE;
+		} else {
+			return ScreenOrientation.PORTRAIT;
 		}
 	});
 

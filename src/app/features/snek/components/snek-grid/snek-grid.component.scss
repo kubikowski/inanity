@@ -1,9 +1,13 @@
-:host {
+snek-grid {
 	position: relative;
 	display: flex;
 	flex-flow: column nowrap;
 	width: max-content;
 	user-select: none;
+	touch-action: none;
+
+	/* overwritten by host style */
+	--snek-grid-size: 20px;
 
 	canvas {
 		border-radius: 3px;

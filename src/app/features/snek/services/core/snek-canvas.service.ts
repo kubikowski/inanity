@@ -16,9 +16,10 @@ export class SnekCanvasService extends CanvasService {
 	private readonly snekStateService = inject(SnekStateService);
 	private readonly svgIconService = inject(SvgIconService);
 
-	private readonly scalar = computed(() => this.pixelDensity() * 20);
-	protected readonly rawCanvasWidth = computed(() => this.snekResolutionService.snekWidth() * 20);
-	protected readonly rawCanvasHeight = computed(() => this.snekResolutionService.snekHeight() * 20);
+	private readonly snekGridSize = this.snekResolutionService.snekGridSize;
+	private readonly scalar = computed(() => this.snekGridSize() * this.pixelDensity());
+	protected readonly rawCanvasWidth = computed(() => this.snekResolutionService.snekWidth() * this.snekGridSize());
+	protected readonly rawCanvasHeight = computed(() => this.snekResolutionService.snekHeight() * this.snekGridSize());
 
 	private readonly namespace = SnekIconUtil.getNamespace(SnekIconPack.DOTTED);
 	private readonly svgElements = toSignal(this.svgIconService.getIcons(Object.values(SnekIcon), this.namespace));

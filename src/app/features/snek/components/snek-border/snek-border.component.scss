@@ -10,29 +10,30 @@
 	--snek-border: solid 2px var(--accent-background-color);
 	--snek-border-radius: 4px;
 
-	> .border-left {
+	> .snek-border-left {
 		border: var(--snek-border);
 		border-radius: var(--snek-border-radius) 0 0 var(--snek-border-radius);
 		border-right: none;
-		width: calc(100% - 61px);
+		width: calc(100% - 3 * var(--snek-grid-size) - 1px);
 	}
 
-	> .border-right {
+	> .snek-border-right {
 		border: var(--snek-border);
 		border-radius: 0 var(--snek-border-radius) var(--snek-border-radius) 0;
 		border-left: none;
-		width: 21px;
+		width: calc(var(--snek-grid-size) + 1px);
 	}
 
-	> .border-text {
+	> .snek-border-text {
 		display: flex;
 		flex-flow: column nowrap;
 		justify-content: space-between;
 		align-items: center;
-		width: 40px;
-		height: calc(100% + 6px);
+		width: calc(2 * var(--snek-grid-size));
+		height: calc(100% + 1px + 0.5em);
+		font-size: 10px;
 
-		> .border-top {
+		> .snek-border-top {
 			border-top: var(--snek-border);
 			width: 100%;
 		}
@@ -40,7 +41,6 @@
 		> .snek-seed {
 			font-family: var(--monospace-font);
 			color: var(--disabled-text-color);
-			font-size: 10px;
 		}
 	}
 }
