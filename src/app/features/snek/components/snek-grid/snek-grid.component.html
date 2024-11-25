@@ -1,6 +1,6 @@
 <joystick (move)="handleJoystick($event)"
-		  [style.width]="snekWidth() * 20 + 'px'"
-		  [style.height]="snekHeight() * 20 + 'px'"/>
+		  [style.width]="snekWidth() * snekGridSize() + 'px'"
+		  [style.height]="snekHeight() * snekGridSize() + 'px'"/>
 
 <canvas #snekCanvas></canvas>
 

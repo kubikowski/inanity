@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, untracked, viewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, untracked, viewChild, ViewEncapsulation } from '@angular/core';
 import { JoystickOutputData } from 'nipplejs';
 import { JoystickComponent } from 'src/app/features/joystick/joystick.component';
 import { SnekBorderComponent } from 'src/app/features/snek/components/snek-border/snek-border.component';
@@ -11,8 +11,12 @@ import { SnekUserInputService } from 'src/app/features/snek/services/core/snek-u
 	templateUrl: 'snek-grid.component.html',
 	styleUrl: 'snek-grid.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [ JoystickComponent, SnekBorderComponent ],
+	host: {
+		'[style.--snek-grid-size]': 'snekGridSize() + \'px\'',
+	},
 })
 export class SnekGridComponent implements AfterViewInit {
 	private readonly snekCanvasService = inject(SnekCanvasService);
@@ -21,6 +25,7 @@ export class SnekGridComponent implements AfterViewInit {
 
 	private readonly canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('snekCanvas');
 
+	public readonly snekGridSize = this.snekResolutionService.snekGridSize;
 	public readonly snekWidth = this.snekResolutionService.snekWidth;
 	public readonly snekHeight = this.snekResolutionService.snekHeight;
 
