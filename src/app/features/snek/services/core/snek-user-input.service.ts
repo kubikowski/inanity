@@ -43,10 +43,6 @@ export class SnekUserInputService implements OnDestroy {
 
 	// region Handle Inputs
 	private handleKeydown(keyboardEvent: KeyboardEvent): void {
-		if (untracked(this.snekStateService.paused)) {
-			return;
-		}
-
 		const snekDirection = this.getKeyboardDirection(keyboardEvent);
 		if (snekDirection !== null) {
 			this.enterKeydown(snekDirection);
@@ -54,10 +50,6 @@ export class SnekUserInputService implements OnDestroy {
 	}
 
 	private handleKeyup(keyboardEvent: KeyboardEvent): void {
-		if (untracked(this.snekStateService.paused)) {
-			return;
-		}
-
 		const snekDirection = this.getKeyboardDirection(keyboardEvent);
 		if (snekDirection !== null) {
 			this.enterKeyup(snekDirection);
@@ -65,10 +57,6 @@ export class SnekUserInputService implements OnDestroy {
 	}
 
 	public handleJoystick(event: JoystickOutputData): void {
-		if (untracked(this.snekStateService.paused)) {
-			return;
-		}
-
 		const snekDirection = this.getJoystickDirection(event);
 		if (snekDirection !== null) {
 			this.enterCommand(snekDirection);
@@ -79,6 +67,10 @@ export class SnekUserInputService implements OnDestroy {
 
 	// region Get Input Directions
 	private getKeyboardDirection(keyboardEvent: KeyboardEvent): SnekDirection | null {
+		if (untracked(this.snekStateService.paused)) {
+			return null;
+		}
+
 		switch (keyboardEvent.key) {
 			case 'w':
 			case 'ArrowUp':
@@ -98,6 +90,10 @@ export class SnekUserInputService implements OnDestroy {
 	}
 
 	private getJoystickDirection(event: JoystickOutputData): SnekDirection | null {
+		if (untracked(this.snekStateService.paused)) {
+			return null;
+		}
+
 		switch (event.direction?.angle) {
 			case 'up':
 				return SnekDirection.UP;
