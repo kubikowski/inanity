@@ -110,7 +110,7 @@ export class SnekUserInputService implements OnDestroy {
 	// endregion Get Input Directions
 
 
-	// region Register Inputs
+	// region Enter Key Presses
 	private enterKeydown(direction: SnekDirection): void {
 		const keydownSet = union(new Set(untracked(this.keydownQueue)), new Set([ direction ]));
 		this.keydownQueue.set([ ...keydownSet ]);
@@ -127,7 +127,10 @@ export class SnekUserInputService implements OnDestroy {
 			this.enterCommand(previousKeydown);
 		}
 	}
+	// endregion Enter Key Presses
 
+
+	// region Enter Commands
 	private enterCommand(direction: SnekDirection): void {
 		switch (untracked(this.commandQueue).length) {
 			case 0:
@@ -158,15 +161,16 @@ export class SnekUserInputService implements OnDestroy {
 			this.commandQueue.set([ direction ]);
 		}
 	}
-	// endregion Register Inputs
+	// endregion Enter Commands
 
 
-	// region Process Inputs
+	// region Process Commands
 	private processNextCommand(): void {
 		this.commandQueue.set(untracked(this.commandQueue).slice(1));
 	}
 
 	private resetCommandQueue(): void {
+		this.keydownQueue.set([]);
 		this.commandQueue.set([]);
 	}
 
@@ -176,5 +180,5 @@ export class SnekUserInputService implements OnDestroy {
 			this.snekStateService.directionInput.set(direction);
 		}
 	}
-	// endregion Process Inputs
+	// endregion Process Commands
 }
