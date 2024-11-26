@@ -1,5 +1,6 @@
 import { effect, inject, Injectable, OnDestroy, Renderer2, signal, untracked } from '@angular/core';
 import { JoystickOutputData } from 'nipplejs';
+import { difference, union } from 'set-utilities';
 import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
@@ -7,10 +8,15 @@ import { SnekStateService } from 'src/app/features/snek/services/core/snek-state
 @Injectable()
 export class SnekUserInputService implements OnDestroy {
 	private readonly snekStateService = inject(SnekStateService);
+	private readonly renderer = inject(Renderer2);
 
-	private readonly listenerUnsubscribeCallback = inject(Renderer2)
-		.listen('document', 'keydown', this.handleKeyDown.bind(this));
+	private readonly keydownUnsubscribeCallback = this.renderer
+		.listen('document', 'keydown', this.handleKeydown.bind(this));
 
+	private readonly keyupUnsubscribeCallback = this.renderer
+		.listen('document', 'keyup', this.handleKeyup.bind(this));
+
+	private readonly keydownQueue = signal(<readonly SnekDirection[]>[]);
 	private readonly commandQueue = signal(<readonly SnekDirection[]>[]);
 
 	public constructor() {
@@ -30,31 +36,31 @@ export class SnekUserInputService implements OnDestroy {
 	}
 
 	public ngOnDestroy(): void {
-		this.listenerUnsubscribeCallback();
+		this.keydownUnsubscribeCallback();
+		this.keyupUnsubscribeCallback();
 	}
 
-	private handleKeyDown(keyboardEvent: KeyboardEvent): void {
+
+	// region Handle Inputs
+	private handleKeydown(keyboardEvent: KeyboardEvent): void {
 		if (untracked(this.snekStateService.paused)) {
 			return;
 		}
 
-		switch (keyboardEvent.key) {
-			case 'w':
-			case 'ArrowUp':
-				this.enterCommand(SnekDirection.UP);
-				break;
-			case 's':
-			case 'ArrowDown':
-				this.enterCommand(SnekDirection.DOWN);
-				break;
-			case 'a':
-			case 'ArrowLeft':
-				this.enterCommand(SnekDirection.LEFT);
-				break;
-			case 'd':
-			case 'ArrowRight':
-				this.enterCommand(SnekDirection.RIGHT);
-				break;
+		const snekDirection = this.getKeyboardDirection(keyboardEvent);
+		if (snekDirection !== null) {
+			this.enterKeydown(snekDirection);
+		}
+	}
+
+	private handleKeyup(keyboardEvent: KeyboardEvent): void {
+		if (untracked(this.snekStateService.paused)) {
+			return;
+		}
+
+		const snekDirection = this.getKeyboardDirection(keyboardEvent);
+		if (snekDirection !== null) {
+			this.enterKeyup(snekDirection);
 		}
 	}
 
@@ -63,19 +69,66 @@ export class SnekUserInputService implements OnDestroy {
 			return;
 		}
 
+		const snekDirection = this.getJoystickDirection(event);
+		if (snekDirection !== null) {
+			this.enterCommand(snekDirection);
+		}
+	}
+	// endregion Handle Inputs
+
+
+	// region Get Input Directions
+	private getKeyboardDirection(keyboardEvent: KeyboardEvent): SnekDirection | null {
+		switch (keyboardEvent.key) {
+			case 'w':
+			case 'ArrowUp':
+				return SnekDirection.UP;
+			case 's':
+			case 'ArrowDown':
+				return SnekDirection.DOWN;
+			case 'a':
+			case 'ArrowLeft':
+				return SnekDirection.LEFT;
+			case 'd':
+			case 'ArrowRight':
+				return SnekDirection.RIGHT;
+			default:
+				return null;
+		}
+	}
+
+	private getJoystickDirection(event: JoystickOutputData): SnekDirection | null {
 		switch (event.direction?.angle) {
 			case 'up':
-				this.enterCommand(SnekDirection.UP);
-				break;
+				return SnekDirection.UP;
 			case 'down':
-				this.enterCommand(SnekDirection.DOWN);
-				break;
+				return SnekDirection.DOWN;
 			case 'left':
-				this.enterCommand(SnekDirection.LEFT);
-				break;
+				return SnekDirection.LEFT;
 			case 'right':
-				this.enterCommand(SnekDirection.RIGHT);
-				break;
+				return SnekDirection.RIGHT;
+			default:
+				return null;
+		}
+	}
+	// endregion Get Input Directions
+
+
+	// region Register Inputs
+	private enterKeydown(direction: SnekDirection): void {
+		const keydownSet = union(new Set(untracked(this.keydownQueue)), new Set([ direction ]));
+		this.keydownQueue.set([ ...keydownSet ]);
+
+		this.enterCommand(direction);
+	}
+
+	private enterKeyup(direction: SnekDirection): void {
+		const keydownSet = difference(new Set(untracked(this.keydownQueue)), new Set([ direction ]));
+		this.keydownQueue.set([ ...keydownSet ]);
+
+		const previousKeydown = [ ...keydownSet ].pop();
+		if (typeof previousKeydown !== 'undefined') {
+			this.enterCommand(previousKeydown);
 		}
 	}
 
@@ -109,7 +162,10 @@ export class SnekUserInputService implements OnDestroy {
 			this.commandQueue.set([ direction ]);
 		}
 	}
+	// endregion Register Inputs
 
+
+	// region Process Inputs
 	private processNextCommand(): void {
 		this.commandQueue.set(untracked(this.commandQueue).slice(1));
 	}
@@ -124,4 +180,5 @@ export class SnekUserInputService implements OnDestroy {
 			this.snekStateService.directionInput.set(direction);
 		}
 	}
+	// endregion Process Inputs
 }
