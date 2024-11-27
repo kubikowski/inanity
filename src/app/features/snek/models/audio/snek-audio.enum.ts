@@ -1,5 +1,8 @@
 export enum SnekAudio {
-	SCORE_SMALL = 'dsitemup',
-	SCORE_MEDIUM = 'dsgetpow',
+	SCORE_XSMALL = 'dsitemup',
+	SCORE_SMALL = 'dsdbopn',
+	SCORE_MEDIUM = 'dshoof',
+	SCORE_LARGE = 'dsgetpow',
+	SCORE_XLARGE = 'dsdoropn',
 	GAME_OVER = 'dsnoway',
 }

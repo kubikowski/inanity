@@ -1,0 +1,22 @@
+@mixin fade($duration: 2s) {
+	-webkit-animation: fade $duration infinite ease-in-out;
+	animation: fade $duration infinite ease-in-out;
+}
+
+@-webkit-keyframes fade {
+	0%, 100% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
+@keyframes fade {
+	0%, 100% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+}

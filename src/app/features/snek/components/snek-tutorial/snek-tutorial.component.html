@@ -1,0 +1,23 @@
+@if (!playing() && !paused()) {
+	<a class="play-snek-anchor"
+	   [class.tutorial-viewed]="tutorialViewed()"
+	   (click)="viewTutorial()">
+
+		<span class="play-snek-content">
+			<h4>
+				<mat-icon>play_arrow</mat-icon>
+				<span class="snek-title">SNEK</span>
+			</h4>
+
+			@if (tutorialViewed()) {
+				@if (isDesktopView()) {
+					<p>wasd – <i>or</i> – arrow keys</p>
+				} @else {
+					<p>touch for joystick</p>
+				}
+			} @else {
+				<p>click here to play</p>
+			}
+		</span>
+	</a>
+}

@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, 
 import { JoystickOutputData } from 'nipplejs';
 import { JoystickComponent } from 'src/app/features/joystick/joystick.component';
 import { SnekBorderComponent } from 'src/app/features/snek/components/snek-border/snek-border.component';
+import { SnekTutorialComponent } from 'src/app/features/snek/components/snek-tutorial/snek-tutorial.component';
 import { SnekCanvasService } from 'src/app/features/snek/services/core/snek-canvas.service';
 import { SnekResolutionService } from 'src/app/features/snek/services/core/snek-resolution.service';
 import { SnekUserInputService } from 'src/app/features/snek/services/core/snek-user-input.service';
@@ -13,7 +14,7 @@ import { SnekUserInputService } from 'src/app/features/snek/services/core/snek-u
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
-	imports: [ JoystickComponent, SnekBorderComponent ],
+	imports: [ JoystickComponent, SnekBorderComponent, SnekTutorialComponent ],
 	host: {
 		'[style.--snek-grid-size]': 'snekGridSize() + \'px\'',
 	},
