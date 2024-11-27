@@ -1,6 +1,6 @@
 @mixin fade($duration: 2s) {
-	-webkit-animation: fade $duration infinite ease-in-out;
-	animation: fade $duration infinite ease-in-out;
+	-webkit-animation: fade $duration infinite cubic-bezier(.3642, 0, .6358, 1);
+	animation: fade $duration infinite cubic-bezier(.3642, 0, .6358, 1);
 }
 
 @-webkit-keyframes fade {
