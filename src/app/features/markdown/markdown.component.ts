@@ -8,6 +8,7 @@ import { Marked } from 'marked';
 import { baseUrl } from 'marked-base-url';
 import { getHeadingList, gfmHeadingId, resetHeadings } from 'marked-gfm-heading-id';
 import { markedHighlight } from 'marked-highlight';
+import markedKatex from 'marked-katex-extension';
 import { markedSmartypants } from 'marked-smartypants';
 import { RouterService } from 'src/app/core/browser/services/router.service';
 import { FragmentAnchorComponent } from 'src/app/features/markdown/fragment-anchor.component';
@@ -70,6 +71,9 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 					const language = hljs.getLanguage(_lang) ? _lang : 'plaintext';
 					return hljs.highlight(_code, { language }).value;
 				},
+			}),
+			markedKatex({
+				nonStandard: true,
 			}),
 			markedSmartypants(),
 		);

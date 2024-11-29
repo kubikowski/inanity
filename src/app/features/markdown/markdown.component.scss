@@ -18,4 +18,8 @@ markdown {
 	.hljs-string {
 		color: var(--success-color);
 	}
+
+	.katex-html {
+		display: none;
+	}
 }
