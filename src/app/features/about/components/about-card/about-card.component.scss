@@ -12,10 +12,13 @@
 			z-index: 1;
 
 			.mat-mdc-card-title {
-				margin-top: -30px;
+				margin-top: calc(-30px - 0.25rem);
+				margin-left: -0.5rem;
+				padding: 0.25rem 0.5rem;
+				border-radius: 0.25rem;
+				background-color: var(--default-background-color);
 				font-weight: var(--weight-semibold);
 				text-align: center;
-				text-shadow: var(--shadow-color) 2px 2px 2px;
 			}
 		}
 

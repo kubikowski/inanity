@@ -29,3 +29,10 @@
 	background-color: var(--accent-background-color);
 	color: var(--default-text-color);
 }
+
+:is(.light-theme, .dark-theme) .mat-mdc-card{
+	&.mat-card-unset {
+		background-color: transparent;
+		border: none;
+	}
+}

@@ -3,9 +3,4 @@
 :host {
 	@include content-page;
 	@include content-layout;
-
-	.mat-mdc-card {
-		background-color: transparent;
-		box-shadow: none;
-	}
 }
