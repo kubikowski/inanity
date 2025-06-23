@@ -30,8 +30,8 @@
 	color: var(--default-text-color);
 }
 
-:is(.light-theme, .dark-theme) .mat-mdc-card{
-	&.mat-card-unset {
+:is(.light-theme, .dark-theme) .mat-mdc-card {
+	&.inset {
 		background-color: transparent;
 		border: none;
 	}
