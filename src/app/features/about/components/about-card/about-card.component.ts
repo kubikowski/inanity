@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
 import { AboutCardData } from 'src/app/features/about/models/about-card-data.interface';
 import { Braces } from 'src/app/features/about/models/braces.constant';
+import { BackgroundService } from 'src/app/features/background/services/background.service';
 import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 
 @Component({
@@ -19,8 +20,11 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	},
 })
 export class AboutCardComponent {
+	private readonly backgroundService = inject(BackgroundService);
+
 	public readonly data = input.required<AboutCardData>();
 
+	public readonly borderedHeader = this.backgroundService.enabled;
 	private readonly braces = toSignal(Braces.random$());
 
 	public readonly openBrace = computed(() => {

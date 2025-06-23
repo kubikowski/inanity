@@ -6,19 +6,39 @@
 	}
 
 	.mat-mdc-card {
+		&.inset .mat-mdc-card-header .mat-mdc-card-title.bordered-header::before {
+			content: none;
+		}
+
 		.mat-mdc-card-header {
 			position: absolute;
 			width: 100%;
 			z-index: 1;
 
 			.mat-mdc-card-title {
+				position: relative;
 				margin-top: calc(-30px - 0.25rem);
 				margin-left: -0.5rem;
 				padding: 0.25rem 0.5rem;
-				border-radius: 0.25rem;
+				border-radius: var(--border-radius);
 				background-color: var(--default-background-color);
 				font-weight: var(--weight-semibold);
 				text-align: center;
+				--border: solid 1px var(--border-color);
+				--border-radius: 4px;
+
+				&.bordered-header::before {
+					position: absolute;
+					content: "";
+					left: 0;
+					top: 0;
+					width: calc(100% - 2px);
+					height: 16px;
+					border-top: var(--border);
+					border-left: var(--border);
+					border-right: var(--border);
+					border-radius: var(--border-radius) var(--border-radius) 0 0;
+				}
 			}
 		}
 
@@ -74,4 +94,13 @@
 .desktop :host.large-format {
 	grid-row-end: span 5;
 	grid-column-end: span 2;
+}
+
+.mobile :host .mat-mdc-card .mat-mdc-card-header .mat-mdc-card-title {
+	margin-top: -30px;
+	padding-top: 0;
+
+	&::before {
+		height: 13px;
+	}
 }
