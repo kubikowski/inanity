@@ -17,13 +17,14 @@
 
 			.mat-mdc-card-title {
 				position: relative;
-				margin-top: calc(-30px - 0.25rem);
+				padding: var(--padding-top) 0.5rem 0.25rem;
+				margin-top: calc(-30px - var(--padding-top));
 				margin-left: -0.5rem;
-				padding: 0.25rem 0.5rem;
 				border-radius: var(--border-radius);
 				background-color: var(--default-background-color);
 				font-weight: var(--weight-semibold);
 				text-align: center;
+				--padding-top: 0.25rem;
 				--border: solid 1px var(--border-color);
 				--border-radius: 4px;
 
@@ -33,7 +34,7 @@
 					left: 0;
 					top: 0;
 					width: calc(100% - 2px);
-					height: 16px;
+					height: calc(12px + var(--padding-top));
 					border-top: var(--border);
 					border-left: var(--border);
 					border-right: var(--border);
@@ -97,10 +98,5 @@
 }
 
 .mobile :host .mat-mdc-card .mat-mdc-card-header .mat-mdc-card-title {
-	margin-top: -30px;
-	padding-top: 0;
-
-	&::before {
-		height: 13px;
-	}
+	--padding-top: 0px;
 }
