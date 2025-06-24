@@ -1,7 +1,7 @@
-<mat-card [class.inset]="data().image">
+<mat-card [class.inset]="data().image" [class.backdrop]="backdrop()">
 	@if (data().title) {
 		<mat-card-header>
-			<mat-card-title [class.bordered-header]="borderedHeader()">
+			<mat-card-title>
 				<dyslexic-text [text]="data().title"></dyslexic-text>
 			</mat-card-title>
 		</mat-card-header>
