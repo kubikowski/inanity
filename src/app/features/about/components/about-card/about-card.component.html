@@ -1,9 +1,11 @@
 <mat-card [class.inset]="data().image">
-	<mat-card-header>
-		<mat-card-title>
-			<dyslexic-text [text]="data().title"></dyslexic-text>
-		</mat-card-title>
-	</mat-card-header>
+	@if (data().title) {
+		<mat-card-header>
+			<mat-card-title [class.bordered-header]="borderedHeader()">
+				<dyslexic-text [text]="data().title"></dyslexic-text>
+			</mat-card-title>
+		</mat-card-header>
+	}
 
 	@if (data().image; as image) {
 		<img mat-card-image

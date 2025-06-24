@@ -20,17 +20,10 @@
 	}
 }
 
-.light-theme .mat-mdc-card {
+:is(.light-theme, .dark-theme) .mat-mdc-card {
 	background-color: var(--default-background-color);
 	color: var(--default-text-color);
-}
 
-.dark-theme .mat-mdc-card {
-	background-color: var(--accent-background-color);
-	color: var(--default-text-color);
-}
-
-:is(.light-theme, .dark-theme) .mat-mdc-card {
 	&.inset {
 		background-color: transparent;
 		border: none;
