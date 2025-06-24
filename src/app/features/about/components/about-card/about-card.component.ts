@@ -24,7 +24,7 @@ export class AboutCardComponent {
 
 	public readonly data = input.required<AboutCardData>();
 
-	public readonly borderedHeader = this.backgroundService.enabled;
+	public readonly backdrop = this.backgroundService.enabled;
 	private readonly braces = toSignal(Braces.random$());
 
 	public readonly openBrace = computed(() => {

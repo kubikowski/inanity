@@ -6,8 +6,21 @@
 	}
 
 	.mat-mdc-card {
-		&.inset .mat-mdc-card-header .mat-mdc-card-title.bordered-header::before {
-			content: none;
+		&.inset {
+			background-color: var(--default-background-color);
+		}
+
+		&.backdrop {
+			border: solid 1px transparent;
+		}
+
+		&.inset.backdrop {
+			border: none;
+
+			.mat-mdc-card-image {
+				border: solid 2px transparent;
+				border-radius: 5px;
+			}
 		}
 
 		.mat-mdc-card-header {
@@ -25,21 +38,7 @@
 				font-weight: var(--weight-semibold);
 				text-align: center;
 				--padding-top: 0.25rem;
-				--border: solid 1px var(--border-color);
 				--border-radius: 4px;
-
-				&.bordered-header::before {
-					position: absolute;
-					content: "";
-					left: 0;
-					top: 0;
-					width: calc(100% - 2px);
-					height: calc(12px + var(--padding-top));
-					border-top: var(--border);
-					border-left: var(--border);
-					border-right: var(--border);
-					border-radius: var(--border-radius) var(--border-radius) 0 0;
-				}
 			}
 		}
 
