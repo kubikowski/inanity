@@ -3,8 +3,8 @@
 	align-items: center;
 	gap: 3px;
 	background-color: var(--accent-background-color);
-	border: solid 3px var(--accent-background-color);
-	border-radius: 2px;
+	border: solid 4px var(--accent-background-color);
+	border-radius: 4px;
 	overflow: hidden;
 
 	.digit {
@@ -13,7 +13,7 @@
 		font-weight: var(--weight-semibold);
 		background-color: var(--default-background-color);
 		border: solid 1px var(--default-background-color);
-		border-radius: 2px;
+		border-radius: 3px;
 		width: 1.25rem;
 		height: 2rem;
 		text-align: center;
