@@ -35,14 +35,20 @@ export const aboutCardData: readonly AboutCardData[] = [
 		],
 	},
 	{
+		title: 'Headquarters',
+		image: {
+			src: 'assets/images/los_angeles_sunset.jpg',
+			alt: 'Angeles Crest, looking out over the city',
+		},
+	},
+	{
 		title: '',
 		paragraphs: [
 			'This website acts as my personal code sandbox. It is intended to be playful.',
 			`Whoever you are, whenever you’re reading this. The website is probably incomplete.
 			Most likely, some scheme I had fell through. And there are still traces of it left floating around.`,
-			'But hey',
-			'☕ If you like it, dont buy me a coffee!',
-			'Save your $5 and write me an email!',
+			`And hey, if you like it, you can buy me a coffee! To do that, write me an email.
+			Then we can meet in person, and you can buy me a coffee!`,
 		],
 	},
 	{
@@ -52,6 +58,10 @@ export const aboutCardData: readonly AboutCardData[] = [
 				title: 'email',
 				value: 'holden@inanity.io',
 				linked: true,
+			},
+			{
+				title: 'socials',
+				value: '<small><i>nope.</i></small>',
 			},
 		],
 	},

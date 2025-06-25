@@ -62,6 +62,7 @@ export class DyslexicWord {
 			case 'emsp':
 			case 'ensp':
 			case 'nbsp':
+			case 'small':
 				return true;
 			default:
 				return false;
