@@ -1,3 +1,9 @@
-.mat-mdc-slide-toggle .mdc-label {
-	color: var(--default-text-color);
+.mat-mdc-slide-toggle {
+	.mat-internal-form-field {
+		vertical-align: unset;
+	}
+
+	.mdc-label {
+		color: var(--default-text-color);
+	}
 }
