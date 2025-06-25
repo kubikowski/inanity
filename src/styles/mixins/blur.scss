@@ -1,0 +1,22 @@
+@mixin blur($size: 0.5rem, $duration: 200ms) {
+	-webkit-animation: blur $duration forwards;
+	animation: blur $duration forwards;
+
+	@-webkit-keyframes blur {
+		from {
+			backdrop-filter: blur(0px);
+		}
+		to {
+			backdrop-filter: blur($size);
+		}
+	}
+
+	@keyframes blur {
+		from {
+			backdrop-filter: blur(0px);
+		}
+		to {
+			backdrop-filter: blur($size);
+		}
+	}
+}

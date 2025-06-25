@@ -1,0 +1,8 @@
+@use '../mixins/blur' as *;
+
+.mat-sidenav-container {
+	.mat-drawer-backdrop.mat-drawer-shown {
+		background-color: initial;
+		@include blur;
+	}
+}
