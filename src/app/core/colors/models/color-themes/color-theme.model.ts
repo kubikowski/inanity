@@ -2,17 +2,20 @@ import { BaseColorTheme } from 'src/app/core/colors/models/color-themes/base-col
 import { Color } from 'src/app/core/colors/models/color.model';
 
 export class ColorTheme extends BaseColorTheme {
-	public static readonly infoColor = Color.fromString('#00b3ee');
-	public static readonly successColor = Color.fromString('#5cb85c');
-	// public static readonly successColor = Color.fromString('#6AAB73'); // Intellij Dark Theme String Color
-	// public static readonly successColor = Color.fromString('#0a7248'); // Pantone PMS 18-6032 TSX [Putting Green]
-	public static readonly warningColor = Color.fromString('#f0ad4e');
-	// public static readonly warningColor = Color.fromString('#ff6c2f'); // Pantone 021 U [Orange]
-	// public static readonly warningColor = Color.fromString('#ff6d2b'); // Pantone 15-1360 TN [Shocking Orange]
-	// public static readonly warningColor = Color.fromString('#c7622b'); // Pantone 16-1448 TPX [Burnt Orange]
-	// public static readonly warningColor = Color.fromString('#ffad4a'); // Pantone 14-1050 TPX [Marigold]
-	public static readonly dangerColor = Color.fromString('#d9534f');
-	// public static readonly dangerColor = Color.fromString('#d93744'); // Pantone 17-1663 TCX [Bittersweet]
+
+	// Light Static App Colors
+	public static readonly infoColorLight = Color.fromString('#00627A'); /* IntelliJ light theme method color */
+	public static readonly successColorLight = Color.fromString('#067D17'); /* Intellij light theme string color */
+	public static readonly warningColorLight = Color.fromString('#C47233'); /* Intellij light theme error mark color */
+	public static readonly dangerColorLight = Color.fromString('#F50000'); /* IntelliJ light theme unknown symbol color */
+
+	// Dark Static App Colors
+	public static readonly infoColorDark = Color.fromString('#57AAF7'); /* IntelliJ dark theme method color */
+	public static readonly successColorDark = Color.fromString('#6AAB73'); /* Intellij dark theme string color */
+	public static readonly warningColorDark = Color.fromString('#CF8E6D'); /* Intellij dark theme keyword color */
+	public static readonly dangerColorDark = Color.fromString('#F75464'); /* IntelliJ dark theme bad character color */
+
+	// Static App Colors
 	public static readonly shadowColor = Color.fromString('black');
 
 	public constructor(
@@ -31,10 +34,10 @@ export class ColorTheme extends BaseColorTheme {
 	) {
 		super(
 			/* Static App Colors */
-			ColorTheme.infoColor.toString(),
-			ColorTheme.successColor.toString(),
-			ColorTheme.warningColor.toString(),
-			ColorTheme.dangerColor.toString(),
+			(prefers === 'light') ? ColorTheme.infoColorLight.toString() : ColorTheme.infoColorDark.toString(),
+			(prefers === 'light') ? ColorTheme.successColorLight.toString() : ColorTheme.successColorDark.toString(),
+			(prefers === 'light') ? ColorTheme.warningColorLight.toString() : ColorTheme.warningColorDark.toString(),
+			(prefers === 'light') ? ColorTheme.dangerColorLight.toString() : ColorTheme.dangerColorDark.toString(),
 
 			/* Background Colors */
 			defaultBackgroundColor.toString(),

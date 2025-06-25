@@ -5,13 +5,11 @@ markdown {
 	@include content-layout;
 
 	.hljs-keyword {
-		color: var(--danger-color);
-		font-weight: var(--weight-normal);
-		font-style: italic;
+		color: var(--warning-color);
 	}
 
 	.hljs-title {
-		color: var(--warning-color);
+		color: var(--info-color);
 		font-style: italic;
 	}
 

@@ -50,22 +50,22 @@ describe('Color Theme', () => {
 	describe('Base Color Theme Values', () => {
 		it('should contain correct colorInfo', () => {
 			const { colorInfo } = LightTheme;
-			expect(colorInfo).toBe('rgb(0, 179, 238)');
+			expect(colorInfo).toBe('rgb(0, 98, 122)');
 		});
 
 		it('should contain correct colorSuccess', () => {
 			const { colorSuccess } = LightTheme;
-			expect(colorSuccess).toBe('rgb(92, 184, 92)');
+			expect(colorSuccess).toBe('rgb(6, 125, 23)');
 		});
 
 		it('should contain correct colorWarning', () => {
 			const { colorWarning } = LightTheme;
-			expect(colorWarning).toBe('rgb(240, 173, 78)');
+			expect(colorWarning).toBe('rgb(196, 114, 51)');
 		});
 
 		it('should contain correct colorDanger', () => {
 			const { colorDanger } = LightTheme;
-			expect(colorDanger).toBe('rgb(217, 83, 79)');
+			expect(colorDanger).toBe('rgb(245, 0, 0)');
 		});
 
 		it('should contain correct colorDefaultBackground', () => {
