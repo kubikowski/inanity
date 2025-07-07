@@ -11,7 +11,8 @@ export class FontService {
 	private readonly element = this.document.documentElement;
 	private readonly renderer = inject(RendererFactory2).createRenderer(this.body, null);
 
-	public readonly typeface = signal(EB_GARAMOND);
+	public static readonly DEFAULT_TYPEFACE = EB_GARAMOND;
+	public readonly typeface = signal(FontService.DEFAULT_TYPEFACE);
 
 	public constructor() {
 		effect(() => this.setTypeface(this.typeface()));
