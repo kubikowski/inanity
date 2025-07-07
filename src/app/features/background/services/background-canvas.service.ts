@@ -3,6 +3,7 @@ import { animationFrameScheduler, interval } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { Circle } from 'src/app/features/background/models/circle.model';
+import { Pixel } from 'src/app/features/background/models/pixel.model';
 import { BackgroundService } from './background.service';
 import { CanvasService } from './canvas.service';
 
@@ -25,7 +26,7 @@ export class BackgroundCanvasService extends CanvasService {
 		super();
 
 		effect(() => {
-			this.manageCircles(this.backgroundService.amount(), this.canvasWidth(), this.canvasHeight());
+			this.manageElements(this.backgroundService.amount(), this.canvasWidth(), this.canvasHeight());
 		});
 	}
 
@@ -36,11 +37,19 @@ export class BackgroundCanvasService extends CanvasService {
 	}
 
 	private initializeFrameRefresh(): void {
-		this.subscriptions.sink = interval(10, animationFrameScheduler)
+		this.subscriptions.sink = interval(100, animationFrameScheduler)
 			.pipe(filter(() => untracked(this.backgroundService.moving)))
 			.subscribe(() => this.renderFrame());
 	}
 
+	/**
+	 * TODO: Performance rendering changes:
+	 *  1. partial frame rendering:
+	 *   a.    modifiedElements: CanvasElement[]
+	 *  2. contextual frame rate:
+	 *   a.    separate animations from rendering steps
+	 *   b.    ideal render timing by canvasElement spec: ie 100fps vs 8fps
+	 */
 	private renderFrame(): void {
 		const context = untracked(this.context);
 		const canvasWidth = untracked(this.canvasWidth);
@@ -59,48 +68,10 @@ export class BackgroundCanvasService extends CanvasService {
 		}
 	}
 
-	private manageCircles(movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): void {
-		this.removeOutOfBoundCircles(canvasWidth, canvasHeight);
-		this.calibrateCircleAmount(movingBackgroundAmount, canvasWidth, canvasHeight);
-	}
+	private manageElements(movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): void {
+		const element = Pixel.random(canvasWidth, canvasHeight, 2);
 
-	private removeOutOfBoundCircles(canvasWidth: number, canvasHeight: number): void {
-		const outOfBoundCircles = new Set(this.circles
-			.filter(circle => !circle.inBoundaries(canvasWidth, canvasHeight)));
-
-		this.canvasElements = this.canvasElements
-			.filter(canvasElement => !outOfBoundCircles.has(canvasElement as Circle));
-	}
-
-	private calibrateCircleAmount(movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): void {
-		const idealAmount = movingBackgroundAmount * 20;
-		const currentAmount = this.circles.length;
-
-		if (idealAmount < currentAmount) {
-			this.removeCircles(idealAmount);
-
-		} else if (idealAmount > currentAmount) {
-			this.addCircles(idealAmount - currentAmount, canvasWidth, canvasHeight);
-		}
-	}
-
-	private get circles(): Circle[] {
-		return this.canvasElements
-			.filter(canvasElement => canvasElement instanceof Circle) as Circle[];
-	}
-
-	private removeCircles(idealAmount: number): void {
-		const removedCircles = new Set(this.circles.slice(idealAmount));
-
-		this.canvasElements = this.canvasElements
-			.filter(canvasElement => !removedCircles.has(canvasElement as Circle));
-	}
-
-	private addCircles(addCircleAmount: number, canvasWidth: number, canvasHeight: number): void {
-		const addedCircles = Array
-			.from({ length: addCircleAmount })
-			.map(() => Circle.random(canvasWidth, canvasHeight));
-
-		this.canvasElements.push(...addedCircles);
+		this.canvasElements = element.filterInBoundaryElements(this.canvasElements as Pixel[], canvasWidth, canvasHeight);
+		this.canvasElements = element.calibrateElements(this.canvasElements as Pixel[], movingBackgroundAmount, canvasWidth, canvasHeight);
 	}
 }

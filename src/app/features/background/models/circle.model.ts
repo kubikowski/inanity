@@ -37,9 +37,31 @@ export class Circle extends CanvasElement {
 		return new Circle(x, y, dx, dy, radius, dRadius, colorKey);
 	}
 
-	public inBoundaries(canvasWidth: number, canvasHeight: number): boolean {
+	public filterInBoundaryElements(circles: this[], canvasWidth: number, canvasHeight: number): this[] {
+		return circles.filter(circle => circle.inBoundaries(canvasWidth, canvasHeight));
+	}
+
+	private inBoundaries(canvasWidth: number, canvasHeight: number): boolean {
 		return clamp(this.radius, this.x, canvasWidth - this.radius) === this.x
 			&& clamp(this.radius, this.y, canvasHeight - this.radius) === this.y;
+	}
+
+	public calibrateElements(circles: this[], movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): this[] {
+		const idealAmount = movingBackgroundAmount * 20;
+		const currentAmount = circles.length;
+
+		if (idealAmount < currentAmount) {
+			return circles.slice(0, idealAmount);
+
+		} else if (idealAmount > currentAmount) {
+			const addedCircles = Array
+				.from({ length: idealAmount - currentAmount })
+				.map(() => Circle.random(canvasWidth, canvasHeight) as this);
+
+			return [ ...circles, ...addedCircles ];
+		} else {
+			return circles;
+		}
 	}
 
 	public referenceMousePosition([ x, y ]: [ number, number ]): void {
