@@ -7,6 +7,7 @@ import { RouterService } from 'src/app/core/browser/services/router.service';
 import { ScreenService } from 'src/app/core/browser/services/screen.service';
 import { TitleService } from 'src/app/core/browser/services/title.service';
 import { ColorsService } from 'src/app/core/colors/services/colors.service';
+import { FontService } from 'src/app/core/fonts/services/font.service';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { BackgroundComponent } from 'src/app/features/background/components/background/background.component';
 import { BackgroundService } from 'src/app/features/background/services/background.service';
@@ -35,6 +36,7 @@ export class AppComponent implements AfterViewInit {
 	private readonly screenService = inject(ScreenService);
 	private readonly titleService = inject(TitleService);
 	private readonly colorsService = inject(ColorsService);
+	private readonly fontService = inject(FontService);
 	private readonly svgIconService = inject(SvgIconService);
 	private readonly backgroundService = inject(BackgroundService);
 	private readonly headerService = inject(HeaderService);
