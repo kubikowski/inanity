@@ -14,7 +14,7 @@
 
 		<mat-checkbox class="mat-menu-item" color="primary"
 					  [formControl]="enabledControl"
-					  (change)="toggleMovingBackgroundEnabled()">
+					  (change)="toggleDyslexiaEnabled()">
 			{{ enabled() ? 'Dyslexic Text' : 'Yeah nah' }}
 		</mat-checkbox>
 
@@ -28,7 +28,7 @@
 					[disabled]="!enabled()">
 
 			<input matSliderThumb [formControl]="amountControl"
-				   (change)="setMovingBackgroundAmount()">
+				   (change)="setDyslexiaAmount()">
 		</mat-slider>
 	</main>
 </base-dialog>

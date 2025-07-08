@@ -1,15 +1,14 @@
-import { computed, effect, inject, Injectable, untracked } from '@angular/core';
-import { animationFrameScheduler, interval } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { computed, effect, inject, Injectable, signal, untracked } from '@angular/core';
+import { AnimationFrameService } from 'src/app/core/browser/services/animation-frame.service';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { Circle } from 'src/app/features/background/models/circle.model';
-import { Pixel } from 'src/app/features/background/models/pixel.model';
 import { BackgroundService } from './background.service';
 import { CanvasService } from './canvas.service';
 
 @Injectable()
 export class BackgroundCanvasService extends CanvasService {
 	private readonly backgroundService = inject(BackgroundService);
+	private readonly animationFrameService = inject(AnimationFrameService);
 
 	protected readonly canvasTopOffset = computed(() => this.canvas()?.getBoundingClientRect().top ?? 0);
 	protected readonly rawCanvasWidth = this.screenService.screenWidth.asReadonly();
@@ -20,26 +19,39 @@ export class BackgroundCanvasService extends CanvasService {
 		return [ x * this.pixelDensity(), (y - this.canvasTopOffset()) * this.pixelDensity() ];
 	});
 
+	private readonly renderInterval = signal(10);
+	private readonly onRender = this.animationFrameService.onAnimationInterval(this.renderInterval);
+
 	protected canvasElements = Array<CanvasElement>();
 
 	public constructor() {
 		super();
 
-		effect(() => {
-			this.manageElements(this.backgroundService.amount(), this.canvasWidth(), this.canvasHeight());
-		});
+		effect(() => this.manageElements());
+		effect(() => this.onRenderFrame());
 	}
 
 	public override initialize(canvas: HTMLCanvasElement): void {
 		super.initialize(canvas);
-
-		this.initializeFrameRefresh();
 	}
 
-	private initializeFrameRefresh(): void {
-		this.subscriptions.sink = interval(100, animationFrameScheduler)
-			.pipe(filter(() => untracked(this.backgroundService.moving)))
-			.subscribe(() => this.renderFrame());
+	private manageElements(): void {
+		const movingBackgroundAmount = this.backgroundService.amount();
+		const canvasWidth = this.canvasWidth();
+		const canvasHeight = this.canvasHeight();
+
+		const element = Circle.random(canvasWidth, canvasHeight);
+
+		this.canvasElements = element.filterInBoundaryElements(this.canvasElements as Circle[], canvasWidth, canvasHeight);
+		this.canvasElements = element.calibrateElements(this.canvasElements as Circle[], movingBackgroundAmount, canvasWidth, canvasHeight);
+	}
+
+	private onRenderFrame(): void {
+		this.onRender();
+
+		if (this.backgroundService.moving()) {
+			this.renderFrame();
+		}
 	}
 
 	/**
@@ -49,6 +61,10 @@ export class BackgroundCanvasService extends CanvasService {
 	 *  2. contextual frame rate:
 	 *   a.    separate animations from rendering steps
 	 *   b.    ideal render timing by canvasElement spec: ie 100fps vs 8fps
+	 *
+	 * TODO: background configuration:
+	 *  1. background types
+	 *  2. background type selection in the background dialog.
 	 */
 	private renderFrame(): void {
 		const context = untracked(this.context);
@@ -66,12 +82,5 @@ export class BackgroundCanvasService extends CanvasService {
 				canvasElement.draw(context, colorPalette);
 			}
 		}
-	}
-
-	private manageElements(movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): void {
-		const element = Pixel.random(canvasWidth, canvasHeight, 2);
-
-		this.canvasElements = element.filterInBoundaryElements(this.canvasElements as Pixel[], canvasWidth, canvasHeight);
-		this.canvasElements = element.calibrateElements(this.canvasElements as Pixel[], movingBackgroundAmount, canvasWidth, canvasHeight);
 	}
 }

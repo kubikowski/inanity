@@ -1,13 +1,11 @@
-import { computed, effect, inject, Injectable, OnDestroy, Signal, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, Signal, signal } from '@angular/core';
 import { ScreenService } from 'src/app/core/browser/services/screen.service';
 import { ColorsService } from 'src/app/core/colors/services/colors.service';
-import { SubSink } from 'subsink';
 
 @Injectable()
-export abstract class CanvasService implements OnDestroy {
+export abstract class CanvasService {
 	protected readonly screenService = inject(ScreenService);
 	protected readonly colorsService = inject(ColorsService);
-	protected readonly subscriptions = new SubSink();
 
 	protected readonly canvas = signal<HTMLCanvasElement | null>(null);
 	protected readonly context = computed(() => this.canvas()?.getContext('2d') ?? null);
@@ -22,10 +20,6 @@ export abstract class CanvasService implements OnDestroy {
 
 	protected constructor() {
 		effect(() => this.setCanvasResolution());
-	}
-
-	public ngOnDestroy(): void {
-		this.subscriptions.unsubscribe();
 	}
 
 	public initialize(canvas: HTMLCanvasElement): void {

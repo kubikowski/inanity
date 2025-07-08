@@ -6,6 +6,21 @@ import { CanvasElement } from 'src/app/features/background/models/canvas-element
 
 type ColorKey = keyof BaseColorPalette;
 
+class PixelCorners extends Array {
+	public static enabledCornerOptions = [
+		[ 0, 0, 0, 0 ],
+		[ 0, 1, 0, 1 ],
+		[ 1, 0, 1, 0 ],
+		[ 1, 1, 1, 1 ],
+	] as const;
+
+	public static getRandomCorners(pixelSize: number): PixelCorners {
+		const enabledCorners = this.enabledCornerOptions.at(Math.floor(Math.random() * 4))!;
+
+		return enabledCorners.map(enabled => Math.floor((enabled + 1) * (pixelSize / 8)));
+	}
+}
+
 export class Pixel extends CanvasElement {
 	private static readonly maxPixelSize = 40;
 	private static readonly minPixelSize = 10;
@@ -15,12 +30,13 @@ export class Pixel extends CanvasElement {
 		private y: number,
 		private pixelSize: number,
 		private colorKey: ColorKey,
+		private corners: PixelCorners,
 	) {
 		super();
 	}
 
 	public static random(x: number, y: number, pixelSize: number): Pixel {
-		return new Pixel(x, y, pixelSize, Pixel.getRandomColorKey());
+		return new Pixel(x, y, pixelSize, Pixel.getRandomColorKey(), PixelCorners.getRandomCorners(pixelSize));
 	}
 
 	public filterInBoundaryElements(pixels: this[], canvasWidth: number, canvasHeight: number): this[] {
@@ -33,16 +49,16 @@ export class Pixel extends CanvasElement {
 	}
 
 	public calibrateElements(pixels: this[], movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): this[] {
-		const pixelSize = Pixel.minPixelSize + Math.floor((Pixel.maxPixelSize - Pixel.minPixelSize) / movingBackgroundAmount);
+		const pixelSize = Pixel.minPixelSize + Math.floor(((20 - movingBackgroundAmount) / 20) * (Pixel.maxPixelSize - Pixel.minPixelSize));
 		const width = Math.ceil(canvasWidth / pixelSize);
 		const height = Math.ceil(canvasHeight / pixelSize);
 
 		if (pixels.length !== width * height) {
 			return Array
-				.from({ length: height })
-				.map((_ignoredX, y) => Array
-					.from({ length: width })
-					.map((_ignoredY, x) => Pixel.random(x, y, pixelSize) as this))
+				.from<Pixel[]>({ length: height })
+				.map((_ignoredRow, y) => Array
+					.from<Pixel>({ length: width })
+					.map((_ignoredPixel, x) => Pixel.random(x, y, pixelSize) as this))
 				.flat();
 
 		} else {
@@ -72,7 +88,7 @@ export class Pixel extends CanvasElement {
 		const color = Color.fromString(colorPalette[this.colorKey]).withAlpha(0.5).toString();
 
 		context.beginPath();
-		context.roundRect((this.x + 1 / 6) * this.pixelSize, (this.y + 1 / 6) * this.pixelSize, this.pixelSize * 2 / 3, this.pixelSize * 2 / 3, Math.floor(this.pixelSize / 4));
+		context.roundRect((this.x + 1 / 6) * this.pixelSize, (this.y + 1 / 6) * this.pixelSize, this.pixelSize * 2 / 3, this.pixelSize * 2 / 3, this.corners);
 		context.strokeStyle = color;
 		context.fillStyle = color;
 		context.stroke();
