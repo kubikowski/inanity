@@ -1,10 +1,7 @@
-import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { Color } from 'src/app/core/colors/models/color.model';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
-import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
-
-type ColorKey = keyof BaseColorPalette;
+import { CanvasElement, ColorKey } from 'src/app/features/background/models/canvas-element.model';
 
 class PixelCorners extends Array {
 	public static enabledCornerOptions = [
@@ -22,8 +19,11 @@ class PixelCorners extends Array {
 }
 
 export class Pixel extends CanvasElement {
-	private static readonly maxPixelSize = 40;
-	private static readonly minPixelSize = 10;
+	private static readonly maxPixelSize = 56;
+	private static readonly minPixelSize = 16;
+
+	public override readonly animationInterval = 20;
+	public override readonly renderInterval = 100;
 
 	private constructor(
 		private x: number,
@@ -35,20 +35,20 @@ export class Pixel extends CanvasElement {
 		super();
 	}
 
+	public static reference(): Pixel {
+		return new Pixel(0, 0, 0, Pixel.getRandomColorKey(), PixelCorners.getRandomCorners(0));
+	}
+
 	public static random(x: number, y: number, pixelSize: number): Pixel {
 		return new Pixel(x, y, pixelSize, Pixel.getRandomColorKey(), PixelCorners.getRandomCorners(pixelSize));
 	}
 
-	public filterInBoundaryElements(pixels: this[], canvasWidth: number, canvasHeight: number): this[] {
-		return pixels.filter(pixel => pixel.inBoundaries(canvasWidth, canvasHeight));
-	}
-
-	private inBoundaries(canvasWidth: number, canvasHeight: number): boolean {
+	protected override inBoundaries(canvasWidth: number, canvasHeight: number): boolean {
 		return clamp(0, this.x, canvasWidth / this.pixelSize) === this.x
 			&& clamp(0, this.y, canvasHeight / this.pixelSize) === this.y;
 	}
 
-	public calibrateElements(pixels: this[], movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): this[] {
+	protected override calibrateElements(pixels: readonly this[], movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): readonly this[] {
 		const pixelSize = Pixel.minPixelSize + Math.floor(((20 - movingBackgroundAmount) / 20) * (Pixel.maxPixelSize - Pixel.minPixelSize));
 		const width = Math.ceil(canvasWidth / pixelSize);
 		const height = Math.ceil(canvasHeight / pixelSize);
@@ -66,7 +66,7 @@ export class Pixel extends CanvasElement {
 		}
 	}
 
-	public referenceMousePosition([ x, y ]: [ number, number ]): void {
+	public override referenceMousePosition([ x, y ]: [ number, number ]): void {
 		const mouseDX = Math.abs((this.x * this.pixelSize) - x);
 		const mouseDY = Math.abs((this.y * this.pixelSize) - y);
 		const mouseDistance = Math.sqrt(Math.pow(mouseDX, 2) + Math.pow(mouseDY, 2));
@@ -76,21 +76,16 @@ export class Pixel extends CanvasElement {
 		}
 	}
 
-	private static getRandomColorKey(): keyof BaseColorPalette {
-		const colorKeys = Object.keys(BaseColorPalette.CssVariables) as ColorKey[];
-		return colorKeys[Math.floor(Math.random() * colorKeys.length)] as keyof BaseColorPalette;
-	}
+	public override move(_ignoredCanvasWidth: number, _ignoredCanvasHeight: number): void { }
 
-	public move(_ignoredCanvasWidth: number, _ignoredCanvasHeight: number): void {
-	}
-
-	public draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
-		const color = Color.fromString(colorPalette[this.colorKey]).withAlpha(0.5).toString();
+	public override draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
+		const fillColor = Color.fromString(colorPalette[this.colorKey]).withAlpha(0.5).toString();
+		const borderColor = Color.fromString(colorPalette[this.colorKey]).withAlpha(0.2).toString();
 
 		context.beginPath();
 		context.roundRect((this.x + 1 / 6) * this.pixelSize, (this.y + 1 / 6) * this.pixelSize, this.pixelSize * 2 / 3, this.pixelSize * 2 / 3, this.corners);
-		context.strokeStyle = color;
-		context.fillStyle = color;
+		context.fillStyle = fillColor;
+		context.strokeStyle = borderColor;
 		context.stroke();
 		context.fill();
 	}

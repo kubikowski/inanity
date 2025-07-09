@@ -1,5 +1,6 @@
 import { computed, effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { AnimationFrameService } from 'src/app/core/browser/services/animation-frame.service';
+import { stateful } from 'src/app/core/functions/signal/stateful.function';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { Circle } from 'src/app/features/background/models/circle.model';
 import { BackgroundService } from './background.service';
@@ -19,31 +20,35 @@ export class BackgroundCanvasService extends CanvasService {
 		return [ x * this.pixelDensity(), (y - this.canvasTopOffset()) * this.pixelDensity() ];
 	});
 
-	private readonly renderInterval = signal(10);
-	private readonly onRender = this.animationFrameService.onAnimationInterval(this.renderInterval);
+	private readonly referenceElement = signal<CanvasElement>(Circle.reference());
+	private readonly canvasElements = stateful(<readonly CanvasElement[]>[], canvasElements => {
+		const movingBackgroundAmount = this.backgroundService.amount();
+		const canvasWidth = this.canvasWidth();
+		const canvasHeight = this.canvasHeight();
+		const reference = this.referenceElement();
 
-	protected canvasElements = Array<CanvasElement>();
+		return reference.validateElements(canvasElements, movingBackgroundAmount, canvasWidth, canvasHeight);
+	});
+
+	private readonly animationInterval = computed(() => this.referenceElement().animationInterval);
+	private readonly renderInterval = computed(() => this.referenceElement().renderInterval);
+
+	private readonly onAnimation = this.animationFrameService.onAnimationInterval(this.animationInterval);
+	private readonly onRender = this.animationFrameService.onAnimationInterval(this.renderInterval);
 
 	public constructor() {
 		super();
 
-		effect(() => this.manageElements());
+		effect(() => this.onAnimationFrame());
 		effect(() => this.onRenderFrame());
 	}
 
-	public override initialize(canvas: HTMLCanvasElement): void {
-		super.initialize(canvas);
-	}
+	private onAnimationFrame(): void {
+		this.onAnimation();
 
-	private manageElements(): void {
-		const movingBackgroundAmount = this.backgroundService.amount();
-		const canvasWidth = this.canvasWidth();
-		const canvasHeight = this.canvasHeight();
-
-		const element = Circle.random(canvasWidth, canvasHeight);
-
-		this.canvasElements = element.filterInBoundaryElements(this.canvasElements as Circle[], canvasWidth, canvasHeight);
-		this.canvasElements = element.calibrateElements(this.canvasElements as Circle[], movingBackgroundAmount, canvasWidth, canvasHeight);
+		if (this.backgroundService.moving()) {
+			this.animateFrame();
+		}
 	}
 
 	private onRenderFrame(): void {
@@ -66,21 +71,26 @@ export class BackgroundCanvasService extends CanvasService {
 	 *  1. background types
 	 *  2. background type selection in the background dialog.
 	 */
+	private animateFrame(): void {
+		const canvasWidth = untracked(this.canvasWidth);
+		const canvasHeight = untracked(this.canvasHeight);
+		const mousePosition = untracked(this.mousePosition);
+		const reference = untracked(this.referenceElement);
+		const canvasElements = untracked(this.canvasElements);
+
+		reference.animateElements(canvasElements, canvasWidth, canvasHeight, mousePosition);
+	}
+
 	private renderFrame(): void {
 		const context = untracked(this.context);
 		const canvasWidth = untracked(this.canvasWidth);
 		const canvasHeight = untracked(this.canvasHeight);
-		const mousePosition = untracked(this.mousePosition);
 		const colorPalette = untracked(this.colorsService.palette);
+		const reference = untracked(this.referenceElement);
+		const canvasElements = untracked(this.canvasElements);
 
 		if (context !== null) {
-			context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-			for (const canvasElement of this.canvasElements) {
-				canvasElement.referenceMousePosition(mousePosition);
-				canvasElement.move(canvasWidth, canvasHeight);
-				canvasElement.draw(context, colorPalette);
-			}
+			reference.renderElements(canvasElements, context, canvasWidth, canvasHeight, colorPalette);
 		}
 	}
 }

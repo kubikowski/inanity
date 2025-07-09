@@ -1,13 +1,13 @@
-import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
-import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
-
-type ColorKey = keyof BaseColorPalette;
+import { CanvasElement, ColorKey } from 'src/app/features/background/models/canvas-element.model';
 
 export class Circle extends CanvasElement {
 	private static readonly maxRadius = 40;
 	private static readonly minRadius = 10;
+
+	public override readonly animationInterval = 8;
+	public override readonly renderInterval = 16;
 
 	private constructor(
 		private x: number,
@@ -21,6 +21,10 @@ export class Circle extends CanvasElement {
 		super();
 	}
 
+	public static reference(): Circle {
+		return new Circle(0, 0, 0, 0, 0, 0, Circle.getRandomColorKey());
+	}
+
 	public static random(canvasWidth: number, canvasHeight: number): Circle {
 		const dRadius = Math.floor((Math.random() - 0.5) * Circle.minRadius);
 		const radius = Circle.minRadius + dRadius;
@@ -31,22 +35,17 @@ export class Circle extends CanvasElement {
 		const dx = Math.random() - 0.5;
 		const dy = Math.random() - 0.5;
 
-		const colorKeys = Object.keys(BaseColorPalette.CssVariables) as ColorKey[];
-		const colorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)] as keyof BaseColorPalette;
+		const colorKey = this.getRandomColorKey();
 
 		return new Circle(x, y, dx, dy, radius, dRadius, colorKey);
 	}
 
-	public filterInBoundaryElements(circles: this[], canvasWidth: number, canvasHeight: number): this[] {
-		return circles.filter(circle => circle.inBoundaries(canvasWidth, canvasHeight));
-	}
-
-	private inBoundaries(canvasWidth: number, canvasHeight: number): boolean {
+	protected override inBoundaries(canvasWidth: number, canvasHeight: number): boolean {
 		return clamp(this.radius, this.x, canvasWidth - this.radius) === this.x
 			&& clamp(this.radius, this.y, canvasHeight - this.radius) === this.y;
 	}
 
-	public calibrateElements(circles: this[], movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): this[] {
+	protected override calibrateElements(circles: readonly this[], movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): readonly this[] {
 		const idealAmount = movingBackgroundAmount * 20;
 		const currentAmount = circles.length;
 
@@ -64,7 +63,7 @@ export class Circle extends CanvasElement {
 		}
 	}
 
-	public referenceMousePosition([ x, y ]: [ number, number ]): void {
+	public override referenceMousePosition([ x, y ]: [ number, number ]): void {
 		const mouseDX = Math.abs(this.x - x);
 		const mouseDY = Math.abs(this.y - y);
 		const mouseDistance = Math.sqrt(Math.pow(mouseDX, 2) + Math.pow(mouseDY, 2));
@@ -78,7 +77,7 @@ export class Circle extends CanvasElement {
 		}
 	}
 
-	public move(canvasWidth: number, canvasHeight: number): void {
+	public override move(canvasWidth: number, canvasHeight: number): void {
 		if (this.x + Circle.minRadius + this.dRadius >= canvasWidth ||
 			this.x - Circle.minRadius - this.dRadius <= 0) {
 
@@ -95,11 +94,11 @@ export class Circle extends CanvasElement {
 		this.y += this.dy;
 	}
 
-	public draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
+	public override draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
 		context.beginPath();
 		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-		context.strokeStyle = colorPalette[this.colorKey];
 		context.fillStyle = colorPalette[this.colorKey];
+		context.strokeStyle = colorPalette[this.colorKey];
 		context.stroke();
 		context.fill();
 	}
