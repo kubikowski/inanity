@@ -11,16 +11,16 @@ class PanelCorners extends Array {
 		[ 1, 1, 1, 1 ],
 	] as const;
 
-	public static getRandomCorners(pixelSize: number): PanelCorners {
+	public static getRandomCorners(panelSize: number): PanelCorners {
 		const enabledCorners = this.enabledCornerOptions.at(Math.floor(Math.random() * 4))!;
 
-		return enabledCorners.map(enabled => Math.floor((enabled + 1) * (pixelSize / 8)));
+		return enabledCorners.map(enabled => Math.floor((enabled + 1) * (panelSize / 8)));
 	}
 }
 
 export class Panel extends CanvasElement {
-	private static readonly maxPixelSize = 48;
-	private static readonly minPixelSize = 8;
+	private static readonly maxPanelSize = 48;
+	private static readonly minPanelSize = 8;
 
 	public override readonly renderInterval = 20;
 	public override readonly paintInterval = 100;
@@ -29,36 +29,37 @@ export class Panel extends CanvasElement {
 	private readonly roundRectArguments: [ x: number, y: number, w: number, h: number, radii: PanelCorners ];
 
 	private constructor(
-		private x: number,
-		private y: number,
-		private pixelSize: number,
+		private readonly x: number,
+		private readonly y: number,
+		private readonly panelSize: number,
+		private readonly xOffset = 0,
+		private readonly yOffset = 0,
 		private colorKey: ColorKey,
-		private corners: PanelCorners,
 	) {
 		super();
 
 		this.clearRectArguments = [
-			this.x * this.pixelSize,
-			this.y * this.pixelSize,
-			this.pixelSize,
-			this.pixelSize,
+			(this.x * this.panelSize) - this.xOffset,
+			(this.y * this.panelSize) - this.yOffset,
+			this.panelSize,
+			this.panelSize,
 		];
 
 		this.roundRectArguments = [
-			(this.x + 1 / 6) * this.pixelSize,
-			(this.y + 1 / 6) * this.pixelSize,
-			this.pixelSize * 2 / 3,
-			this.pixelSize * 2 / 3,
-			this.corners,
+			((this.x + 1 / 6) * this.panelSize) - this.xOffset,
+			((this.y + 1 / 6) * this.panelSize) - this.yOffset,
+			this.panelSize * 2 / 3,
+			this.panelSize * 2 / 3,
+			PanelCorners.getRandomCorners(this.panelSize),
 		];
 	}
 
 	public static reference(): Panel {
-		return new Panel(0, 0, 0, Panel.getRandomColorKey(), PanelCorners.getRandomCorners(0));
+		return new Panel(0, 0, 0, 0, 0, Panel.getRandomColorKey());
 	}
 
-	public static random(x: number, y: number, pixelSize: number): Panel {
-		return new Panel(x, y, pixelSize, Panel.getRandomColorKey(), PanelCorners.getRandomCorners(pixelSize));
+	public static random(x: number, y: number, panelSize: number, xOffset: number, yOffset: number): Panel {
+		return new Panel(x, y, panelSize, xOffset, yOffset, Panel.getRandomColorKey());
 	}
 
 	protected override isReferenceType(canvasElement: CanvasElement): canvasElement is this {
@@ -66,31 +67,36 @@ export class Panel extends CanvasElement {
 	}
 
 	protected override inBoundaries(canvasWidth: number, canvasHeight: number): boolean {
-		return clamp(0, this.x, canvasWidth / this.pixelSize) === this.x
-			&& clamp(0, this.y, canvasHeight / this.pixelSize) === this.y;
+		return clamp(0, this.x, canvasWidth / this.panelSize) === this.x
+			&& clamp(0, this.y, canvasHeight / this.panelSize) === this.y;
 	}
 
-	protected override calibrateElements(pixels: readonly this[], movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): readonly this[] {
-		const pixelSize = Panel.minPixelSize + Math.floor(((20 - movingBackgroundAmount) / 20) * (Panel.maxPixelSize - Panel.minPixelSize));
-		const width = Math.ceil(canvasWidth / pixelSize);
-		const height = Math.ceil(canvasHeight / pixelSize);
+	protected override calibrateElements(panels: readonly this[], canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): readonly this[] {
+		const panelCalibration = ((maxCalibration - calibration) / maxCalibration);
+		const panelSize = Panel.minPanelSize + Math.floor(panelCalibration * (Panel.maxPanelSize - Panel.minPanelSize));
 
-		if (pixels.length !== width * height) {
+		const width = Math.ceil(canvasWidth / panelSize);
+		const height = Math.ceil(canvasHeight / panelSize);
+
+		const xOffset = (canvasWidth % panelSize > 0) ? (panelSize - (canvasWidth % panelSize)) / 2 : 0;
+		const yOffset = (canvasHeight % panelSize > 0) ? (panelSize - (canvasHeight % panelSize)) / 2 : 0;
+
+		if (panels.length !== width * height) {
 			return Array
 				.from<Panel[]>({ length: height })
 				.map((_ignoredRow, y) => Array
 					.from<Panel>({ length: width })
-					.map((_ignoredPixel, x) => Panel.random(x, y, pixelSize) as this))
+					.map((_ignoredPixel, x) => Panel.random(x, y, panelSize, xOffset, yOffset) as this))
 				.flat();
 
 		} else {
-			return pixels;
+			return panels;
 		}
 	}
 
 	protected override render(_canvasWidth: number, _canvasHeight: number, [ x, y ]: [ number, number ]): boolean {
-		const mouseDX = Math.abs((this.x * this.pixelSize) - x);
-		const mouseDY = Math.abs((this.y * this.pixelSize) - y);
+		const mouseDX = Math.abs((this.x * this.panelSize) - x);
+		const mouseDY = Math.abs((this.y * this.panelSize) - y);
 		const mouseDistance = Math.sqrt(Math.pow(mouseDX, 2) + Math.pow(mouseDY, 2));
 
 		if (mouseDistance < 100) {

@@ -4,6 +4,9 @@ import { BackgroundType } from 'src/app/features/background/models/background-ty
 @Injectable({ providedIn: 'root' })
 export class BackgroundService {
 
+	public static readonly minCalibration = 1;
+	public static readonly maxCalibration = 20;
+
 	public readonly type = signal(BackgroundService.persistType);
 	public readonly enabled = signal(BackgroundService.persistEnabled);
 	public readonly moving = signal(BackgroundService.persistMoving);

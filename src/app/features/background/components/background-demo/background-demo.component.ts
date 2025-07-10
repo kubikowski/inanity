@@ -1,6 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, input, viewChild } from '@angular/core';
 import { BackgroundType } from 'src/app/features/background/models/background-type.enum';
-import { BackgroundCanvasService } from 'src/app/features/background/services/background-canvas.service';
 import { BackgroundDemoService } from 'src/app/features/background/services/background-demo.service';
 import { BackgroundService } from 'src/app/features/background/services/background.service';
 
@@ -9,7 +8,7 @@ import { BackgroundService } from 'src/app/features/background/services/backgrou
 	template: '<canvas #canvas></canvas>',
 	styleUrl: 'background-demo.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ BackgroundCanvasService, BackgroundDemoService ],
+	providers: [ BackgroundDemoService ],
 	standalone: true,
 	host: {
 		'(click)': 'selectBackgroundType()',

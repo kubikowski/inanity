@@ -26,7 +26,10 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 })
 export class BackgroundDialogComponent extends DialogComponent {
 	private readonly backgroundService = inject(BackgroundService);
+
 	public readonly BackgroundType = BackgroundType;
+	public readonly min = BackgroundService.minCalibration;
+	public readonly max = BackgroundService.maxCalibration;
 
 	public readonly enabledControl = new FormControl(untracked(this.backgroundService.enabled), { nonNullable: true });
 	public readonly enabled = toSignal(formValue(this.enabledControl));

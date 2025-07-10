@@ -49,21 +49,21 @@ export class Bubble extends CanvasElement {
 			&& clamp(this.radius, this.y, canvasHeight - this.radius) === this.y;
 	}
 
-	protected override calibrateElements(circles: readonly this[], movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): readonly this[] {
-		const idealAmount = movingBackgroundAmount * 20;
-		const currentAmount = circles.length;
+	protected override calibrateElements(bubbles: readonly this[], canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): readonly this[] {
+		const idealAmount = calibration * maxCalibration;
+		const currentAmount = bubbles.length;
 
 		if (idealAmount < currentAmount) {
-			return circles.slice(0, idealAmount);
+			return bubbles.slice(0, idealAmount);
 
 		} else if (idealAmount > currentAmount) {
-			const addedCircles = Array
+			const addedBubbles = Array
 				.from({ length: idealAmount - currentAmount })
 				.map(() => Bubble.random(canvasWidth, canvasHeight) as this);
 
-			return [ ...circles, ...addedCircles ];
+			return [ ...bubbles, ...addedBubbles ];
 		} else {
-			return circles;
+			return bubbles;
 		}
 	}
 

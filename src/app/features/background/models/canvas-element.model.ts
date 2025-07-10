@@ -10,10 +10,10 @@ export abstract class CanvasElement {
 	protected constructor() { }
 
 	// region element validation
-	public validateElements(canvasElements: readonly this[], calibration: number, canvasWidth: number, canvasHeight: number): readonly this[] {
+	public validateElements(canvasElements: readonly this[], canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): readonly this[] {
 		const referenceElements = this.validateElementTypes(canvasElements);
 		const inBoundaryElements = this.filterInBoundaryElements(referenceElements, canvasWidth, canvasHeight);
-		const calibratedElements = this.calibrateElements(inBoundaryElements, calibration, canvasWidth, canvasHeight);
+		const calibratedElements = this.calibrateElements(inBoundaryElements, canvasWidth, canvasHeight, calibration, maxCalibration);
 
 		return calibratedElements;
 	}
@@ -28,7 +28,7 @@ export abstract class CanvasElement {
 
 	protected abstract isReferenceType(canvasElement: this): canvasElement is this;
 	protected abstract inBoundaries(canvasWidth: number, canvasHeight: number): boolean;
-	protected abstract calibrateElements(canvasElements: readonly this[], calibration: number, canvasWidth: number, canvasHeight: number): readonly this[];
+	protected abstract calibrateElements(canvasElements: readonly this[], canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): readonly this[];
 	// endregion element validation
 
 

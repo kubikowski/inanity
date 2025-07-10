@@ -23,7 +23,7 @@
 
 			<p><dyslexic-text text="Oh you want some more? Less?"/></p>
 
-			<mat-slider showTickMarks color="primary" min="1" max="20" step="1"
+			<mat-slider showTickMarks color="primary" [min]="min" [max]="max" step="1"
 						[disabled]="!moving()">
 
 				<input matSliderThumb [formControl]="amountControl"

@@ -23,15 +23,18 @@ export class BackgroundCanvasService extends CanvasService {
 	});
 
 	protected readonly calibration = this.backgroundService.amount.asReadonly();
+	protected readonly maxCalibration = signal(BackgroundService.maxCalibration);
+
 	protected readonly backgroundType = this.backgroundService.type;
 	private readonly referenceElement = computed(() => BackgroundTypeUtil.getReference(this.backgroundType()));
 	private readonly canvasElements = stateful(<readonly CanvasElement[]>[], canvasElements => {
 		const canvasWidth = this.canvasWidth();
 		const canvasHeight = this.canvasHeight();
 		const calibration = this.calibration();
+		const maxCalibration = this.maxCalibration();
 		const reference = this.referenceElement();
 
-		return reference.validateElements(canvasElements, calibration, canvasWidth, canvasHeight);
+		return reference.validateElements(canvasElements, canvasWidth, canvasHeight, calibration, maxCalibration);
 	});
 
 	private readonly renderedElements = signal<ReadonlySet<CanvasElement>>(new Set());
