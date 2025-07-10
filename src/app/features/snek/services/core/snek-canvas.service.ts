@@ -2,7 +2,7 @@ import { computed, effect, inject, Injectable, untracked } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { pairwise } from 'src/app/core/functions/signal/pairwise.function';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
-import { CanvasService } from 'src/app/features/background/services/canvas.service';
+import { CanvasService } from 'src/app/features/canvas/canvas.service';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';

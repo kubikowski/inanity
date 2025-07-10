@@ -5,8 +5,8 @@ import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant
 import { stateful } from 'src/app/core/functions/signal/stateful.function';
 import { BackgroundTypeUtil } from 'src/app/features/background/models/background-type.enum';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
-import { BackgroundService } from './background.service';
-import { CanvasService } from './canvas.service';
+import { BackgroundService } from 'src/app/features/background/services/background.service';
+import { CanvasService } from 'src/app/features/canvas/canvas.service';
 
 @Injectable()
 export class BackgroundCanvasService extends CanvasService {
