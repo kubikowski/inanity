@@ -19,11 +19,14 @@ class PixelCorners extends Array {
 }
 
 export class Pixel extends CanvasElement {
-	private static readonly maxPixelSize = 56;
-	private static readonly minPixelSize = 16;
+	private static readonly maxPixelSize = 48;
+	private static readonly minPixelSize = 8;
 
-	public override readonly animationInterval = 20;
-	public override readonly renderInterval = 100;
+	public override readonly renderInterval = 20;
+	public override readonly paintInterval = 100;
+
+	private readonly clearRectArguments: [ x: number, y: number, w: number, h: number ];
+	private readonly roundRectArguments: [ x: number, y: number, w: number, h: number, radii: PixelCorners ];
 
 	private constructor(
 		private x: number,
@@ -33,6 +36,21 @@ export class Pixel extends CanvasElement {
 		private corners: PixelCorners,
 	) {
 		super();
+
+		this.clearRectArguments = [
+			this.x * this.pixelSize,
+			this.y * this.pixelSize,
+			this.pixelSize,
+			this.pixelSize,
+		];
+
+		this.roundRectArguments = [
+			(this.x + 1 / 6) * this.pixelSize,
+			(this.y + 1 / 6) * this.pixelSize,
+			this.pixelSize * 2 / 3,
+			this.pixelSize * 2 / 3,
+			this.corners,
+		];
 	}
 
 	public static reference(): Pixel {
@@ -66,24 +84,26 @@ export class Pixel extends CanvasElement {
 		}
 	}
 
-	public override referenceMousePosition([ x, y ]: [ number, number ]): void {
+	protected override render(_canvasWidth: number, _canvasHeight: number, [ x, y ]: [ number, number ]): boolean {
 		const mouseDX = Math.abs((this.x * this.pixelSize) - x);
 		const mouseDY = Math.abs((this.y * this.pixelSize) - y);
 		const mouseDistance = Math.sqrt(Math.pow(mouseDX, 2) + Math.pow(mouseDY, 2));
 
 		if (mouseDistance < 100) {
 			this.colorKey = Pixel.getRandomColorKey();
+			return true;
+		} else {
+			return false;
 		}
 	}
 
-	public override move(_ignoredCanvasWidth: number, _ignoredCanvasHeight: number): void { }
-
-	public override draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
+	protected override draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
 		const fillColor = Color.fromString(colorPalette[this.colorKey]).withAlpha(0.5).toString();
 		const borderColor = Color.fromString(colorPalette[this.colorKey]).withAlpha(0.2).toString();
 
 		context.beginPath();
-		context.roundRect((this.x + 1 / 6) * this.pixelSize, (this.y + 1 / 6) * this.pixelSize, this.pixelSize * 2 / 3, this.pixelSize * 2 / 3, this.corners);
+		context.clearRect(...this.clearRectArguments);
+		context.roundRect(...this.roundRectArguments);
 		context.fillStyle = fillColor;
 		context.strokeStyle = borderColor;
 		context.stroke();

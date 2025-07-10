@@ -4,8 +4,8 @@ import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-pa
 export type ColorKey = keyof BaseColorPalette;
 
 export abstract class CanvasElement {
-	public abstract readonly animationInterval: number;
 	public abstract readonly renderInterval: number;
+	public abstract readonly paintInterval: number;
 
 	protected constructor() { }
 
@@ -26,32 +26,32 @@ export abstract class CanvasElement {
 	// endregion element validation
 
 
-	// region element animation
-	public animateElements(canvasElements: readonly this[], canvasWidth: number, canvasHeight: number, mousePosition: [ number, number ]): readonly this[] {
+	// region element rendering
+	public renderElements(canvasElements: readonly this[], canvasWidth: number, canvasHeight: number, mousePosition: [ number, number ]): readonly this[] {
+		const renderedElements = <this[]>[];
+
 		for (const canvasElement of canvasElements) {
-			canvasElement.referenceMousePosition(mousePosition);
-			canvasElement.move(canvasWidth, canvasHeight);
+			if (canvasElement.render(canvasWidth, canvasHeight, mousePosition)) {
+				renderedElements.push(canvasElement);
+			}
 		}
 
-		return canvasElements;
+		return renderedElements;
 	}
 
-	protected abstract referenceMousePosition(mousePosition: [ number, number ]): void;
-	protected abstract move(canvasWidth: number, canvasHeight: number): void;
-	// endregion element animation
+	protected abstract render(canvasWidth: number, canvasHeight: number, mousePosition: [ number, number ]): boolean;
+	// endregion element rendering
 
 
-	// region element rendering
-	public renderElements(animatedElements: readonly this[], context: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number, colorPalette: ColorPalette): void {
-		context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-		for (const canvasElement of animatedElements) {
+	// region element painting
+	public paintElements(renderedElements: ReadonlySet<this>, context: CanvasRenderingContext2D, _canvasWidth: number, _canvasHeight: number, colorPalette: ColorPalette): void {
+		for (const canvasElement of renderedElements) {
 			canvasElement.draw(context, colorPalette);
 		}
 	}
 
 	protected abstract draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void;
-	// endregion element rendering
+	// endregion element painting
 
 
 	protected static getRandomColorKey(): ColorKey {

@@ -6,8 +6,8 @@ export class Circle extends CanvasElement {
 	private static readonly maxRadius = 40;
 	private static readonly minRadius = 10;
 
-	public override readonly animationInterval = 8;
-	public override readonly renderInterval = 16;
+	public override readonly renderInterval = 8;
+	public override readonly paintInterval = 16;
 
 	private constructor(
 		private x: number,
@@ -63,7 +63,14 @@ export class Circle extends CanvasElement {
 		}
 	}
 
-	public override referenceMousePosition([ x, y ]: [ number, number ]): void {
+	protected override render(canvasWidth: number, canvasHeight: number, mousePosition: [ number, number ]): true {
+		this.referenceMousePosition(mousePosition);
+		this.move(canvasWidth, canvasHeight);
+
+		return true;
+	}
+
+	private referenceMousePosition([ x, y ]: [ number, number ]): void {
 		const mouseDX = Math.abs(this.x - x);
 		const mouseDY = Math.abs(this.y - y);
 		const mouseDistance = Math.sqrt(Math.pow(mouseDX, 2) + Math.pow(mouseDY, 2));
@@ -77,7 +84,7 @@ export class Circle extends CanvasElement {
 		}
 	}
 
-	public override move(canvasWidth: number, canvasHeight: number): void {
+	private move(canvasWidth: number, canvasHeight: number): void {
 		if (this.x + Circle.minRadius + this.dRadius >= canvasWidth ||
 			this.x - Circle.minRadius - this.dRadius <= 0) {
 
@@ -94,7 +101,13 @@ export class Circle extends CanvasElement {
 		this.y += this.dy;
 	}
 
-	public override draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
+	public override paintElements(renderedElements: ReadonlySet<this>, context: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number, colorPalette: ColorPalette): void {
+		context.clearRect(0, 0, canvasWidth, canvasHeight);
+
+		super.paintElements(renderedElements, context, canvasWidth, canvasHeight, colorPalette);
+	}
+
+	protected override draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
 		context.beginPath();
 		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
 		context.fillStyle = colorPalette[this.colorKey];
