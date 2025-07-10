@@ -2,7 +2,7 @@ import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-pa
 import { clamp } from 'src/app/core/functions/number/clamp.function';
 import { CanvasElement, ColorKey } from 'src/app/features/background/models/canvas-element.model';
 
-export class Circle extends CanvasElement {
+export class Bubble extends CanvasElement {
 	private static readonly maxRadius = 40;
 	private static readonly minRadius = 10;
 
@@ -21,13 +21,13 @@ export class Circle extends CanvasElement {
 		super();
 	}
 
-	public static reference(): Circle {
-		return new Circle(0, 0, 0, 0, 0, 0, Circle.getRandomColorKey());
+	public static reference(): Bubble {
+		return new Bubble(0, 0, 0, 0, 0, 0, Bubble.getRandomColorKey());
 	}
 
-	public static random(canvasWidth: number, canvasHeight: number): Circle {
-		const dRadius = Math.floor((Math.random() - 0.5) * Circle.minRadius);
-		const radius = Circle.minRadius + dRadius;
+	public static random(canvasWidth: number, canvasHeight: number): Bubble {
+		const dRadius = Math.floor((Math.random() - 0.5) * Bubble.minRadius);
+		const radius = Bubble.minRadius + dRadius;
 
 		const x = Math.random() * (canvasWidth - radius * 2) + radius;
 		const y = Math.random() * (canvasHeight - radius * 2) + radius;
@@ -37,7 +37,11 @@ export class Circle extends CanvasElement {
 
 		const colorKey = this.getRandomColorKey();
 
-		return new Circle(x, y, dx, dy, radius, dRadius, colorKey);
+		return new Bubble(x, y, dx, dy, radius, dRadius, colorKey);
+	}
+
+	protected override isReferenceType(canvasElement: CanvasElement): canvasElement is this {
+		return canvasElement instanceof Bubble;
 	}
 
 	protected override inBoundaries(canvasWidth: number, canvasHeight: number): boolean {
@@ -55,7 +59,7 @@ export class Circle extends CanvasElement {
 		} else if (idealAmount > currentAmount) {
 			const addedCircles = Array
 				.from({ length: idealAmount - currentAmount })
-				.map(() => Circle.random(canvasWidth, canvasHeight) as this);
+				.map(() => Bubble.random(canvasWidth, canvasHeight) as this);
 
 			return [ ...circles, ...addedCircles ];
 		} else {
@@ -76,23 +80,23 @@ export class Circle extends CanvasElement {
 		const mouseDistance = Math.sqrt(Math.pow(mouseDX, 2) + Math.pow(mouseDY, 2));
 
 		if (mouseDistance < 100) {
-			if (this.radius < Circle.maxRadius + this.dRadius) {
+			if (this.radius < Bubble.maxRadius + this.dRadius) {
 				this.radius += 1.5;
 			}
-		} else if (this.radius > Circle.minRadius + this.dRadius) {
+		} else if (this.radius > Bubble.minRadius + this.dRadius) {
 			this.radius -= 0.25;
 		}
 	}
 
 	private move(canvasWidth: number, canvasHeight: number): void {
-		if (this.x + Circle.minRadius + this.dRadius >= canvasWidth ||
-			this.x - Circle.minRadius - this.dRadius <= 0) {
+		if (this.x + Bubble.minRadius + this.dRadius >= canvasWidth ||
+			this.x - Bubble.minRadius - this.dRadius <= 0) {
 
 			this.dx = -this.dx;
 		}
 
-		if (this.y + Circle.minRadius + this.dRadius >= canvasHeight ||
-			this.y - Circle.minRadius - this.dRadius <= 0) {
+		if (this.y + Bubble.minRadius + this.dRadius >= canvasHeight ||
+			this.y - Bubble.minRadius - this.dRadius <= 0) {
 
 			this.dy = -this.dy;
 		}
@@ -107,7 +111,7 @@ export class Circle extends CanvasElement {
 		super.paintElements(renderedElements, context, canvasWidth, canvasHeight, colorPalette);
 	}
 
-	protected override draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
+	protected override paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
 		context.beginPath();
 		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
 		context.fillStyle = colorPalette[this.colorKey];

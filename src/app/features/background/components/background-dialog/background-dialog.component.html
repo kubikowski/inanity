@@ -1,33 +1,37 @@
 <base-dialog [configuration]="dialogConfiguration()">
 	<main>
 		<p><dyslexic-text text="
-			Now let me get this straight. You’re telling me you see the background moving too?
+			Now let me get this straight.
+			You’re telling me you see the background moving too?
 			I thought that was a figment of <i>my</i> imagination.
-		"/></p>
-		<p><dyslexic-text text="
-			Well. We can fix that. Go ahead. I won’t tell.
 		"/></p>
 
 		<mat-checkbox class="mat-menu-item" color="primary"
 					  [formControl]="movingControl"
 					  (change)="toggleBackgroundMoving()">
-			{{ moving() ? 'Background Moves' : 'Not anymore' }}
+			<dyslexic-text [text]="moving()
+				? 'Well. We can fix that. Go ahead. I won’t tell.'
+				: 'Not anymore'
+			"/>
 		</mat-checkbox>
 
 		@if (moving()) {
-			<p><dyslexic-text text="Oh you want some more? Less?"/></p>
-		} @else {
-			<p><dyslexic-text text="Well never mind then. Do you even want the background gradient?"/></p>
-		}
+			<section class="background-demos">
+				<background-demo [type]="BackgroundType.BUBBLES"/>
+				<background-demo [type]="BackgroundType.GLASS"/>
+			</section>
 
-		@if (moving()) {
-			<mat-slider showTickMarks color="primary" min="0" max="20" step="1"
+			<p><dyslexic-text text="Oh you want some more? Less?"/></p>
+
+			<mat-slider showTickMarks color="primary" min="1" max="20" step="1"
 						[disabled]="!moving()">
 
 				<input matSliderThumb [formControl]="amountControl"
 					   (change)="setMovingBackgroundAmount()">
 			</mat-slider>
 		} @else {
+			<p><dyslexic-text text="Well never mind then. Do you even want the background gradient?"/></p>
+
 			<mat-checkbox class="mat-menu-item" color="primary"
 						  [formControl]="enabledControl"
 						  (change)="toggleBackgroundEnabled()">

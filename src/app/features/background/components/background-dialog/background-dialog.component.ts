@@ -8,6 +8,8 @@ import { DialogComponent } from 'src/app/core/dialogs/components/dialog.componen
 import { DialogBuilder } from 'src/app/core/dialogs/models/builder/dialog.builder';
 import { DialogConfiguration } from 'src/app/core/dialogs/models/configuration/dialog-configuration.model';
 import { formValue } from 'src/app/core/functions/rxjs/form-value.function';
+import { BackgroundDemoComponent } from 'src/app/features/background/components/background-demo/background-demo.component';
+import { BackgroundType } from 'src/app/features/background/models/background-type.enum';
 import { BackgroundService } from 'src/app/features/background/services/background.service';
 import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
 
@@ -19,11 +21,12 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	standalone: true,
 	imports: [
 		MatCheckbox, MatSlider, MatSliderThumb, ReactiveFormsModule,
-		BaseDialogComponent, DyslexicTextComponent,
+		BaseDialogComponent, DyslexicTextComponent, BackgroundDemoComponent,
 	],
 })
 export class BackgroundDialogComponent extends DialogComponent {
 	private readonly backgroundService = inject(BackgroundService);
+	public readonly BackgroundType = BackgroundType;
 
 	public readonly enabledControl = new FormControl(untracked(this.backgroundService.enabled), { nonNullable: true });
 	public readonly enabled = toSignal(formValue(this.enabledControl));

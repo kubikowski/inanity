@@ -3,33 +3,35 @@ import { union } from 'set-utilities';
 import { AnimationFrameService } from 'src/app/core/browser/services/animation-frame.service';
 import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { stateful } from 'src/app/core/functions/signal/stateful.function';
+import { BackgroundTypeUtil } from 'src/app/features/background/models/background-type.enum';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
-import { Pixel } from 'src/app/features/background/models/pixel.model';
 import { BackgroundService } from './background.service';
 import { CanvasService } from './canvas.service';
 
 @Injectable()
 export class BackgroundCanvasService extends CanvasService {
-	private readonly backgroundService = inject(BackgroundService);
-	private readonly animationFrameService = inject(AnimationFrameService);
+	protected readonly backgroundService = inject(BackgroundService);
+	protected readonly animationFrameService = inject(AnimationFrameService);
 
 	protected readonly canvasTopOffset = computed(() => this.canvas()?.getBoundingClientRect().top ?? 0);
 	protected readonly rawCanvasWidth = this.screenService.screenWidth.asReadonly();
 	protected readonly rawCanvasHeight = computed(() => this.screenService.screenHeight() - this.canvasTopOffset());
 
-	private readonly mousePosition = computed<[ number, number ]>(() => {
+	protected readonly mousePosition = computed<[ number, number ]>(() => {
 		const [ x, y ] = this.screenService.mousePosition();
 		return [ x * this.pixelDensity(), (y - this.canvasTopOffset()) * this.pixelDensity() ];
 	});
 
-	private readonly referenceElement = signal<CanvasElement>(Pixel.reference());
+	protected readonly calibration = this.backgroundService.amount.asReadonly();
+	protected readonly backgroundType = this.backgroundService.type;
+	private readonly referenceElement = computed(() => BackgroundTypeUtil.getReference(this.backgroundType()));
 	private readonly canvasElements = stateful(<readonly CanvasElement[]>[], canvasElements => {
-		const movingBackgroundAmount = this.backgroundService.amount();
 		const canvasWidth = this.canvasWidth();
 		const canvasHeight = this.canvasHeight();
+		const calibration = this.calibration();
 		const reference = this.referenceElement();
 
-		return reference.validateElements(canvasElements, movingBackgroundAmount, canvasWidth, canvasHeight);
+		return reference.validateElements(canvasElements, calibration, canvasWidth, canvasHeight);
 	});
 
 	private readonly renderedElements = signal<ReadonlySet<CanvasElement>>(new Set());
@@ -66,11 +68,6 @@ export class BackgroundCanvasService extends CanvasService {
 		});
 	}
 
-	/**
-	 * TODO: background configuration:
-	 *  1. background types
-	 *  2. background type selection in the background dialog.
-	 */
 	private renderFrame(): void {
 		const canvasWidth = this.canvasWidth();
 		const canvasHeight = this.canvasHeight();

@@ -1,8 +1,7 @@
-import { computed, effect, inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, effect, inject, Signal, signal } from '@angular/core';
 import { ScreenService } from 'src/app/core/browser/services/screen.service';
 import { ColorsService } from 'src/app/core/colors/services/colors.service';
 
-@Injectable()
 export abstract class CanvasService {
 	protected readonly screenService = inject(ScreenService);
 	protected readonly colorsService = inject(ColorsService);

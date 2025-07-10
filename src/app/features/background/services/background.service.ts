@@ -1,18 +1,29 @@
 import { effect, Injectable, signal } from '@angular/core';
+import { BackgroundType } from 'src/app/features/background/models/background-type.enum';
 
 @Injectable({ providedIn: 'root' })
 export class BackgroundService {
 
+	public readonly type = signal(BackgroundService.persistType);
 	public readonly enabled = signal(BackgroundService.persistEnabled);
 	public readonly moving = signal(BackgroundService.persistMoving);
 	public readonly amount = signal(BackgroundService.persistAmount);
 
 	public constructor() {
 		effect(() => {
+			BackgroundService.persistType = this.type();
 			BackgroundService.persistEnabled = this.enabled();
 			BackgroundService.persistMoving = this.moving();
 			BackgroundService.persistAmount = this.amount();
 		});
+	}
+
+	private static get persistType(): BackgroundType {
+		return (localStorage.getItem('background.type') ?? BackgroundType.GLASS) as BackgroundType;
+	}
+
+	private static set persistType(backgroundType: BackgroundType) {
+		localStorage.setItem('background.type', backgroundType);
 	}
 
 	private static get persistEnabled(): boolean {

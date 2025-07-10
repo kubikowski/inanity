@@ -11,16 +11,22 @@ export abstract class CanvasElement {
 
 	// region element validation
 	public validateElements(canvasElements: readonly this[], calibration: number, canvasWidth: number, canvasHeight: number): readonly this[] {
-		const inBoundaryElements = this.filterInBoundaryElements(canvasElements, canvasWidth, canvasHeight);
+		const referenceElements = this.validateElementTypes(canvasElements);
+		const inBoundaryElements = this.filterInBoundaryElements(referenceElements, canvasWidth, canvasHeight);
 		const calibratedElements = this.calibrateElements(inBoundaryElements, calibration, canvasWidth, canvasHeight);
 
 		return calibratedElements;
+	}
+
+	protected validateElementTypes(canvasElements: readonly this[]): readonly this[] {
+		return canvasElements.filter(canvasElement => this.isReferenceType(canvasElement));
 	}
 
 	protected filterInBoundaryElements(canvasElements: readonly this[], canvasWidth: number, canvasHeight: number): readonly this[] {
 		return canvasElements.filter(canvasElement => canvasElement.inBoundaries(canvasWidth, canvasHeight));
 	}
 
+	protected abstract isReferenceType(canvasElement: this): canvasElement is this;
 	protected abstract inBoundaries(canvasWidth: number, canvasHeight: number): boolean;
 	protected abstract calibrateElements(canvasElements: readonly this[], calibration: number, canvasWidth: number, canvasHeight: number): readonly this[];
 	// endregion element validation
@@ -46,11 +52,11 @@ export abstract class CanvasElement {
 	// region element painting
 	public paintElements(renderedElements: ReadonlySet<this>, context: CanvasRenderingContext2D, _canvasWidth: number, _canvasHeight: number, colorPalette: ColorPalette): void {
 		for (const canvasElement of renderedElements) {
-			canvasElement.draw(context, colorPalette);
+			canvasElement.paint(context, colorPalette);
 		}
 	}
 
-	protected abstract draw(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void;
+	protected abstract paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void;
 	// endregion element painting
 
 
