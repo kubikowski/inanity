@@ -57,18 +57,12 @@ export class BackgroundCanvasService extends CanvasService {
 
 	private onRenderFrame(): void {
 		this.onRender();
-
-		if (this.backgroundService.moving()) untracked(() => {
-			this.renderFrame();
-		});
+		untracked(() => this.renderFrame());
 	}
 
 	private onPaintFrame(): void {
 		this.onPaint();
-
-		if (this.backgroundService.moving()) untracked(() => {
-			this.paintFrame();
-		});
+		untracked(() => this.paintFrame());
 	}
 
 	private renderFrame(): void {

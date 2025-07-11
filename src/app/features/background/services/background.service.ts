@@ -1,4 +1,5 @@
-import { effect, Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
+import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { BackgroundType } from 'src/app/features/background/models/background-type.enum';
 
 @Injectable({ providedIn: 'root' })
@@ -8,17 +9,24 @@ export class BackgroundService {
 	public static readonly maxCalibration = 20;
 
 	public readonly type = signal(BackgroundService.persistType);
+	public readonly isMovingBackground = computed(() => this.type() !== BackgroundType.BLANK);
+
 	public readonly enabled = signal(BackgroundService.persistEnabled);
-	public readonly moving = signal(BackgroundService.persistMoving);
 	public readonly amount = signal(BackgroundService.persistAmount);
 
 	public constructor() {
 		effect(() => {
 			BackgroundService.persistType = this.type();
 			BackgroundService.persistEnabled = this.enabled();
-			BackgroundService.persistMoving = this.moving();
 			BackgroundService.persistAmount = this.amount();
 		});
+
+		// TODO: can linkedSignal contain stateful?
+		effect(() => {
+			if (this.isMovingBackground() && !this.enabled()) {
+				this.enabled.set(true);
+			}
+		}, allowWrites);
 	}
 
 	private static get persistType(): BackgroundType {
@@ -35,14 +43,6 @@ export class BackgroundService {
 
 	private static set persistEnabled(enabled: boolean) {
 		localStorage.setItem('background.enabled', String(enabled));
-	}
-
-	private static get persistMoving(): boolean {
-		return JSON.parse(localStorage.getItem('background.moving') ?? 'true') as boolean;
-	}
-
-	private static set persistMoving(moving: boolean) {
-		localStorage.setItem('background.moving', String(moving));
 	}
 
 	private static get persistAmount(): number {

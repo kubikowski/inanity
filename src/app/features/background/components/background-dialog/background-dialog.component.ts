@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, untracked } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -31,14 +31,20 @@ export class BackgroundDialogComponent extends DialogComponent {
 	public readonly min = BackgroundService.minCalibration;
 	public readonly max = BackgroundService.maxCalibration;
 
+	public readonly backgroundType = this.backgroundService.type;
+	public readonly isMovingBackground = this.backgroundService.isMovingBackground;
+
 	public readonly enabledControl = new FormControl(untracked(this.backgroundService.enabled), { nonNullable: true });
 	public readonly enabled = toSignal(formValue(this.enabledControl));
 
-	public readonly movingControl = new FormControl(untracked(this.backgroundService.moving), { nonNullable: true });
-	public readonly moving = toSignal(formValue(this.movingControl));
-
 	public readonly amountControl = new FormControl(untracked(this.backgroundService.amount), { nonNullable: true });
 	public readonly amount = toSignal(this.amountControl.valueChanges);
+
+	public constructor() {
+		super();
+
+		effect(() => this.enabledControl.setValue(this.backgroundService.enabled()));
+	}
 
 	public initializeDialogConfiguration(): DialogConfiguration {
 		return DialogBuilder.new()
@@ -58,11 +64,9 @@ export class BackgroundDialogComponent extends DialogComponent {
 
 	public toggleBackgroundMoving(): void {
 		const enabled = untracked(this.enabled);
-		const moving = untracked(this.moving);
 
-		if (typeof enabled !== 'undefined' && typeof moving !== 'undefined') {
-			this.backgroundService.enabled.set(enabled || moving);
-			this.backgroundService.moving.set(moving);
+		if (typeof enabled !== 'undefined') {
+			this.backgroundService.enabled.set(enabled);
 		}
 	}
 
