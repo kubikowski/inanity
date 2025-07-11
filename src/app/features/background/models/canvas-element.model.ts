@@ -1,7 +1,4 @@
-import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
-
-export type ColorKey = keyof BaseColorPalette;
 
 export abstract class CanvasElement {
 	public abstract readonly renderInterval: number;
@@ -67,10 +64,4 @@ export abstract class CanvasElement {
 	protected abstract shouldClearCanvas(renderedElements: ReadonlySet<this>, canvasWidth: number, canvasHeight: number): boolean;
 	protected abstract paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void;
 	// endregion element painting
-
-
-	protected static getRandomColorKey(): ColorKey {
-		const colorKeys = Object.keys(BaseColorPalette.CssVariables) as ColorKey[];
-		return colorKeys[ Math.floor(Math.random() * colorKeys.length) ] as ColorKey;
-	}
 }

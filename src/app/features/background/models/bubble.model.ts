@@ -1,6 +1,7 @@
+import { BaseColorPalette, ColorKey } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
-import { CanvasElement, ColorKey } from 'src/app/features/background/models/canvas-element.model';
+import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 
 export class Bubble extends CanvasElement {
 	private static readonly maxRadius = 40;
@@ -22,7 +23,7 @@ export class Bubble extends CanvasElement {
 	}
 
 	public static reference(): Bubble {
-		return new Bubble(0, 0, 0, 0, 0, 0, Bubble.getRandomColorKey());
+		return new Bubble(0, 0, 0, 0, 0, 0, BaseColorPalette.getRandomKey());
 	}
 
 	public static random(canvasWidth: number, canvasHeight: number): Bubble {
@@ -35,7 +36,7 @@ export class Bubble extends CanvasElement {
 		const dx = Math.random() - 0.5;
 		const dy = Math.random() - 0.5;
 
-		const colorKey = this.getRandomColorKey();
+		const colorKey = BaseColorPalette.getRandomKey();
 
 		return new Bubble(x, y, dx, dy, radius, dRadius, colorKey);
 	}

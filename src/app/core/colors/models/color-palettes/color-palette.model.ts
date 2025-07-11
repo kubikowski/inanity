@@ -74,4 +74,19 @@ export class ColorPalette extends BaseColorPalette {
 			theme,
 		);
 	}
+
+	public transparent(alpha: number): ColorPalette {
+		return new ColorPalette(
+			this.lightestColor.withAlpha(alpha),
+			this.lighterColor.withAlpha(alpha),
+			this.lightColor.withAlpha(alpha),
+			this.defaultColor.withAlpha(alpha),
+			this.darkColor.withAlpha(alpha),
+			this.darkerColor.withAlpha(alpha),
+			this.darkestColor.withAlpha(alpha),
+			this.paletteName,
+			this.displayName,
+			this.theme,
+		);
+	}
 }

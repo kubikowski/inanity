@@ -1,3 +1,5 @@
+export type ColorKey = keyof BaseColorPalette;
+
 export class BaseColorPalette {
 	public static readonly CssVariables = this.getCssVariables();
 
@@ -27,5 +29,10 @@ export class BaseColorPalette {
 			'--selected-background-color',
 			'--selected-background-color-transparent',
 		);
+	}
+
+	public static getRandomKey(): ColorKey {
+		const colorKeys = Object.keys(BaseColorPalette.CssVariables) as ColorKey[];
+		return colorKeys[ Math.floor(Math.random() * (colorKeys.length - 2)) ] as ColorKey;
 	}
 }

@@ -1,7 +1,8 @@
+import { BaseColorPalette, ColorKey } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { Color } from 'src/app/core/colors/models/color.model';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
-import { CanvasElement, ColorKey } from 'src/app/features/background/models/canvas-element.model';
+import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 
 class PanelCorners extends Array {
 	public static enabledCornerOptions = [
@@ -55,11 +56,11 @@ export class Panel extends CanvasElement {
 	}
 
 	public static reference(): Panel {
-		return new Panel(0, 0, 0, 0, 0, Panel.getRandomColorKey());
+		return new Panel(0, 0, 0, 0, 0, BaseColorPalette.getRandomKey());
 	}
 
 	public static random(x: number, y: number, panelSize: number, xOffset: number, yOffset: number): Panel {
-		return new Panel(x, y, panelSize, xOffset, yOffset, Panel.getRandomColorKey());
+		return new Panel(x, y, panelSize, xOffset, yOffset, BaseColorPalette.getRandomKey());
 	}
 
 	protected override isReferenceType(canvasElement: CanvasElement): canvasElement is this {
@@ -114,7 +115,7 @@ export class Panel extends CanvasElement {
 		const mouseDistance = Math.sqrt(Math.pow(mouseDX, 2) + Math.pow(mouseDY, 2));
 
 		if (mouseDistance < 100) {
-			this.colorKey = Panel.getRandomColorKey();
+			this.colorKey = BaseColorPalette.getRandomKey();
 			return true;
 		} else {
 			return false;
