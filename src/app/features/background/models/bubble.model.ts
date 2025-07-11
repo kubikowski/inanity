@@ -1,0 +1,121 @@
+import { BaseColorPalette, ColorKey } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
+import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
+import { clamp } from 'src/app/core/functions/number/clamp.function';
+import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
+
+export class Bubble extends CanvasElement {
+	private static readonly maxRadius = 40;
+	private static readonly minRadius = 10;
+
+	public override readonly renderInterval = 8;
+	public override readonly paintInterval = 16;
+
+	private constructor(
+		private x: number,
+		private y: number,
+		private dx: number,
+		private dy: number,
+		private radius: number,
+		private dRadius: number,
+		private colorKey: ColorKey,
+	) {
+		super();
+	}
+
+	public static reference(): Bubble {
+		return new Bubble(0, 0, 0, 0, 0, 0, BaseColorPalette.getRandomKey());
+	}
+
+	public static random(canvasWidth: number, canvasHeight: number): Bubble {
+		const dRadius = Math.floor((Math.random() - 0.5) * Bubble.minRadius);
+		const radius = Bubble.minRadius + dRadius;
+
+		const x = Math.random() * (canvasWidth - radius * 2) + radius;
+		const y = Math.random() * (canvasHeight - radius * 2) + radius;
+
+		const dx = Math.random() - 0.5;
+		const dy = Math.random() - 0.5;
+
+		const colorKey = BaseColorPalette.getRandomKey();
+
+		return new Bubble(x, y, dx, dy, radius, dRadius, colorKey);
+	}
+
+	protected override isReferenceType(canvasElement: CanvasElement): canvasElement is this {
+		return canvasElement instanceof Bubble;
+	}
+
+	protected override inBoundaries(canvasWidth: number, canvasHeight: number): boolean {
+		return clamp(this.radius, this.x, canvasWidth - this.radius) === this.x
+			&& clamp(this.radius, this.y, canvasHeight - this.radius) === this.y;
+	}
+
+	protected override calibrateElements(bubbles: readonly this[], canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): readonly this[] {
+		const idealAmount = calibration * maxCalibration;
+		const currentAmount = bubbles.length;
+
+		if (idealAmount < currentAmount) {
+			return bubbles.slice(0, idealAmount);
+
+		} else if (idealAmount > currentAmount) {
+			const addedBubbles = Array
+				.from({ length: idealAmount - currentAmount })
+				.map(() => Bubble.random(canvasWidth, canvasHeight) as this);
+
+			return [ ...bubbles, ...addedBubbles ];
+		} else {
+			return bubbles;
+		}
+	}
+
+	protected override render(canvasWidth: number, canvasHeight: number, mousePosition: [ number, number ]): true {
+		this.referenceMousePosition(mousePosition);
+		this.move(canvasWidth, canvasHeight);
+
+		return true;
+	}
+
+	private referenceMousePosition([ x, y ]: [ number, number ]): void {
+		const mouseDX = Math.abs(this.x - x);
+		const mouseDY = Math.abs(this.y - y);
+		const mouseDistance = Math.sqrt(Math.pow(mouseDX, 2) + Math.pow(mouseDY, 2));
+
+		if (mouseDistance < 100) {
+			if (this.radius < Bubble.maxRadius + this.dRadius) {
+				this.radius += 1.5;
+			}
+		} else if (this.radius > Bubble.minRadius + this.dRadius) {
+			this.radius -= 0.25;
+		}
+	}
+
+	private move(canvasWidth: number, canvasHeight: number): void {
+		if (this.x + Bubble.minRadius + this.dRadius >= canvasWidth ||
+			this.x - Bubble.minRadius - this.dRadius <= 0) {
+
+			this.dx = -this.dx;
+		}
+
+		if (this.y + Bubble.minRadius + this.dRadius >= canvasHeight ||
+			this.y - Bubble.minRadius - this.dRadius <= 0) {
+
+			this.dy = -this.dy;
+		}
+
+		this.x += this.dx;
+		this.y += this.dy;
+	}
+
+	protected override shouldClearCanvas(renderedElements: ReadonlySet<this>): boolean {
+		return renderedElements.size > 0;
+	}
+
+	protected override paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
+		context.beginPath();
+		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+		context.fillStyle = colorPalette[this.colorKey];
+		context.strokeStyle = colorPalette[this.colorKey];
+		context.stroke();
+		context.fill();
+	}
+}

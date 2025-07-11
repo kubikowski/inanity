@@ -42,7 +42,7 @@ export class DyslexiaDialogComponent extends DialogComponent {
 			.build();
 	}
 
-	public toggleMovingBackgroundEnabled(): void {
+	public toggleDyslexiaEnabled(): void {
 		const enabled = untracked(this.enabled);
 
 		if (typeof enabled !== 'undefined') {
@@ -50,7 +50,7 @@ export class DyslexiaDialogComponent extends DialogComponent {
 		}
 	}
 
-	public setMovingBackgroundAmount(): void {
+	public setDyslexiaAmount(): void {
 		const amount = untracked(this.amount);
 
 		if (typeof amount !== 'undefined') {

@@ -1,106 +1,92 @@
-import { computed, effect, inject, Injectable, untracked } from '@angular/core';
-import { animationFrameScheduler, interval } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { computed, effect, inject, Injectable, signal, untracked } from '@angular/core';
+import { union } from 'set-utilities';
+import { AnimationFrameService } from 'src/app/core/browser/services/animation-frame.service';
+import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
+import { stateful } from 'src/app/core/functions/signal/stateful.function';
+import { BackgroundTypeUtil } from 'src/app/features/background/models/background-type.enum';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
-import { Circle } from 'src/app/features/background/models/circle.model';
-import { BackgroundService } from './background.service';
-import { CanvasService } from './canvas.service';
+import { BackgroundService } from 'src/app/features/background/services/background.service';
+import { CanvasService } from 'src/app/features/canvas/canvas.service';
 
 @Injectable()
 export class BackgroundCanvasService extends CanvasService {
-	private readonly backgroundService = inject(BackgroundService);
+	protected readonly backgroundService = inject(BackgroundService);
+	protected readonly animationFrameService = inject(AnimationFrameService);
 
 	protected readonly canvasTopOffset = computed(() => this.canvas()?.getBoundingClientRect().top ?? 0);
 	protected readonly rawCanvasWidth = this.screenService.screenWidth.asReadonly();
 	protected readonly rawCanvasHeight = computed(() => this.screenService.screenHeight() - this.canvasTopOffset());
 
-	private readonly mousePosition = computed<[ number, number ]>(() => {
+	protected readonly mousePosition = computed<[ number, number ]>(() => {
 		const [ x, y ] = this.screenService.mousePosition();
 		return [ x * this.pixelDensity(), (y - this.canvasTopOffset()) * this.pixelDensity() ];
 	});
 
-	protected canvasElements = Array<CanvasElement>();
+	protected readonly calibration = this.backgroundService.amount.asReadonly();
+	protected readonly maxCalibration = signal(BackgroundService.maxCalibration).asReadonly();
+
+	protected readonly backgroundType = this.backgroundService.type;
+	private readonly referenceElement = computed(() => BackgroundTypeUtil.getReference(this.backgroundType()));
+	private readonly canvasElements = stateful(<readonly CanvasElement[]>[], canvasElements => {
+		const canvasWidth = this.canvasWidth();
+		const canvasHeight = this.canvasHeight();
+		const calibration = this.calibration();
+		const maxCalibration = this.maxCalibration();
+		const reference = this.referenceElement();
+
+		return reference.validateElements(canvasElements, canvasWidth, canvasHeight, calibration, maxCalibration);
+	});
+
+	private readonly renderedElements = signal<ReadonlySet<CanvasElement>>(new Set());
+
+	private readonly renderInterval = computed(() => this.referenceElement().renderInterval);
+	private readonly paintInterval = computed(() => this.referenceElement().paintInterval);
+
+	private readonly onRender = this.animationFrameService.onAnimationInterval(this.renderInterval);
+	private readonly onPaint = this.animationFrameService.onAnimationInterval(this.paintInterval);
 
 	public constructor() {
 		super();
 
-		effect(() => {
-			this.manageCircles(this.backgroundService.amount(), this.canvasWidth(), this.canvasHeight());
-		});
+		// TODO: replace renderedElements with a linked signal
+		effect(() => this.renderedElements.set(new Set(this.canvasElements())), allowWrites);
+
+		effect(() => this.onRenderFrame(), allowWrites);
+		effect(() => this.onPaintFrame(), allowWrites);
 	}
 
-	public override initialize(canvas: HTMLCanvasElement): void {
-		super.initialize(canvas);
-
-		this.initializeFrameRefresh();
+	private onRenderFrame(): void {
+		this.onRender();
+		untracked(() => this.renderFrame());
 	}
 
-	private initializeFrameRefresh(): void {
-		this.subscriptions.sink = interval(10, animationFrameScheduler)
-			.pipe(filter(() => untracked(this.backgroundService.moving)))
-			.subscribe(() => this.renderFrame());
+	private onPaintFrame(): void {
+		this.onPaint();
+		untracked(() => this.paintFrame());
 	}
 
 	private renderFrame(): void {
-		const context = untracked(this.context);
-		const canvasWidth = untracked(this.canvasWidth);
-		const canvasHeight = untracked(this.canvasHeight);
-		const mousePosition = untracked(this.mousePosition);
-		const colorPalette = untracked(this.colorsService.palette);
+		const canvasWidth = this.canvasWidth();
+		const canvasHeight = this.canvasHeight();
+		const mousePosition = this.mousePosition();
+		const reference = this.referenceElement();
+		const canvasElements = this.canvasElements();
+
+		const renderedElements = reference.renderElements(canvasElements, canvasWidth, canvasHeight, mousePosition);
+		this.renderedElements.set(union(this.renderedElements(), new Set(renderedElements)));
+	}
+
+	private paintFrame(): void {
+		const context = this.context();
+		const canvasWidth = this.canvasWidth();
+		const canvasHeight = this.canvasHeight();
+		const colorPalette = this.colorsService.palette();
+		const reference = this.referenceElement();
+		const renderedElements = this.renderedElements();
 
 		if (context !== null) {
-			context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-			for (const canvasElement of this.canvasElements) {
-				canvasElement.referenceMousePosition(mousePosition);
-				canvasElement.move(canvasWidth, canvasHeight);
-				canvasElement.draw(context, colorPalette);
-			}
+			reference.paintElements(renderedElements, context, canvasWidth, canvasHeight, colorPalette);
+			this.renderedElements.set(new Set());
 		}
-	}
-
-	private manageCircles(movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): void {
-		this.removeOutOfBoundCircles(canvasWidth, canvasHeight);
-		this.calibrateCircleAmount(movingBackgroundAmount, canvasWidth, canvasHeight);
-	}
-
-	private removeOutOfBoundCircles(canvasWidth: number, canvasHeight: number): void {
-		const outOfBoundCircles = new Set(this.circles
-			.filter(circle => !circle.inBoundaries(canvasWidth, canvasHeight)));
-
-		this.canvasElements = this.canvasElements
-			.filter(canvasElement => !outOfBoundCircles.has(canvasElement as Circle));
-	}
-
-	private calibrateCircleAmount(movingBackgroundAmount: number, canvasWidth: number, canvasHeight: number): void {
-		const idealAmount = movingBackgroundAmount * 20;
-		const currentAmount = this.circles.length;
-
-		if (idealAmount < currentAmount) {
-			this.removeCircles(idealAmount);
-
-		} else if (idealAmount > currentAmount) {
-			this.addCircles(idealAmount - currentAmount, canvasWidth, canvasHeight);
-		}
-	}
-
-	private get circles(): Circle[] {
-		return this.canvasElements
-			.filter(canvasElement => canvasElement instanceof Circle) as Circle[];
-	}
-
-	private removeCircles(idealAmount: number): void {
-		const removedCircles = new Set(this.circles.slice(idealAmount));
-
-		this.canvasElements = this.canvasElements
-			.filter(canvasElement => !removedCircles.has(canvasElement as Circle));
-	}
-
-	private addCircles(addCircleAmount: number, canvasWidth: number, canvasHeight: number): void {
-		const addedCircles = Array
-			.from({ length: addCircleAmount })
-			.map(() => Circle.random(canvasWidth, canvasHeight));
-
-		this.canvasElements.push(...addedCircles);
 	}
 }
