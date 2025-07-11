@@ -5,7 +5,7 @@ import { BackgroundService } from 'src/app/features/background/services/backgrou
 
 @Component({
 	selector: 'background-demo',
-	template: '<canvas #canvas></canvas>',
+	templateUrl: 'background-demo.component.html',
 	styleUrl: 'background-demo.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ BackgroundDemoService ],

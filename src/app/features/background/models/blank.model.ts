@@ -1,6 +1,7 @@
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
+import { CanvasSingleton } from 'src/app/features/background/models/canvas-singleton.model';
 
-export class Blank extends CanvasElement {
+export class Blank extends CanvasSingleton {
 	public override readonly renderInterval = 100;
 	public override readonly paintInterval = 100;
 
@@ -16,20 +17,8 @@ export class Blank extends CanvasElement {
 		return canvasElement instanceof Blank;
 	}
 
-	protected override inBoundaries(): true {
-		return true;
-	}
-
-	protected override calibrateElements(): readonly this[] {
-		return [ new Blank() ] as this[];
-	}
-
-	protected override render(): boolean {
-		return true;
-	}
-
-	protected override shouldClearCanvas(): boolean {
-		return false;
+	protected override calibrate(): this {
+		return new Blank() as this;
 	}
 
 	protected override paint(): void {

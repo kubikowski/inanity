@@ -1,15 +1,16 @@
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
+import { CanvasSingleton } from 'src/app/features/background/models/canvas-singleton.model';
 
-export class Grain extends CanvasElement {
+export class Grain extends CanvasSingleton {
 	public override readonly renderInterval = 100;
 	public override readonly paintInterval = 100;
 
 	private constructor(
 		private readonly canvasWidth: number,
 		private readonly canvasHeight: number,
-		private readonly grainSpeed: number,
+		private readonly grainRate: number,
 	) {
 		super();
 	}
@@ -22,22 +23,10 @@ export class Grain extends CanvasElement {
 		return canvasElement instanceof Grain;
 	}
 
-	protected override inBoundaries(): true {
-		return true;
-	}
+	protected override calibrate(canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): this {
+		const grainRate = 0.02 * calibration / maxCalibration;
 
-	protected override calibrateElements(_canvasElements: readonly this[], canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): readonly this[] {
-		const grainSpeed = 0.05 * calibration / maxCalibration;
-
-		return [ new Grain(canvasWidth, canvasHeight, grainSpeed) ] as this[];
-	}
-
-	protected override render(): boolean {
-		return true;
-	}
-
-	protected override shouldClearCanvas(): boolean {
-		return false;
+		return new Grain(canvasWidth, canvasHeight, grainRate) as this;
 	}
 
 	protected override paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
@@ -45,7 +34,7 @@ export class Grain extends CanvasElement {
 
 		for (let y = 0; y < this.canvasHeight; y++) {
 			for (let x = 0; x < this.canvasWidth; x++) {
-				if (Math.random() > this.grainSpeed) continue;
+				if (Math.random() > this.grainRate) continue;
 
 				const colorKey = BaseColorPalette.getRandomKey();
 				context.fillStyle = transparentPalette[colorKey];
