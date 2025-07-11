@@ -105,10 +105,8 @@ export class Bubble extends CanvasElement {
 		this.y += this.dy;
 	}
 
-	public override paintElements(renderedElements: ReadonlySet<this>, context: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number, colorPalette: ColorPalette): void {
-		context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-		super.paintElements(renderedElements, context, canvasWidth, canvasHeight, colorPalette);
+	protected override shouldClearCanvas(renderedElements: ReadonlySet<this>): boolean {
+		return renderedElements.size > 0;
 	}
 
 	protected override paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {

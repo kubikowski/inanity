@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, input, viewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
 import { BackgroundType } from 'src/app/features/background/models/background-type.enum';
 import { BackgroundDemoService } from 'src/app/features/background/services/background-demo.service';
 import { BackgroundService } from 'src/app/features/background/services/background.service';
@@ -11,6 +11,7 @@ import { BackgroundService } from 'src/app/features/background/services/backgrou
 	providers: [ BackgroundDemoService ],
 	standalone: true,
 	host: {
+		'[class.selected]': 'selected()',
 		'(click)': 'selectBackgroundType()',
 	},
 })
@@ -20,6 +21,9 @@ export class BackgroundDemoComponent implements AfterViewInit {
 
 	private readonly canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
 	public readonly type = input.required<BackgroundType>();
+
+	private readonly selectedType = this.backgroundService.type;
+	public readonly selected = computed(() => this.type() === this.selectedType());
 
 	public ngAfterViewInit(): void {
 		const { width, height } = this.canvas().nativeElement.getBoundingClientRect();
@@ -31,6 +35,6 @@ export class BackgroundDemoComponent implements AfterViewInit {
 	}
 
 	public selectBackgroundType(): void {
-		this.backgroundService.type.set(this.type());
+		this.selectedType.set(this.type());
 	}
 }

@@ -72,14 +72,9 @@ export class Panel extends CanvasElement {
 	}
 
 	protected override calibrateElements(panels: readonly this[], canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): readonly this[] {
-		const panelCalibration = ((maxCalibration - calibration) / maxCalibration);
-		const panelSize = Panel.minPanelSize + Math.floor(panelCalibration * (Panel.maxPanelSize - Panel.minPanelSize));
-
-		const width = Math.ceil(canvasWidth / panelSize);
-		const height = Math.ceil(canvasHeight / panelSize);
-
-		const xOffset = (canvasWidth % panelSize > 0) ? (panelSize - (canvasWidth % panelSize)) / 2 : 0;
-		const yOffset = (canvasHeight % panelSize > 0) ? (panelSize - (canvasHeight % panelSize)) / 2 : 0;
+		const panelSize = this.getPanelSize(calibration, maxCalibration);
+		const [ width, height ] = this.getPanelDimensions(panelSize, canvasWidth, canvasHeight);
+		const [ xOffset, yOffset ] = this.getPanelOffsets(panelSize, canvasWidth, canvasHeight);
 
 		if (panels.length !== width * height) {
 			return Array
@@ -94,6 +89,25 @@ export class Panel extends CanvasElement {
 		}
 	}
 
+	protected getPanelSize(calibration: number, maxCalibration: number): number {
+		const panelCalibration = ((maxCalibration - calibration) / maxCalibration);
+		return Panel.minPanelSize + Math.floor(panelCalibration * (Panel.maxPanelSize - Panel.minPanelSize));
+	}
+
+	protected getPanelDimensions(panelSize: number, canvasWidth: number, canvasHeight: number): [ number, number ] {
+		const width = Math.ceil(canvasWidth / panelSize);
+		const height = Math.ceil(canvasHeight / panelSize);
+
+		return [ width, height ];
+	}
+
+	protected getPanelOffsets(panelSize: number, canvasWidth: number, canvasHeight: number): [ number, number ] {
+		const xOffset = (canvasWidth % panelSize > 0) ? (panelSize - (canvasWidth % panelSize)) / 2 : 0;
+		const yOffset = (canvasHeight % panelSize > 0) ? (panelSize - (canvasHeight % panelSize)) / 2 : 0;
+
+		return [ xOffset, yOffset ];
+	}
+
 	protected override render(_canvasWidth: number, _canvasHeight: number, [ x, y ]: [ number, number ]): boolean {
 		const mouseDX = Math.abs((this.x * this.panelSize) - x);
 		const mouseDY = Math.abs((this.y * this.panelSize) - y);
@@ -104,6 +118,17 @@ export class Panel extends CanvasElement {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	protected override shouldClearCanvas(renderedElements: ReadonlySet<this>, canvasWidth: number, canvasHeight: number): boolean {
+		const reference = renderedElements.values().next().value as this ?? null;
+
+		if (reference === null) {
+			return false;
+		} else {
+			const [ width, height ] = this.getPanelDimensions(reference.panelSize, canvasWidth, canvasHeight);
+			return renderedElements.size === width * height;
 		}
 	}
 

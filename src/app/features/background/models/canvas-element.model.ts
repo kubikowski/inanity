@@ -50,12 +50,21 @@ export abstract class CanvasElement {
 
 
 	// region element painting
-	public paintElements(renderedElements: ReadonlySet<this>, context: CanvasRenderingContext2D, _canvasWidth: number, _canvasHeight: number, colorPalette: ColorPalette): void {
+	public paintElements(renderedElements: ReadonlySet<this>, context: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number, colorPalette: ColorPalette): void {
+		if (this.shouldClearCanvas(renderedElements, canvasWidth, canvasHeight)) {
+			this.clearCanvas(context, canvasWidth, canvasHeight);
+		}
+
 		for (const canvasElement of renderedElements) {
 			canvasElement.paint(context, colorPalette);
 		}
 	}
 
+	protected clearCanvas(context: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number): void {
+		context.clearRect(0, 0, canvasWidth, canvasHeight);
+	}
+
+	protected abstract shouldClearCanvas(renderedElements: ReadonlySet<this>, canvasWidth: number, canvasHeight: number): boolean;
 	protected abstract paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void;
 	// endregion element painting
 
