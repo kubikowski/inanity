@@ -26,11 +26,7 @@ export class BackgroundDemoComponent implements AfterViewInit {
 	public readonly selected = computed(() => this.type() === this.selectedType());
 
 	public ngAfterViewInit(): void {
-		const { width, height } = this.canvas().nativeElement.getBoundingClientRect();
-		this.backgroundDemoService.rawCanvasWidth.set(width * 2.5);
-		this.backgroundDemoService.rawCanvasHeight.set(height * 2.5);
 		this.backgroundDemoService.backgroundType.set(this.type());
-
 		this.backgroundDemoService.initialize(this.canvas().nativeElement);
 	}
 

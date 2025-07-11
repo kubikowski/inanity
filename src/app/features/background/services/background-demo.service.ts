@@ -5,13 +5,13 @@ import { BackgroundService } from 'src/app/features/background/services/backgrou
 
 @Injectable()
 export class BackgroundDemoService extends BackgroundCanvasService {
-	public override readonly rawCanvasWidth = signal(0);
-	public override readonly rawCanvasHeight = signal(0);
+	protected override readonly rawCanvasWidth = computed(() => (this.canvas()?.getBoundingClientRect()?.width ?? 0) * 2.5);
+	protected override readonly rawCanvasHeight = computed(() => (this.canvas()?.getBoundingClientRect()?.height ?? 0) * 2.5);
 
-	protected override readonly mousePosition = computed<[ number, number ]>(() => [ - this.rawCanvasWidth(), - this.rawCanvasHeight() ]);
+	protected override readonly mousePosition = computed<[ number, number ]>(() => [ this.canvasWidth() / 2, this.canvasHeight() / 2 ]);
 
 	protected override readonly calibration = computed(() => this.backgroundService.amount() / 2);
-	protected override readonly maxCalibration = signal(BackgroundService.maxCalibration / 2);
+	protected override readonly maxCalibration = signal(BackgroundService.maxCalibration / 2).asReadonly();
 
 	public override readonly backgroundType = signal(BackgroundType.BUBBLES);
 }

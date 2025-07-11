@@ -23,7 +23,7 @@ export class BackgroundCanvasService extends CanvasService {
 	});
 
 	protected readonly calibration = this.backgroundService.amount.asReadonly();
-	protected readonly maxCalibration = signal(BackgroundService.maxCalibration);
+	protected readonly maxCalibration = signal(BackgroundService.maxCalibration).asReadonly();
 
 	protected readonly backgroundType = this.backgroundService.type;
 	private readonly referenceElement = computed(() => BackgroundTypeUtil.getReference(this.backgroundType()));
