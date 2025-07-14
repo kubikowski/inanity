@@ -23,6 +23,15 @@
 		border-radius: 0.5rem;
 	}
 
+	.background-demo-title {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		font-family: var(--monospace-font);
+		font-weight: var(--weight-semibold);
+		text-align: center;
+	}
+
 	.background-demo-border {
 		position: absolute;
 		top: 0;

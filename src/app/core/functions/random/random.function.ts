@@ -19,6 +19,11 @@ export class Random {
 		return new Random(BigInt(seed));
 	}
 
+	// unseeded random, chosen by rigged maths
+	public static unseeded(): Random {
+		return new Random(BigInt(Math.floor(Math.random() * Number(Random.m))));
+	}
+
 	// next 32-bit integer
 	public int(): number {
 		this.state = (Random.a * this.state + Random.c) % Random.m;
@@ -30,8 +35,13 @@ export class Random {
 		return this.int() / (Number(Random.m) - 1);
 	}
 
+	// next boolean
+	public bool(threshold = 0.5): boolean {
+		return this.float() > threshold;
+	}
+
 	// uniform distribution
-	public uniform(min: number, max: number): number {
+	public uniform(max: number, min = 0): number {
 		return Math.floor(this.float() * (max - min) + min);
 	}
 
