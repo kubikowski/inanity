@@ -1,4 +1,4 @@
-import { Random } from 'src/app/core/functions/number/random.function';
+import { Random } from 'src/app/core/functions/random/random.function';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-node-type.enum';
 import { SnekGridNode } from 'src/app/features/snek/models/grid/snek-grid-node.model';
@@ -73,7 +73,7 @@ export class SnekGame {
 	}
 
 	private findBlankGridNode(): SnekGridNode {
-		const randomIndex = this.#random.uniform(0, this.#width * this.#height);
+		const randomIndex = this.#random.uniform(this.#width * this.#height);
 		const height = Math.floor(randomIndex / this.#width);
 		const width = randomIndex % this.#width;
 
