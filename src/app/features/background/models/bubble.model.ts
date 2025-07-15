@@ -110,11 +110,19 @@ export class Bubble extends CanvasElement {
 		return renderedElements.size > 0;
 	}
 
-	protected override paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
+	public override getFillPalette(colorPalette: ColorPalette): ColorPalette {
+		return colorPalette.transparent(0.5);
+	}
+
+	public override getStrokePalette(colorPalette: ColorPalette): ColorPalette {
+		return colorPalette.transparent(0.35);
+	}
+
+	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette, strokePalette: ColorPalette): void {
 		context.beginPath();
 		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-		context.fillStyle = colorPalette[this.colorKey];
-		context.strokeStyle = colorPalette[this.colorKey];
+		context.fillStyle = fillPalette[this.colorKey];
+		context.strokeStyle = strokePalette[this.colorKey];
 		context.stroke();
 		context.fill();
 	}

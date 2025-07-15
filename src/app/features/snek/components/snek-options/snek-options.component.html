@@ -1,8 +1,10 @@
 <snek-score [score]="score()" tooltip="Score" icon="spa"/>
 <snek-score [score]="highScore()" tooltip="High Score" icon="star"/>
 
-<mat-slide-toggle color="primary"
-				  [formControl]="solverEnabledControl"
-				  (change)="toggleSolverEnabled()">
-	Auto Solver
-</mat-slide-toggle>
+<span class="snek-control">
+	<mat-slide-toggle color="primary"
+					  [formControl]="solverEnabledControl"
+					  (change)="toggleSolverEnabled()">
+		Auto Solver
+	</mat-slide-toggle>
+</span>

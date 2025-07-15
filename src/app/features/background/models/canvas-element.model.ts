@@ -48,12 +48,15 @@ export abstract class CanvasElement {
 
 	// region element painting
 	public paintElements(renderedElements: ReadonlySet<this>, context: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number, colorPalette: ColorPalette): void {
+		const fillPalette = this.getFillPalette(colorPalette);
+		const strokePalette = this.getStrokePalette(colorPalette);
+
 		if (this.shouldClearCanvas(renderedElements, canvasWidth, canvasHeight)) {
 			this.clearCanvas(context, canvasWidth, canvasHeight);
 		}
 
 		for (const canvasElement of renderedElements) {
-			canvasElement.paint(context, colorPalette);
+			canvasElement.paint(context, fillPalette, strokePalette);
 		}
 	}
 
@@ -61,7 +64,15 @@ export abstract class CanvasElement {
 		context.clearRect(0, 0, canvasWidth, canvasHeight);
 	}
 
+	protected getFillPalette(colorPalette: ColorPalette): ColorPalette {
+		return colorPalette;
+	}
+
+	protected getStrokePalette(colorPalette: ColorPalette): ColorPalette {
+		return colorPalette;
+	}
+
 	protected abstract shouldClearCanvas(renderedElements: ReadonlySet<this>, canvasWidth: number, canvasHeight: number): boolean;
-	protected abstract paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void;
+	protected abstract paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette, strokePalette: ColorPalette): void;
 	// endregion element painting
 }
