@@ -1,6 +1,5 @@
 import { BaseColorPalette, ColorKey } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
-import { Color } from 'src/app/core/colors/models/color.model';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 
@@ -133,15 +132,20 @@ export class Panel extends CanvasElement {
 		}
 	}
 
-	protected override paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
-		const fillColor = Color.fromString(colorPalette[this.colorKey]).withAlpha(0.5).toString();
-		const borderColor = Color.fromString(colorPalette[this.colorKey]).withAlpha(0.2).toString();
+	public override getFillPalette(colorPalette: ColorPalette): ColorPalette {
+		return colorPalette.transparent(0.5);
+	}
 
+	public override getStrokePalette(colorPalette: ColorPalette): ColorPalette {
+		return colorPalette.transparent(0.35);
+	}
+
+	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette, strokePalette: ColorPalette): void {
 		context.beginPath();
 		context.clearRect(...this.clearRectArguments);
 		context.roundRect(...this.roundRectArguments);
-		context.fillStyle = fillColor;
-		context.strokeStyle = borderColor;
+		context.fillStyle = fillPalette[this.colorKey];
+		context.strokeStyle = strokePalette[this.colorKey];
 		context.stroke();
 		context.fill();
 	}

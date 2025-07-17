@@ -46,8 +46,11 @@ export class Grain extends CanvasSingleton {
 		return shuffle(grainOffsets);
 	}
 
-	protected override paint(context: CanvasRenderingContext2D, colorPalette: ColorPalette): void {
-		const transparentPalette = colorPalette.transparent(0.35);
+	protected override getFillPalette(colorPalette: ColorPalette): ColorPalette {
+		return colorPalette.transparent(0.35);
+	}
+
+	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette): void {
 		const [ rows, columns ] = this.getOffsetGrid();
 
 		for (const y of rows) {
@@ -55,7 +58,7 @@ export class Grain extends CanvasSingleton {
 				if (Math.random() > this.grainRate) continue;
 
 				const colorKey = BaseColorPalette.getRandomKey();
-				context.fillStyle = transparentPalette[colorKey];
+				context.fillStyle = fillPalette[colorKey];
 				context.clearRect(x, y, 1, 1);
 				context.fillRect(x, y, 1, 1);
 			}
