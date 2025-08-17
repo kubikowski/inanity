@@ -1,6 +1,6 @@
 {
   "name": "inanity",
-  "version": "0.12.3",
+  "version": "0.12.4",
   "scripts": {
     "ng": "ng",
     "prebuild": "./src/scripts/import_content.sh",
