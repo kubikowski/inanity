@@ -1,11 +1,14 @@
-import { effect, inject, Injectable } from '@angular/core';
-import { SnekAudio } from 'src/app/features/snek/models/audio/snek-audio.enum';
+import { effect, inject, Injectable, isDevMode } from '@angular/core';
+import { SnekSoundEffect, SnekSoundEffectUtil } from 'src/app/features/snek/models/audio/snek-sound-effect.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 
 @Injectable()
 export class SnekAudioService {
 	private readonly snekStateService = inject(SnekStateService);
 
+	/**
+	 * TODO: add a soundtrack while we're at it.
+	 */
 	private readonly soundEffects = this.initializeSoundEffects();
 
 	public constructor() {
@@ -23,34 +26,45 @@ export class SnekAudioService {
 		});
 	}
 
-	private initializeSoundEffects(): ReadonlyMap<SnekAudio, HTMLAudioElement> {
-		const soundEffects = new Map<SnekAudio, HTMLAudioElement>();
+	private initializeSoundEffects(): ReadonlyMap<SnekSoundEffect, HTMLAudioElement> {
+		const soundEffects = new Map<SnekSoundEffect, HTMLAudioElement>();
 
 		console.info('Snek Audio is currently disabled for copyright purposes, until I can produce custom audio tracks for the game.');
-
-		// for (const soundEffectName of Object.values(SnekAudio)) {
-		// 	const soundEffect = new Audio(`assets/audio/snek/${ soundEffectName }.wav`);
-		// 	soundEffects.set(soundEffectName, soundEffect);
-		// 	soundEffect.load();
-		// }
+		if (isDevMode()) {
+			for (const snekSoundEffect of Object.values(SnekSoundEffect)) {
+				soundEffects.set(snekSoundEffect, this.initializeSoundEffect(snekSoundEffect));
+			}
+		}
 
 		return soundEffects;
 	}
 
-	private async scoreEvent(score: number): Promise<void> {
-		if (score !== 0) {
-			const soundEffectName = (score % 10 === 0)
-				? SnekAudio.SCORE_MEDIUM : SnekAudio.SCORE_SMALL;
+	/**
+	 * TODO: there is a whole other world of web audio available
+	 * https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
+	 */
+	private initializeSoundEffect(snekSoundEffect: SnekSoundEffect): HTMLAudioElement {
+		const fileName = SnekSoundEffectUtil.getFileName(snekSoundEffect);
+		const soundEffect = new Audio(`assets/audio/snek/${ fileName }.wav`);
+		soundEffect.volume = 0.5;
+		soundEffect.preload = 'auto';
+		soundEffect.load();
+		return soundEffect;
+	}
 
-			await this.playSoundEffect(soundEffectName);
+	private async scoreEvent(score: number): Promise<void> {
+		const snekSoundEffect = SnekSoundEffectUtil.getScoreEffect(score);
+
+		if (snekSoundEffect !== null) {
+			await this.playSoundEffect(snekSoundEffect);
 		}
 	}
 
 	private async gameOverEvent(_gameOverMessage: string): Promise<void> {
-		await this.playSoundEffect(SnekAudio.GAME_OVER);
+		await this.playSoundEffect(SnekSoundEffect.GAME_OVER);
 	}
 
-	private async playSoundEffect(soundEffectName: SnekAudio): Promise<void> {
-		await this.soundEffects.get(soundEffectName)?.play();
+	private async playSoundEffect(snekSoundEffect: SnekSoundEffect): Promise<void> {
+		await this.soundEffects.get(snekSoundEffect)?.play();
 	}
 }
