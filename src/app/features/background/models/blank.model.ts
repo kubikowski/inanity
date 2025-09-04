@@ -2,8 +2,8 @@ import { CanvasElement } from 'src/app/features/background/models/canvas-element
 import { CanvasSingleton } from 'src/app/features/background/models/canvas-singleton.model';
 
 export class Blank extends CanvasSingleton {
-	public override readonly renderInterval = 1000;
-	public override readonly paintInterval = 1000;
+	public override readonly renderInterval = 0;
+	public override readonly paintInterval = 0;
 
 	private constructor() {
 		super();
