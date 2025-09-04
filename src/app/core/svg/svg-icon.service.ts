@@ -5,6 +5,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ErrorEmission, ignoreError } from 'src/app/core/functions/rxjs/ignore-error.function';
 import { ExternalSvgIcon } from 'src/app/core/svg/external-svg-icon.enum';
+import { HandIconUtil } from 'src/app/core/svg/hand-icon.enum';
 import { InternalSvgIcon } from 'src/app/core/svg/internal-svg-icon.enum';
 
 @Injectable({ providedIn: 'root' })
@@ -15,6 +16,7 @@ export class SvgIconService {
 		private readonly domSanitizer: DomSanitizer,
 	) {
 		this.registerInternalIcons(InternalSvgIcon);
+		this.registerInternalIcons(HandIconUtil.registry);
 		this.registerIcons(ExternalSvgIcon);
 	}
 

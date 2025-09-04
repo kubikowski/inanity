@@ -36,6 +36,7 @@ export class AnimationFrameService implements OnDestroy {
 
 	public onAnimationInterval(interval: Signal<number>): Signal<DOMHighResTimeStamp> {
 		return stateful(untracked(this.onAnimationFrame), lastFrame => {
+			if (interval() === 0) return lastFrame;
 			const currentFrame = this.onAnimationFrame();
 
 			return (currentFrame - lastFrame >= interval())
