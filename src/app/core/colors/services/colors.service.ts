@@ -1,11 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { computed, effect, inject, Injectable, RendererFactory2, RendererStyleFlags2, signal } from '@angular/core';
+import { ColorPaletteUtil } from 'src/app/core/colors/models/color-palettes/color-palette-util.model';
+import { ColorThemeUtil } from 'src/app/core/colors/models/color-themes/color-theme-util.model';
 import { BaseColorPalette } from '../models/color-palettes/base-color-palette.model';
 import { ColorPalette } from '../models/color-palettes/color-palette.model';
-import { BluePalette, ColorPalettes } from '../models/color-palettes/color-palettes.constant';
 import { BaseColorTheme } from '../models/color-themes/base-color-theme.model';
 import { ColorTheme } from '../models/color-themes/color-theme.model';
-import { ColorThemes, PaperTheme } from '../models/color-themes/color-themes.constant';
 
 @Injectable({ providedIn: 'root' })
 export class ColorsService {
@@ -13,9 +13,6 @@ export class ColorsService {
 	private readonly body = this.document.body;
 	private readonly element = this.document.documentElement;
 	private readonly renderer = inject(RendererFactory2).createRenderer(this.body, null);
-
-	private static readonly DEFAULT_THEME = PaperTheme;
-	private static readonly DEFAULT_PALETTE = BluePalette;
 
 	public readonly theme = signal(ColorsService.localStorageTheme);
 	public readonly palette = signal(ColorsService.localStoragePalette);
@@ -58,8 +55,7 @@ export class ColorsService {
 	private static get localStorageTheme(): ColorTheme {
 		const themeName = localStorage.getItem('theme');
 
-		return ColorThemes.find(colorTheme => colorTheme.themeName === themeName)
-			?? ColorsService.DEFAULT_THEME;
+		return ColorThemeUtil.named(themeName);
 	}
 
 	private static set localStorageTheme(theme: ColorTheme) {
@@ -67,7 +63,7 @@ export class ColorsService {
 	}
 
 	private set documentBodyThemeClass(theme: ColorTheme) {
-		ColorThemes.forEach(colorTheme =>
+		ColorThemeUtil.all.forEach(colorTheme =>
 			this.renderer.removeClass(this.body, `${ colorTheme.prefers }-theme`));
 
 		this.renderer.addClass(this.body, `${ theme.prefers }-theme`);
@@ -89,8 +85,7 @@ export class ColorsService {
 	private static get localStoragePalette(): ColorPalette {
 		const paletteName = localStorage.getItem('palette');
 
-		return ColorPalettes.find(colorPalette => colorPalette.paletteName === paletteName)
-			?? ColorsService.DEFAULT_PALETTE;
+		return ColorPaletteUtil.named(paletteName);
 	}
 
 	private static set localStoragePalette(palette: ColorPalette) {

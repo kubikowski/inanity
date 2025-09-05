@@ -98,12 +98,3 @@ export const TanPalette = new ColorPalette(
 	'tan-palette',
 	'Clay',
 );
-
-export const ColorPalettes = [
-	BluePalette,
-	GreenPalette,
-	PurplePalette,
-	PinkPalette,
-	RedPalette,
-	TanPalette,
-] as const;

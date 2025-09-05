@@ -52,10 +52,3 @@ export const DarkerTheme = new ColorTheme(
 	'darker-theme',
 	'Darker',
 );
-
-export const ColorThemes = [
-	LightTheme,
-	PaperTheme,
-	DarkTheme,
-	DarkerTheme,
-] as const;

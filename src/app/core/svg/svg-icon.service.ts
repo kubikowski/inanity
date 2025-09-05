@@ -16,7 +16,7 @@ export class SvgIconService {
 		private readonly domSanitizer: DomSanitizer,
 	) {
 		this.registerInternalIcons(InternalSvgIcon);
-		this.registerInternalIcons(HandIconUtil.registry);
+		this.registerInternalIcons(HandIconUtil.registry, HandIconUtil.namespace);
 		this.registerIcons(ExternalSvgIcon);
 	}
 
