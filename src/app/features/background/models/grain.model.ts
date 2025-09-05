@@ -1,10 +1,20 @@
+import { computed, signal } from '@angular/core';
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
+import { ColorPaletteUtil } from 'src/app/core/colors/models/color-palettes/color-palette-util.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { shuffle } from 'src/app/core/functions/random/shuffle.function';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { CanvasSingleton } from 'src/app/features/background/models/canvas-singleton.model';
 
+interface SvgPointTransform {
+	readonly x: (x: number) => number;
+	readonly y: (y: number) => number;
+}
+
 export class Grain extends CanvasSingleton {
+	public static readonly svgOverlay = signal<SVGPathElement | null>(null);
+	public readonly svgOverlayTransform = computed(() => this.getOverlayTransforms(Grain.svgOverlay()));
+
 	public override readonly renderInterval = 40;
 	public override readonly paintInterval = 40;
 
@@ -50,7 +60,11 @@ export class Grain extends CanvasSingleton {
 		return colorPalette.transparent(0.35);
 	}
 
-	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette): void {
+	protected override getStrokePalette(colorPalette: ColorPalette): ColorPalette {
+		return ColorPaletteUtil.similar(colorPalette.paletteName).transparent(0.35);
+	}
+
+	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette, strokePalette: ColorPalette): void {
 		const [ rows, columns ] = this.getOffsetGrid();
 
 		for (const y of rows) {
@@ -58,7 +72,10 @@ export class Grain extends CanvasSingleton {
 				if (Math.random() > this.grainRate) continue;
 
 				const colorKey = BaseColorPalette.getRandomKey();
-				context.fillStyle = fillPalette[colorKey];
+				const pointPalette = this.isPointInSvgOverlay(x, y)
+					? strokePalette : fillPalette;
+
+				context.fillStyle = pointPalette[colorKey];
 				context.clearRect(x, y, 1, 1);
 				context.fillRect(x, y, 1, 1);
 			}
@@ -91,5 +108,51 @@ export class Grain extends CanvasSingleton {
 		} else {
 			throw new Error('Grain offsets are empty.');
 		}
+	}
+
+	/**
+	 * icon placement:
+	 * ▛▀▀▀▀▀▀▀▀▀▀▜
+	 * ▌          ▐
+	 * ▌ xx       ▐
+	 * ▌ xx       ▐
+	 * ▌          ▐
+	 * ▌          ▐
+	 * ▙▄▄▄▄▄▄▄▄▄▄▟
+	 */
+	private getOverlayTransforms(svgOverlay: SVGPathElement | null): SvgPointTransform {
+		const { width, height } = Grain.getSvgLocalCoordinateSystem(svgOverlay);
+
+		const xOffset = this.canvasWidth / 10;
+		const yOffset = this.canvasHeight / 5;
+
+		const xScale = (width / this.canvasWidth) * (5 / 2);
+		const yScale = (height / this.canvasHeight) * (5 / 2);
+		const scale = Math.max(xScale, yScale);
+
+		return {
+			x: (x: number) => (x - xOffset) * scale,
+			y: (y: number) => (y - yOffset) * scale,
+		};
+	}
+
+	private static getSvgLocalCoordinateSystem(svgOverlay: SVGPathElement | null): { width: number, height: number } {
+		const svgViewportElement = svgOverlay?.viewportElement ?? null;
+
+		return (svgViewportElement instanceof SVGSVGElement)
+			? svgViewportElement.viewBox.baseVal
+			: { width: 0, height: 0 };
+	}
+
+	private isPointInSvgOverlay(x: number, y: number): boolean {
+		const svgOverlay = Grain.svgOverlay();
+		const transform = this.svgOverlayTransform();
+
+		const localCoordinatePoint = {
+			x: transform.x(x),
+			y: transform.y(y),
+		};
+
+		return svgOverlay?.isPointInFill(localCoordinatePoint) ?? false;
 	}
 }
