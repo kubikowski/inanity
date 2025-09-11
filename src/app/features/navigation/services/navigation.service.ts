@@ -24,7 +24,7 @@ export class NavigationService {
 		this.sidenav = sidenav;
 	}
 
-	public toggle(): void {
-		this.sidenav?.toggle();
+	public async toggle(): Promise<void> {
+		await this.sidenav?.toggle();
 	}
 }

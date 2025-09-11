@@ -24,7 +24,10 @@ export class FeatureFlagGuard implements CanActivate, CanActivateChild {
 	private hasPermission(hasFeatureFlag: boolean, url: string): Observable<boolean> {
 		return FeatureFlagGuard.hasPermission(hasFeatureFlag, url)
 			.pipe(tap(hasPermission => {
-				if (!hasPermission) this.router.navigate([ '/gottem' ]);
+				if (!hasPermission) {
+					this.router.navigate([ '/gottem' ])
+						.catch(console.error);
+				}
 			}));
 	}
 

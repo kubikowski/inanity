@@ -12,16 +12,18 @@ export class SnekAudioService {
 	private readonly soundEffects = this.initializeSoundEffects();
 
 	public constructor() {
-		effect(async () => {
+		effect(() => {
 			const score = this.snekStateService.score();
-			await this.scoreEvent(score);
+			this.scoreEvent(score)
+				.catch(console.error);
 		});
 
-		effect(async () => {
+		effect(() => {
 			const gameOverMessage = this.snekStateService.gameOver();
 
 			if (gameOverMessage !== null) {
-				await this.gameOverEvent(gameOverMessage);
+				this.gameOverEvent(gameOverMessage)
+					.catch(console.error);
 			}
 		});
 	}

@@ -19,8 +19,8 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 export class HeaderComponent {
 	private readonly navigationService = inject(NavigationService);
 
-	public toggleSidenav(event: Event): void {
+	public async toggleSidenav(event: Event): Promise<void> {
 		(event.currentTarget as HTMLElement).blur();
-		this.navigationService.toggle();
+		await this.navigationService.toggle();
 	}
 }

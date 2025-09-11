@@ -21,8 +21,8 @@ export class SidebarItemComponent {
 
 	public readonly navigationItem = input.required<NavigationItem>();
 
-	public toggleSidenav(event: Event): void {
+	public async toggleSidenav(event: Event): Promise<void> {
 		(event.currentTarget as HTMLElement).blur();
-		this.navigationService.toggle();
+		await this.navigationService.toggle();
 	}
 }

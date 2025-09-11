@@ -93,11 +93,11 @@
 				"plugin:@typescript-eslint/recommended-requiring-type-checking"
 			],
 			"plugins": [
-				"@typescript-eslint",
+				"@stylistic",
 				"import"
 			],
 			"rules": {
-				"@typescript-eslint/comma-dangle": [
+				"@stylistic/comma-dangle": [
 					"error",
 					"always-multiline"
 				],
@@ -107,7 +107,7 @@
 						"accessibility": "explicit"
 					}
 				],
-				"@typescript-eslint/member-delimiter-style": [
+				"@stylistic/member-delimiter-style": [
 					"error",
 					{
 						"multiline": {
@@ -297,9 +297,9 @@
 					}
 				],
 				"@typescript-eslint/no-explicit-any": "error",
-				"@typescript-eslint/no-floating-promises": "off",
-				"@typescript-eslint/no-misused-promises": "off",
-				"@typescript-eslint/no-non-null-assertion": "off",
+				"@stylistic/no-floating-promises": "off",
+				"@stylistic/no-misused-promises": "off",
+				"@stylistic/no-non-null-assertion": "off",
 				"@typescript-eslint/no-shadow": "error",
 				"array-bracket-spacing": [
 					"error",
@@ -363,7 +363,7 @@
 					"error",
 					"single"
 				],
-				"semi": "error"
+				"@stylistic/semi": "error"
 			}
 		},
 		{
