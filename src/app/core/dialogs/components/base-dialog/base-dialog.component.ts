@@ -9,7 +9,6 @@ import { BaseDialogHeaderComponent } from './base-dialog-header/base-dialog-head
 	styleUrl: 'base-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	standalone: true,
 	imports: [
 		BaseDialogFooterComponent,
 		BaseDialogHeaderComponent,

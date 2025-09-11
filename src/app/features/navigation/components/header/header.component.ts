@@ -11,7 +11,6 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 	templateUrl: 'header.component.html',
 	styleUrl: 'header.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatIcon, MatIconButton, MatToolbar,
 		DyslexicTextComponent, SettingsComponent,

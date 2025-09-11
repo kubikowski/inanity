@@ -15,12 +15,15 @@
 			"prefix": "app",
 			"architect": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:browser",
+					"builder": "@angular-devkit/build-angular:application",
 					"options": {
-						"outputPath": "dist/inanity",
+						"outputPath": {
+							"base": "dist/inanity"
+						},
 						"index": "src/index.html",
-						"main": "src/main.ts",
-						"polyfills": "src/polyfills.ts",
+						"polyfills": [
+							"src/polyfills.ts"
+						],
 						"tsConfig": "tsconfig.app.json",
 						"preserveSymlinks": true,
 						"assets": [
@@ -37,12 +40,16 @@
 							"src/styles.scss"
 						],
 						"scripts": [],
-						"vendorChunk": true,
 						"extractLicenses": false,
-						"buildOptimizer": false,
 						"sourceMap": true,
 						"optimization": false,
-						"namedChunks": true
+						"namedChunks": true,
+						"browser": "src/main.ts",
+						"stylePreprocessorOptions": {
+							"includePaths": [
+								"."
+							]
+						}
 					},
 					"configurations": {
 						"production": {
@@ -56,8 +63,6 @@
 							"outputHashing": "all",
 							"namedChunks": true,
 							"extractLicenses": true,
-							"vendorChunk": false,
-							"buildOptimizer": true,
 							"budgets": [
 								{
 									"type": "initial",
@@ -99,7 +104,9 @@
 				"test": {
 					"builder": "@angular-devkit/build-angular:jest",
 					"options": {
-						"polyfills": [ "src/polyfills.ts" ],
+						"polyfills": [
+							"src/polyfills.ts"
+						],
 						"tsConfig": "tsconfig.spec.json"
 					}
 				},

@@ -7,7 +7,6 @@ import { MarkdownComponent } from 'src/app/features/markdown/markdown.component'
 	template: '<markdown url="https://unpkg.com/set-utilities@latest/README.md"/>',
 	styleUrl: 'set-utilities-page.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ MarkdownComponent ],
 })
 export class SetUtilitiesPageComponent extends Page { }

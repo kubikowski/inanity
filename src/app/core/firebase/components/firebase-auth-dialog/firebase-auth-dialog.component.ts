@@ -11,7 +11,6 @@ import { FirebaseService } from 'src/app/core/firebase/services/firebase.service
 	templateUrl: 'firebase-auth-dialog.component.html',
 	styleUrl: 'firebase-ui-auth-6.0.2.modified.css',
 	encapsulation: ViewEncapsulation.None,
-	standalone: true,
 	imports: [ BaseDialogComponent ],
 })
 export class FirebaseAuthDialogComponent extends DialogComponent implements AfterViewInit {

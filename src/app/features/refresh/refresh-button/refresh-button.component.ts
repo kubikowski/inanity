@@ -11,7 +11,6 @@ import { RefreshIconComponent } from 'src/app/features/refresh/refresh-icon/refr
 	templateUrl: 'refresh-button.component.html',
 	styleUrl: 'refresh-button.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ MatIconButton, RefreshIconComponent ],
 	hostDirectives: [ MatTooltip ],
 })

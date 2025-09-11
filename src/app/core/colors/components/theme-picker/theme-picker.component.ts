@@ -8,7 +8,6 @@ import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 	templateUrl: 'theme-picker.component.html',
 	styleUrl: 'theme-picker.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ MatIcon ],
 	host: {
 		'[style.background-color]': 'backgroundColor()',

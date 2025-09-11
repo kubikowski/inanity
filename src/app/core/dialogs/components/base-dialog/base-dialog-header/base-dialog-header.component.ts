@@ -8,7 +8,6 @@ import { DialogHeaderConfiguration } from '../../../models/configuration/dialog-
 	templateUrl: 'base-dialog-header.component.html',
 	styleUrl: 'base-dialog-header.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ MatIcon, MatTooltip ],
 })
 export class BaseDialogHeaderComponent {

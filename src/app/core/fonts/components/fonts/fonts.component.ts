@@ -7,7 +7,6 @@ import { Typefaces } from '../../models/typefaces.constant';
 	templateUrl: 'fonts.component.html',
 	styleUrl: 'fonts.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ TypefaceComponent ],
 })
 export class FontsComponent {

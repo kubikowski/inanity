@@ -18,7 +18,6 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	templateUrl: 'background-dialog.component.html',
 	styleUrl: 'background-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatCheckbox, MatSlider, MatSliderThumb, ReactiveFormsModule,
 		BaseDialogComponent, DyslexicTextComponent, BackgroundDemoComponent,

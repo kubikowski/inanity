@@ -20,7 +20,6 @@ import { SubSink } from 'subsink';
 	styleUrl: 'markdown.component.scss',
 	encapsulation: ViewEncapsulation.None,
 	host: { '[innerHTML]': 'markdownHtml()' },
-	standalone: true,
 })
 export class MarkdownComponent implements OnInit, OnDestroy {
 	private readonly http = inject(HttpClient);

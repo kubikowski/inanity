@@ -9,7 +9,6 @@ import { ClockUtil } from 'src/app/features/clock/clock-util.function';
 	selector: 'clock',
 	template: '{{ time() | date: \'shortTime\' }}',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ DatePipe ],
 })
 export class ClockComponent {

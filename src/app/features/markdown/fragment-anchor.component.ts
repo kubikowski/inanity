@@ -7,7 +7,6 @@ import { MatIcon } from '@angular/material/icon';
 	template: '<a mat-icon-button class="fragment-anchor" [href]="link"><mat-icon>double_arrow</mat-icon></a>',
 	styleUrl: 'fragment-anchor.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ MatIcon, MatIconAnchor ],
 })
 export class FragmentAnchorComponent {

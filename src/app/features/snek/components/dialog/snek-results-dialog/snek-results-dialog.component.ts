@@ -10,7 +10,6 @@ import { SnekResults } from 'src/app/features/snek/models/state/snek-results.int
 	templateUrl: 'snek-results-dialog.component.html',
 	styleUrl: 'snek-results-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ BaseDialogComponent ],
 })
 export class SnekResultsDialogComponent extends DialogComponent<SnekResults> {

@@ -9,7 +9,6 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	`,
 	styleUrl: 'background-page.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ DyslexicTextComponent ],
 })
 export class BackgroundPageComponent extends Page { }

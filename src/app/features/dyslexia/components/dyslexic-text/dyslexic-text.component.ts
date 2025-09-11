@@ -12,7 +12,6 @@ import { SubSink } from 'subsink';
 	template: '',
 	host: { '[innerHTML]': 'outputText()' },
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 })
 export class DyslexicTextComponent {
 	private readonly dyslexicTextService = inject(DyslexicTextService);

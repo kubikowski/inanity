@@ -34,7 +34,6 @@ import { SnekStatisticsService } from 'src/app/features/snek/services/peripheral
 		SnekSolverService,
 		SnekStatisticsService,
 	],
-	standalone: true,
 	imports: [ SnekGridComponent, SnekOptionsComponent ],
 })
 export class SnekComponent {

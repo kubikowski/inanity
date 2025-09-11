@@ -11,7 +11,6 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 	templateUrl: 'sidebar-item.component.html',
 	styleUrl: 'sidebar-item.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		RouterLink, RouterLinkActive, MatCardModule, MatIcon,
 		DyslexicTextComponent,

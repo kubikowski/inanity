@@ -9,7 +9,6 @@ import { SlideUpAnimation } from 'src/app/core/animations/slide-up.animation';
 	selector: 'snek-score',
 	templateUrl: 'snek-score.component.html',
 	styleUrl: 'snek-score.component.scss',
-	standalone: true,
 	imports: [ MatIcon ],
 	hostDirectives: [ MatTooltip ],
 	animations: [ SlideUpAnimation ],

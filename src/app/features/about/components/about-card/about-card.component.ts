@@ -11,7 +11,6 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	templateUrl: 'about-card.component.html',
 	styleUrl: 'about-card.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatCardModule, DyslexicTextComponent,
 	],

@@ -1,6 +1,5 @@
 import { inject, Injectable, OnDestroy, signal, untracked } from '@angular/core';
-import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
-import { OperatorFunction } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
 import { filter, map, tap } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 
@@ -64,7 +63,7 @@ export class RouterService implements OnDestroy {
 						this.#currentlyNavigating.set(true);
 					}
 				}),
-				filter(event => event instanceof NavigationEnd) as OperatorFunction<Event, NavigationEnd>,
+				filter(event => event instanceof NavigationEnd),
 				tap(event => {
 					this.#previousQueryParams.set(untracked(this.#currentQueryParams));
 					this.#currentQueryParams.set(this.route.snapshot.queryParams);

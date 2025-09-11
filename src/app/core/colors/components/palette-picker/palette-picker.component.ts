@@ -7,7 +7,6 @@ import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-pa
 	templateUrl: 'palette-picker.component.html',
 	styleUrl: 'palette-picker.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ MatIcon ],
 })
 export class PalettePickerComponent {

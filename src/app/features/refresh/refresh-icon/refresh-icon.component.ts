@@ -16,7 +16,6 @@ import { SubSink } from 'subsink';
 	templateUrl: './refresh-icon.component.html',
 	styleUrl: './refresh-icon.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ MatIcon, RefreshClassPipe, RefreshIconPipe ],
 	hostDirectives: [ MatTooltip ],
 })

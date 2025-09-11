@@ -11,7 +11,6 @@ import { BaseDialogFooterButtonComponent } from '../base-dialog-footer-button/ba
 	templateUrl: 'base-dialog-footer.component.html',
 	styleUrl: 'base-dialog-footer.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ BaseDialogFooterButtonComponent ],
 	host: {
 		'[class.has-cancel-button]': 'hasCancelButton()',

@@ -11,12 +11,11 @@ import { SnekComponent } from 'src/app/features/snek/snek.component';
 	templateUrl: 'not-found-page.component.html',
 	styleUrl: 'not-found-page.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatCardModule, MatIcon,
 		DyslexicTextComponent, SnekComponent,
 	],
 })
 export class NotFoundPageComponent extends Page {
-	public readonly HAND_ICON_OK = `${ HandIconUtil.namespace}:${ HandIcon.OK }`;
+	public readonly HAND_ICON_OK = `${ HandIconUtil.namespace }:${ HandIcon.OK }`;
 }

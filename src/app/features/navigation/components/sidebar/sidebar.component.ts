@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
 	templateUrl: 'sidebar.component.html',
 	styleUrl: 'sidebar.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatIcon, MatIconButton, MatIconAnchor, MatToolbar,
 		DyslexicTextComponent, SidebarItemComponent, FontsComponent,

@@ -9,7 +9,6 @@ import { HeaderService } from 'src/app/features/navigation/services/header.servi
 	templateUrl: 'settings.component.html',
 	styleUrl: 'settings.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatIcon, MatIconButton, MatMenu, MatMenuItem, MatMenuTrigger,
 	],
