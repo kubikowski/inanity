@@ -1,4 +1,3 @@
-
 import { computed, inject, Injectable, DOCUMENT } from '@angular/core';
 import { ScreenOrientation } from 'src/app/core/browser/models/screen-orientation.enum';
 import { ScreenService } from 'src/app/core/browser/services/screen.service';
