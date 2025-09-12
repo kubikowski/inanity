@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { effect, inject, Injectable, RendererFactory2, RendererStyleFlags2, signal } from '@angular/core';
+import { DOCUMENT, effect, inject, Injectable, RendererFactory2, RendererStyleFlags2, signal } from '@angular/core';
 import { getTypefaceClassificationCss } from 'src/app/core/fonts/models/typeface-classification.enum';
 import { Typeface } from 'src/app/core/fonts/models/typeface.model';
 import { EB_GARAMOND } from 'src/app/core/fonts/models/typefaces.constant';

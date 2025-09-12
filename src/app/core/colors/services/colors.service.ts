@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { computed, effect, inject, Injectable, RendererFactory2, RendererStyleFlags2, signal } from '@angular/core';
+import { computed, DOCUMENT, effect, inject, Injectable, RendererFactory2, RendererStyleFlags2, signal } from '@angular/core';
 import { ColorPaletteUtil } from 'src/app/core/colors/models/color-palettes/color-palette-util.model';
 import { ColorThemeUtil } from 'src/app/core/colors/models/color-themes/color-theme-util.model';
 import { BaseColorPalette } from '../models/color-palettes/base-color-palette.model';
