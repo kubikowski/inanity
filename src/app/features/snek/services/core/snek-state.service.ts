@@ -1,7 +1,6 @@
 import { computed, effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { timer } from 'rxjs';
-import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
 import { SnekGame } from 'src/app/features/snek/models/state/snek-game.model';
@@ -32,8 +31,8 @@ export class SnekStateService {
 	});
 
 	public constructor() {
-		effect(() => this.initializeGame(), allowWrites);
-		effect(() => this.initializeGameState(), allowWrites);
+		effect(() => this.initializeGame());
+		effect(() => this.initializeGameState());
 		effect(() => this.persistHighScore());
 	}
 

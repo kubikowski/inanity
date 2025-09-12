@@ -5,7 +5,6 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { delayWhen, Observable, of, PartialObserver, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { RefreshState, RefreshStateUtil } from 'src/app/features/refresh/enums/refresh-state.enum';
 import { RefreshClassPipe } from 'src/app/features/refresh/pipes/refresh-class.pipe';
 import { RefreshIconPipe } from 'src/app/features/refresh/pipes/refresh-icon.pipe';
@@ -68,7 +67,7 @@ export class RefreshIconComponent<T> implements OnDestroy {
 			if (typeof doRefresh !== 'undefined') {
 				this.handleClick();
 			}
-		}, allowWrites);
+		});
 	}
 
 	public ngOnDestroy(): void {
