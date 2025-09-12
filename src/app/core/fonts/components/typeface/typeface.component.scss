@@ -2,6 +2,12 @@
 	display: flex;
 	flex-flow: column nowrap;
 
+	> h6 > a {
+		color: inherit;
+		cursor: default;
+		text-decoration: none;
+	}
+
 	> a {
 		color: inherit;
 	}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, OnDestroy, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, model, OnDestroy, signal, untracked } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ThemePalette } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
@@ -39,7 +39,7 @@ export class RefreshIconComponent<T> implements OnDestroy {
 		map(finishedState => RefreshStateUtil.isFinished(finishedState)),
 		delayWhen(finished => finished ? timer(this.debounceTime()) : of(null))));
 
-	public readonly refreshStateOutput = output<RefreshState>({ alias: 'refreshState' });
+	public readonly refreshStateOutput = model<RefreshState>(RefreshState.IDLE, { alias: 'refreshState' });
 	public readonly refreshState = computed<RefreshState>(() => {
 		const nextState = this.nextState();
 		const finished = this.finished();
@@ -58,7 +58,7 @@ export class RefreshIconComponent<T> implements OnDestroy {
 		});
 
 		effect(() => {
-			this.refreshStateOutput.emit(this.refreshState());
+			this.refreshStateOutput.set(this.refreshState());
 		});
 
 		effect(() => {
