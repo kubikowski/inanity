@@ -1,6 +1,6 @@
-import { DOCUMENT } from '@angular/common';
+
 import { HttpClient } from '@angular/common/http';
-import { Component, computed, effect, inject, Injector, input, OnDestroy, OnInit, signal, untracked, ViewEncapsulation } from '@angular/core';
+import { Component, computed, effect, inject, Injector, input, OnDestroy, OnInit, signal, untracked, ViewEncapsulation, DOCUMENT } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { DomSanitizer } from '@angular/platform-browser';
 import hljs from 'highlight.js';

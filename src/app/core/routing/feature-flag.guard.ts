@@ -1,43 +1,27 @@
-import { Injectable, isDevMode } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { inject, isDevMode } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateChildFn, CanActivateFn, Data, GuardResult, RedirectCommand, Router, RouterStateSnapshot } from '@angular/router';
 
-@Injectable({ providedIn: 'root' })
-export class FeatureFlagGuard implements CanActivate, CanActivateChild {
-	public constructor(
-		private readonly router: Router,
-	) { }
-
-	public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-		const hasFeatureFlag = (route.data?.['featureFlag'] as boolean | undefined) ?? false;
-
-		return this.hasPermission(hasFeatureFlag, state.url);
+export abstract class FeatureFlagGuard {
+	public static canActivate(): CanActivateFn {
+		return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => this.hasPermission(route.data, state.url);
 	}
 
-	public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-		const hasFeatureFlag = (childRoute.data?.['featureFlag'] as boolean | undefined) ?? false;
-
-		return this.hasPermission(hasFeatureFlag, state.url);
+	public static canActivateChild(): CanActivateChildFn {
+		return (childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) => this.hasPermission(childRoute.data, state.url);
 	}
 
-	private hasPermission(hasFeatureFlag: boolean, url: string): Observable<boolean> {
-		return FeatureFlagGuard.hasPermission(hasFeatureFlag, url)
-			.pipe(tap(hasPermission => {
-				if (!hasPermission) {
-					this.router.navigate([ '/gottem' ])
-						.catch(console.error);
-				}
-			}));
-	}
+	private static hasPermission(routeData: Data, url: string): GuardResult {
+		const hasFeatureFlag = (routeData['featureFlag'] as boolean | undefined) ?? false;
 
-	private static hasPermission(hasFeatureFlag: boolean, url: string): Observable<boolean> {
-		if (hasFeatureFlag) {
+		if (!hasFeatureFlag) {
+			return true;
+		} else {
 			console.warn(`'${ url }' is still under construction 👷`);
 
-			return of(isDevMode());
-		}
+			const defaultPath = inject(Router).parseUrl('/nope');
+			const redirectCommand = new RedirectCommand(defaultPath);
 
-		return of(true);
+			return isDevMode() || redirectCommand;
+		}
 	}
 }
