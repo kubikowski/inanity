@@ -43,6 +43,8 @@ describe('ColorsService', () => {
 
 		theme = LightTheme;
 		palette = BluePalette;
+
+		TestBed.tick();
 	});
 
 	describe('LocalStorage', () => {

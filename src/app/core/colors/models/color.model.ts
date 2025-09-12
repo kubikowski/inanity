@@ -29,13 +29,6 @@ export class Color {
 	 * @return a new Color object
 	 */
 	private static from(red: number, green: number, blue: number, alpha = 1): Color {
-		return new Color(
-			scrubHue(red),
-			scrubHue(green),
-			scrubHue(blue),
-			scrubAlpha(alpha),
-		);
-
 		function scrubHue(rawHue: number): number {
 			return Math.round(clamp(0, rawHue, 255));
 		}
@@ -43,6 +36,13 @@ export class Color {
 		function scrubAlpha(rawAlpha: number): number {
 			return clamp(0, rawAlpha, 1);
 		}
+
+		return new Color(
+			scrubHue(red),
+			scrubHue(green),
+			scrubHue(blue),
+			scrubAlpha(alpha),
+		);
 	}
 
 	/** Constructs a Color from an input colorString, as it would be used in CSS
@@ -178,15 +178,15 @@ export class Color {
 	 * @return a new Color object
 	 */
 	public imposeOn(backgroundColor: Color): Color {
+		function calculateTargetHue(backgroundHue: number, foregroundHue: number, alpha: number): number {
+			return ((1 - alpha) * backgroundHue) + (alpha * foregroundHue);
+		}
+
 		return Color.from(
 			calculateTargetHue(backgroundColor.red, this.red, this.alpha),
 			calculateTargetHue(backgroundColor.green, this.green, this.alpha),
 			calculateTargetHue(backgroundColor.blue, this.blue, this.alpha),
 		);
-
-		function calculateTargetHue(backgroundHue: number, foregroundHue: number, alpha: number): number {
-			return ((1 - alpha) * backgroundHue) + (alpha * foregroundHue);
-		}
 	}
 	/* endregion Object Prototype Methods */
 }
