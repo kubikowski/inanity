@@ -31,6 +31,23 @@
 	--darker-theme-color: #047ec5;
 	--darkest-theme-color: #036ea6;
 
+	--theme-color-000: darken(var(--darkest-theme-color), 100%);
+	--theme-color-010: darken(var(--darkest-theme-color), 75%);
+	--theme-color-020: darken(var(--darkest-theme-color), 50%);
+	--theme-color-025: darken(var(--darkest-theme-color), 25%);
+	--theme-color-030: var(--darkest-theme-color);
+	--theme-color-035: var(--darker-theme-color);
+	--theme-color-040: var(--dark-theme-color);
+	--theme-color-050: var(--default-theme-color);
+	--theme-color-060: var(--light-theme-color);
+	--theme-color-070: var(--lighter-theme-color);
+	--theme-color-080: var(--lightest-theme-color);
+	--theme-color-090: lighten(var(--lightest-theme-color), 50%);
+	--theme-color-095: lighten(var(--lightest-theme-color), 80%);
+	--theme-color-098: lighten(var(--lightest-theme-color), 90%);
+	--theme-color-099: lighten(var(--lightest-theme-color), 95%);
+	--theme-color-100: lighten(var(--lightest-theme-color), 100%);
+
 	--selected-background-color: rgb(205, 235, 248);
 	--selected-background-color-transparent: rgba(3, 157, 221, 0.2);
 }

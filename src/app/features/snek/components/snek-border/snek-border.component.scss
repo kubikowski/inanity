@@ -9,7 +9,7 @@
 
 	--snek-border: solid var(--snek-border-width) var(--accent-background-color);
 	--snek-border-width: 4px;
-	--snek-border-radius: 4px;
+	--snek-border-radius: var(--mat-sys-corner-small, 4px);
 
 	> .snek-border-left {
 		border: var(--snek-border);

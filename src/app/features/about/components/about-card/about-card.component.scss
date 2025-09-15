@@ -19,7 +19,6 @@
 
 			.mat-mdc-card-image {
 				border: solid 4px transparent;
-				border-radius: 6px;
 			}
 		}
 
@@ -38,7 +37,7 @@
 				font-weight: var(--weight-semibold);
 				text-align: center;
 				--padding-top: 0.25rem;
-				--border-radius: 4px;
+				--border-radius: var(--mat-sys-corner-small, 4px);
 			}
 		}
 

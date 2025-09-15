@@ -1,0 +1,58 @@
+$primary-demo: (
+	0: #000000,
+	10: #001e2e,
+	20: #00344d,
+	25: #00405d,
+	30: #004c6d,
+	35: #00587e,
+	40: #006590,
+	50: #007fb4,
+	60: #009ad9,
+	70: #3cb5f7,
+	80: #87ceff,
+	90: #c8e6ff,
+	95: #e5f2ff,
+	98: #f6faff,
+	99: #fbfcff,
+	100: #ffffff,
+);
+
+$primary-palette-origin: (
+	0: var(--darkest-theme-color),
+	10: var(--darkest-theme-color),
+	20: var(--darkest-theme-color),
+	25: var(--darkest-theme-color),
+	/* ------------------------- */
+	30: var(--darkest-theme-color),
+	35: var(--darker-theme-color),
+	40: var(--dark-theme-color),
+	50: var(--default-theme-color),
+	60: var(--light-theme-color),
+	70: var(--lighter-theme-color),
+	80: var(--lightest-theme-color),
+	/* ------------------------- */
+	90: var(--lightest-theme-color),
+	95: var(--lightest-theme-color),
+	98: var(--lightest-theme-color),
+	99: var(--lightest-theme-color),
+	100: var(--lightest-theme-color),
+);
+
+$primary-palette: (
+	0: var(--theme-color-000),
+	10: var(--theme-color-010),
+	20: var(--theme-color-020),
+	25: var(--theme-color-025),
+	30: var(--theme-color-030),
+	35: var(--theme-color-035),
+	40: var(--theme-color-040),
+	50: var(--theme-color-050),
+	60: var(--theme-color-060),
+	70: var(--theme-color-070),
+	80: var(--theme-color-080),
+	90: var(--theme-color-090),
+	95: var(--theme-color-095),
+	98: var(--theme-color-098),
+	99: var(--theme-color-099),
+	100: var(--theme-color-100),
+);

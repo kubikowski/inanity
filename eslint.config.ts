@@ -128,6 +128,15 @@ export default defineConfig([ {
 		} ],
 		'@typescript-eslint/no-explicit-any': 'error',
 		'@typescript-eslint/no-shadow': 'error',
+		'@typescript-eslint/no-unused-vars': [ 'error', {
+			args: 'all',
+			argsIgnorePattern: '^_',
+			caughtErrors: 'all',
+			caughtErrorsIgnorePattern: '^_',
+			destructuredArrayIgnorePattern: '^_',
+			varsIgnorePattern: '^_',
+			ignoreRestSiblings: true,
+		} ],
 		'@stylistic/comma-dangle': [ 'error', 'always-multiline' ],
 		'@stylistic/member-delimiter-style': [ 'error', {
 			multiline: {
@@ -140,15 +149,6 @@ export default defineConfig([ {
 			},
 		} ],
 		'@stylistic/semi': 'error',
-		'@typescript-eslint/no-unused-vars': [ 'error', {
-			args: 'all',
-			argsIgnorePattern: '^_',
-			caughtErrors: 'all',
-			caughtErrorsIgnorePattern: '^_',
-			destructuredArrayIgnorePattern: '^_',
-			varsIgnorePattern: '^_',
-			ignoreRestSiblings: true,
-		} ],
 		'array-bracket-spacing': [ 'error', 'always' ],
 		'arrow-body-style': [ 'error', 'as-needed' ],
 		'arrow-parens': [ 'error', 'as-needed' ],

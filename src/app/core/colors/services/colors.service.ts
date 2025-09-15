@@ -45,7 +45,7 @@ export class ColorsService {
 
 		return (theme.prefers === 'dark')
 			? palette.inverse(theme)
-			: palette.copy();
+			: palette.copy(theme);
 	}
 	// region setters
 

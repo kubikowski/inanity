@@ -1,10 +1,10 @@
 body {
 	&:is(.tablet, .desktop) {
-		--navigation-height: var(--mat-toolbar-standard-height);
+		--navigation-height: var(--mat-toolbar-standard-height, 64px);
 	}
 
 	&.mobile {
-		--navigation-height: var(--mat-toolbar-mobile-height);
+		--navigation-height: var(--mat-toolbar-mobile-height, 56px);
 	}
 }
 
