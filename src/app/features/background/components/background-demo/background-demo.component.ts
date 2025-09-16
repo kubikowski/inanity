@@ -13,6 +13,8 @@ import { BackgroundService } from 'src/app/features/background/services/backgrou
 		'[class.selected]': 'selected()',
 		'[class.gradient]': 'showGradient()',
 		'(click)': 'selectBackgroundType()',
+		'(keydown.enter)': 'selectBackgroundType()',
+		'tabindex': '0',
 	},
 })
 export class BackgroundDemoComponent implements AfterViewInit {

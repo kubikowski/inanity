@@ -17,7 +17,7 @@
 	cursor: pointer;
 	outline: none;
 
-	&:focus-visible {
+	&:is(:hover, :focus-visible) {
 		border-color: var(--color-lighter);
 	}
 
@@ -25,7 +25,7 @@
 		border-color: var(--color-default);
 	}
 
-	&:focus-visible.selected {
+	&.selected:is(:hover, :focus-visible) {
 		border-color: var(--color-darker);
 	}
 
