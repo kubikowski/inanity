@@ -1,11 +1,10 @@
 <base-dialog-header [configuration]="configuration().header"/>
 
-<section class="dialog-body"
-		 [class.padding-omitted]="configuration().content.omitPadding"
-		 [class.scrolling-omitted]="configuration().content.omitScrolling"
-		 [class.content-centered]="configuration().content.contentCentered">
-
+<mat-dialog-content class="dialog-body"
+					[class.padding-omitted]="configuration().content.omitPadding"
+					[class.scrolling-omitted]="configuration().content.omitScrolling"
+					[class.content-centered]="configuration().content.contentCentered">
 	<ng-content select="main"/>
-</section>
+</mat-dialog-content>
 
 <base-dialog-footer [configuration]="configuration().footer"/>

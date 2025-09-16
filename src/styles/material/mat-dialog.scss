@@ -1,6 +1,36 @@
+@use '@angular/material' as mat;
 @use '../mixins/blur' as *;
 
+.mat-mdc-dialog-container {
+	@include mat.dialog-overrides((
+		container-shape: var(--mat-sys-corner-large),
+		content-padding: 1rem,
+		with-actions-content-padding: 1rem,
+		actions-padding: 1rem,
+		actions-alignment: space-between,
+	));
+}
+
+.light-theme .mat-mdc-dialog-container {
+	@include mat.dialog-overrides((
+		container-color: var(--default-background-color),
+	));
+
+	.mat-mdc-dialog-actions {
+		background-color: var(--accent-background-color);
+	}
+}
+
+.dark-theme .mat-mdc-dialog-container {
+	@include mat.dialog-overrides((
+		container-color: var(--accent-background-color),
+	));
+
+	.mat-mdc-dialog-actions {
+		background-color: var(--disabled-background-color);
+	}
+}
+
 .cdk-overlay-backdrop {
-	//background-color: initial;
 	@include blur;
 }

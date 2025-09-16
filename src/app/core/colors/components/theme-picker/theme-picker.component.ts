@@ -10,8 +10,10 @@ import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ MatIcon ],
 	host: {
-		'[style.background-color]': 'backgroundColor()',
-		'[style.color]': 'color()',
+		'[style.--color-background-default]': 'this.theme().colorDefaultBackground',
+		'[style.--color-text-default]': 'this.theme().colorDefaultText',
+		'[style.--color-text-disabled]': 'this.theme().colorDisabledText',
+		'[style.--color-text-light]': 'this.theme().colorLightText',
 	},
 })
 export class ThemePickerComponent {
@@ -19,8 +21,6 @@ export class ThemePickerComponent {
 
 	public readonly theme = input.required<ColorTheme>();
 
-	public readonly backgroundColor = computed(() => this.theme().colorDefaultBackground);
-	public readonly color = computed(() => this.theme().colorDefaultText);
 	public readonly message = computed(() => {
 		switch (this.theme().prefers) {
 			case 'light':

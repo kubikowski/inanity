@@ -31,22 +31,23 @@
 	--darker-theme-color: #047ec5;
 	--darkest-theme-color: #036ea6;
 
-	--theme-color-000: darken(var(--darkest-theme-color), 100%);
-	--theme-color-010: darken(var(--darkest-theme-color), 75%);
-	--theme-color-020: darken(var(--darkest-theme-color), 50%);
-	--theme-color-025: darken(var(--darkest-theme-color), 25%);
-	--theme-color-030: var(--darkest-theme-color);
-	--theme-color-035: var(--darker-theme-color);
-	--theme-color-040: var(--dark-theme-color);
-	--theme-color-050: var(--default-theme-color);
-	--theme-color-060: var(--light-theme-color);
-	--theme-color-070: var(--lighter-theme-color);
-	--theme-color-080: var(--lightest-theme-color);
-	--theme-color-090: lighten(var(--lightest-theme-color), 50%);
-	--theme-color-095: lighten(var(--lightest-theme-color), 80%);
-	--theme-color-098: lighten(var(--lightest-theme-color), 90%);
-	--theme-color-099: lighten(var(--lightest-theme-color), 95%);
-	--theme-color-100: lighten(var(--lightest-theme-color), 100%);
+	/* M3 Palette Derived from Light Blue Theme */
+	--theme-color-000: rgb(0, 0, 0);
+	--theme-color-010: rgb(1, 22, 33);
+	--theme-color-020: rgb(2, 55, 83);
+	--theme-color-025: rgb(2, 83, 125);
+	--theme-color-030: rgb(3, 110, 166);
+	--theme-color-035: rgb(4, 126, 197);
+	--theme-color-040: rgb(4, 135, 204);
+	--theme-color-050: rgb(3, 157, 221);
+	--theme-color-060: rgb(0, 179, 238);
+	--theme-color-070: rgb(26, 180, 245);
+	--theme-color-080: rgb(81, 212, 255);
+	--theme-color-090: rgb(168, 234, 255);
+	--theme-color-095: rgb(220, 246, 255);
+	--theme-color-098: rgb(238, 251, 255);
+	--theme-color-099: rgb(246, 253, 255);
+	--theme-color-100: rgb(255, 255, 255);
 
 	--selected-background-color: rgb(205, 235, 248);
 	--selected-background-color-transparent: rgba(3, 157, 221, 0.2);

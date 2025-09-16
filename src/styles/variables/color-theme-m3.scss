@@ -48,8 +48,8 @@ $primary-palette: (
 		inverse-surface: var(--accent-background-color),
 		inverse-on-surface: var(--default-text-color),
 
-		outline: currentColor, /* var(--dark-border-color), */
-		outline-variant: var(--border-color),
+		outline: var(--dark-border-color), /* currentColor, */
+		outline-variant: var(--border-color), /* currentColor, */
 
 		shadow: var(--shadow-color),
 	);

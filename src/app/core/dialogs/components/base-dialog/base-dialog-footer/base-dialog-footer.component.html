@@ -1,9 +1,15 @@
 <!-- Order buttons in reverse and use flex-direction: row-reverse so that submit button is the first button that gets tabbed to -->
 
-@if (hasSubmitButton()) {
-	<base-dialog-footer-button [configuration]="submitButton()"/>
-}
+@if (hasVisibleButtons()) {
+	<mat-dialog-actions [class.has-cancel-button]="hasCancelButton()">
 
-@if (hasCancelButton()) {
-	<base-dialog-footer-button [configuration]="cancelButton()"/>
+		@if (hasSubmitButton()) {
+			<base-dialog-footer-button [configuration]="submitButton()"/>
+		}
+
+		@if (hasCancelButton()) {
+			<base-dialog-footer-button [configuration]="cancelButton()"/>
+		}
+
+	</mat-dialog-actions>
 }

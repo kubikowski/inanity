@@ -2,6 +2,7 @@ import { computed, signal } from '@angular/core';
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPaletteUtil } from 'src/app/core/colors/models/color-palettes/color-palette-util.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
+import { xor } from 'src/app/core/functions/boolean/xor.function';
 import { shuffle } from 'src/app/core/functions/random/shuffle.function';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { CanvasSingleton } from 'src/app/features/background/models/canvas-singleton.model';
@@ -72,7 +73,10 @@ export class Grain extends CanvasSingleton {
 				if (Math.random() > this.grainRate) continue;
 
 				const colorKey = BaseColorPalette.getRandomKey();
-				const pointPalette = this.isPointInSvgOverlay(x, y)
+
+				const pointInOverlay = this.isPointInSvgOverlay(x, y);
+				const reversePalette = (Math.random() > 0.80);
+				const pointPalette = xor(pointInOverlay, reversePalette)
 					? strokePalette : fillPalette;
 
 				context.fillStyle = pointPalette[colorKey];

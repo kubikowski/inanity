@@ -9,6 +9,7 @@ base-dialog {
 		padding: 1rem;
 		overflow: hidden auto;
 		overflow-wrap: break-word;
+		max-height: unset;
 
 		&.content-centered {
 			text-align: center;
@@ -29,12 +30,4 @@ base-dialog {
 			flex-direction: column;
 		}
 	}
-}
-
-.light-theme base-dialog {
-	background-color: var(--default-background-color);
-}
-
-.dark-theme base-dialog {
-	background-color: var(--accent-background-color);
 }

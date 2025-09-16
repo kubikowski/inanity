@@ -1,8 +1,8 @@
 <span class="icon-bubble">
-	<mat-icon [svgIcon]="ICON" [style.color]="theme().lightTextColor"/>
+	<mat-icon [svgIcon]="ICON"/>
 </span>
 
 <span class="theme-name">
 	<strong>{{ theme().displayName }} Theme</strong>
-	<i [style.color]="theme().colorDisabledText">{{ message() }}</i>
+	<i class="theme-message">{{ message() }}</i>
 </span>
