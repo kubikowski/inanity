@@ -5,13 +5,19 @@
 		grid-row-end: span 3;
 	}
 
+	&.small-format {
+		grid-row-end: span 1;
+	}
+
 	.mat-mdc-card {
+		height: 100%;
+
 		&.inset {
 			background-color: var(--default-background-color);
 		}
 
 		&.backdrop {
-			border: solid 1px transparent;
+			border: solid 2px transparent;
 		}
 
 		&.inset.backdrop {

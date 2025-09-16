@@ -3,6 +3,7 @@
 .mat-mdc-card {
 	@include mat.card-overrides((
 		outlined-outline-color: currentColor,
+		outlined-outline-width: 2px,
 	));
 
 	&.inset {

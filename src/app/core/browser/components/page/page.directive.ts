@@ -1,6 +1,6 @@
-import { Directive, HostBinding } from '@angular/core';
+import { Directive } from '@angular/core';
 
-@Directive()
-export class Page {
-	@HostBinding('class.page') private readonly pageClass = true;
-}
+@Directive({
+	host: { '[class.page]': 'true' },
+})
+export class Page { }

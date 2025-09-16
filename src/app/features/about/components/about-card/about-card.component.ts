@@ -16,6 +16,7 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	],
 	host: {
 		'[class.large-format]': 'data().image',
+		'[class.small-format]': 'hasLinkedContent()',
 	},
 })
 export class AboutCardComponent {
@@ -23,7 +24,9 @@ export class AboutCardComponent {
 
 	public readonly data = input.required<AboutCardData>();
 
+	public readonly hasLinkedContent = computed(() => this.data().content?.some(content => content.linked) ?? false);
 	public readonly backdrop = this.backgroundService.enabled;
+
 	private readonly braces = toSignal(Braces.random$());
 
 	public readonly openBrace = computed(() => {
