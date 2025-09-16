@@ -2,86 +2,18 @@
  * Custom Theming for Angular Material
  * For more information: https://material.angular.io/guide/theming
  */
-@use '@angular/material' as mat;
-@use './variables/color-theme-m3' as color-theme;
-//@use './variables/color-theme' as color-theme;
-//@use './variables/typography' as typography;
-//@use './variables/material-config';
-
-/**
- * Includes the common styles for Angular Material.
- * Be sure that you only ever include this mixin once!
- */
-//@include mat.elevation-classes();
-//@include mat.app-background();
-
-
-@function get-theme($theme-type: light) {
-	@return (
-		color: (
-			primary: color-theme.$primary-palette,
-			theme-type: $theme-type,
-		),
-		density: 0,
-		typography: (
-			plain-family: var(--app-font),
-			brand-family: var(--app-font),
-			bold-weight: var(--weight-semibold),
-			medium-weight: var(--weight-medium),
-			regular-weight: var(--weight-normal),
-		),
-	);
-}
-
-@function get-overrides() {
-	//@return (
-	//	corner-extra-large: var(--corner-radius),
-	//	corner-extra-large-top: var(--corner-radius),
-	//	corner-extra-small: var(--corner-radius),
-	//	corner-extra-small-top: var(--corner-radius),
-	//	corner-full: var(--corner-radius),
-	//	corner-large: var(--corner-radius),
-	//	corner-large-end: var(--corner-radius),
-	//	corner-large-start: var(--corner-radius),
-	//	corner-large-top: var(--corner-radius),
-	//	corner-medium: var(--corner-radius),
-	//	corner-none: var(--corner-radius),
-	//	corner-small: var(--corner-radius),
-	//	--corner-radius: 0px,
-	//);
-
-	@return (
-		//on-surface-variant: var(--accent-background-color),
-	);
-}
-
-@mixin m3-theme($theme-type: light) {
-	@include mat.theme(get-theme($theme-type), get-overrides());
-
-	.mat-mdc-slider {
-		@include mat.slider-overrides((
-			handle-elevation: 0,
-			inactive-track-color: var(--lighter-theme-color),
-			with-tick-marks-active-container-color: var(--default-background-color),
-			with-tick-marks-inactive-container-color: var(--default-background-color),
-		));
-	}
-
-	.mat-mdc-slide-toggle {
-		@include mat.slide-toggle-overrides((
-			handle-surface-color: var(--accent-background-color),
-			unselected-handle-color: var(--accent-background-color),
-			unselected-hover-handle-color: var(--disabled-background-color),
-		));
-	}
-}
+@use './variables/color-theme-m3' as app;
 
 body {
 	&.light-theme {
-		@include m3-theme(light);
+		@include app.theme(light);
 	}
 
 	&.dark-theme {
-		@include m3-theme(dark);
+		@include app.theme(dark);
+	}
+
+	&.retro {
+		@include app.retro-theme();
 	}
 }

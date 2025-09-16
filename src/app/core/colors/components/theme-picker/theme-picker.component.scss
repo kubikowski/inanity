@@ -7,7 +7,7 @@
 
 	overflow: hidden;
 	border: solid 2px transparent;
-	border-radius: 0.5rem;
+	border-radius: var(--mat-sys-corner-small, 0.5rem);
 	cursor: pointer;
 
 	&.selected {

@@ -1,42 +1,4 @@
-$primary-demo: (
-	0: #000000,
-	10: #001e2e,
-	20: #00344d,
-	25: #00405d,
-	30: #004c6d,
-	35: #00587e,
-	40: #006590,
-	50: #007fb4,
-	60: #009ad9,
-	70: #3cb5f7,
-	80: #87ceff,
-	90: #c8e6ff,
-	95: #e5f2ff,
-	98: #f6faff,
-	99: #fbfcff,
-	100: #ffffff,
-);
-
-$primary-palette-origin: (
-	0: var(--darkest-theme-color),
-	10: var(--darkest-theme-color),
-	20: var(--darkest-theme-color),
-	25: var(--darkest-theme-color),
-	/* ------------------------- */
-	30: var(--darkest-theme-color),
-	35: var(--darker-theme-color),
-	40: var(--dark-theme-color),
-	50: var(--default-theme-color),
-	60: var(--light-theme-color),
-	70: var(--lighter-theme-color),
-	80: var(--lightest-theme-color),
-	/* ------------------------- */
-	90: var(--lightest-theme-color),
-	95: var(--lightest-theme-color),
-	98: var(--lightest-theme-color),
-	99: var(--lightest-theme-color),
-	100: var(--lightest-theme-color),
-);
+@use '@angular/material' as mat;
 
 $primary-palette: (
 	0: var(--theme-color-000),
@@ -56,3 +18,62 @@ $primary-palette: (
 	99: var(--theme-color-099),
 	100: var(--theme-color-100),
 );
+
+@function theme-config($theme-type: light) {
+	@return (
+		color: (
+			primary: $primary-palette,
+			theme-type: $theme-type,
+		),
+		density: 0,
+		typography: (
+			plain-family: var(--app-font),
+			brand-family: var(--app-font),
+			bold-weight: var(--weight-semibold),
+			medium-weight: var(--weight-medium),
+			regular-weight: var(--weight-normal),
+		),
+	);
+}
+
+@function theme-overrides() {
+	@return (
+		background: var(--default-background-color),
+		surface: var(--default-background-color),
+		surface-container: var(--default-background-color),
+		on-background: var(--default-text-color),
+		on-surface: var(--default-text-color),
+		on-surface-variant: var(--default-text-color),
+
+		inverse-surface: var(--accent-background-color),
+		inverse-on-surface: var(--default-text-color),
+
+		outline: currentColor, /* var(--dark-border-color), */
+		outline-variant: var(--border-color),
+
+		shadow: var(--shadow-color),
+	);
+}
+
+@mixin theme($theme-type: light) {
+	@include mat.theme(theme-config($theme-type), theme-overrides());
+}
+
+@mixin retro-theme() {
+	--corner-radius: 0px;
+
+	@include mat.theme-overrides((
+		corner-extra-large: var(--corner-radius),
+		corner-extra-large-top: var(--corner-radius),
+		corner-extra-small: var(--corner-radius),
+		corner-extra-small-top: var(--corner-radius),
+		corner-full: var(--corner-radius),
+		corner-large: var(--corner-radius),
+		corner-large-end: var(--corner-radius),
+		corner-large-start: var(--corner-radius),
+		corner-large-top: var(--corner-radius),
+		corner-medium: var(--corner-radius),
+		corner-none: var(--corner-radius),
+		corner-small: var(--corner-radius),
+	));
+}

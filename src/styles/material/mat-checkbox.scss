@@ -1,9 +1,7 @@
-mat-checkbox.mat-mdc-checkbox {
-	.mat-internal-form-field {
-		font-size: unset;
-	}
+@use '@angular/material' as mat;
 
-	.mdc-label {
-		color: var(--default-text-color);
-	}
+.mat-mdc-checkbox {
+	@include mat.checkbox-overrides((
+		label-text-size: 1rem,
+	));
 }

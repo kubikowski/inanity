@@ -8,7 +8,7 @@
 
 	overflow: hidden;
 	border: solid 2px transparent;
-	border-radius: 0.5rem;
+	border-radius: var(--mat-sys-corner-small, 0.5rem);
 	cursor: pointer;
 
 	&.selected {
@@ -35,7 +35,7 @@
 			height: 100%;
 			background-color: var(--default-background-color);
 			padding-left: 0.25rem;
-			border-radius: 0.25rem;
+			border-radius: var(--mat-sys-corner-extra-small, 0.25rem);
 		}
 	}
 }

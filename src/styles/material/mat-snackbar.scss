@@ -1,6 +1,7 @@
-mat-snack-bar-container.mat-mdc-snack-bar-container {
-	.mat-mdc-snackbar-surface {
-		background-color: var(--accent-background-color);
-		color: var(--default-text-color);
-	}
-}
+/**
+ * Mat Snackbar uses:
+ *
+ * color: var(--mat-snack-bar-supporting-text-color, var(--mat-sys-inverse-on-surface));
+ * border-radius: var(--mat-snack-bar-container-shape, var(--mat-sys-corner-extra-small));
+ * background-color: var(--mat-snack-bar-container-color, var(--mat-sys-inverse-surface));
+ */

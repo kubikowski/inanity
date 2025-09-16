@@ -1,4 +1,17 @@
+@use '@angular/material' as mat;
+
 .mat-mdc-card {
+	@include mat.card-overrides((
+		outlined-outline-color: currentColor,
+	));
+
+	&.inset {
+		@include mat.card-overrides((
+			outlined-container-color: transparent,
+			outlined-outline-width: 0,
+		));
+	}
+
 	.mat-mdc-card-avatar {
 		border-radius: unset;
 		--icon-size: 40px;
@@ -17,15 +30,5 @@
 
 	.mat-mdc-card-subtitle {
 		font-variant: small-caps;
-	}
-}
-
-:is(.light-theme, .dark-theme) .mat-mdc-card {
-	background-color: var(--default-background-color);
-	color: var(--default-text-color);
-
-	&.inset {
-		background-color: transparent;
-		border: none;
 	}
 }

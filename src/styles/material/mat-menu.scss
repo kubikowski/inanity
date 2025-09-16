@@ -1,15 +1,15 @@
-.mat-mdc-menu-panel .mat-mdc-menu-item {
-	color: var(--default-text-color);
-
-	.mat-icon {
-		color: var(--default-text-color);
-	}
-}
+@use '@angular/material' as mat;
 
 .light-theme .mat-mdc-menu-panel {
-	background-color: var(--default-background-color);
+	@include mat.menu-overrides((
+		container-color: var(--default-background-color),
+		container-shape: var(--mat-sys-corner-medium),
+	));
 }
 
 .dark-theme .mat-mdc-menu-panel {
-	background-color: var(--accent-background-color);
+	@include mat.menu-overrides((
+		container-color: var(--accent-background-color),
+		container-shape: var(--mat-sys-corner-medium),
+	));
 }

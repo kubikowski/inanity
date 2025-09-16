@@ -1,9 +1,19 @@
-.mat-mdc-slide-toggle {
-	.mat-internal-form-field {
-		vertical-align: unset;
-	}
+@use '@angular/material' as mat;
 
-	.mdc-label {
-		color: var(--default-text-color);
-	}
+.mat-mdc-slide-toggle {
+	@include mat.slide-toggle-overrides((
+		track-outline-color: var(--disabled-text-color),
+
+		unselected-handle-color: var(--disabled-text-color),
+		unselected-hover-handle-color: var(--disabled-text-color),
+		unselected-focus-handle-color: var(--disabled-text-color),
+		unselected-pressed-handle-color: var(--disabled-text-color),
+
+		unselected-icon-color: var(--accent-background-color),
+
+		unselected-track-color: var(--accent-background-color),
+		unselected-hover-track-color: var(--accent-background-color),
+		unselected-focus-track-color: var(--accent-background-color),
+		unselected-pressed-track-color: var(--accent-background-color),
+	));
 }
