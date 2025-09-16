@@ -25,6 +25,7 @@ export class DialogBuilder {
 				action: undefined,
 				text: signal('Cancel'),
 				attribute: 'stroked',
+				color: 'neutral',
 			},
 		},
 	};

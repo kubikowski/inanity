@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 
-$primary-palette: (
+$palette: (
 	0: var(--theme-color-000),
 	10: var(--theme-color-010),
 	20: var(--theme-color-020),
@@ -17,12 +17,16 @@ $primary-palette: (
 	98: var(--theme-color-098),
 	99: var(--theme-color-099),
 	100: var(--theme-color-100),
+	//secondary: map.get(mat.$azure-palette, secondary),
+	//neutral: map.get(mat.$azure-palette, neutral),
+	//neutral-variant: map.get(mat.$azure-palette, neutral-variant),
+	//error: map.get(mat.$azure-palette, error),
 );
 
 @function theme-config($theme-type: light) {
 	@return (
 		color: (
-			primary: $primary-palette,
+			primary: $palette,
 			theme-type: $theme-type,
 		),
 		density: 0,

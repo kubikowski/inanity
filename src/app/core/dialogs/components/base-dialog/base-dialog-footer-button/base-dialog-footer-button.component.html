@@ -2,7 +2,7 @@
 	@case ('flat') {
 		<button type="button"
 				mat-flat-button
-				[color]="configuration().color"
+				[class]="configuration().color"
 				[disabled]="configuration().disabled?.()"
 				[hidden]="configuration().hidden?.()"
 				(click)="doAction()">
@@ -17,7 +17,7 @@
 	@case ('stroked') {
 		<button type="button"
 				mat-stroked-button
-				[color]="configuration().color"
+				[class]="configuration().color"
 				[disabled]="configuration().disabled?.()"
 				[hidden]="configuration().hidden?.()"
 				(click)="doAction()">
