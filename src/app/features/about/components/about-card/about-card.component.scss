@@ -1,17 +1,19 @@
 :host {
 	grid-row-end: span 2;
 
-	&.large-format {
-		grid-row-end: span 3;
-	}
-
 	&.small-format {
 		grid-row-end: span 1;
 	}
 
-	.mat-mdc-card {
-		height: 100%;
+	&.large-format {
+		grid-row-end: span 3;
+	}
 
+	&:not(.small-format, .large-format) .mat-mdc-card {
+		height: 100%;
+	}
+
+	.mat-mdc-card {
 		&.inset {
 			background-color: var(--default-background-color);
 		}

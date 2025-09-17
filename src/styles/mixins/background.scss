@@ -1,0 +1,4 @@
+@mixin gradient() {
+	--background-gradient-color: rgb(from var(--lightest-theme-color) r g b / 0.35);
+	background-image: linear-gradient(to top, var(--background-gradient-color), transparent);
+}

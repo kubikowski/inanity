@@ -1,10 +1,11 @@
+@use 'src/styles/mixins/background' as background;
+
 :host {
 	position: absolute;
-	background-color: var(--lightest-theme-color);
-	background-image: linear-gradient(to top, var(--default-background-color), transparent);
 	width: 100%;
 	height: calc(100% - var(--navigation-height));
 	z-index: -1;
+	@include background.gradient();
 
 	> canvas {
 		position: absolute;
