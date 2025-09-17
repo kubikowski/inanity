@@ -1,16 +1,31 @@
 @use '@angular/material' as mat;
 
 .mat-mdc-outlined-button {
-	&.neutral, &[color="neutral"] {
+	&.neutral {
 		@include mat.button-overrides((
-			outlined-outline-color: var(--dark-border-color),
 			outlined-label-text-color: var(--default-text-color),
+			outlined-outline-color: var(--dark-border-color),
 
 			outlined-ripple-color: var(--hover-background-color-transparent),
 			outlined-state-layer-color: var(--accent-background-color),
 			outlined-hover-state-layer-opacity: 0.25,
 			outlined-focus-state-layer-opacity: 0.25,
 			outlined-pressed-state-layer-opacity: 0.25,
+		));
+	}
+}
+
+.mat-mdc-unelevated-button {
+	&.neutral {
+		@include mat.button-overrides((
+			filled-label-text-color: var(--default-text-color),
+			filled-container-color: var(--accent-background-color),
+
+			filled-ripple-color: var(--hover-background-color-transparent),
+			filled-state-layer-color: var(--disabled-background-color),
+			filled-hover-state-layer-opacity: 0.25,
+			filled-focus-state-layer-opacity: 0.25,
+			filled-pressed-state-layer-opacity: 0.25,
 		));
 	}
 }
