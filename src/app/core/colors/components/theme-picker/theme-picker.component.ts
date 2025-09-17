@@ -10,10 +10,10 @@ import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ MatIcon ],
 	host: {
-		'[style.--color-background-default]': 'this.theme().colorDefaultBackground',
-		'[style.--color-text-default]': 'this.theme().colorDefaultText',
-		'[style.--color-text-disabled]': 'this.theme().colorDisabledText',
-		'[style.--color-text-light]': 'this.theme().colorLightText',
+		'[style.--color-background-default]': 'theme().colorDefaultBackground',
+		'[style.--color-text-default]': 'theme().colorDefaultText',
+		'[style.--color-text-disabled]': 'theme().colorDisabledText',
+		'[style.--color-text-light]': 'theme().colorLightText',
 	},
 })
 export class ThemePickerComponent {
