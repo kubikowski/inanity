@@ -84,6 +84,86 @@ describe('Color Palette', () => {
 			expect(colorDarkest).toBe('rgb(3, 110, 166)');
 		});
 
+		it('should contain correct color000', () => {
+			const { color000 } = BluePalette;
+			expect(color000).toBe('rgb(0, 0, 0)');
+		});
+
+		it('should contain correct color010', () => {
+			const { color010 } = BluePalette;
+			expect(color010).toBe('rgb(1, 22, 33)');
+		});
+
+		it('should contain correct color020', () => {
+			const { color020 } = BluePalette;
+			expect(color020).toBe('rgb(2, 55, 83)');
+		});
+
+		it('should contain correct color025', () => {
+			const { color025 } = BluePalette;
+			expect(color025).toBe('rgb(2, 83, 125)');
+		});
+
+		it('should contain correct color030', () => {
+			const { color030 } = BluePalette;
+			expect(color030).toBe('rgb(3, 110, 166)');
+		});
+
+		it('should contain correct color035', () => {
+			const { color035 } = BluePalette;
+			expect(color035).toBe('rgb(4, 126, 197)');
+		});
+
+		it('should contain correct color040', () => {
+			const { color040 } = BluePalette;
+			expect(color040).toBe('rgb(4, 135, 204)');
+		});
+
+		it('should contain correct color050', () => {
+			const { color050 } = BluePalette;
+			expect(color050).toBe('rgb(3, 157, 221)');
+		});
+
+		it('should contain correct color060', () => {
+			const { color060 } = BluePalette;
+			expect(color060).toBe('rgb(0, 179, 238)');
+		});
+
+		it('should contain correct color070', () => {
+			const { color070 } = BluePalette;
+			expect(color070).toBe('rgb(26, 180, 245)');
+		});
+
+		it('should contain correct color080', () => {
+			const { color080 } = BluePalette;
+			expect(color080).toBe('rgb(81, 212, 255)');
+		});
+
+		it('should contain correct color090', () => {
+			const { color090 } = BluePalette;
+			expect(color090).toBe('rgb(168, 234, 255)');
+		});
+
+		it('should contain correct color095', () => {
+			const { color095 } = BluePalette;
+			expect(color095).toBe('rgb(220, 246, 255)');
+		});
+
+		it('should contain correct color098', () => {
+			const { color098 } = BluePalette;
+			expect(color098).toBe('rgb(238, 251, 255)');
+		});
+
+		it('should contain correct color099', () => {
+			const { color099 } = BluePalette;
+			expect(color099).toBe('rgb(246, 253, 255)');
+		});
+
+		it('should contain correct color100', () => {
+			const { color100 } = BluePalette;
+			expect(color100).toBe('rgb(255, 255, 255)');
+		});
+
 		it('should contain correct colorSelected', () => {
 			const { colorSelectedBackground } = BluePalette;
 			expect(colorSelectedBackground).toBe('rgb(205, 235, 248)');
@@ -131,6 +211,86 @@ describe('Color Palette', () => {
 		it('should contain correct colorDarkest', () => {
 			const { colorDarkest } = bluePaletteInverse;
 			expect(colorDarkest).toBe('rgb(81, 212, 255)');
+		});
+
+		it('should contain correct color000', () => {
+			const { color000 } = bluePaletteInverse;
+			expect(color000).toBe('rgb(33, 33, 33)');
+		});
+
+		it('should contain correct color010', () => {
+			const { color010 } = bluePaletteInverse;
+			expect(color010).toBe('rgb(27, 48, 60)');
+		});
+
+		it('should contain correct color020', () => {
+			const { color020 } = bluePaletteInverse;
+			expect(color020).toBe('rgb(18, 72, 100)');
+		});
+
+		it('should contain correct color025', () => {
+			const { color025 } = bluePaletteInverse;
+			expect(color025).toBe('rgb(11, 91, 133)');
+		});
+
+		it('should contain correct color030', () => {
+			const { color030 } = bluePaletteInverse;
+			expect(color030).toBe('rgb(3, 110, 166)');
+		});
+
+		it('should contain correct color035', () => {
+			const { color035 } = bluePaletteInverse;
+			expect(color035).toBe('rgb(4, 126, 197)');
+		});
+
+		it('should contain correct color040', () => {
+			const { color040 } = bluePaletteInverse;
+			expect(color040).toBe('rgb(4, 135, 204)');
+		});
+
+		it('should contain correct color050', () => {
+			const { color050 } = bluePaletteInverse;
+			expect(color050).toBe('rgb(3, 157, 221)');
+		});
+
+		it('should contain correct color060', () => {
+			const { color060 } = bluePaletteInverse;
+			expect(color060).toBe('rgb(0, 179, 238)');
+		});
+
+		it('should contain correct color070', () => {
+			const { color070 } = bluePaletteInverse;
+			expect(color070).toBe('rgb(26, 180, 245)');
+		});
+
+		it('should contain correct color080', () => {
+			const { color080 } = bluePaletteInverse;
+			expect(color080).toBe('rgb(81, 212, 255)');
+		});
+
+		it('should contain correct color090', () => {
+			const { color090 } = bluePaletteInverse;
+			expect(color090).toBe('rgb(168, 234, 255)');
+		});
+
+		it('should contain correct color095', () => {
+			const { color095 } = bluePaletteInverse;
+			expect(color095).toBe('rgb(220, 246, 255)');
+		});
+
+		it('should contain correct color098', () => {
+			const { color098 } = bluePaletteInverse;
+			expect(color098).toBe('rgb(238, 251, 255)');
+		});
+
+		it('should contain correct color099', () => {
+			const { color099 } = bluePaletteInverse;
+			expect(color099).toBe('rgb(246, 253, 255)');
+		});
+
+		it('should contain correct color100', () => {
+			const { color100 } = bluePaletteInverse;
+			expect(color100).toBe('rgb(255, 255, 255)');
 		});
 
 		it('should contain correct colorSelectedBackground', () => {
