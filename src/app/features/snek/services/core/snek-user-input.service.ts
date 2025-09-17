@@ -1,7 +1,6 @@
 import { effect, inject, Injectable, OnDestroy, Renderer2, signal, untracked } from '@angular/core';
 import { JoystickOutputData } from 'nipplejs';
 import { difference, union } from 'set-utilities';
-import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { SnekDirection, SnekDirectionUtil } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 
@@ -20,19 +19,17 @@ export class SnekUserInputService implements OnDestroy {
 	private readonly commandQueue = signal(<readonly SnekDirection[]>[]);
 
 	public constructor() {
-		effect(() => {
-			this.changeDirection(this.commandQueue());
-		}, allowWrites);
+		effect(() => this.changeDirection(this.commandQueue()));
 
 		effect(() => {
 			this.snekStateService.gameClock();
 			this.processNextCommand();
-		}, allowWrites);
+		});
 
 		effect(() => {
 			this.snekStateService.gameOver();
 			this.resetCommandQueue();
-		}, allowWrites);
+		});
 	}
 
 	public ngOnDestroy(): void {

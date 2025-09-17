@@ -22,7 +22,7 @@ describe('ColorsService', () => {
 		theme = DarkTheme;
 		palette = palette.inverse(DarkTheme);
 
-		TestBed.flushEffects();
+		TestBed.tick();
 	}
 
 	function setGreenPalette(): void {
@@ -32,7 +32,7 @@ describe('ColorsService', () => {
 			? GreenPalette
 			: GreenPalette.inverse(theme);
 
-		TestBed.flushEffects();
+		TestBed.tick();
 	}
 
 	beforeEach(() => {
@@ -43,6 +43,8 @@ describe('ColorsService', () => {
 
 		theme = LightTheme;
 		palette = BluePalette;
+
+		TestBed.tick();
 	});
 
 	describe('LocalStorage', () => {

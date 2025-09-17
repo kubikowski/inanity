@@ -8,7 +8,6 @@ import { aboutCardData } from 'src/app/features/about/models/about-card-data.con
 	templateUrl: 'about-page.component.html',
 	styleUrl: 'about-page.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ AboutCardComponent ],
 })
 export class AboutPageComponent extends Page {

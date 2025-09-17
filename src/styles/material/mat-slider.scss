@@ -1,5 +1,10 @@
-.mat-mdc-menu-content {
-	> .mat-mdc-slider {
-		margin: 0 1.5rem;
-	}
+@use '@angular/material' as mat;
+
+.mat-mdc-slider {
+	@include mat.slider-overrides((
+		handle-elevation: 0,
+		inactive-track-color: var(--lighter-theme-color),
+		with-tick-marks-active-container-color: var(--default-background-color),
+		with-tick-marks-inactive-container-color: var(--default-background-color),
+	));
 }

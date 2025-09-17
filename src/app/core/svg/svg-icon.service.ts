@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin, Observable } from 'rxjs';
@@ -10,11 +10,10 @@ import { InternalSvgIcon } from 'src/app/core/svg/internal-svg-icon.enum';
 
 @Injectable({ providedIn: 'root' })
 export class SvgIconService {
+	private readonly matIconRegistry = inject(MatIconRegistry);
+	private readonly domSanitizer = inject(DomSanitizer);
 
-	public constructor(
-		private readonly matIconRegistry: MatIconRegistry,
-		private readonly domSanitizer: DomSanitizer,
-	) {
+	public constructor() {
 		this.registerInternalIcons(InternalSvgIcon);
 		this.registerInternalIcons(HandIconUtil.registry, HandIconUtil.namespace);
 		this.registerIcons(ExternalSvgIcon);

@@ -6,7 +6,9 @@
 			@for (theme of ColorThemes; track theme.themeName) {
 				<theme-picker [theme]="theme"
 							  [class.selected]="selectedTheme().themeName === theme.themeName"
-							  (click)="selectedTheme.set(theme)"/>
+							  (click)="selectedTheme.set(theme)"
+							  (keydown.enter)="selectedTheme.set(theme)"
+							  tabindex="0"/>
 			}
 		</section>
 
@@ -16,7 +18,9 @@
 			@for (palette of ColorPalettes; track palette.paletteName) {
 				<palette-picker [palette]="palette"
 								[class.selected]="selectedPalette().paletteName === palette.paletteName"
-								(click)="selectedPalette.set(palette)"/>
+								(click)="selectedPalette.set(palette)"
+								(keydown.enter)="selectedPalette.set(palette)"
+								tabindex="0"/>
 			}
 		</section>
 	</main>

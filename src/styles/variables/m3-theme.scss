@@ -1,0 +1,84 @@
+@use '@angular/material' as mat;
+
+$palette: (
+	0: var(--theme-color-000),
+	10: var(--theme-color-010),
+	20: var(--theme-color-020),
+	25: var(--theme-color-025),
+	30: var(--theme-color-030),
+	35: var(--theme-color-035),
+	40: var(--theme-color-040),
+	50: var(--theme-color-050),
+	60: var(--theme-color-060),
+	70: var(--theme-color-070),
+	80: var(--theme-color-080),
+	90: var(--theme-color-090),
+	95: var(--theme-color-095),
+	98: var(--theme-color-098),
+	99: var(--theme-color-099),
+	100: var(--theme-color-100),
+	//secondary: map.get(mat.$azure-palette, secondary),
+	//neutral: map.get(mat.$azure-palette, neutral),
+	//neutral-variant: map.get(mat.$azure-palette, neutral-variant),
+	//error: map.get(mat.$azure-palette, error),
+);
+
+@function theme-config($theme-type: light) {
+	@return (
+		color: (
+			primary: $palette,
+			theme-type: $theme-type,
+		),
+		density: 0,
+		typography: (
+			plain-family: var(--app-font),
+			brand-family: var(--app-font),
+			bold-weight: var(--weight-semibold),
+			medium-weight: var(--weight-medium),
+			regular-weight: var(--weight-normal),
+		),
+	);
+}
+
+@function theme-overrides() {
+	@return (
+		background: var(--default-background-color),
+		surface: var(--default-background-color),
+		surface-container: var(--default-background-color),
+		on-background: var(--default-text-color),
+		on-surface: var(--default-text-color),
+		on-surface-variant: var(--default-text-color),
+
+		inverse-surface: var(--accent-background-color),
+		inverse-on-surface: var(--default-text-color),
+
+		outline: var(--dark-border-color), /* currentColor, */
+		outline-variant: var(--border-color), /* currentColor, */
+
+		neutral-variant20: var(--shadow-color),
+		shadow: var(--shadow-color),
+	);
+}
+
+@mixin theme($theme-type: light) {
+	@include mat.theme(theme-config($theme-type), theme-overrides());
+}
+
+@mixin retro-theme() {
+	--corner-radius: 0px;
+
+	@include mat.theme-overrides((
+		corner-extra-large: var(--corner-radius),
+		corner-extra-large-top: var(--corner-radius),
+		corner-extra-small: var(--corner-radius),
+		corner-extra-small-top: var(--corner-radius),
+		corner-full: var(--corner-radius),
+		corner-large: var(--corner-radius),
+		corner-large-end: var(--corner-radius),
+		corner-large-start: var(--corner-radius),
+		corner-large-top: var(--corner-radius),
+		corner-medium: var(--corner-radius),
+		corner-none: var(--corner-radius),
+		corner-small: var(--corner-radius),
+	));
+}

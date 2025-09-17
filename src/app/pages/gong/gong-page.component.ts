@@ -12,7 +12,6 @@ import { GongStatusUpdate } from 'src/app/pages/gong/models/gong-status-update.m
 	templateUrl: 'gong-page.component.html',
 	styleUrl: 'gong-page.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		DatePipe, MatCardModule, MatIcon,
 		DyslexicTextComponent,

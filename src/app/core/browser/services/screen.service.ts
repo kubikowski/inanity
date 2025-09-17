@@ -1,6 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { DOCUMENT } from '@angular/common';
-import { computed, effect, inject, Injectable, OnDestroy, RendererFactory2, signal } from '@angular/core';
+import { computed, DOCUMENT, effect, inject, Injectable, OnDestroy, RendererFactory2, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 import { ScreenDisplay } from '../models/screen-display.enum';

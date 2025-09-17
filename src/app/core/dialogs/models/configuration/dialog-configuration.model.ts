@@ -31,6 +31,6 @@ export interface DialogFooterButtonConfiguration {
 	hidden?: Signal<boolean>;
 	disabled?: Signal<boolean>;
 	attribute: 'flat' | 'stroked';
-	color?: 'primary' | 'accent' | 'warn';
+	color?: 'primary' | 'neutral';
 	iconFill?: boolean;
 }

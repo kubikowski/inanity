@@ -9,7 +9,6 @@ import { MarkdownComponent } from 'src/app/features/markdown/markdown.component'
 	templateUrl: 'sprinter-page.component.html',
 	styleUrl: 'sprinter-page.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		BackgroundImageComponent, DyslexicTextComponent, MarkdownComponent,
 	],

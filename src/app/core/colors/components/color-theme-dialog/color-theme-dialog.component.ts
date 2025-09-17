@@ -15,7 +15,6 @@ import { ThemePickerComponent } from '../theme-picker/theme-picker.component';
 	templateUrl: 'color-theme-dialog.component.html',
 	styleUrl: 'color-theme-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatDivider, BaseDialogComponent,
 		ThemePickerComponent, PalettePickerComponent,

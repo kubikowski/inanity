@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { computed, inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, DOCUMENT } from '@angular/core';
 import { ScreenOrientation } from 'src/app/core/browser/models/screen-orientation.enum';
 import { ScreenService } from 'src/app/core/browser/services/screen.service';
 import { clamp } from 'src/app/core/functions/number/clamp.function';

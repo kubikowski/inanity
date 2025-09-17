@@ -8,7 +8,6 @@ import { Typeface } from '../../models/typeface.model';
 	selector: 'typeface',
 	templateUrl: 'typeface.component.html',
 	styleUrl: 'typeface.component.scss',
-	standalone: true,
 	host: {
 		'[style.font-family]': 'classification()',
 	},

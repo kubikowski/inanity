@@ -18,6 +18,22 @@ class PanelCorners extends Array {
 	}
 }
 
+/**
+ * My issues with this design, as it pertains to `Panel`, are as follows:
+ *
+ * We use the same object for children as we do for generics.
+ * Why does each child instance have a `panelSize`, `xOffset`, and `yOffset`?
+ * Those properties need to be consistent throughout the `Glass` surface.
+ * Thus, they could be singly held by a parent class instance.
+ *
+ * Similarly, parent instances could all be calibrated as their reference members.
+ * For instance a `Glass` singleton could have the collective `Panel` properties,
+ * and also act as the reference to calibrate individual `Panels`.
+ *
+ * However, this idea is only prevalent for `Panel`, of the collective `CanvasElements`.
+ * Each of the others is either a singleton or have nonuniform members.
+ * So, imposing a parent class would have little meaningful benefit.
+ */
 export class Panel extends CanvasElement {
 	private static readonly maxPanelSize = 48;
 	private static readonly minPanelSize = 8;
@@ -75,8 +91,10 @@ export class Panel extends CanvasElement {
 		const panelSize = this.getPanelSize(calibration, maxCalibration);
 		const [ width, height ] = this.getPanelDimensions(panelSize, canvasWidth, canvasHeight);
 		const [ xOffset, yOffset ] = this.getPanelOffsets(panelSize, canvasWidth, canvasHeight);
+		const matchesPanelAmount = this.matchesPanelAmount(panels, width, height);
+		const matchesPanelProperties = this.matchesPanelProperties(panels, panelSize, xOffset, yOffset);
 
-		if (panels.length !== width * height) {
+		if (!matchesPanelAmount || !matchesPanelProperties) {
 			return Array
 				.from<Panel[]>({ length: height })
 				.map((_ignoredRow, y) => Array
@@ -101,11 +119,31 @@ export class Panel extends CanvasElement {
 		return [ width, height ];
 	}
 
+	/**
+	 * I am choosing to remove yOffsets, because I find that the design looks best
+	 * when leaving top row panels fully intact. The top row terminates in the header toolbar,
+	 * which notably makes it the only side not touching a screen border.
+	 *
+	 * tl;dr: Cleaving top row panels looks bad.
+	 */
 	protected getPanelOffsets(panelSize: number, canvasWidth: number, canvasHeight: number): [ number, number ] {
 		const xOffset = (canvasWidth % panelSize > 0) ? (panelSize - (canvasWidth % panelSize)) / 2 : 0;
 		const yOffset = (canvasHeight % panelSize > 0) ? (panelSize - (canvasHeight % panelSize)) / 2 : 0;
 
-		return [ xOffset, yOffset ];
+		return [ xOffset, Math.min(yOffset, 0) ];
+	}
+
+	protected matchesPanelAmount(panels: readonly this[], width: number, height: number): boolean {
+		return panels.length === width * height;
+	}
+
+	protected matchesPanelProperties(panels: readonly this[], panelSize: number, xOffset: number, yOffset: number): boolean {
+		const existingPanel = panels.at(0) ?? null;
+
+		return existingPanel !== null
+			&& existingPanel.panelSize === panelSize
+			&& existingPanel.xOffset === xOffset
+			&& existingPanel.yOffset === yOffset;
 	}
 
 	protected override render(_canvasWidth: number, _canvasHeight: number, [ x, y ]: [ number, number ]): boolean {

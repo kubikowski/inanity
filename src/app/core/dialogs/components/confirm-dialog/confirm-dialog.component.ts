@@ -12,7 +12,6 @@ import { DialogComponent } from '../dialog.component';
 	styleUrl: 'confirm-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	standalone: true,
 	imports: [ MatProgressSpinner, BaseDialogComponent ],
 })
 export class ConfirmDialogComponent extends DialogComponent<ConfirmDialogConfiguration> {

@@ -16,7 +16,6 @@ import { DyslexicTextService } from 'src/app/features/dyslexia/services/dyslexic
 	templateUrl: 'dyslexia-dialog.component.html',
 	styleUrl: 'dyslexia-dialog.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatCheckbox, MatSlider, MatSliderThumb, ReactiveFormsModule,
 		BaseDialogComponent, DyslexicTextComponent,

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogActions, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { DialogFooterButtonConfiguration, DialogFooterConfiguration } from '../../../models/configuration/dialog-configuration.model';
@@ -11,12 +11,10 @@ import { BaseDialogFooterButtonComponent } from '../base-dialog-footer-button/ba
 	templateUrl: 'base-dialog-footer.component.html',
 	styleUrl: 'base-dialog-footer.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
-	imports: [ BaseDialogFooterButtonComponent ],
-	host: {
-		'[class.has-cancel-button]': 'hasCancelButton()',
-		'[class.has-visible-buttons]': 'hasVisibleButtons()',
-	},
+	imports: [
+		BaseDialogFooterButtonComponent,
+		MatDialogActions,
+	],
 })
 export class BaseDialogFooterComponent {
 	public readonly configuration = input.required<DialogFooterConfiguration>();

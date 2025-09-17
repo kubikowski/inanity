@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input, si
 import { combineLatest, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
-import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { DyslexicWord } from 'src/app/features/dyslexia/models/dyslexic-word.model';
 import { DyslexicTextService } from 'src/app/features/dyslexia/services/dyslexic-text.service';
 import { SubSink } from 'subsink';
@@ -12,7 +11,6 @@ import { SubSink } from 'subsink';
 	template: '',
 	host: { '[innerHTML]': 'outputText()' },
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 })
 export class DyslexicTextComponent {
 	private readonly dyslexicTextService = inject(DyslexicTextService);
@@ -45,7 +43,7 @@ export class DyslexicTextComponent {
 			} else {
 				this.outputWords.set(this.inputWords());
 			}
-		}, allowWrites);
+		});
 	}
 
 	private getDyslexicWord(word: string): string {

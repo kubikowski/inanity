@@ -50,7 +50,7 @@ export class SnekDirectionClassifications {
 		return [
 			this.getOptimalHorizontalDirection(headNode, foodNode),
 			this.getOptimalVerticalDirection(headNode, foodNode),
-		].filter(value => value !== null) as SnekDirection[];
+		].filter(value => value !== null);
 	}
 
 	private static getOptimalHorizontalDirection(headNode: SnekGridNode, foodNode: SnekGridNode): SnekDirection | null {

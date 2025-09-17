@@ -1,5 +1,4 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
-import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { SnekDirectionClassifications } from 'src/app/features/snek/models/direction/snek-direction-classifications.model';
 import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direction.enum';
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
@@ -20,7 +19,7 @@ export class SnekSolverService {
 					this.changeDirection(gameState);
 				}
 			}
-		}, allowWrites);
+		});
 	}
 
 	private changeDirection(gameState: SnekGameState): void {

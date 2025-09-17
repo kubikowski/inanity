@@ -8,7 +8,6 @@ import { DialogFooterButtonConfiguration } from '../../../models/configuration/d
 	templateUrl: 'base-dialog-footer-button.component.html',
 	styleUrl: 'base-dialog-footer-button.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ MatButton, MatIcon ],
 })
 export class BaseDialogFooterButtonComponent {

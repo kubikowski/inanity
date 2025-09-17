@@ -8,7 +8,7 @@
 
 	> .mat-mdc-icon-button.fragment-anchor {
 		padding: var(--icon-button-pad);
-		--mdc-icon-button-state-layer-size: var(--icon-button-size);
+		--mat-icon-button-state-layer-size: var(--icon-button-size);
 
 		color: var(--disabled-text-color);
 		@include color-transition(200ms);

@@ -1,3 +1,5 @@
+@use 'src/styles/mixins/background' as background;
+
 :host {
 	position: relative;
 	width: 100%;
@@ -5,14 +7,22 @@
 	background-color: var(--default-background-color);
 	border-radius: 0.5rem;
 	cursor: pointer;
+	outline: none;
+
+	&:is(:hover, :focus-visible) .background-demo-border {
+		border-color: var(--lighter-theme-color);
+	}
 
 	&.selected .background-demo-border {
-		border-color: var(--lightest-theme-color);
+		border-color: var(--default-theme-color);
+	}
+
+	&.selected:is(:hover, :focus-visible) .background-demo-border {
+		border-color: var(--darker-theme-color);
 	}
 
 	&.gradient {
-		background-color: var(--lightest-theme-color);
-		background-image: linear-gradient(to top, var(--default-background-color), transparent);
+		@include background.gradient();
 	}
 
 	canvas {

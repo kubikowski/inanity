@@ -1,11 +1,12 @@
 import { Component, ElementRef, inject, input, OnDestroy, output, untracked } from '@angular/core';
-import { create, JoystickManager, JoystickManagerOptions, JoystickOutputData } from 'nipplejs';
+import type { JoystickManager, JoystickManagerOptions, JoystickOutputData } from 'nipplejs';
+import nippleJs from 'nipplejs';
+const { create } = nippleJs;
 
 @Component({
 	selector: 'joystick',
 	template: '',
 	styleUrl: 'joystick.component.scss',
-	standalone: true,
 })
 export class JoystickComponent implements OnDestroy {
 	public readonly options = input<JoystickManagerOptions>({ });

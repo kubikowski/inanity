@@ -9,11 +9,12 @@ import { BackgroundService } from 'src/app/features/background/services/backgrou
 	styleUrl: 'background-demo.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ BackgroundDemoService ],
-	standalone: true,
 	host: {
 		'[class.selected]': 'selected()',
 		'[class.gradient]': 'showGradient()',
 		'(click)': 'selectBackgroundType()',
+		'(keydown.enter)': 'selectBackgroundType()',
+		'tabindex': '0',
 	},
 })
 export class BackgroundDemoComponent implements AfterViewInit {

@@ -11,12 +11,12 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	templateUrl: 'about-card.component.html',
 	styleUrl: 'about-card.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatCardModule, DyslexicTextComponent,
 	],
 	host: {
-		'[class.large-format]': 'data().image',
+		'[class.small-format]': 'smallFormat()',
+		'[class.large-format]': 'largeFormat()',
 	},
 })
 export class AboutCardComponent {
@@ -24,7 +24,10 @@ export class AboutCardComponent {
 
 	public readonly data = input.required<AboutCardData>();
 
+	public readonly smallFormat = computed(() => this.data().content?.some(content => content.linked) ?? false);
+	public readonly largeFormat = computed(() => typeof this.data().image !== 'undefined');
 	public readonly backdrop = this.backgroundService.enabled;
+
 	private readonly braces = toSignal(Braces.random$());
 
 	public readonly openBrace = computed(() => {

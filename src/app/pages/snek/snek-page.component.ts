@@ -11,7 +11,6 @@ import { SnekComponent } from 'src/app/features/snek/snek.component';
 	templateUrl: 'snek-page.component.html',
 	styleUrl: 'snek-page.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatCardModule, MatIcon,
 		DyslexicTextComponent, SnekComponent,

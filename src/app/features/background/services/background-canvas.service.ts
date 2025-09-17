@@ -2,7 +2,6 @@ import { computed, effect, inject, Injectable, signal, untracked } from '@angula
 import { toSignal } from '@angular/core/rxjs-interop';
 import { union } from 'set-utilities';
 import { AnimationFrameService } from 'src/app/core/browser/services/animation-frame.service';
-import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { stateful } from 'src/app/core/functions/signal/stateful.function';
 import { HandIconUtil } from 'src/app/core/svg/hand-icon.enum';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
@@ -55,13 +54,13 @@ export class BackgroundCanvasService extends CanvasService {
 	public constructor() {
 		super();
 
-		effect(() => this.initializeSvgOverlay(), allowWrites);
+		effect(() => this.initializeSvgOverlay());
 
 		// TODO: replace renderedElements with a linked signal
-		effect(() => this.renderedElements.set(new Set(this.canvasElements())), allowWrites);
+		effect(() => this.renderedElements.set(new Set(this.canvasElements())));
 
-		effect(() => this.onRenderFrame(), allowWrites);
-		effect(() => this.onPaintFrame(), allowWrites);
+		effect(() => this.onRenderFrame());
+		effect(() => this.onPaintFrame());
 	}
 
 	private initializeSvgOverlay(): void {

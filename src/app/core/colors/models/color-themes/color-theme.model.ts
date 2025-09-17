@@ -1,5 +1,6 @@
 import { BaseColorTheme } from 'src/app/core/colors/models/color-themes/base-color-theme.model';
 import { Color } from 'src/app/core/colors/models/color.model';
+import type { Tuple } from 'src/app/core/types/tuple.type';
 
 export class ColorTheme extends BaseColorTheme {
 
@@ -34,10 +35,7 @@ export class ColorTheme extends BaseColorTheme {
 	) {
 		super(
 			/* Static App Colors */
-			(prefers === 'light') ? ColorTheme.infoColorLight.toString() : ColorTheme.infoColorDark.toString(),
-			(prefers === 'light') ? ColorTheme.successColorLight.toString() : ColorTheme.successColorDark.toString(),
-			(prefers === 'light') ? ColorTheme.warningColorLight.toString() : ColorTheme.warningColorDark.toString(),
-			(prefers === 'light') ? ColorTheme.dangerColorLight.toString() : ColorTheme.dangerColorDark.toString(),
+			...ColorTheme.getStaticColors(prefers),
 
 			/* Background Colors */
 			defaultBackgroundColor.toString(),
@@ -61,5 +59,19 @@ export class ColorTheme extends BaseColorTheme {
 			/* Shadow Colors */
 			ColorTheme.shadowColor.withAlpha(0.20).toString(),
 		);
+	}
+
+	private static getStaticColors(prefers: 'light' | 'dark'): Tuple<string, 4> {
+		return (prefers === 'light') ? [
+			ColorTheme.infoColorLight.toString(),
+			ColorTheme.successColorLight.toString(),
+			ColorTheme.warningColorLight.toString(),
+			ColorTheme.dangerColorLight.toString(),
+		] : [
+			ColorTheme.infoColorDark.toString(),
+			ColorTheme.successColorDark.toString(),
+			ColorTheme.warningColorDark.toString(),
+			ColorTheme.dangerColorDark.toString(),
+		];
 	}
 }

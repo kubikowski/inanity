@@ -6,7 +6,6 @@ import { SnekStateService } from 'src/app/features/snek/services/core/snek-state
 	selector: 'snek-border',
 	templateUrl: 'snek-border.component.html',
 	styleUrl: 'snek-border.component.scss',
-	standalone: true,
 	imports: [ MatTooltip ],
 })
 export class SnekBorderComponent {

@@ -1,3 +1,3 @@
-<h6 (click)="applyTypeface()">{{ typeface().name }}</h6>
+<h6><a href="javascript:" (click)="applyTypeface()">{{ typeface().name }}</a></h6>
 <a [href]="typeface().attribution.downloadLink">&copy; {{ typeface().attribution.copyrightYear }} {{ typeface().attribution.author }}</a>
 <a [href]="typeface().attribution.licenseLink">{{ typeface().attribution.license }}</a>

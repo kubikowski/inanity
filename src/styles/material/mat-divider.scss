@@ -1,0 +1,11 @@
+@use '@angular/material' as mat;
+
+.mat-divider {
+	@include mat.divider-overrides((
+		width: 2px,
+	));
+
+	&.mat-divider-vertical {
+		margin: 0 0.5rem;
+	}
+}

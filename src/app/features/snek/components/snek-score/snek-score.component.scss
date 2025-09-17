@@ -4,7 +4,7 @@
 	gap: 3px;
 	background-color: var(--accent-background-color);
 	border: solid 4px var(--accent-background-color);
-	border-radius: 4px;
+	border-radius: var(--mat-sys-corner-small, 4px);
 	overflow: hidden;
 
 	.digit {
@@ -13,7 +13,7 @@
 		font-weight: var(--weight-semibold);
 		background-color: var(--default-background-color);
 		border: solid 1px var(--default-background-color);
-		border-radius: 3px;
+		border-radius: calc(var(--mat-sys-corner-small, 4px) - 1px);
 		width: 1.25rem;
 		height: 2rem;
 		text-align: center;

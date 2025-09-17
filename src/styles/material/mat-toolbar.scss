@@ -1,15 +1,13 @@
 body {
 	&:is(.tablet, .desktop) {
-		--navigation-height: var(--mat-toolbar-standard-height);
+		--navigation-height: 64px;
 	}
 
 	&.mobile {
-		--navigation-height: var(--mat-toolbar-mobile-height);
+		--navigation-height: 56px;
 	}
 }
 
 mat-toolbar.mat-toolbar {
 	height: var(--navigation-height);
-	background-color: var(--default-background-color);
-	color: var(--default-text-color);
 }

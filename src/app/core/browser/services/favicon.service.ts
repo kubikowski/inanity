@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { inject, Injectable, RendererFactory2 } from '@angular/core';
+import { DOCUMENT, inject, Injectable, RendererFactory2 } from '@angular/core';
 import { FaviconRef, FaviconUtil } from 'src/app/core/svg/favicon-ref.enum';
 
 @Injectable({ providedIn: 'root' })

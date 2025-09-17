@@ -1,6 +1,6 @@
-import { DOCUMENT } from '@angular/common';
+
 import { HttpClient } from '@angular/common/http';
-import { Component, computed, effect, inject, Injector, input, OnDestroy, OnInit, signal, untracked, ViewEncapsulation } from '@angular/core';
+import { Component, computed, effect, inject, Injector, input, OnDestroy, OnInit, signal, untracked, ViewEncapsulation, DOCUMENT } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { DomSanitizer } from '@angular/platform-browser';
 import hljs from 'highlight.js';
@@ -20,7 +20,6 @@ import { SubSink } from 'subsink';
 	styleUrl: 'markdown.component.scss',
 	encapsulation: ViewEncapsulation.None,
 	host: { '[innerHTML]': 'markdownHtml()' },
-	standalone: true,
 })
 export class MarkdownComponent implements OnInit, OnDestroy {
 	private readonly http = inject(HttpClient);

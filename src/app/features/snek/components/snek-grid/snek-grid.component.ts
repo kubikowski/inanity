@@ -12,7 +12,6 @@ import { SnekUserInputService } from 'src/app/features/snek/services/core/snek-u
 	styleUrl: 'snek-grid.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	standalone: true,
 	imports: [ JoystickComponent, SnekBorderComponent ],
 	host: {
 		'[style.--snek-grid-size]': 'snekGridSize() + \'px\'',

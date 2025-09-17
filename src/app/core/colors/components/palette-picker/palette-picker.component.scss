@@ -1,4 +1,9 @@
 :host {
+	--color-lighter: unset;
+	--color-default: unset;
+	--color-dark: unset;
+	--color-darker: unset;
+
 	display: grid;
 	grid-template-rows: 1fr 3fr;
 	grid-template-columns: 1fr 3fr;
@@ -8,17 +13,35 @@
 
 	overflow: hidden;
 	border: solid 2px transparent;
-	border-radius: 0.5rem;
+	border-radius: var(--mat-sys-corner-small, 0.5rem);
 	cursor: pointer;
+	outline: none;
+
+	&:is(:hover, :focus-visible) {
+		border-color: var(--color-lighter);
+	}
 
 	&.selected {
-		border-color: var(--default-theme-color);
+		border-color: var(--color-default);
+	}
+
+	&.selected:is(:hover, :focus-visible) {
+		border-color: var(--color-darker);
+	}
+
+	.mock-corner {
+		background-color: var(--color-default);
+	}
+
+	.mock-header {
+		background-color: var(--color-dark);
 	}
 
 	.mock-sidebar {
 		display: flex;
 		flex-flow: column nowrap;
 		justify-content: space-evenly;
+		background-color: var(--color-lighter);
 
 		mat-icon {
 			color: var(--light-text-color);
@@ -33,9 +56,10 @@
 		strong {
 			display: block;
 			height: 100%;
+			color: var(--color-default);
 			background-color: var(--default-background-color);
 			padding-left: 0.25rem;
-			border-radius: 0.25rem;
+			border-radius: var(--mat-sys-corner-extra-small, 0.25rem);
 		}
 	}
 }

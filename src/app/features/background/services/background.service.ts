@@ -1,5 +1,4 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
-import { allowWrites } from 'src/app/core/functions/signal/allow-writes.constant';
 import { BackgroundType } from 'src/app/features/background/models/background-type.enum';
 
 @Injectable({ providedIn: 'root' })
@@ -26,7 +25,7 @@ export class BackgroundService {
 			if (this.isMovingBackground() && !this.enabled()) {
 				this.enabled.set(true);
 			}
-		}, allowWrites);
+		});
 	}
 
 	private static get persistType(): BackgroundType {

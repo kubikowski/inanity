@@ -8,7 +8,7 @@ import { Directive, inject, isDevMode, TemplateRef, ViewContainerRef } from '@an
  * @example
  * <div *development>...</div>
  */
-@Directive({ selector: '[development]', standalone: true })
+@Directive({ selector: '[development]' })
 export class DevelopmentDirective<T> {
 	private readonly templateRef = inject(TemplateRef<T>);
 	private readonly viewContainer = inject(ViewContainerRef);

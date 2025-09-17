@@ -8,11 +8,12 @@ import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 	templateUrl: 'theme-picker.component.html',
 	styleUrl: 'theme-picker.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [ MatIcon ],
 	host: {
-		'[style.background-color]': 'backgroundColor()',
-		'[style.color]': 'color()',
+		'[style.--color-background-default]': 'theme().colorDefaultBackground',
+		'[style.--color-text-default]': 'theme().colorDefaultText',
+		'[style.--color-text-disabled]': 'theme().colorDisabledText',
+		'[style.--color-text-light]': 'theme().colorLightText',
 	},
 })
 export class ThemePickerComponent {
@@ -20,8 +21,6 @@ export class ThemePickerComponent {
 
 	public readonly theme = input.required<ColorTheme>();
 
-	public readonly backgroundColor = computed(() => this.theme().colorDefaultBackground);
-	public readonly color = computed(() => this.theme().colorDefaultText);
 	public readonly message = computed(() => {
 		switch (this.theme().prefers) {
 			case 'light':

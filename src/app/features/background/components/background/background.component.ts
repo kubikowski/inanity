@@ -11,7 +11,6 @@ import { ClockComponent } from 'src/app/features/clock/clock.component';
 	styleUrl: 'background.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ BackgroundCanvasService ],
-	standalone: true,
 	imports: [
 		DecimalPipe, MatDivider, ClockComponent,
 	],

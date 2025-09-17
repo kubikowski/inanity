@@ -11,7 +11,6 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 	templateUrl: 'sidebar-item.component.html',
 	styleUrl: 'sidebar-item.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		RouterLink, RouterLinkActive, MatCardModule, MatIcon,
 		DyslexicTextComponent,
@@ -22,8 +21,8 @@ export class SidebarItemComponent {
 
 	public readonly navigationItem = input.required<NavigationItem>();
 
-	public toggleSidenav(event: Event): void {
+	public async toggleSidenav(event: Event): Promise<void> {
 		(event.currentTarget as HTMLElement).blur();
-		this.navigationService.toggle();
+		await this.navigationService.toggle();
 	}
 }

@@ -12,7 +12,6 @@ import { SnekSolverService } from 'src/app/features/snek/services/peripheral/sne
 	templateUrl: 'snek-options.component.html',
 	styleUrl: 'snek-options.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: true,
 	imports: [
 		MatSlideToggle, ReactiveFormsModule, SnekScoreComponent,
 	],

@@ -23,7 +23,6 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 	styleUrl: 'app.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	standalone: true,
 	imports: [
 		RouterOutlet, MatSidenavModule,
 		HeaderComponent, FooterComponent, SidebarComponent, BackgroundComponent,
@@ -45,6 +44,7 @@ export class AppComponent implements AfterViewInit {
 	public readonly backgroundEnabled = this.backgroundService.enabled;
 
 	private readonly sidenav = viewChild.required<MatSidenav>('sidenav');
+
 	public ngAfterViewInit(): void {
 		this.navigationService.initialize(untracked(this.sidenav));
 	}

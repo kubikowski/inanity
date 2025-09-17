@@ -6,7 +6,6 @@ import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@a
 	styleUrl: 'background-image.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	standalone: true,
 	host: {
 		'[class]': 'clip()',
 		'[class.background-image]': 'true',
