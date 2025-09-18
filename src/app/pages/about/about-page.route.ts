@@ -6,5 +6,6 @@ export const aboutPageRoute: Routes = [ {
 	component: AboutPageComponent,
 	data: {
 		title: 'about',
+		description: 'About the author',
 	},
 } ];

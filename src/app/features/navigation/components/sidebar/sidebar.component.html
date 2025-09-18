@@ -1,5 +1,5 @@
 <mat-toolbar>
-	<button mat-icon-button (click)="toggleSidenav($event)">
+	<button mat-icon-button (click)="toggleSidenav($event)" matTooltip="Navigation">
 		<mat-icon>menu</mat-icon>
 	</button>
 
@@ -19,7 +19,7 @@
 </section>
 
 <mat-toolbar>
-	<a mat-icon-button [href]="githubLink">
+	<a mat-icon-button [href]="githubLink" matTooltip="GitHub">
 		<mat-icon [svgIcon]="GitHubIcon"/>
 	</a>
 

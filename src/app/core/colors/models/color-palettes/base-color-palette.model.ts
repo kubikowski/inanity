@@ -2,6 +2,15 @@ export type ColorKey = keyof BaseColorPalette;
 
 export class BaseColorPalette {
 	public static readonly CssVariables = this.getCssVariables();
+	public static readonly colorKeys = [
+		'colorLightest',
+		'colorLighter',
+		'colorLight',
+		'colorDefault',
+		'colorDark',
+		'colorDarker',
+		'colorDarkest',
+	] as const;
 
 	protected constructor(
 		public readonly colorLightest: string,
@@ -66,7 +75,7 @@ export class BaseColorPalette {
 	}
 
 	public static getRandomKey(): ColorKey {
-		const colorKeys = Object.keys(BaseColorPalette.CssVariables) as ColorKey[];
-		return colorKeys[ Math.floor(Math.random() * 7) ] as ColorKey;
+		const colorKeyIndex = Math.floor(Math.random() * this.colorKeys.length);
+		return this.colorKeys[colorKeyIndex]!;
 	}
 }

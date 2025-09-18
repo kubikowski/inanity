@@ -26,23 +26,27 @@
 	}
 
 	> .snek-border-text {
+		position: relative;
 		display: flex;
 		flex-flow: column nowrap;
 		justify-content: space-between;
 		align-items: center;
 		width: calc(2 * var(--snek-grid-size));
-		height: calc(100% + 2px + 0.5em - (var(--snek-border-width) / 2));
+		height: 100%;
 		font-size: 10px;
 
-		> .snek-border-top {
+		> :is(.snek-border-top, .snek-border-bottom) {
 			border-top: var(--snek-border);
 			width: 100%;
 		}
 
 		> .snek-seed {
+			position: absolute;
+			bottom: -0.5em;
 			font-family: var(--monospace-font);
 			font-weight: var(--weight-bold);
 			color: var(--disabled-text-color);
+			z-index: 5;
 		}
 	}
 }

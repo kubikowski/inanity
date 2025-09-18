@@ -19,6 +19,10 @@ export class Grain extends CanvasSingleton {
 	public override readonly renderInterval = 40;
 	public override readonly paintInterval = 40;
 
+	private static readonly renderBaseline = 1 / 20;
+	private static readonly visibilityRate = 1 / 16;
+	private static readonly reversalRate = 9 / 10;
+
 	private constructor(
 		private readonly canvasWidth: number,
 		private readonly canvasHeight: number,
@@ -41,7 +45,7 @@ export class Grain extends CanvasSingleton {
 	protected override calibrate(canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): this {
 		const grainOffsetSize = Math.floor(maxCalibration / 2);
 		const grainOffsets = this.getGrainOffsets(grainOffsetSize);
-		const grainRate = 0.01 * grainOffsetSize * calibration / maxCalibration;
+		const grainRate = Grain.renderBaseline * grainOffsetSize * calibration / maxCalibration;
 
 		return new Grain(canvasWidth, canvasHeight, grainRate, grainOffsetSize, grainOffsets) as this;
 	}
@@ -66,38 +70,26 @@ export class Grain extends CanvasSingleton {
 	}
 
 	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette, strokePalette: ColorPalette): void {
-		const [ rows, columns ] = this.getOffsetGrid();
+		const [ xOffset, yOffset ] = this.getGrainOffset();
 
-		for (const y of rows) {
-			for (const x of columns) {
+		for (let y = yOffset; y < this.canvasHeight; y += this.grainOffsetSize) {
+			for (let x = xOffset; x < this.canvasWidth; x += this.grainOffsetSize) {
+
 				if (Math.random() > this.grainRate) continue;
+				context.clearRect(x, y, 1, 1);
 
+				if (Math.random() > Grain.visibilityRate) continue;
 				const colorKey = BaseColorPalette.getRandomKey();
 
 				const pointInOverlay = this.isPointInSvgOverlay(x, y);
-				const reversePalette = (Math.random() > 0.80);
+				const reversePalette = (Math.random() > Grain.reversalRate);
 				const pointPalette = xor(pointInOverlay, reversePalette)
 					? strokePalette : fillPalette;
 
 				context.fillStyle = pointPalette[colorKey];
-				context.clearRect(x, y, 1, 1);
 				context.fillRect(x, y, 1, 1);
 			}
 		}
-	}
-
-	private getOffsetGrid(): [ number[], number[] ] {
-		const [ xOffset, yOffset ] = this.getGrainOffset();
-
-		const maxRows = Math.ceil((this.canvasHeight - yOffset) / this.grainOffsetSize);
-		const maxColumns = Math.ceil((this.canvasWidth - xOffset) / this.grainOffsetSize);
-
-		const rows = Array.from({ length: maxRows })
-			.map((_ignored, index) => index * this.grainOffsetSize + yOffset);
-		const columns = Array.from({ length: maxColumns })
-			.map((_ignored, index) => index * this.grainOffsetSize + xOffset);
-
-		return [ rows, columns ];
 	}
 
 	private getGrainOffset(): [ number, number ] {

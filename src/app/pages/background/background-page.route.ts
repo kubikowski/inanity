@@ -4,5 +4,8 @@ import { BackgroundPageComponent } from 'src/app/pages/background/background-pag
 export const backgroundPageRoute: Routes = [ {
 	path: '',
 	component: BackgroundPageComponent,
-	data: { title: 'noise' },
+	data: {
+		title: 'noise',
+		description: 'unfettered background',
+	},
 } ];
