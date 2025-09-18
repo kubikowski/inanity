@@ -18,7 +18,8 @@
 					"builder": "@angular-devkit/build-angular:application",
 					"options": {
 						"outputPath": {
-							"base": "dist/inanity"
+							"base": "dist/inanity",
+							"browser": ""
 						},
 						"index": "src/index.html",
 						"polyfills": [
