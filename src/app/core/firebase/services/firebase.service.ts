@@ -3,10 +3,9 @@ import { Auth } from '@angular/fire/auth';
 import firebase from 'firebase/compat/app';
 import { auth } from 'firebaseui';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class FirebaseService implements OnDestroy {
 	private readonly auth = inject(Auth);
-	private readonly authUI = new auth.AuthUI(this.auth);
 
 	public readonly user = signal<firebase.UserInfo | null>(null);
 	public readonly authSuccess = signal(false);
@@ -45,9 +44,15 @@ export class FirebaseService implements OnDestroy {
 		this.authSubscriptionCallback();
 	}
 
+	private getAuthUI(): auth.AuthUI {
+		return auth.AuthUI.getInstance('inanity')
+			?? new auth.AuthUI(this.auth, 'inanity');
+	}
+
 	public attachAuthUI(): void {
 		if (untracked(this.user) === null) {
-			this.authUI.start('#firebaseui-auth-container', this.firebaseAuthConfig);
+			const authUI = this.getAuthUI();
+			authUI.start('#firebaseui-auth-container', this.firebaseAuthConfig);
 		}
 	}
 }

@@ -7,5 +7,6 @@ export const sprinterPageRoute: Routes = [ {
 	data: {
 		featureFlag: true,
 		title: 'sprinter',
+		description: 'The Sprinter',
 	},
 } ];

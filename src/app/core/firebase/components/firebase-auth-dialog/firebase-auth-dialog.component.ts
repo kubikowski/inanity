@@ -12,6 +12,7 @@ import { FirebaseService } from 'src/app/core/firebase/services/firebase.service
 	styleUrl: 'firebase-ui-auth-6.0.2.modified.css',
 	encapsulation: ViewEncapsulation.None,
 	imports: [ BaseDialogComponent ],
+	providers: [ FirebaseService ],
 })
 export class FirebaseAuthDialogComponent extends DialogComponent implements AfterViewInit {
 	public readonly firebaseService = inject(FirebaseService);

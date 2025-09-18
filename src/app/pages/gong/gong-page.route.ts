@@ -7,5 +7,6 @@ export const gongPageRoute: Routes = [ {
 	data: {
 		featureFlag: true,
 		title: 'gong',
+		description: 'The Gong',
 	},
 } ];

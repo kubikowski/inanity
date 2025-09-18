@@ -1,7 +1,16 @@
 {
 	"name": "inanity",
 	"short_name": "inanity",
+	"description": "a personal sandbox",
+	"categories": [
+		"entertainment"
+	],
 	"start_url": "/",
+	"scope": "/",
+	"display_override": [
+		"fullscreen",
+		"minimal-ui"
+	],
 	"display": "standalone",
 	"theme_color": "#036ea6",
 	"background_color": "#424242",

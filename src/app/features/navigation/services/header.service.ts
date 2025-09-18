@@ -1,9 +1,5 @@
 import { computed, inject, Injectable, isDevMode } from '@angular/core';
-import { ColorThemeDialogComponent } from 'src/app/core/colors/components/color-theme-dialog/color-theme-dialog.component';
 import { DialogService } from 'src/app/core/dialogs/services/dialog.service';
-import { FirebaseAuthDialogComponent } from 'src/app/core/firebase/components/firebase-auth-dialog/firebase-auth-dialog.component';
-import { BackgroundDialogComponent } from 'src/app/features/background/components/background-dialog/background-dialog.component';
-import { DyslexiaDialogComponent } from 'src/app/features/dyslexia/components/dyslexia-dialog/dyslexia-dialog.component';
 import { HeaderItem } from '../models/header-item.model';
 
 @Injectable({ providedIn: 'root' })
@@ -49,20 +45,24 @@ export class HeaderService {
 
 
 	// region Actions
-	private authentication(): void {
-		this.dialogService.static(FirebaseAuthDialogComponent);
+	private async authentication(): Promise<void> {
+		await import('src/app/core/firebase/components/firebase-auth-dialog/firebase-auth-dialog.component')
+			.then(module => this.dialogService.static(module.FirebaseAuthDialogComponent));
 	}
 
-	private colorTheme(): void {
-		this.dialogService.static(ColorThemeDialogComponent);
+	private async colorTheme(): Promise<void> {
+		await import('src/app/core/colors/components/color-theme-dialog/color-theme-dialog.component')
+			.then(module => this.dialogService.static(module.ColorThemeDialogComponent));
 	}
 
-	private background(): void {
-		this.dialogService.static(BackgroundDialogComponent);
+	private async background(): Promise<void> {
+		await import('src/app/features/background/components/background-dialog/background-dialog.component')
+			.then(module => this.dialogService.static(module.BackgroundDialogComponent));
 	}
 
-	private dyslexia(): void {
-		this.dialogService.static(DyslexiaDialogComponent);
+	private async dyslexia(): Promise<void> {
+		await import('src/app/features/dyslexia/components/dyslexia-dialog/dyslexia-dialog.component')
+			.then(module => this.dialogService.static(module.DyslexiaDialogComponent));
 	}
 	// endregion Actions
 }

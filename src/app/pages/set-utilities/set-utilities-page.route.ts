@@ -6,5 +6,6 @@ export const setUtilitiesPageRoute: Routes = [ {
 	component: SetUtilitiesPageComponent,
 	data: {
 		title: 'set-utilities',
+		description: 'The set-utilities package',
 	},
 } ];

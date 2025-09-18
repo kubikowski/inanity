@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FontsComponent } from 'src/app/core/fonts/components/fonts/fonts.component';
 import { SvgIcon } from 'src/app/core/svg/svg-icon.enum';
 import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
@@ -15,7 +16,7 @@ import { environment } from 'src/environments/environment';
 	styleUrl: 'sidebar.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		MatIcon, MatIconButton, MatIconAnchor, MatToolbar,
+		MatIcon, MatIconButton, MatIconAnchor, MatToolbar, MatTooltip,
 		DyslexicTextComponent, SidebarItemComponent, FontsComponent,
 	],
 })
