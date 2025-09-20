@@ -8,6 +8,9 @@
 /* Monospace Fonts */
 @use './fonts/victor-mono.font';
 
+/* Material Symbols */
+@use './fonts/material-symbols.font';
+
 :root {
 	--app-font: var(--serif-font);
 
