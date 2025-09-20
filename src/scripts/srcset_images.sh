@@ -1,6 +1,9 @@
 #!/bin/bash
 
 source "./src/scripts/util/util.sh";
+source "./src/scripts/util/magick_util.sh";
+
+check_magick_version;
 
 declare -r input_path="./src/assets/images";
 declare -r output_path="./.assets/images";
