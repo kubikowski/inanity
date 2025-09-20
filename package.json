@@ -3,8 +3,7 @@
 	"version": "0.13.4",
 	"scripts": {
 		"ng": "ng",
-		"prebuild": "./src/scripts/import_content.sh",
-		"preserve": "./src/scripts/import_content.sh",
+		"content": "./src/scripts/content.sh",
 		"build": "ng build",
 		"serve": "ng serve",
 		"test": "ng test",

@@ -9,8 +9,14 @@
 
 	@if (data().image; as image) {
 		<img mat-card-image
-			 [src]="image.src"
-			 [alt]="image.alt"/>
+			 [ngSrc]="image.src"
+			 [ngSrcset]="imageSrcset()"
+			 [loaderParams]="{ originalWidth: image.width }"
+			 [alt]="image.alt"
+			 [width]="image.width"
+			 [height]="image.height"
+			 placeholder
+			 priority/>
 	}
 
 	@if (data().content) {

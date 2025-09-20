@@ -69,6 +69,12 @@ jobs:
             name: Production
             url: https://inanity.io
         steps:
+            -   name: Install ImageMagick
+                timeout-minutes: 2
+                run: |
+                    sudo apt-get install imagemagick;
+                    identify --version;
+
             -   name: Checkout Branch
                 uses: actions/checkout@v4
                 with:
@@ -78,13 +84,17 @@ jobs:
             -   name: Pull Branch
                 run: git pull
 
-            -   name: Install dependencies
+            -   name: Install Dependencies
                 run: npm install
+
+            -   name: Import Content
+                run: npm run content
 
             -   name: Build Production
                 run: npm run build -- --configuration=production
 
-            -   uses: FirebaseExtended/action-hosting-deploy@v0
+            -   name: Firebase Deploy
+                uses: FirebaseExtended/action-hosting-deploy@v0
                 with:
                     repoToken: ${{ secrets.GITHUB_TOKEN }}
                     firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_INANITY_IO }}
