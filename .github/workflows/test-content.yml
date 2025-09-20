@@ -3,6 +3,7 @@ name: Test Content
 on:
     push:
         paths:
+            - '.github/workflows/test-content.yml'
             - 'src/assets/images/**'
             - 'src/scripts/**'
 
@@ -15,6 +16,11 @@ jobs:
                 uses: actions/checkout@v4
                 with:
                     token: ${{ secrets.GITHUB_TOKEN }}
+
+            -   name: Disable mandb triggers
+                run: |
+                    echo "set man-db/auto-update false" | sudo debconf-communicate;
+                    sudo dpkg-reconfigure man-db;
 
             -   name: Install ImageMagick
                 timeout-minutes: 2

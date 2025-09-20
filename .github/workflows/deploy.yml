@@ -69,6 +69,11 @@ jobs:
             name: Production
             url: https://inanity.io
         steps:
+            -   name: Disable mandb triggers
+                run: |
+                    echo "set man-db/auto-update false" | sudo debconf-communicate;
+                    sudo dpkg-reconfigure man-db;
+
             -   name: Install ImageMagick
                 timeout-minutes: 2
                 run: |
