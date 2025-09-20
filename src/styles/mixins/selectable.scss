@@ -1,0 +1,58 @@
+@mixin background(
+	$background-class: null,
+	$background-default: var(--lightest-theme-color),
+	$background-focused: var(--lighter-theme-color),
+	$background-selected: var(--light-theme-color),
+	$background-selected-focused: var(--default-theme-color),
+) {
+	@include _selectable(
+		$property: 'background-color',
+		$class: $background-class,
+		$default: $background-default,
+		$focused: $background-focused,
+		$selected: $background-selected,
+		$selected-focused: $background-selected-focused,
+	);
+}
+
+@mixin border(
+	$border-class: null,
+	$border-default: transparent,
+	$border-focused: var(--lighter-theme-color),
+	$border-selected: var(--default-theme-color),
+	$border-selected-focused: var(--darker-theme-color),
+) {
+	@include _selectable(
+		$property: 'border-color',
+		$class: $border-class,
+		$default: $border-default,
+		$focused: $border-focused,
+		$selected: $border-selected,
+		$selected-focused: $border-selected-focused,
+	);
+}
+
+@mixin _selectable($property, $class, $default, $focused, $selected, $selected-focused) {
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+
+	@if ($class != null) {
+		#{$class} {
+			#{$property}: #{$default};
+		}
+	} @else {
+		#{$property}: #{$default};
+	}
+
+	&:is(:hover, :focus-visible) #{$class} {
+		#{$property}: #{$focused};
+	}
+
+	&.selected #{$class} {
+		#{$property}: #{$selected};
+	}
+
+	&.selected:is(:hover, :focus-visible) #{$class} {
+		#{$property}: #{$selected-focused};
+	}
+}

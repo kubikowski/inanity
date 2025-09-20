@@ -5,6 +5,7 @@ snek-grid {
 	width: max-content;
 	user-select: none;
 	touch-action: none;
+	-webkit-tap-highlight-color: transparent;
 
 	/* overwritten by host style */
 	--snek-grid-size: 20px;

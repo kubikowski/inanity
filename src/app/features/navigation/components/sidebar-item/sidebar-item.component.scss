@@ -1,23 +1,15 @@
+@use 'src/styles/mixins/selectable' as selectable;
+
 :host {
 	.sidebar-item {
 		text-decoration: none;
-		outline: none;
 
-		&:is(:hover, :focus-visible) .mat-mdc-card {
-			background-color: var(--lighter-theme-color);
-		}
-
-		&.active-route .mat-mdc-card {
-			background-color: var(--light-theme-color);
-		}
-
-		&.active-route:is(:hover, :focus-visible) .mat-mdc-card {
-			background-color: var(--default-theme-color);
-		}
+		@include selectable.background(
+			$background-class: '.mat-mdc-card',
+		);
 
 		.mat-mdc-card {
 			cursor: pointer;
-			background-color: var(--lightest-theme-color);
 			border-color: var(--border-color);
 			color: var(--dark-text-color);
 
