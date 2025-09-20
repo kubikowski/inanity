@@ -2,7 +2,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
-import { imageSrcset } from 'src/app/core/functions/http/image-srcset.function';
+import { ImageSrcset } from 'src/app/core/functions/http/image-srcset.function';
 import { AboutCardData } from 'src/app/features/about/models/about-card-data.interface';
 import { Braces } from 'src/app/features/about/models/braces.constant';
 import { BackgroundService } from 'src/app/features/background/services/background.service';
@@ -29,7 +29,7 @@ export class AboutCardComponent {
 	public readonly smallFormat = computed(() => this.data().content?.some(content => content.linked) ?? false);
 	public readonly largeFormat = computed(() => typeof this.data().image !== 'undefined');
 
-	public readonly imageSrcset = computed(() => imageSrcset(this.data().image?.width ?? 0));
+	public readonly imageSrcset = computed(() => ImageSrcset.getImageSrcset(this.data().image?.width ?? 0));
 
 	private readonly braces = toSignal(Braces.random$());
 

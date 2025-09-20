@@ -1,18 +1,17 @@
 import { IMAGE_CONFIG, IMAGE_LOADER } from '@angular/common';
 import { ValueProvider } from '@angular/core';
-import { imageLoader } from 'src/app/core/functions/http/image-loader.function';
-import { imagePlaceholderWidth, imageSrcsetWidths } from 'src/app/core/functions/http/image-srcset.function';
+import { ImageSrcset } from 'src/app/core/functions/http/image-srcset.function';
 
 const imageLoaderProvider: ValueProvider = {
 	provide: IMAGE_LOADER,
-	useValue: imageLoader,
+	useValue: ImageSrcset.getImageLoader(),
 };
 
 const imageConfigProvider: ValueProvider = {
 	provide: IMAGE_CONFIG,
 	useValue: {
-		breakpoints: imageSrcsetWidths,
-		placeholderResolution: imagePlaceholderWidth,
+		breakpoints: ImageSrcset.breakpointWidths,
+		placeholderResolution: ImageSrcset.placeholderWidth,
 	},
 };
 
