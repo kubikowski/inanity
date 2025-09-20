@@ -1,10 +1,10 @@
-@mixin simple-gradient() {
+@mixin simple-gradient {
 	--gradient-0: transparent;
 	--gradient-1: rgb(from var(--lightest-theme-color) r g b / 0.35);
 	background-image: linear-gradient(to bottom, var(--gradient-0), var(--gradient-1));
 }
 
-@mixin ten-step-gradient() {
+@mixin ten-step-gradient {
 	--gradient-0: transparent;
 	--gradient-1: transparent;
 	--gradient-2: transparent;
@@ -22,6 +22,6 @@
 	);
 }
 
-@mixin gradient() {
-	@include ten-step-gradient();
+@mixin gradient {
+	@include ten-step-gradient;
 }

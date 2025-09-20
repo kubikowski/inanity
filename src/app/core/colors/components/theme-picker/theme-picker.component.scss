@@ -1,3 +1,5 @@
+@use 'src/styles/mixins/selectable' as selectable;
+
 :host {
 	--color-background-default: unset;
 	--color-text-default: unset;
@@ -17,19 +19,8 @@
 	border: solid 2px transparent;
 	border-radius: var(--mat-sys-corner-small, 0.5rem);
 	cursor: pointer;
-	outline: none;
 
-	&:is(:hover, :focus-visible) {
-		border-color: var(--lighter-theme-color);
-	}
-
-	&.selected {
-		border-color: var(--default-theme-color);
-	}
-
-	&.selected:is(:hover, :focus-visible) {
-		border-color: var(--darker-theme-color);
-	}
+	@include selectable.border();
 
 	.icon-bubble {
 		display: flex;

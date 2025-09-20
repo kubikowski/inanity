@@ -1,3 +1,5 @@
+@use 'src/styles/mixins/selectable' as selectable;
+
 :host {
 	--color-lighter: unset;
 	--color-default: unset;
@@ -15,19 +17,12 @@
 	border: solid 2px transparent;
 	border-radius: var(--mat-sys-corner-small, 0.5rem);
 	cursor: pointer;
-	outline: none;
 
-	&:is(:hover, :focus-visible) {
-		border-color: var(--color-lighter);
-	}
-
-	&.selected {
-		border-color: var(--color-default);
-	}
-
-	&.selected:is(:hover, :focus-visible) {
-		border-color: var(--color-darker);
-	}
+	@include selectable.border(
+		$border-focused: var(--color-lighter),
+		$border-selected: var(--color-default),
+		$border-selected-focused: var(--color-darker),
+	);
 
 	.mock-corner {
 		background-color: var(--color-default);
