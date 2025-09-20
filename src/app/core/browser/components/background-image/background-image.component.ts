@@ -1,5 +1,10 @@
-import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';
+import { ImageSrcset } from 'src/app/core/functions/http/image-srcset.function';
 
+/**
+ * TODO: further reading on implementing parallax background image scrolling
+ *  https://keithclark.co.uk/articles/practical-css-parallax/
+ */
 @Component({
 	selector: 'background-image',
 	template: '<ng-content/>',
@@ -9,8 +14,8 @@ import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@a
 	host: {
 		'[class]': 'clip()',
 		'[class.background-image]': 'true',
-		'[style.background-image]': '\'url(\' + url() + \')\'',
-		'[style.min-height]': 'height() + \'px\'',
+		'[style.background-image]': 'imageSet()',
+		'[style.min-height]': 'scrollHeight() + \'px\'',
 		'[title]': 'alt() ?? \'\'',
 	},
 })
@@ -22,8 +27,12 @@ export class BackgroundImageComponent {
 	/** Image Alternate Text */
 	public readonly alt = input<string>();
 
+	/** Image Native Width */
+	public readonly imgWidth = input.required<number>();
+	public readonly imageSet = computed(() => ImageSrcset.getImageSet(this.url(), this.imgWidth()));
+
 	/** Scroll Height */
-	public readonly height = input.required<number>();
+	public readonly scrollHeight = input.required<number>();
 
 	/** Whether to clip the image */
 	public readonly clip = input<'parallelogram' | 'wave'>();

@@ -34,6 +34,12 @@
 								"glob": "**/*",
 								"output": "/assets/"
 							},
+							{
+								"followSymlinks": true,
+								"input": ".assets",
+								"glob": "**/*",
+								"output": "/assets/"
+							},
 							"src/favicon.ico",
 							"src/manifest.json",
 							"src/robots.txt"

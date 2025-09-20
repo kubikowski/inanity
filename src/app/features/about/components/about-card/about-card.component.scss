@@ -51,6 +51,7 @@
 
 		.mat-mdc-card-image {
 			border-radius: inherit;
+			height: unset;
 		}
 
 		.mat-mdc-card-content.content {
@@ -81,7 +82,8 @@
 			font-size: 16px;
 
 			p:first-of-type {
-				--initial-size: 55px;
+				--initial-letter: 2.75;
+				--initial-size: 54px;
 
 				&:first-letter {
 					color: var(--default-text-color);
@@ -90,8 +92,12 @@
 					font-size: var(--initial-size);
 					line-height: var(--initial-size);
 					padding-right: 3px;
-					float: left;
+					float: inline-start;
 					text-indent: 0;
+
+					@supports (initial-letter: var(--initial-letter)) {
+						initial-letter: var(--initial-letter);
+					}
 				}
 			}
 		}

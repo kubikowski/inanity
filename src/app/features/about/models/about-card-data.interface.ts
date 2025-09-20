@@ -4,6 +4,8 @@ export interface AboutCardData {
 	readonly image?: {
 		readonly src: string;
 		readonly alt: string;
+		readonly width: number;
+		readonly height: number;
 	};
 
 	readonly content?: {

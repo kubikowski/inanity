@@ -6,6 +6,8 @@ export const aboutCardData: readonly AboutCardData[] = [
 		image: {
 			src: 'assets/images/glacier_sunset.jpg',
 			alt: 'Glacier National Park, some time around sunset',
+			width: 4000,
+			height: 3000,
 		},
 	},
 	{
@@ -39,6 +41,8 @@ export const aboutCardData: readonly AboutCardData[] = [
 		image: {
 			src: 'assets/images/los_angeles_sunset.jpg',
 			alt: 'Angeles Crest, looking out over the city',
+			width: 4096,
+			height: 3072,
 		},
 	},
 	{
