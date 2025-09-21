@@ -13,20 +13,17 @@ export class AnalyticsService {
 	public constructor() {
 		install(this.measurementId);
 
-		effect(() => this.tagPageEvents());
+		effect(() => {
+			const currentUrl = this.routerService.currentUrl();
+			this.tagPageEvent(currentUrl)
+				.catch(console.error);
+		});
 	}
 
-	private tagPageEvents(): void {
-		this.debounceCurrentUrl()
-			.then(currentUrl => gtag('config', this.measurementId, {
-				'page_path': currentUrl,
-			}))
-			.catch(console.error);
-	}
-
-	private async debounceCurrentUrl(): Promise<string> {
-		const currentUrl = this.routerService.currentUrl();
+	private async tagPageEvent(currentUrl: string): Promise<void> {
 		await timeout();
-		return currentUrl;
+		gtag('config', this.measurementId, {
+			'page_path': currentUrl,
+		});
 	}
 }
