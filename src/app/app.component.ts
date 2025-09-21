@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, inject, untracked, viewChild, ViewEncapsulation } from '@angular/core';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
+import { AnalyticsService } from 'src/app/core/browser/services/analytics.service';
 import { AnimationFrameService } from 'src/app/core/browser/services/animation-frame.service';
 import { FaviconService } from 'src/app/core/browser/services/favicon.service';
 import { RouterService } from 'src/app/core/browser/services/router.service';
@@ -29,6 +30,7 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 	],
 })
 export class AppComponent implements AfterViewInit {
+	private readonly analyticsService = inject(AnalyticsService);
 	private readonly animationFrameService = inject(AnimationFrameService);
 	private readonly faviconService = inject(FaviconService);
 	private readonly routerService = inject(RouterService);
