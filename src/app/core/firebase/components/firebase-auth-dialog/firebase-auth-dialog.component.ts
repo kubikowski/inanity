@@ -30,9 +30,9 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 	public readonly AuthScreen = AuthScreen;
 	public readonly authScreen = signal(AuthScreen.AUTH_SELECTION);
 
-	public readonly canReturnToSelection = computed(() => AuthScreenUtility.returnToSelection(this.authScreen()));
-	public readonly hideBackButton = computed(() => !this.canReturnToSelection());
-	public readonly hideEmailButtons = computed(() => this.authScreen() !== AuthScreen.EMAIL_AUTH);
+	public readonly showBackButton = computed(() => AuthScreenUtility.returnToSelection(this.authScreen()));
+	public readonly showCancelButton = computed(() => !this.showBackButton());
+	public readonly showEmailButtons = computed(() => this.authScreen() === AuthScreen.EMAIL_AUTH);
 
 	public readonly authSuccess = this.firebaseService.authSuccess;
 	public readonly authFailure = this.firebaseService.authFailure;
@@ -73,14 +73,14 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 			.withAction(() => this.returnToAuthenticationSelection())
 			.withText('Back')
 			.withIcon('arrow_left_alt')
-			.withHidden(this.hideBackButton)
+			.withVisible(this.showBackButton)
 			.withAlignment('left')
 			.build();
 
 		const signUpButton = DialogButtonBuilder.new()
 			.withAction(() => this.returnToAuthenticationSelection())
 			.withText('Sign Up')
-			.withHidden(this.hideEmailButtons)
+			.withVisible(this.showEmailButtons)
 			.withAttribute('flat')
 			.withAlignment('right')
 			.withColor('primary')
@@ -89,15 +89,15 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 		const signInButton = DialogButtonBuilder.new()
 			.withAction(() => this.returnToAuthenticationSelection())
 			.withText('Sign In')
-			.withHidden(this.hideEmailButtons)
+			.withVisible(this.showEmailButtons)
 			.withAlignment('right')
 			.withColor('primary')
 			.build();
 
 		return DialogBuilder.new()
 			.withHeaderTitle(this.headerTitle)
-			.withSubmitHidden()
-			.withCancelHidden(this.canReturnToSelection)
+			.withSubmitVisible(false)
+			.withCancelVisible(this.showCancelButton)
 			.withExtraButton(backButton)
 			.withExtraButton(signUpButton)
 			.withExtraButton(signInButton)

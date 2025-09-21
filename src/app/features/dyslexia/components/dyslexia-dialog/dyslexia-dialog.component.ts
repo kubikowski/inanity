@@ -36,8 +36,8 @@ export class DyslexiaDialogComponent extends DialogComponent {
 	public initializeDialogConfiguration(): DialogConfiguration {
 		return DialogBuilder.new()
 			.withHeaderTitle('Dyslexia')
-			.withSubmitHidden()
-			.withCancelHidden()
+			.withSubmitVisible(false)
+			.withCancelVisible(false)
 			.build();
 	}
 

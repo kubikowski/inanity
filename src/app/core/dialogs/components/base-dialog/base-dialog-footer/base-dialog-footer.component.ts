@@ -17,8 +17,9 @@ import { DialogResolution } from '../../../models/dialog-resolution.enum';
 	],
 })
 export class BaseDialogFooterComponent {
-	public readonly configuration = input.required<DialogFooterConfiguration>();
 	private readonly dialogRef = inject(MatDialogRef<unknown>);
+
+	public readonly configuration = input.required<DialogFooterConfiguration>();
 
 	// region button configurations
 	public readonly submitButton = computed(() => BaseDialogFooterComponent.spliceDialogClosure(
@@ -30,23 +31,15 @@ export class BaseDialogFooterComponent {
 		() => this.dialogRef.close(DialogResolution.DISMISS)));
 
 	private readonly extraButtons = computed(() => this.configuration().extraButtons);
-	public readonly extraButtonsLeft = computed(() => this.extraButtons()
-		.filter(button => (button.alignment ?? 'left') === 'left'));
-	public readonly extraButtonsRight = computed(() => this.extraButtons()
-		.filter(button => button.alignment === 'right'));
+	public readonly extraButtonsLeft = computed(() => this.extraButtons().filter(button => (button.alignment ?? 'left') === 'left'));
+	public readonly extraButtonsRight = computed(() => this.extraButtons().filter(button => button.alignment === 'right'));
 	// endregion button configurations
 
 
 	// region has buttons
-	public readonly hasSubmitButton = computed(() =>
-		!this.submitButton().hidden?.());
-
-	public readonly hasCancelButton = computed(() =>
-		!this.cancelButton().hidden?.());
-
-	public readonly hasExtraButtons = computed(() =>
-		this.extraButtons().some(button => !button.hidden?.()));
-
+	public readonly hasSubmitButton = computed(() => this.submitButton().visible());
+	public readonly hasCancelButton = computed(() => this.cancelButton().visible());
+	private readonly hasExtraButtons = computed(() => this.extraButtons().some(button => button.visible()));
 	public readonly hasVisibleButtons = computed(() =>
 		this.hasSubmitButton() || this.hasCancelButton() || this.hasExtraButtons());
 	// endregion has buttons

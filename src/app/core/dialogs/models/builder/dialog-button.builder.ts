@@ -6,6 +6,8 @@ export class DialogButtonBuilder {
 	private readonly configuration: DialogButtonConfiguration = {
 		action: undefined,
 		text: signal(''),
+		visible: signal(true),
+		enabled: signal(true),
 		attribute: 'stroked',
 		alignment: 'left',
 		color: 'neutral',
@@ -39,13 +41,13 @@ export class DialogButtonBuilder {
 		return this;
 	}
 
-	public withHidden(hidden: boolean | Signal<boolean> = true): this {
-		this.configuration.hidden = (typeof hidden === 'boolean') ? signal(hidden) : hidden;
+	public withVisible(visible: boolean | Signal<boolean> = true): this {
+		this.configuration.visible = (typeof visible === 'boolean') ? signal(visible) : visible;
 		return this;
 	}
 
 	public withDisabled(disabled: boolean | Signal<boolean> = true): this {
-		this.configuration.disabled = (typeof disabled === 'boolean') ? signal(disabled) : disabled;
+		this.configuration.enabled = (typeof disabled === 'boolean') ? signal(disabled) : disabled;
 		return this;
 	}
 

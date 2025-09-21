@@ -48,8 +48,8 @@ export class BackgroundDialogComponent extends DialogComponent {
 	public initializeDialogConfiguration(): DialogConfiguration {
 		return DialogBuilder.new()
 			.withHeaderTitle('Background')
-			.withSubmitHidden()
-			.withCancelHidden()
+			.withSubmitVisible(false)
+			.withCancelVisible(false)
 			.build();
 	}
 

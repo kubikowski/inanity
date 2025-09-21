@@ -3,8 +3,8 @@
 		<button type="button"
 				mat-flat-button
 				[class]="configuration().color"
-				[disabled]="configuration().disabled?.()"
-				[hidden]="configuration().hidden?.()"
+				[disabled]="!configuration().enabled()"
+				[hidden]="!configuration().visible()"
 				(click)="doAction()">
 
 			<span>{{ configuration().text() }}</span>
@@ -18,8 +18,8 @@
 		<button type="button"
 				mat-stroked-button
 				[class]="configuration().color"
-				[disabled]="configuration().disabled?.()"
-				[hidden]="configuration().hidden?.()"
+				[disabled]="!configuration().enabled()"
+				[hidden]="!configuration().visible()"
 				(click)="doAction()">
 
 			<span>{{ configuration().text() }}</span>

@@ -18,12 +18,16 @@ export class DialogBuilder {
 			submitButton: {
 				action: undefined,
 				text: signal('Submit'),
+				visible: signal(true),
+				enabled: signal(true),
 				attribute: 'flat',
 				color: 'primary',
 			},
 			cancelButton: {
 				action: undefined,
 				text: signal('Cancel'),
+				visible: signal(true),
+				enabled: signal(true),
 				attribute: 'stroked',
 				color: 'neutral',
 			},
@@ -91,13 +95,13 @@ export class DialogBuilder {
 		return this;
 	}
 
-	public withSubmitHidden(hidden: boolean | Signal<boolean> = true): this {
-		this.configuration.footer.submitButton.hidden = (typeof hidden === 'boolean') ? signal(hidden) : hidden;
+	public withSubmitVisible(visible: boolean | Signal<boolean> = true): this {
+		this.configuration.footer.submitButton.visible = (typeof visible === 'boolean') ? signal(visible) : visible;
 		return this;
 	}
 
-	public withSubmitDisabled(disabled: boolean | Signal<boolean> = true): this {
-		this.configuration.footer.submitButton.disabled = (typeof disabled === 'boolean') ? signal(disabled) : disabled;
+	public withSubmitEnabled(enabled: boolean | Signal<boolean> = true): this {
+		this.configuration.footer.submitButton.enabled = (typeof enabled === 'boolean') ? signal(enabled) : enabled;
 		return this;
 	}
 	// endregion Submit Button
@@ -124,13 +128,13 @@ export class DialogBuilder {
 		return this;
 	}
 
-	public withCancelHidden(hidden: boolean | Signal<boolean> = true): this {
-		this.configuration.footer.cancelButton.hidden = (typeof hidden === 'boolean') ? signal(hidden) : hidden;
+	public withCancelVisible(visible: boolean | Signal<boolean> = true): this {
+		this.configuration.footer.cancelButton.visible = (typeof visible === 'boolean') ? signal(visible) : visible;
 		return this;
 	}
 
-	public withCancelDisabled(disabled: boolean | Signal<boolean> = true): this {
-		this.configuration.footer.cancelButton.disabled = (typeof disabled === 'boolean') ? signal(disabled) : disabled;
+	public withCancelEnabled(enabled: boolean | Signal<boolean> = true): this {
+		this.configuration.footer.cancelButton.enabled = (typeof enabled === 'boolean') ? signal(enabled) : enabled;
 		return this;
 	}
 	// endregion Cancel Button
