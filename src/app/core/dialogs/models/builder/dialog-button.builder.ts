@@ -41,6 +41,11 @@ export class DialogButtonBuilder {
 		return this;
 	}
 
+	public withIconAlignment(iconAlignment: 'left' | 'right'): this {
+		this.configuration.iconAlignment = iconAlignment;
+		return this;
+	}
+
 	public withVisible(visible: boolean | Signal<boolean> = true): this {
 		this.configuration.visible = (typeof visible === 'boolean') ? signal(visible) : visible;
 		return this;

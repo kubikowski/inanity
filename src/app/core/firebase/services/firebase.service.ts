@@ -68,6 +68,8 @@ export class FirebaseService implements OnDestroy {
 	}
 
 	// public async emailSignIn(email: string, password: string): Promise<void> {
+	// 	// This is deprecated.
+	// 	const signInMethods = await fetchSignInMethodsForEmail(this.angularFireAuth, email);
 	// 	const userCredential = await signInWithPopup(this.angularFireAuth, this.emailAuthProvider);
 	// 	const authCredential = EmailAuthProvider.credential(email, password);
 	// }

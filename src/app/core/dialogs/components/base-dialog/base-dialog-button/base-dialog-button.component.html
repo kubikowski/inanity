@@ -9,8 +9,11 @@
 
 			<span>{{ configuration().text() }}</span>
 
-			@if (configuration().icon?.(); as icon) {
-				<mat-icon [class.fill]="configuration().iconFill">{{ icon }}</mat-icon>
+			@if (configuration().icon?.() && configuration().iconAlignment !== 'right') {
+				<mat-icon [class.fill]="configuration().iconFill">{{ configuration()?.icon() }}</mat-icon>
+			}
+			@if (configuration().icon?.() && configuration().iconAlignment === 'right') {
+				<mat-icon iconPositionEnd [class.fill]="configuration().iconFill">{{ configuration()?.icon() }}</mat-icon>
 			}
 		</button>
 	}
@@ -24,8 +27,11 @@
 
 			<span>{{ configuration().text() }}</span>
 
-			@if (configuration().icon?.(); as icon) {
-				<mat-icon [class.fill]="configuration().iconFill">{{ icon }}</mat-icon>
+			@if (configuration().icon?.() && configuration().iconAlignment !== 'right') {
+				<mat-icon [class.fill]="configuration().iconFill">{{ configuration()?.icon() }}</mat-icon>
+			}
+			@if (configuration().icon?.() && configuration().iconAlignment === 'right') {
+				<mat-icon iconPositionEnd [class.fill]="configuration().iconFill">{{ configuration()?.icon() }}</mat-icon>
 			}
 		</button>
 	}

@@ -30,9 +30,11 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 	public readonly AuthScreen = AuthScreen;
 	public readonly authScreen = signal(AuthScreen.AUTH_SELECTION);
 
-	public readonly showBackButton = computed(() => AuthScreenUtility.returnToSelection(this.authScreen()));
+	public readonly showBackButton = computed(() => AuthScreenUtility.canGoBack(this.authScreen()));
 	public readonly showCancelButton = computed(() => !this.showBackButton());
-	public readonly showEmailButtons = computed(() => this.authScreen() === AuthScreen.EMAIL_AUTH);
+
+	public readonly showNextButton = computed(() => AuthScreenUtility.canGoNext(this.authScreen()));
+	public readonly showEmailButtons = computed(() => AuthScreenUtility.canSubmit(this.authScreen()));
 
 	public readonly authSuccess = this.firebaseService.authSuccess;
 	public readonly authFailure = this.firebaseService.authFailure;
@@ -70,15 +72,24 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 
 	public initializeDialogConfiguration(): DialogConfiguration {
 		const backButton = DialogButtonBuilder.new()
-			.withAction(() => this.returnToAuthenticationSelection())
+			.withAction(() => this.goBack())
 			.withText('Back')
 			.withIcon('arrow_left_alt')
 			.withVisible(this.showBackButton)
 			.withAlignment('left')
 			.build();
 
+		const nextButton = DialogButtonBuilder.new()
+			.withAction(() => this.goNext())
+			.withText('Next')
+			.withIcon('arrow_right_alt')
+			.withIconAlignment('right')
+			.withVisible(this.showNextButton)
+			.withAlignment('right')
+			.build();
+
 		const signUpButton = DialogButtonBuilder.new()
-			.withAction(() => this.returnToAuthenticationSelection())
+			.withAction(() => {})
 			.withText('Sign Up')
 			.withVisible(this.showEmailButtons)
 			.withAttribute('flat')
@@ -87,7 +98,7 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 			.build();
 
 		const signInButton = DialogButtonBuilder.new()
-			.withAction(() => this.returnToAuthenticationSelection())
+			.withAction(() => {})
 			.withText('Sign In')
 			.withVisible(this.showEmailButtons)
 			.withAlignment('right')
@@ -99,6 +110,7 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 			.withSubmitVisible(false)
 			.withCancelVisible(this.showCancelButton)
 			.withExtraButton(backButton)
+			.withExtraButton(nextButton)
 			.withExtraButton(signUpButton)
 			.withExtraButton(signInButton)
 			.build();
@@ -113,7 +125,21 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 		this.authScreen.set(AuthScreen.EMAIL_AUTH);
 	}
 
-	public returnToAuthenticationSelection(): void {
-		this.authScreen.set(AuthScreen.AUTH_SELECTION);
+	private goBack(): void {
+		const current = this.authScreen();
+		const previous = AuthScreenUtility.getBackTarget(current);
+
+		if (previous !== null) {
+			this.authScreen.set(previous);
+		}
+	}
+
+	private goNext(): void {
+		const current = this.authScreen();
+		const next = AuthScreenUtility.getNextTarget(current);
+
+		if (next !== null) {
+			this.authScreen.set(next);
+		}
 	}
 }

@@ -95,6 +95,11 @@ export class DialogBuilder {
 		return this;
 	}
 
+	public withSubmitIconAlignment(iconAlignment: 'left' | 'right'): this {
+		this.configuration.footer.submitButton.iconAlignment = iconAlignment;
+		return this;
+	}
+
 	public withSubmitVisible(visible: boolean | Signal<boolean> = true): this {
 		this.configuration.footer.submitButton.visible = (typeof visible === 'boolean') ? signal(visible) : visible;
 		return this;
@@ -125,6 +130,11 @@ export class DialogBuilder {
 
 	public withCancelIconFill(iconFill = true): this {
 		this.configuration.footer.cancelButton.iconFill = iconFill;
+		return this;
+	}
+
+	public withCancelIconAlignment(iconAlignment: 'left' | 'right'): this {
+		this.configuration.footer.cancelButton.iconAlignment = iconAlignment;
 		return this;
 	}
 

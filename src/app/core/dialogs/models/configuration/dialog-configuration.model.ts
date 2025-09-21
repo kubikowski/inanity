@@ -30,6 +30,7 @@ export interface DialogButtonConfiguration {
 	text: Signal<string>;
 	icon?: Signal<string>;
 	iconFill?: boolean;
+	iconAlignment?: 'left' | 'right';
 	visible: Signal<boolean>;
 	enabled: Signal<boolean>;
 	attribute: 'flat' | 'stroked';
