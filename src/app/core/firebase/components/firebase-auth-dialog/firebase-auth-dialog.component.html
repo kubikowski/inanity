@@ -1,9 +1,46 @@
 <base-dialog [configuration]="dialogConfiguration()">
 	<main>
-		@if (authSuccess()) {
-		} @else if (authFailure()) {
-		} @else {
-			<section id="firebaseui-auth-container"></section>
+		@switch (authScreen()) {
+		@case (AuthScreen.AUTH_SELECTION) {
+			<section class="auth-options">
+				<button mat-flat-button type="button"
+						(click)="selectGoogleSignIn()">
+					<mat-icon class="fill">G</mat-icon>
+					<div class="auth-title">Sign in with Google</div>
+				</button>
+
+				<button mat-stroked-button class="neutral" type="button"
+						(click)="selectEmailSignIn()">
+					<mat-icon class="fill">email</mat-icon>
+					<div class="auth-title">Sign in with Email</div>
+				</button>
+			</section>
+		}
+		@case (AuthScreen.EMAIL_AUTH) {
+			<form>
+				<mat-form-field>
+					<mat-label>Email Address</mat-label>
+					<input matInput type="text" autocomplete="off"
+						   [formControl]="emailControl"/>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>Password</mat-label>
+					<input matInput type="text" autocomplete="off"
+						   [formControl]="passwordControl"/>
+				</mat-form-field>
+			</form>
+		}
+		@case (AuthScreen.GOOGLE_AUTH) {
+			<!-- EMPTY STATE -->
+			GOOGLE AUTH
+		}
+		@case (AuthScreen.SUCCESS) {
+			You have successfully signed in.
+		}
+		@case (AuthScreen.FAILURE) {
+			Yeah nah huh?
+		}
 		}
 	</main>
 </base-dialog>

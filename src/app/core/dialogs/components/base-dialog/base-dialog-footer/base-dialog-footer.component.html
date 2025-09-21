@@ -3,13 +3,25 @@
 @if (hasVisibleButtons()) {
 	<mat-dialog-actions [class.has-cancel-button]="hasCancelButton()">
 
-		@if (hasSubmitButton()) {
-			<base-dialog-footer-button [configuration]="submitButton()"/>
-		}
+		<section class="footer-buttons">
+			@if (hasSubmitButton()) {
+				<base-dialog-footer-button [configuration]="submitButton()"/>
+			}
 
-		@if (hasCancelButton()) {
-			<base-dialog-footer-button [configuration]="cancelButton()"/>
-		}
+			@for (extraButton of extraButtonsRight(); track $index) {
+				<base-dialog-footer-button [configuration]="extraButton"/>
+			}
+		</section>
+
+		<section class="footer-buttons">
+			@for (extraButton of extraButtonsLeft(); track $index) {
+				<base-dialog-footer-button [configuration]="extraButton"/>
+			}
+
+			@if (hasCancelButton()) {
+				<base-dialog-footer-button [configuration]="cancelButton()"/>
+			}
+		</section>
 
 	</mat-dialog-actions>
 }

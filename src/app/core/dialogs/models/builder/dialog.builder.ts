@@ -1,6 +1,6 @@
 import { Signal, signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DialogConfiguration } from '../configuration/dialog-configuration.model';
+import { DialogConfiguration, DialogFooterButtonConfiguration } from '../configuration/dialog-configuration.model';
 
 export class DialogBuilder {
 	private readonly configuration: DialogConfiguration = {
@@ -27,6 +27,7 @@ export class DialogBuilder {
 				attribute: 'stroked',
 				color: 'neutral',
 			},
+			extraButtons: [ ],
 		},
 	};
 
@@ -70,32 +71,32 @@ export class DialogBuilder {
 
 
 	// region Submit Button
-	public withSubmitButtonAction(action: <T> () => Observable<T> | void): this {
+	public withSubmitAction(action: <T> () => Observable<T> | void): this {
 		this.configuration.footer.submitButton.action = action;
 		return this;
 	}
 
-	public withSubmitButtonText(text: string | Signal<string>): this {
+	public withSubmitText(text: string | Signal<string>): this {
 		this.configuration.footer.submitButton.text = (typeof text === 'string') ? signal(text) : text;
 		return this;
 	}
 
-	public withSubmitButtonIcon(icon: string | Signal<string>): this {
+	public withSubmitIcon(icon: string | Signal<string>): this {
 		this.configuration.footer.submitButton.icon = (typeof icon === 'string') ? signal(icon) : icon;
 		return this;
 	}
 
-	public withSubmitButtonIconFill(iconFill = true): this {
+	public withSubmitIconFill(iconFill = true): this {
 		this.configuration.footer.submitButton.iconFill = iconFill;
 		return this;
 	}
 
-	public withSubmitButtonHidden(hidden: boolean | Signal<boolean> = true): this {
+	public withSubmitHidden(hidden: boolean | Signal<boolean> = true): this {
 		this.configuration.footer.submitButton.hidden = (typeof hidden === 'boolean') ? signal(hidden) : hidden;
 		return this;
 	}
 
-	public withSubmitButtonDisabled(disabled: boolean | Signal<boolean> = true): this {
+	public withSubmitDisabled(disabled: boolean | Signal<boolean> = true): this {
 		this.configuration.footer.submitButton.disabled = (typeof disabled === 'boolean') ? signal(disabled) : disabled;
 		return this;
 	}
@@ -103,34 +104,42 @@ export class DialogBuilder {
 
 
 	// region Cancel Button
-	public withCancelButtonAction(action: <T> () => Observable<T> | void): this {
+	public withCancelAction(action: <T> () => Observable<T> | void): this {
 		this.configuration.footer.cancelButton.action = action;
 		return this;
 	}
 
-	public withCancelButtonText(text: string | Signal<string>): this {
+	public withCancelText(text: string | Signal<string>): this {
 		this.configuration.footer.cancelButton.text = (typeof text === 'string') ? signal(text) : text;
 		return this;
 	}
 
-	public withCancelButtonIcon(icon: string | Signal<string>): this {
+	public withCancelIcon(icon: string | Signal<string>): this {
 		this.configuration.footer.cancelButton.icon = (typeof icon === 'string') ? signal(icon) : icon;
 		return this;
 	}
 
-	public withCancelButtonIconFill(iconFill = true): this {
+	public withCancelIconFill(iconFill = true): this {
 		this.configuration.footer.cancelButton.iconFill = iconFill;
 		return this;
 	}
 
-	public withCancelButtonHidden(hidden: boolean | Signal<boolean> = true): this {
+	public withCancelHidden(hidden: boolean | Signal<boolean> = true): this {
 		this.configuration.footer.cancelButton.hidden = (typeof hidden === 'boolean') ? signal(hidden) : hidden;
 		return this;
 	}
 
-	public withCancelButtonDisabled(disabled: boolean | Signal<boolean> = true): this {
+	public withCancelDisabled(disabled: boolean | Signal<boolean> = true): this {
 		this.configuration.footer.cancelButton.disabled = (typeof disabled === 'boolean') ? signal(disabled) : disabled;
 		return this;
 	}
 	// endregion Cancel Button
+
+
+	// region Extra Buttons
+	public withExtraButton(extraButton: DialogFooterButtonConfiguration): this {
+		this.configuration.footer.extraButtons.push(extraButton);
+		return this;
+	}
+	// endregion Extra Buttons
 }

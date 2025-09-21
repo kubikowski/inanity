@@ -22,15 +22,17 @@ export interface DialogContentConfiguration {
 export interface DialogFooterConfiguration {
 	submitButton: DialogFooterButtonConfiguration;
 	cancelButton: DialogFooterButtonConfiguration;
+	extraButtons: DialogFooterButtonConfiguration[];
 }
 
 export interface DialogFooterButtonConfiguration {
-	action?: <T> () => Observable<T> | void;
+	action?: <T> () => (Observable<T> | void);
 	text: Signal<string>;
 	icon?: Signal<string>;
+	iconFill?: boolean;
 	hidden?: Signal<boolean>;
 	disabled?: Signal<boolean>;
 	attribute: 'flat' | 'stroked';
+	alignment?: 'left' | 'right';
 	color?: 'primary' | 'neutral';
-	iconFill?: boolean;
 }
