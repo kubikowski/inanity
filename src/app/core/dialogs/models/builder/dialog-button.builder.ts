@@ -1,9 +1,9 @@
 import { Signal, signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DialogFooterButtonConfiguration } from '../configuration/dialog-configuration.model';
+import { DialogButtonConfiguration } from '../configuration/dialog-configuration.model';
 
 export class DialogButtonBuilder {
-	private readonly configuration: DialogFooterButtonConfiguration = {
+	private readonly configuration: DialogButtonConfiguration = {
 		action: undefined,
 		text: signal(''),
 		attribute: 'stroked',
@@ -15,7 +15,7 @@ export class DialogButtonBuilder {
 		return new DialogButtonBuilder();
 	}
 
-	public build(): DialogFooterButtonConfiguration {
+	public build(): DialogButtonConfiguration {
 		return this.configuration;
 	}
 

@@ -5,21 +5,21 @@
 
 		<section class="footer-buttons">
 			@if (hasSubmitButton()) {
-				<base-dialog-footer-button [configuration]="submitButton()"/>
+				<base-dialog-button [configuration]="submitButton()"/>
 			}
 
 			@for (extraButton of extraButtonsRight(); track $index) {
-				<base-dialog-footer-button [configuration]="extraButton"/>
+				<base-dialog-button [configuration]="extraButton"/>
 			}
 		</section>
 
 		<section class="footer-buttons">
 			@for (extraButton of extraButtonsLeft(); track $index) {
-				<base-dialog-footer-button [configuration]="extraButton"/>
+				<base-dialog-button [configuration]="extraButton"/>
 			}
 
 			@if (hasCancelButton()) {
-				<base-dialog-footer-button [configuration]="cancelButton()"/>
+				<base-dialog-button [configuration]="cancelButton()"/>
 			}
 		</section>
 

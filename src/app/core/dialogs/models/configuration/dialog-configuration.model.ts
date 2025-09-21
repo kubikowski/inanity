@@ -20,12 +20,12 @@ export interface DialogContentConfiguration {
 }
 
 export interface DialogFooterConfiguration {
-	submitButton: DialogFooterButtonConfiguration;
-	cancelButton: DialogFooterButtonConfiguration;
-	extraButtons: DialogFooterButtonConfiguration[];
+	submitButton: DialogButtonConfiguration;
+	cancelButton: DialogButtonConfiguration;
+	extraButtons: DialogButtonConfiguration[];
 }
 
-export interface DialogFooterButtonConfiguration {
+export interface DialogButtonConfiguration {
 	action?: <T> () => (Observable<T> | void);
 	text: Signal<string>;
 	icon?: Signal<string>;

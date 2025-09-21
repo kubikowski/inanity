@@ -20,7 +20,8 @@ import { FirebaseService } from 'src/app/core/firebase/services/firebase.service
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		BaseDialogComponent,
-		MatButton, MatIcon, MatFormFieldModule, MatInput, ReactiveFormsModule,
+		MatButton, MatIcon, MatInput,
+		MatFormFieldModule, ReactiveFormsModule,
 	],
 })
 export class FirebaseAuthDialogComponent extends DialogComponent {
@@ -31,7 +32,7 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 
 	public readonly canReturnToSelection = computed(() => AuthScreenUtility.returnToSelection(this.authScreen()));
 	public readonly hideBackButton = computed(() => !this.canReturnToSelection());
-	public readonly hideSignInButton = computed(() => this.authScreen() !== AuthScreen.EMAIL_AUTH);
+	public readonly hideEmailButtons = computed(() => this.authScreen() !== AuthScreen.EMAIL_AUTH);
 
 	public readonly authSuccess = this.firebaseService.authSuccess;
 	public readonly authFailure = this.firebaseService.authFailure;
@@ -46,8 +47,13 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 		}
 	});
 
-	public readonly emailControl = new FormControl('', control => Validators.required(control));
-	public readonly passwordControl = new FormControl('', control => Validators.required(control));
+	public readonly emailControl = new FormControl('', [
+		control => Validators.required(control),
+		control => Validators.email(control),
+	]);
+	public readonly passwordControl = new FormControl('', [
+		control => Validators.required(control),
+	]);
 
 	public constructor() {
 		super();
@@ -71,10 +77,19 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 			.withAlignment('left')
 			.build();
 
+		const signUpButton = DialogButtonBuilder.new()
+			.withAction(() => this.returnToAuthenticationSelection())
+			.withText('Sign Up')
+			.withHidden(this.hideEmailButtons)
+			.withAttribute('flat')
+			.withAlignment('right')
+			.withColor('primary')
+			.build();
+
 		const signInButton = DialogButtonBuilder.new()
 			.withAction(() => this.returnToAuthenticationSelection())
 			.withText('Sign In')
-			.withHidden(this.hideSignInButton)
+			.withHidden(this.hideEmailButtons)
 			.withAlignment('right')
 			.withColor('primary')
 			.build();
@@ -84,6 +99,7 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 			.withSubmitHidden()
 			.withCancelHidden(this.canReturnToSelection)
 			.withExtraButton(backButton)
+			.withExtraButton(signUpButton)
 			.withExtraButton(signInButton)
 			.build();
 	}

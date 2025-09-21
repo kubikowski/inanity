@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { MatDialogActions, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DialogFooterButtonConfiguration, DialogFooterConfiguration } from '../../../models/configuration/dialog-configuration.model';
+import { BaseDialogButtonComponent } from 'src/app/core/dialogs/components/base-dialog/base-dialog-button/base-dialog-button.component';
+import { DialogButtonConfiguration, DialogFooterConfiguration } from '../../../models/configuration/dialog-configuration.model';
 import { DialogResolution } from '../../../models/dialog-resolution.enum';
-import { BaseDialogFooterButtonComponent } from '../base-dialog-footer-button/base-dialog-footer-button.component';
 
 @Component({
 	selector: 'base-dialog-footer',
@@ -12,7 +12,7 @@ import { BaseDialogFooterButtonComponent } from '../base-dialog-footer-button/ba
 	styleUrl: 'base-dialog-footer.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		BaseDialogFooterButtonComponent,
+		BaseDialogButtonComponent,
 		MatDialogActions,
 	],
 })
@@ -52,7 +52,7 @@ export class BaseDialogFooterComponent {
 	// endregion has buttons
 
 
-	private static spliceDialogClosure(button: DialogFooterButtonConfiguration, closure: () => void): DialogFooterButtonConfiguration {
+	private static spliceDialogClosure(button: DialogButtonConfiguration, closure: () => void): DialogButtonConfiguration {
 		if (typeof button.action === 'undefined') {
 			button.action = () => closure();
 

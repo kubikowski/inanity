@@ -29,6 +29,12 @@
 					<input matInput type="text" autocomplete="off"
 						   [formControl]="passwordControl"/>
 				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>Re-enter Password</mat-label>
+					<input matInput type="text" autocomplete="off"
+						   [formControl]="passwordControl"/>
+				</mat-form-field>
 			</form>
 		}
 		@case (AuthScreen.GOOGLE_AUTH) {

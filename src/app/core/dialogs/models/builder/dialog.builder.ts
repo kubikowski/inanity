@@ -1,6 +1,6 @@
 import { Signal, signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DialogConfiguration, DialogFooterButtonConfiguration } from '../configuration/dialog-configuration.model';
+import { DialogConfiguration, DialogButtonConfiguration } from '../configuration/dialog-configuration.model';
 
 export class DialogBuilder {
 	private readonly configuration: DialogConfiguration = {
@@ -137,7 +137,7 @@ export class DialogBuilder {
 
 
 	// region Extra Buttons
-	public withExtraButton(extraButton: DialogFooterButtonConfiguration): this {
+	public withExtraButton(extraButton: DialogButtonConfiguration): this {
 		this.configuration.footer.extraButtons.push(extraButton);
 		return this;
 	}

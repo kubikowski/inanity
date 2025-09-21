@@ -93,7 +93,7 @@ a {
 	width: max-content;
 
 	&:not(.mat-mdc-icon-button) {
-		color: var(--default-theme-color);
+		color: var(--darker-theme-color);
 
 		&:hover {
 			color: var(--darkest-theme-color);
