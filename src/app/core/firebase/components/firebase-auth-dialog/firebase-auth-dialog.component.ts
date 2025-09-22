@@ -12,6 +12,7 @@ import { DialogConfiguration } from 'src/app/core/dialogs/models/configuration/d
 import { DialogResolution } from 'src/app/core/dialogs/models/dialog-resolution.enum';
 import { AuthScreen, AuthScreenUtility } from 'src/app/core/firebase/models/auth-screen.enum';
 import { FirebaseService } from 'src/app/core/firebase/services/firebase.service';
+import { EmptyComponent } from 'src/app/features/empty/empty.component';
 
 @Component({
 	selector: 'firebase-auth-dialog',
@@ -19,7 +20,7 @@ import { FirebaseService } from 'src/app/core/firebase/services/firebase.service
 	styleUrl: 'firebase-auth-dialog.component.scss',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		BaseDialogComponent,
+		BaseDialogComponent, EmptyComponent,
 		MatButton, MatIcon, MatInput,
 		MatFormFieldModule, ReactiveFormsModule,
 	],

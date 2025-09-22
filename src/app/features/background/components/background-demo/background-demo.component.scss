@@ -14,7 +14,7 @@
 	);
 
 	&.gradient {
-		@include background.gradient();
+		@include background.simple-gradient();
 	}
 
 	canvas {

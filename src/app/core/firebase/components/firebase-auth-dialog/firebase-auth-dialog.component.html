@@ -38,8 +38,10 @@
 			</form>
 		}
 		@case (AuthScreen.GOOGLE_AUTH) {
-			<!-- EMPTY STATE -->
-			GOOGLE AUTH
+			<empty omitPadding>
+				<h2>Google Authentication</h2>
+				<p>Please submit the Google Authentication popup.</p>
+			</empty>
 		}
 		@case (AuthScreen.SUCCESS) {
 			You have successfully signed in.
