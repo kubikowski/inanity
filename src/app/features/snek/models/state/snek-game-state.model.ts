@@ -24,27 +24,4 @@ export class SnekGameState {
 
 		return new SnekGameState(headNode, tailNode, foodNode, direction, score, gameCounter, gameOver);
 	}
-
-	public format(): ThisType<SnekGameState> {
-		const { headNode, tailNode, foodNode, direction, score, gameCounter, gameOver } = this;
-
-		return {
-			headNode: {
-				width: headNode.width,
-				height: headNode.height,
-			},
-			tailNode: {
-				width: tailNode.width,
-				height: tailNode.height,
-			},
-			foodNode: {
-				width: foodNode.width,
-				height: foodNode.height,
-			},
-			direction,
-			score,
-			gameCounter,
-			gameOver,
-		};
-	}
 }
