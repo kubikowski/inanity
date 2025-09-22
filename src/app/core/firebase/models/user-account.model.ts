@@ -1,4 +1,4 @@
-import { UserInfo } from '@angular/fire/auth';
+import { User } from '@angular/fire/auth';
 
 export class UserAccount {
 	private constructor(
@@ -7,9 +7,11 @@ export class UserAccount {
 		public readonly userNickname: string,
 		public readonly userEmail: string | null,
 		public readonly userProfilePicture: string | null,
+		public readonly isAnonymous: boolean,
+		public readonly updatedOn: Date,
 	) { }
 
-	public static from(user: UserInfo | null): UserAccount | null {
+	public static from(user: User | null): UserAccount | null {
 		if (user === null) return null;
 
 		return new UserAccount(
@@ -18,6 +20,8 @@ export class UserAccount {
 			'Anonymous Panda',
 			user.email, // ?? '',
 			user.photoURL, // ?? 'default_avatar.png',
+			user.isAnonymous,
+			new Date(),
 		);
 	}
 }
