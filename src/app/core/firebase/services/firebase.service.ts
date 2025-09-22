@@ -1,34 +1,29 @@
-import { computed, inject, Injectable, OnDestroy, signal } from '@angular/core';
+import { computed, inject, Injectable, linkedSignal, OnDestroy, signal } from '@angular/core';
 import {
-	Auth,
-	AuthCredential,
-	EmailAuthProvider,
-	GoogleAuthProvider,
-	linkWithCredential,
-	signInAnonymously,
-	signInWithPopup,
-	Unsubscribe,
-	User,
-	UserCredential,
+	Auth, AuthCredential, EmailAuthProvider, GoogleAuthProvider,
+	signInAnonymously, signInWithEmailAndPassword, signInWithPopup, Unsubscribe, User, UserCredential,
 } from '@angular/fire/auth';
 import { timeout } from 'src/app/core/functions/promise/timeout.function';
 
 @Injectable({ providedIn: 'root' })
 export class FirebaseService implements OnDestroy {
-	private readonly angularFireAuth = inject(Auth);
+	private readonly auth = inject(Auth);
 
 	private readonly emailAuthProvider = FirebaseService.getEmailAuthProvider();
 	private readonly googleAuthProvider = FirebaseService.getGoogleAuthProvider();
 
-	private readonly anonymousCredential = signal<UserCredential | null>(null);
-	public readonly userCredential = signal<UserCredential | null>(null);
+	// These fields seem a bit redundant, given that we auth state subscription. But I digress.
+	public readonly anonymousCredential = signal<UserCredential | null>(null);
+	public readonly identifiedCredential = signal<UserCredential | null>(null);
 	public readonly authCredential = signal<AuthCredential | null>(null);
 
-	// This field seems redundant, given that we have credentials. But I digress.
-	private readonly authSubscriptionCallback: Unsubscribe;
-	public readonly userInfo = signal<User | null>(null);
+	public readonly anonymousUser = linkedSignal<User | null>(() => this.anonymousCredential()?.user ?? null);
+	public readonly identifiedUser = linkedSignal<User | null>(() => this.identifiedCredential()?.user ?? null);
+
+	public readonly userInfo = computed(() => this.identifiedUser() ?? this.anonymousUser());
 	public readonly userId = computed(() => this.userInfo()?.uid ?? null);
 
+	private readonly authSubscriptionCallback: Unsubscribe;
 	public readonly authSuccess = signal(false);
 	public readonly authFailure = signal(false);
 
@@ -44,61 +39,65 @@ export class FirebaseService implements OnDestroy {
 	}
 
 	private getAuthStateSubscription(): Unsubscribe {
-		return this.angularFireAuth.onAuthStateChanged(user => {
+		return this.auth.onAuthStateChanged(user => {
+			if (user === null) return;
 			console.log('Auth State Changed', user);
 
-			if (user !== null) {
-				this.userInfo.set(user);
-
-				if (!user.isAnonymous) {
-					this.authSuccess.set(true);
-				}
+			if (user.isAnonymous) {
+				this.anonymousUser.set(user);
+			} else {
+				this.identifiedUser.set(user);
+				this.authSuccess.set(true);
 			}
 		});
 	}
 
-	// region Sign In
+	// region Anonymous Sign In
 	private async anonymousSignIn(): Promise<void> {
 		await timeout(5_000);
 		if (this.userInfo() !== null) return;
 
 		console.log('Attempting Anonymous SignIn');
-		const anonymousCredential = await signInAnonymously(this.angularFireAuth);
+		const anonymousCredential = await signInAnonymously(this.auth);
 
 		console.log('Anonymous SignIn Response', anonymousCredential);
 		this.anonymousCredential.set(anonymousCredential);
 	}
+	// endregion Anonymous Sign In
 
-	// public async emailSignIn(email: string, password: string): Promise<void> {
-	// 	// This is deprecated.
-	// 	const signInMethods = await fetchSignInMethodsForEmail(this.angularFireAuth, email);
-	// 	const userCredential = await signInWithPopup(this.angularFireAuth, this.emailAuthProvider);
-	// 	const authCredential = EmailAuthProvider.credential(email, password);
-	// }
 
+	// region Email Sign In
+	public async emailSignIn(email: string, password: string): Promise<void> {
+		console.log('attempting email & password sign in');
+		await this.attemptEmailSignIn(email, password)
+			.catch(console.error); // handle rejection
+	}
+
+	private async attemptEmailSignIn(email: string, password: string): Promise<void> {
+		const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+		this.identifiedCredential.set(userCredential);
+
+		const authCredential = EmailAuthProvider.credential(email, password);
+		this.authCredential.set(authCredential);
+	}
+	// endregion Email Sign In
+
+
+	// region Google Sign In
 	public async googleSignIn(): Promise<void> {
-		console.log('sign in with popup');
-		const userCredential = await signInWithPopup(this.angularFireAuth, this.googleAuthProvider);
-
-		if (userCredential) {
-			this.userCredential.set(userCredential);
-
-			const authCredential = GoogleAuthProvider.credentialFromResult(userCredential);
-			this.authCredential.set(authCredential);
-
-			await this.upgradeAnonymousAccount();
-		}
+		console.log('attempting google sign in');
+		await this.attemptGoogleSignIn()
+			.catch(console.error); // handle rejection
 	}
 
-	private async upgradeAnonymousAccount(): Promise<void> {
-		const anonymousCredential = this.anonymousCredential();
-		const authCredential = this.authCredential();
+	private async attemptGoogleSignIn(): Promise<void> {
+		const userCredential = await signInWithPopup(this.auth, this.googleAuthProvider);
+		this.identifiedCredential.set(userCredential);
 
-		if (anonymousCredential !== null && authCredential !== null) {
-			await linkWithCredential(anonymousCredential.user, authCredential);
-		}
+		const authCredential = GoogleAuthProvider.credentialFromResult(userCredential);
+		this.authCredential.set(authCredential);
 	}
-	// endregion Sign In
+	// endregion Google Sign In
 
 
 	// region Auth Providers

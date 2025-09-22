@@ -4,6 +4,15 @@ import { SnekDirection } from 'src/app/features/snek/models/direction/snek-direc
 import { SnekGameState } from 'src/app/features/snek/models/state/snek-game-state.model';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 
+/**
+ * It seems like the future is to have a unified API
+ * for snek controller services to set `directionInput`.
+ *
+ * Then we can specify a single source controller for a game instance:
+ * - user input
+ * - auto solver bot
+ * - game replay file
+ */
 @Injectable()
 export class SnekSolverService {
 	private readonly snekStateService = inject(SnekStateService);
