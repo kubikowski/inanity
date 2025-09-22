@@ -10,6 +10,7 @@ import { TitleService } from 'src/app/core/browser/services/title.service';
 import { ColorsService } from 'src/app/core/colors/services/colors.service';
 import { FirebaseService } from 'src/app/core/firebase/services/firebase.service';
 import { FirestoreService } from 'src/app/core/firebase/services/firestore.service';
+import { UserAccountService } from 'src/app/core/firebase/services/user-account.service';
 import { FontService } from 'src/app/core/fonts/services/font.service';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { BackgroundComponent } from 'src/app/features/background/components/background/background.component';
@@ -37,6 +38,7 @@ export class AppComponent implements AfterViewInit {
 	private readonly faviconService = inject(FaviconService);
 	private readonly firebaseService = inject(FirebaseService);
 	private readonly firestoreService = inject(FirestoreService);
+	private readonly userAccountService = inject(UserAccountService);
 	private readonly routerService = inject(RouterService);
 	private readonly screenService = inject(ScreenService);
 	private readonly titleService = inject(TitleService);

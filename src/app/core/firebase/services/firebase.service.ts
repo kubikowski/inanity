@@ -11,7 +11,6 @@ import {
 	User,
 	UserCredential,
 } from '@angular/fire/auth';
-import { UserAccount } from 'src/app/core/firebase/models/user-account.model';
 import { timeout } from 'src/app/core/functions/promise/timeout.function';
 
 @Injectable({ providedIn: 'root' })
@@ -28,7 +27,6 @@ export class FirebaseService implements OnDestroy {
 	// This field seems redundant, given that we have credentials. But I digress.
 	private readonly authSubscriptionCallback: Unsubscribe;
 	public readonly userInfo = signal<User | null>(null);
-	public readonly userAccount = computed(() => UserAccount.from(this.userInfo()));
 	public readonly userId = computed(() => this.userInfo()?.uid ?? null);
 
 	public readonly authSuccess = signal(false);
