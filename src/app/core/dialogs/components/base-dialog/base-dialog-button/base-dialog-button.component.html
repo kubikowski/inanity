@@ -1,3 +1,7 @@
+@let icon = configuration().icon?.();
+@let iconFill = configuration().iconFill;
+@let iconAlignment = configuration().iconAlignment ?? 'left';
+
 @switch (configuration().attribute) {
 	@case ('flat') {
 		<button type="button"
@@ -9,11 +13,11 @@
 
 			<span>{{ configuration().text() }}</span>
 
-			@if (configuration().icon?.() && configuration().iconAlignment !== 'right') {
-				<mat-icon [class.fill]="configuration().iconFill">{{ configuration()?.icon() }}</mat-icon>
+			@if (icon && iconAlignment === 'left') {
+				<mat-icon [class.fill]="iconFill">{{ icon }}</mat-icon>
 			}
-			@if (configuration().icon?.() && configuration().iconAlignment === 'right') {
-				<mat-icon iconPositionEnd [class.fill]="configuration().iconFill">{{ configuration()?.icon() }}</mat-icon>
+			@if (icon && iconAlignment === 'right') {
+				<mat-icon iconPositionEnd [class.fill]="iconFill">{{ icon }}</mat-icon>
 			}
 		</button>
 	}
@@ -27,11 +31,11 @@
 
 			<span>{{ configuration().text() }}</span>
 
-			@if (configuration().icon?.() && configuration().iconAlignment !== 'right') {
-				<mat-icon [class.fill]="configuration().iconFill">{{ configuration()?.icon() }}</mat-icon>
+			@if (icon && iconAlignment === 'left') {
+				<mat-icon [class.fill]="iconFill">{{ icon }}</mat-icon>
 			}
-			@if (configuration().icon?.() && configuration().iconAlignment === 'right') {
-				<mat-icon iconPositionEnd [class.fill]="configuration().iconFill">{{ configuration()?.icon() }}</mat-icon>
+			@if (icon && iconAlignment === 'right') {
+				<mat-icon iconPositionEnd [class.fill]="iconFill">{{ icon }}</mat-icon>
 			}
 		</button>
 	}
