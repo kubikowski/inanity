@@ -1,10 +1,11 @@
 main {
 	flex-flow: column nowrap;
-	align-items: center;
+	gap: 0.75rem;
 
 	> .auth-options {
 		display: flex;
 		flex-flow: column nowrap;
+		align-self: center;
 		gap: 0.75rem;
 		width: 75%;
 

@@ -3,7 +3,7 @@ export enum AuthScreen {
 	GOOGLE_AUTH = 'GOOGLE_AUTH',
 	EMAIL_AUTH = 'EMAIL_AUTH',
 	EMAIL_PASSWORD = 'EMAIL_PASSWORD',
-	EMAIL_SIGN_UP = 'EMAIL_SIGN_UP',
+	CONFIRM_PASSWORD = 'CONFIRM_PASSWORD',
 	RECOVER_PASSWORD = 'RECOVER_PASSWORD',
 	SUCCESS = 'SUCCESS',
 	FAILURE = 'FAILURE',
@@ -22,7 +22,7 @@ export abstract class AuthScreenUtility {
 	public static canSubmit(authScreen: AuthScreen): boolean {
 		switch (authScreen) {
 			case AuthScreen.EMAIL_PASSWORD:
-			case AuthScreen.EMAIL_SIGN_UP:
+			case AuthScreen.CONFIRM_PASSWORD:
 				return true;
 			default:
 				return false;
@@ -40,7 +40,7 @@ export abstract class AuthScreenUtility {
 			case AuthScreen.EMAIL_AUTH:
 				return AuthScreen.AUTH_SELECTION;
 			case AuthScreen.EMAIL_PASSWORD:
-			case AuthScreen.EMAIL_SIGN_UP:
+			case AuthScreen.CONFIRM_PASSWORD:
 			case AuthScreen.RECOVER_PASSWORD:
 				return AuthScreen.EMAIL_AUTH;
 			default:

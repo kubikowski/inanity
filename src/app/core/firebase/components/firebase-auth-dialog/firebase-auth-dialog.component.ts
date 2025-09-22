@@ -57,6 +57,9 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 	public readonly passwordControl = new FormControl('', [
 		control => Validators.required(control),
 	]);
+	public readonly confirmPasswordControl = new FormControl('', [
+		control => Validators.required(control),
+	]);
 
 	public constructor() {
 		super();
@@ -142,5 +145,9 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 		if (next !== null) {
 			this.authScreen.set(next);
 		}
+	}
+
+	public forgotPassword(): void {
+		this.authScreen.set(AuthScreen.RECOVER_PASSWORD);
 	}
 }

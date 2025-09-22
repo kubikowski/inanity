@@ -23,7 +23,23 @@
 					<input matInput type="text" autocomplete="off"
 						   [formControl]="emailControl"/>
 				</mat-form-field>
+			</form>
 
+			<a href="javascript:" (click)="forgotPassword()">Forgot Password?</a>
+		}
+		@case (AuthScreen.EMAIL_PASSWORD) {
+			<form>
+				<mat-form-field>
+					<mat-label>Password</mat-label>
+					<input matInput type="text" autocomplete="off"
+						   [formControl]="passwordControl"/>
+				</mat-form-field>
+			</form>
+
+			<a href="javascript:" (click)="forgotPassword()">Forgot Password?</a>
+		}
+		@case (AuthScreen.CONFIRM_PASSWORD) {
+			<form>
 				<mat-form-field>
 					<mat-label>Password</mat-label>
 					<input matInput type="text" autocomplete="off"
@@ -31,9 +47,9 @@
 				</mat-form-field>
 
 				<mat-form-field>
-					<mat-label>Re-enter Password</mat-label>
+					<mat-label>Confirm Password</mat-label>
 					<input matInput type="text" autocomplete="off"
-						   [formControl]="passwordControl"/>
+						   [formControl]="confirmPasswordControl"/>
 				</mat-form-field>
 			</form>
 		}
