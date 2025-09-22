@@ -12,8 +12,10 @@ import { FirestoreService } from 'src/app/core/firebase/services/firestore.servi
 import { UserAccountService } from 'src/app/core/firebase/services/user-account.service';
 import { UserUpgradeService } from 'src/app/core/firebase/services/user-upgrade.service';
 import { FontService } from 'src/app/core/fonts/services/font.service';
+import { NotificationService } from 'src/app/core/notifications/notification.service';
 import { SvgIconService } from 'src/app/core/svg/svg-icon.service';
 import { BackgroundService } from 'src/app/features/background/services/background.service';
+import { DyslexiaService } from 'src/app/features/dyslexia/services/dyslexia.service';
 import { HeaderService } from 'src/app/features/navigation/services/header.service';
 import { NavigationService } from 'src/app/features/navigation/services/navigation.service';
 
@@ -27,6 +29,17 @@ interface BrowserServices {
 	readonly titleService: TitleService;
 }
 
+interface StylingServices {
+	readonly colorsService: ColorsService;
+	readonly fontService: FontService;
+	readonly svgIconService: SvgIconService;
+}
+
+interface OverlayServices {
+	readonly dialogService: DialogService;
+	readonly notificationService: NotificationService;
+}
+
 interface FirebaseServices {
 	readonly firebaseService: FirebaseService;
 	readonly firestoreService: FirestoreService;
@@ -34,24 +47,21 @@ interface FirebaseServices {
 	readonly userUpgradeService: UserUpgradeService;
 }
 
-interface StylingServices {
-	readonly colorsService: ColorsService;
-	readonly fontService: FontService;
-	readonly svgIconService: SvgIconService;
-}
-
-interface ComponentServices {
+// Should these be considered non-essential singletons?
+interface RegionalServices {
 	readonly backgroundService: BackgroundService;
-	readonly dialogService: DialogService;
+	readonly dyslexiaService: DyslexiaService;
 	readonly headerService: HeaderService;
 	readonly navigationService: NavigationService;
 }
 
 export type CoreServices =
 	& BrowserServices
-	& FirebaseServices
 	& StylingServices
-	& ComponentServices;
+	& OverlayServices
+	& FirebaseServices
+	& RegionalServices
+;
 // endregion Core Services Definition
 
 
@@ -67,6 +77,21 @@ function injectBrowserServices(): BrowserServices {
 	};
 }
 
+function injectStylingServices(): StylingServices {
+	return {
+		colorsService: inject(ColorsService),
+		fontService: inject(FontService),
+		svgIconService: inject(SvgIconService),
+	};
+}
+
+function injectOverlayServices(): OverlayServices {
+	return {
+		dialogService: inject(DialogService),
+		notificationService: inject(NotificationService),
+	};
+}
+
 function injectFirebaseServices(): FirebaseServices {
 	return {
 		firebaseService: inject(FirebaseService),
@@ -76,18 +101,10 @@ function injectFirebaseServices(): FirebaseServices {
 	};
 }
 
-function injectStylingServices(): StylingServices {
-	return {
-		colorsService: inject(ColorsService),
-		fontService: inject(FontService),
-		svgIconService: inject(SvgIconService),
-	};
-}
-
-function injectComponentServices(): ComponentServices {
+function injectRegionalServices(): RegionalServices {
 	return {
 		backgroundService: inject(BackgroundService),
-		dialogService: inject(DialogService),
+		dyslexiaService: inject(DyslexiaService),
 		headerService: inject(HeaderService),
 		navigationService: inject(NavigationService),
 	};
@@ -96,9 +113,10 @@ function injectComponentServices(): ComponentServices {
 export function injectCoreServices(): CoreServices {
 	return {
 		...injectBrowserServices(),
-		...injectFirebaseServices(),
 		...injectStylingServices(),
-		...injectComponentServices(),
+		...injectOverlayServices(),
+		...injectFirebaseServices(),
+		...injectRegionalServices(),
 	};
 }
 // endregion Core Services Injection
