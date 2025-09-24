@@ -5,6 +5,7 @@
 	width: 100%;
 }
 
+// add support for multi-column article at 1320px
 @mixin flex-content-layout($content-gap) {
 	width: calc(800px + 2 * $content-gap);
 	max-width: 100%;
@@ -12,12 +13,12 @@
 }
 
 @mixin content-layout {
-	@media	(max-width: 599.98px) and (orientation: portrait),
+	@media	(max-width: 659.98px) and (orientation: portrait),
 			(max-width: 959.98px) and (orientation: landscape) {
 		@include flex-content-layout(1rem);
 	}
 
-	@media	(min-width: 600px) and (max-width: 839.98px) and (orientation: portrait),
+	@media	(min-width: 660px) and (max-width: 839.98px) and (orientation: portrait),
 			(min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape) {
 		@include flex-content-layout(1.5rem);
 	}
