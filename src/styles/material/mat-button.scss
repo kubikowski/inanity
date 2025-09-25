@@ -18,7 +18,7 @@
 	&.neutral {
 		@include mat.button-overrides((
 			outlined-label-text-color: var(--default-text-color),
-			outlined-outline-color: var(--dark-border-color),
+			outlined-outline-color: var(--border-color),
 
 			outlined-ripple-color: var(--hover-background-color-transparent),
 			outlined-state-layer-color: var(--disabled-background-color),

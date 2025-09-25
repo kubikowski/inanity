@@ -62,11 +62,11 @@ export class Grain extends CanvasSingleton {
 	}
 
 	protected override getFillPalette(colorPalette: ColorPalette): ColorPalette {
-		return colorPalette.transparent(0.35);
+		return colorPalette.transparent(0.15);
 	}
 
 	protected override getStrokePalette(colorPalette: ColorPalette): ColorPalette {
-		return ColorPaletteUtil.similar(colorPalette.paletteName).transparent(0.35);
+		return ColorPaletteUtil.similar(colorPalette.paletteName).transparent(0.15);
 	}
 
 	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette, strokePalette: ColorPalette): void {

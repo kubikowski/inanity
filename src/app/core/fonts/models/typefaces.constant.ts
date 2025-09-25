@@ -1,6 +1,18 @@
 import { TypefaceClassification } from './typeface-classification.enum';
 import { Typeface } from './typeface.model';
 
+export const COOPER = Typeface.from({
+	name: 'Cooper',
+	classification: TypefaceClassification.SERIF,
+	attribution: {
+		author: 'The Cooper Project Authors',
+		copyrightYear: 2023,
+		downloadLink: 'https://github.com/indestructibletype/Cooper',
+		license: 'SIL Open Font License, Version 1.1',
+		licenseLink: 'https://openfontlicense.org',
+	},
+});
+
 export const EB_GARAMOND = Typeface.from({
 	name: 'EB Garamond',
 	classification: TypefaceClassification.SERIF,

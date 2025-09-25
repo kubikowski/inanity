@@ -111,11 +111,11 @@ export class Bubble extends CanvasElement {
 	}
 
 	public override getFillPalette(colorPalette: ColorPalette): ColorPalette {
-		return colorPalette.transparent(0.5);
+		return colorPalette.transparent(0.15);
 	}
 
 	public override getStrokePalette(colorPalette: ColorPalette): ColorPalette {
-		return colorPalette.transparent(0.35);
+		return colorPalette.transparent(0.10);
 	}
 
 	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette, strokePalette: ColorPalette): void {

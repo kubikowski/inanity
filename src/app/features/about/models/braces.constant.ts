@@ -9,18 +9,23 @@ export const bracePairs: readonly BracePair[] = [
 	[ '[', ']' ],
 	[ '{', '}' ],
 
+	/* typography */
+	[ '«', '»' ],
+
 	/* arrows */
 	[ '→', '←' ],
 	[ '⇒', '⇐' ],
 	[ '↦', '↤' ],
-	[ '⤇', '⤆' ],
+	[ '↠', '↞' ],
+	[ '⇀', '↽' ],
 
 	/* maths */
-	[ '⟦', '⟧' ],
 	[ '⟨', '⟩' ],
 	[ '⟪', '⟫' ],
-	[ '⟮', '⟯' ],
-	[ '⟬', '⟭' ],
+	// Commenting these out for general lack of font support
+	// [ '⟦', '⟧' ],
+	// [ '⟮', '⟯' ],
+	// [ '⟬', '⟭' ],
 ];
 
 export abstract class Braces {

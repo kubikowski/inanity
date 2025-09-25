@@ -2,7 +2,7 @@
 
 mat-divider.mat-divider {
 	@include mat.divider-overrides((
-		color: var(--dark-text-color),
+		color: var(--default-text-color),
 		width: 1px,
 	));
 

@@ -29,7 +29,7 @@ export class BackgroundService {
 	}
 
 	private static get persistType(): BackgroundType {
-		return (localStorage.getItem('background.type') ?? BackgroundType.GLASS) as BackgroundType;
+		return (localStorage.getItem('background.type') ?? BackgroundType.GRAIN) as BackgroundType;
 	}
 
 	private static set persistType(backgroundType: BackgroundType) {
