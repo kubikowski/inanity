@@ -1,7 +1,6 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { FontService } from 'src/app/core/fonts/services/font.service';
 import { NotificationService } from 'src/app/core/notifications/notification.service';
-import { getTypefaceClassificationCss } from '../../models/typeface-classification.enum';
 import { Typeface } from '../../models/typeface.model';
 
 @Component({
@@ -9,7 +8,7 @@ import { Typeface } from '../../models/typeface.model';
 	templateUrl: 'typeface.component.html',
 	styleUrl: 'typeface.component.scss',
 	host: {
-		'[style.font-family]': 'classification()',
+		'[style.--typeface-name]': 'typefaceName()',
 	},
 })
 export class TypefaceComponent {
@@ -17,7 +16,7 @@ export class TypefaceComponent {
 	private readonly notificationService = inject(NotificationService);
 
 	public readonly typeface = input.required<Typeface>();
-	public readonly classification = computed(() => getTypefaceClassificationCss(this.typeface().classification));
+	public readonly typefaceName = computed(() => this.typeface().name);
 
 	public async applyTypeface(): Promise<void> {
 		this.fontService.typeface.set(this.typeface());

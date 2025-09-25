@@ -1,5 +1,5 @@
 import { DOCUMENT, effect, inject, Injectable, RendererFactory2, RendererStyleFlags2, signal } from '@angular/core';
-import { getTypefaceClassificationCss } from 'src/app/core/fonts/models/typeface-classification.enum';
+import { TypefaceClassificationUtil } from 'src/app/core/fonts/models/typeface-classification.enum';
 import { Typeface } from 'src/app/core/fonts/models/typeface.model';
 import { EB_GARAMOND } from 'src/app/core/fonts/models/typefaces.constant';
 
@@ -18,6 +18,11 @@ export class FontService {
 	}
 
 	private setTypeface(typeface: Typeface) {
-		this.renderer.setStyle(this.element, '--app-font', getTypefaceClassificationCss(typeface.classification), RendererStyleFlags2.DashCase);
+		const typeVariable = TypefaceClassificationUtil.getTypeVariable(typeface.classification);
+		const typeDeclaration = TypefaceClassificationUtil.getTypeDeclaration(typeface.classification);
+		const quotedName = `'${ typeface.name }'`;
+
+		this.renderer.setStyle(this.element, '--app-font', typeVariable, RendererStyleFlags2.DashCase);
+		this.renderer.setStyle(this.element, typeDeclaration, quotedName, RendererStyleFlags2.DashCase);
 	}
 }
