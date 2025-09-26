@@ -6,35 +6,38 @@
 			I thought that was a figment of <i>my</i> imagination.
 		"/></p>
 
+		<mat-divider/>
+
 		<section class="background-demos">
-			<background-demo [type]="BackgroundType.BUBBLES"/>
-			<background-demo [type]="BackgroundType.GLASS"/>
 			<background-demo [type]="BackgroundType.GRAIN"/>
-			<background-demo [type]="BackgroundType.BLANK"/>
+			<background-demo [type]="BackgroundType.GLASS"/>
+			<background-demo [type]="BackgroundType.GRID"/>
+			<background-demo [type]="BackgroundType.BUBBLES"/>
 		</section>
 
-		@if (isMovingBackground()) {
+		<p><dyslexic-text text="
+			It can be awfully dizzying. We can take a break from all that.
+		"/></p>
+		<mat-divider/>
+
+		<section class="background-demos">
+			<background-demo [type]="BackgroundType.BLANK"/>
+			<background-demo [type]="BackgroundType.NONE"/>
+		</section>
+
+		@if (moving()) {
 			<p><dyslexic-text text="Oh you want some more? Less?"/></p>
 
 			<mat-slider showTickMarks color="primary" [min]="min" [max]="max" step="1">
 				<input matSliderThumb [formControl]="amountControl"
 					   (change)="setMovingBackgroundAmount()">
 			</mat-slider>
-		} @else {
-			<p><dyslexic-text text="
-				Well never mind then.
-				Do you want to keep the existing background as it is?
-				Or you can clear it for that ✨professional✨ aesthetic.
-			"/></p>
 
-			<mat-checkbox class="mat-menu-item" color="primary"
-						  [formControl]="enabledControl"
-						  (change)="toggleBackgroundEnabled()">
-				<dyslexic-text [text]="enabled()
-					? 'For what its worth, you should go change the colors.'
-					: 'Nah we’ll keep it professional.'
-				"/>
-			</mat-checkbox>
+		} @else if (gradient()) {
+			<p class="finale"><dyslexic-text text="Really, this is more of a <i>paused</i> situation."/></p>
+
+		} @else {
+			<p class="finale"><dyslexic-text text="Good old ✨professional✨ aesthetic."/></p>
 		}
 	</main>
 </base-dialog>

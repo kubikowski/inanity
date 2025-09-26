@@ -4,12 +4,10 @@
 	</mat-sidenav>
 
 	<mat-sidenav-content>
+		<app-background/>
 		<app-header/>
 
 		<section class="app-content">
-			@if (backgroundEnabled()) {
-				<app-background/>
-			}
 			<router-outlet/>
 			<app-footer/>
 		</section>

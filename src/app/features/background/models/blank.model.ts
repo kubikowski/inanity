@@ -5,10 +5,6 @@ export class Blank extends CanvasSingleton {
 	public override readonly renderInterval = 0;
 	public override readonly paintInterval = 0;
 
-	private constructor() {
-		super();
-	}
-
 	public static reference(): Blank {
 		return new Blank();
 	}

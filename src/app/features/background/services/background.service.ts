@@ -1,5 +1,5 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
-import { BackgroundType } from 'src/app/features/background/models/background-type.enum';
+import { BackgroundType, BackgroundTypeUtil } from 'src/app/features/background/models/background-type.enum';
 
 @Injectable({ providedIn: 'root' })
 export class BackgroundService {
@@ -8,40 +8,24 @@ export class BackgroundService {
 	public static readonly maxCalibration = 20;
 
 	public readonly type = signal(BackgroundService.persistType);
-	public readonly isMovingBackground = computed(() => this.type() !== BackgroundType.BLANK);
-
-	public readonly enabled = signal(BackgroundService.persistEnabled);
 	public readonly amount = signal(BackgroundService.persistAmount);
+
+	public readonly gradient = computed(() => BackgroundTypeUtil.gradient(this.type()));
+	public readonly moving = computed(() => BackgroundTypeUtil.moving(this.type()));
 
 	public constructor() {
 		effect(() => {
 			BackgroundService.persistType = this.type();
-			BackgroundService.persistEnabled = this.enabled();
 			BackgroundService.persistAmount = this.amount();
-		});
-
-		// TODO: can linkedSignal contain stateful?
-		effect(() => {
-			if (this.isMovingBackground() && !this.enabled()) {
-				this.enabled.set(true);
-			}
 		});
 	}
 
 	private static get persistType(): BackgroundType {
-		return (localStorage.getItem('background.type') ?? BackgroundType.GRAIN) as BackgroundType;
+		return (localStorage.getItem('background.type') ?? BackgroundTypeUtil.default) as BackgroundType;
 	}
 
 	private static set persistType(backgroundType: BackgroundType) {
 		localStorage.setItem('background.type', backgroundType);
-	}
-
-	private static get persistEnabled(): boolean {
-		return JSON.parse(localStorage.getItem('background.enabled') ?? 'true') as boolean;
-	}
-
-	private static set persistEnabled(enabled: boolean) {
-		localStorage.setItem('background.enabled', String(enabled));
 	}
 
 	private static get persistAmount(): number {

@@ -21,9 +21,7 @@ import { SidebarComponent } from 'src/app/features/navigation/components/sidebar
 export class AppComponent implements AfterViewInit {
 	private readonly services = injectCoreServices();
 
-	public readonly backgroundEnabled = this.services.backgroundService.enabled;
 	private readonly sidenav = viewChild.required<MatSidenav>('sidenav');
-
 	public ngAfterViewInit(): void {
 		this.services.navigationService.initialize(untracked(this.sidenav));
 	}
