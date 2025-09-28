@@ -155,5 +155,10 @@ export class DialogBuilder {
 		this.configuration.footer.extraButtons.push(extraButton);
 		return this;
 	}
+
+	public withExtraButtons(extraButtons: DialogButtonConfiguration[]): this {
+		this.configuration.footer.extraButtons.push(...extraButtons);
+		return this;
+	}
 	// endregion Extra Buttons
 }

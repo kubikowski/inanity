@@ -16,6 +16,12 @@
 				</button>
 			</section>
 		}
+		@case (AuthScreen.GOOGLE_AUTH) {
+			<empty omitPadding>
+				<h2>Google Authentication</h2>
+				<p>Please submit the Google Authentication popup.</p>
+			</empty>
+		}
 		@case (AuthScreen.EMAIL_AUTH) {
 			<form>
 				<email-input [emailControl]="emailControl"/>
@@ -36,11 +42,10 @@
 				<password-input [passwordControl]="confirmPasswordControl"/>
 			</form>
 		}
-		@case (AuthScreen.GOOGLE_AUTH) {
-			<empty omitPadding>
-				<h2>Google Authentication</h2>
-				<p>Please submit the Google Authentication popup.</p>
-			</empty>
+		@case (AuthScreen.RECOVER_PASSWORD) {
+			<form>
+				<email-input [emailControl]="emailControl"/>
+			</form>
 		}
 		@case (AuthScreen.SUCCESS) {
 			You have successfully signed in.

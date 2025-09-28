@@ -10,6 +10,18 @@ export enum AuthScreen {
 }
 
 export abstract class AuthScreenUtility {
+	public static getTitle(authScreen: AuthScreen): string {
+		switch (authScreen) {
+			case AuthScreen.RECOVER_PASSWORD:
+				return 'Recover Password';
+			case AuthScreen.SUCCESS:
+				return 'Signed In';
+			case AuthScreen.FAILURE:
+				return 'Sign In Failed';
+			default:
+				return 'Sign In';
+		}
+	}
 
 	public static canGoBack(authScreen: AuthScreen): boolean {
 		return this.getBackTarget(authScreen) !== null;
@@ -23,6 +35,15 @@ export abstract class AuthScreenUtility {
 		switch (authScreen) {
 			case AuthScreen.EMAIL_PASSWORD:
 			case AuthScreen.CONFIRM_PASSWORD:
+				return true;
+			default:
+				return false;
+		}
+	}
+
+	public static canRecover(authScreen: AuthScreen): boolean {
+		switch (authScreen) {
+			case AuthScreen.RECOVER_PASSWORD:
 				return true;
 			default:
 				return false;

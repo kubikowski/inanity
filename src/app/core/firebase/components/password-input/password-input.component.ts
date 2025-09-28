@@ -1,6 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatError, MatFormField } from '@angular/material/form-field';
+import { MatIconButton } from '@angular/material/button';
+import { MatError, MatFormField, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
 import { MatInput, MatLabel } from '@angular/material/input';
 
 @Component({
@@ -9,9 +11,18 @@ import { MatInput, MatLabel } from '@angular/material/input';
 	styleUrl: 'password-input.component.scss',
 	imports: [
 		MatError, MatFormField, MatInput, MatLabel,
-		ReactiveFormsModule,
+		ReactiveFormsModule, MatIcon, MatSuffix, MatIconButton,
 	],
 })
 export class PasswordInputComponent {
 	public readonly passwordControl = input.required<FormControl<string>>();
+
+	private readonly visible = signal(false);
+
+	public readonly inputType = computed(() => this.visible() ? 'text' : 'password');
+	public readonly visibility = computed(() => this.visible() ? 'visibility' : 'visibility_off');
+
+	public toggleVisibility(): void {
+		this.visible.set(!this.visible());
+	}
 }
