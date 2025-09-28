@@ -6,7 +6,7 @@ export class Grid extends CanvasSingleton {
 	public override readonly renderInterval = 32;
 	public override readonly paintInterval = 32;
 
-	private static readonly lineWidth = 3;
+	private static readonly lineWidth = 1;
 
 	private constructor(
 		private readonly canvasWidth: number,
@@ -33,14 +33,14 @@ export class Grid extends CanvasSingleton {
 	}
 
 	protected override getFillPalette(colorPalette: ColorPalette): ColorPalette {
-		return colorPalette.transparent(0.10);
+		return colorPalette.transparent(0.15);
 	}
 
 	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette): void {
 		const offsetIndex = this.getGridOffsetIndex();
 
 		context.globalCompositeOperation = 'destination-out';
-		context.fillStyle = 'rgba(255, 255, 255, 0.25)';
+		context.fillStyle = 'rgba(255, 255, 255, 0.15)';
 		context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
 		context.globalCompositeOperation = 'source-over';

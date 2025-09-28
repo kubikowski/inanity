@@ -20,15 +20,16 @@ export class Grain extends CanvasSingleton {
 	public override readonly renderInterval = 40;
 	public override readonly paintInterval = 40;
 
-	private static readonly renderBaseline = 1 / 20;
-	private static readonly visibilityBaseline = 1 / 16;
+	private static readonly baselineRender = 1 / 16;
+	private static readonly baselineVisibility = 1 / 64;
 	private static readonly reversalRate = 9 / 10;
 	private static readonly transparency = 0.15;
 
 	private constructor(
 		private readonly canvasWidth: number,
 		private readonly canvasHeight: number,
-		private readonly grainRate: number,
+		private readonly renderRate: number,
+		private readonly visibilityTarget: number,
 		private readonly grainOffsetSize: number,
 		private readonly grainOffsets: [ number, number ][],
 		private grainIndex = 0,
@@ -37,7 +38,7 @@ export class Grain extends CanvasSingleton {
 	}
 
 	public static reference(): Grain {
-		return new Grain(0, 0, 0, 0, []);
+		return new Grain(0, 0, 0, 0, 0, []);
 	}
 
 	protected override isReferenceType(canvasElement: CanvasElement): canvasElement is this {
@@ -47,9 +48,10 @@ export class Grain extends CanvasSingleton {
 	protected override calibrate(canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): this {
 		const grainOffsetSize = Math.floor(maxCalibration / 2);
 		const grainOffsets = this.getGrainOffsets(grainOffsetSize);
-		const grainRate = Grain.renderBaseline * grainOffsetSize * calibration / maxCalibration;
+		const renderRate = Grain.baselineRender * Math.pow(calibration, 0.5);
+		const visibilityTarget = Grain.baselineVisibility * Math.pow(calibration, 0.5);
 
-		return new Grain(canvasWidth, canvasHeight, grainRate, grainOffsetSize, grainOffsets) as this;
+		return new Grain(canvasWidth, canvasHeight, renderRate, visibilityTarget, grainOffsetSize, grainOffsets) as this;
 	}
 
 	private getGrainOffsets(grainOffsetSize: number): [ number, number ][] {
@@ -78,7 +80,7 @@ export class Grain extends CanvasSingleton {
 		for (let y = yOffset; y < this.canvasHeight; y += this.grainOffsetSize) {
 			for (let x = xOffset; x < this.canvasWidth; x += this.grainOffsetSize) {
 
-				if (Math.random() > this.grainRate) continue;
+				if (Math.random() > this.renderRate) continue;
 				context.clearRect(x, y, 1, 1);
 
 				if (Math.random() > visibilityRate) continue;
@@ -156,10 +158,10 @@ export class Grain extends CanvasSingleton {
 	}
 
 	private getVisibilityRate(context: CanvasRenderingContext2D): number {
-		const maxVisibilityRate = Grain.visibilityBaseline * 4;
-		const minVisibilityRate = Grain.visibilityBaseline / 4;
+		const maxVisibilityRate = this.visibilityTarget * 4;
+		const minVisibilityRate = this.visibilityTarget / 4;
 		const visibilitySample = this.sampleCurrentVisibility(context);
-		const visibilityRate = Math.pow(Grain.visibilityBaseline, 2) * visibilitySample;
+		const visibilityRate = Math.pow(this.visibilityTarget, 2) * visibilitySample;
 
 		return clamp(minVisibilityRate, visibilityRate, maxVisibilityRate);
 	}
