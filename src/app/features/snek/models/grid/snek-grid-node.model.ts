@@ -3,6 +3,8 @@ import { SnekGridNodeType } from 'src/app/features/snek/models/grid/snek-grid-no
 import { SnekNode } from 'src/app/features/snek/models/snek/snek-node.model';
 import { SnekIcon } from 'src/app/features/snek/models/svg/snek-icon.enum';
 
+export type GridNode = Pick<SnekGridNode, 'width' | 'height'>;
+
 export class SnekGridNode {
 
 	#up!: SnekGridNode | null;
@@ -57,10 +59,10 @@ export class SnekGridNode {
 		}
 	}
 
-	public getIconOptions(gameCounter: number): SnekIcon[] {
+	public getIconOptions(counter: number): SnekIcon[] {
 		switch (this.#type) {
 			case SnekGridNodeType.SNEK:
-				return this.#snekNode?.getIconOptions(gameCounter) ?? [];
+				return this.#snekNode?.getIconOptions(counter) ?? [];
 			case SnekGridNodeType.FOOD:
 				return [ SnekIcon.FOOD ];
 			case SnekGridNodeType.BLANK:
