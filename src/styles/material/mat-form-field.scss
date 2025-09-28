@@ -4,6 +4,8 @@
 	@include mat.form-field-overrides((
 		container-height: 48px,
 		container-vertical-padding: 12px,
+
 		outlined-container-shape: var(--mat-sys-corner-small),
+		outlined-outline-color: var(--disabled-text-color),
 	));
 }

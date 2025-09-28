@@ -65,7 +65,7 @@ describe('Color Theme', () => {
 
 		it('should contain correct colorDanger', () => {
 			const { colorDanger } = LightTheme;
-			expect(colorDanger).toBe('rgb(245, 0, 0)');
+			expect(colorDanger).toBe('rgb(208, 0, 0)');
 		});
 
 		it('should contain correct colorDefaultBackground', () => {

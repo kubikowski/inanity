@@ -57,6 +57,11 @@ $palette: (
 
 		neutral-variant20: var(--shadow-color),
 		shadow: var(--shadow-color),
+
+		error: var(--danger-color),
+		error-container: var(--danger-color),
+		on-error: var(--danger-color),
+		on-error-container: var(--danger-color),
 	);
 }
 

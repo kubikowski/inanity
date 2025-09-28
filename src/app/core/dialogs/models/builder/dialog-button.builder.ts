@@ -51,8 +51,8 @@ export class DialogButtonBuilder {
 		return this;
 	}
 
-	public withDisabled(disabled: boolean | Signal<boolean> = true): this {
-		this.configuration.enabled = (typeof disabled === 'boolean') ? signal(disabled) : disabled;
+	public withEnabled(enabled: boolean | Signal<boolean> = true): this {
+		this.configuration.enabled = (typeof enabled === 'boolean') ? signal(enabled) : enabled;
 		return this;
 	}
 

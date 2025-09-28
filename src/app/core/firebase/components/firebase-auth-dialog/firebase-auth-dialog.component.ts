@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, signal, ViewEncapsulation } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -10,8 +10,11 @@ import { DialogButtonBuilder } from 'src/app/core/dialogs/models/builder/dialog-
 import { DialogBuilder } from 'src/app/core/dialogs/models/builder/dialog.builder';
 import { DialogConfiguration } from 'src/app/core/dialogs/models/configuration/dialog-configuration.model';
 import { DialogResolution } from 'src/app/core/dialogs/models/dialog-resolution.enum';
+import { EmailInputComponent } from 'src/app/core/firebase/components/email-input/email-input.component';
+import { PasswordInputComponent } from 'src/app/core/firebase/components/password-input/password-input.component';
 import { AuthScreen, AuthScreenUtility } from 'src/app/core/firebase/models/auth-screen.enum';
 import { FirebaseService } from 'src/app/core/firebase/services/firebase.service';
+import { formValidity } from 'src/app/core/functions/signal/form-validity.function';
 import { EmptyComponent } from 'src/app/features/empty/empty.component';
 
 @Component({
@@ -22,7 +25,7 @@ import { EmptyComponent } from 'src/app/features/empty/empty.component';
 	imports: [
 		BaseDialogComponent, EmptyComponent,
 		MatButton, MatIcon, MatInput,
-		MatFormFieldModule, ReactiveFormsModule,
+		MatFormFieldModule, ReactiveFormsModule, EmailInputComponent, PasswordInputComponent,
 	],
 })
 export class FirebaseAuthDialogComponent extends DialogComponent {
@@ -50,16 +53,34 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 		}
 	});
 
-	public readonly emailControl = new FormControl('', [
-		control => Validators.required(control),
-		control => Validators.email(control),
-	]);
-	public readonly passwordControl = new FormControl('', [
-		control => Validators.required(control),
-	]);
-	public readonly confirmPasswordControl = new FormControl('', [
-		control => Validators.required(control),
-	]);
+	public readonly emailControl = new FormControl('', {
+		nonNullable: true,
+		validators: [
+			control => Validators.required(control),
+			control => Validators.email(control),
+		],
+	});
+	public readonly passwordControl = new FormControl('', {
+		nonNullable: true,
+		validators: [
+			control => Validators.required(control),
+		],
+	});
+	public readonly confirmPasswordControl = new FormControl('', {
+		nonNullable: true,
+		validators: [
+			control => Validators.required(control),
+		],
+	});
+
+	public readonly emailForm = new FormGroup({
+		email: this.emailControl,
+		password: this.passwordControl,
+		confirmPassword: this.confirmPasswordControl,
+	});
+
+	private readonly validEmail = formValidity(this.emailControl);
+	private readonly validPassword = formValidity(this.emailControl);
 
 	public constructor() {
 		super();
@@ -89,6 +110,7 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 			.withIcon('arrow_right_alt')
 			.withIconAlignment('right')
 			.withVisible(this.showNextButton)
+			.withEnabled(this.validEmail)
 			.withAlignment('right')
 			.build();
 
@@ -134,6 +156,8 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 		const previous = AuthScreenUtility.getBackTarget(current);
 
 		if (previous !== null) {
+			this.emailForm.markAsPristine();
+			this.emailForm.markAsUntouched();
 			this.authScreen.set(previous);
 		}
 	}
@@ -143,6 +167,8 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 		const next = AuthScreenUtility.getNextTarget(current);
 
 		if (next !== null) {
+			this.emailForm.markAsPristine();
+			this.emailForm.markAsUntouched();
 			this.authScreen.set(next);
 		}
 	}

@@ -18,39 +18,22 @@
 		}
 		@case (AuthScreen.EMAIL_AUTH) {
 			<form>
-				<mat-form-field>
-					<mat-label>Email Address</mat-label>
-					<input matInput type="text" autocomplete="off"
-						   [formControl]="emailControl"/>
-				</mat-form-field>
+				<email-input [emailControl]="emailControl"/>
 			</form>
 
-			<a href="javascript:" (click)="forgotPassword()">Forgot Password?</a>
+			<a href="javascript:" (click)="forgotPassword()">Forgot your password?</a>
 		}
 		@case (AuthScreen.EMAIL_PASSWORD) {
 			<form>
-				<mat-form-field>
-					<mat-label>Password</mat-label>
-					<input matInput type="text" autocomplete="off"
-						   [formControl]="passwordControl"/>
-				</mat-form-field>
+				<password-input [passwordControl]="passwordControl"/>
 			</form>
 
-			<a href="javascript:" (click)="forgotPassword()">Forgot Password?</a>
+			<a href="javascript:" (click)="forgotPassword()">Forgot your password?</a>
 		}
 		@case (AuthScreen.CONFIRM_PASSWORD) {
 			<form>
-				<mat-form-field>
-					<mat-label>Password</mat-label>
-					<input matInput type="text" autocomplete="off"
-						   [formControl]="passwordControl"/>
-				</mat-form-field>
-
-				<mat-form-field>
-					<mat-label>Confirm Password</mat-label>
-					<input matInput type="text" autocomplete="off"
-						   [formControl]="confirmPasswordControl"/>
-				</mat-form-field>
+				<password-input [passwordControl]="passwordControl"/>
+				<password-input [passwordControl]="confirmPasswordControl"/>
 			</form>
 		}
 		@case (AuthScreen.GOOGLE_AUTH) {
