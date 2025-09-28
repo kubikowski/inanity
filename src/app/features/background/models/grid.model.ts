@@ -32,16 +32,22 @@ export class Grid extends CanvasSingleton {
 		return new Grid(canvasWidth, canvasHeight, gridOffset) as this;
 	}
 
+	protected override shouldClearCanvas(): boolean {
+		return true;
+	}
+
+	protected override clearCanvas(context: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number): void {
+		context.globalCompositeOperation = 'destination-out';
+		context.fillStyle = 'rgba(255, 255, 255, 0.15)';
+		context.fillRect(0, 0, canvasWidth, canvasHeight);
+	}
+
 	protected override getFillPalette(colorPalette: ColorPalette): ColorPalette {
 		return colorPalette.transparent(0.15);
 	}
 
 	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette): void {
 		const offsetIndex = this.getGridOffsetIndex();
-
-		context.globalCompositeOperation = 'destination-out';
-		context.fillStyle = 'rgba(255, 255, 255, 0.15)';
-		context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
 		context.globalCompositeOperation = 'source-over';
 		context.fillStyle = fillPalette.colorDefault;

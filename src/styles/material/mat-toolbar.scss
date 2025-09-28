@@ -12,7 +12,8 @@ body {
 
 mat-toolbar.mat-toolbar {
 	height: var(--navigation-height);
+
 	@include mat.toolbar-overrides((
 		container-background-color: transparent,
-	))
+	));
 }

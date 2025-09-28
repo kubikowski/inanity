@@ -1,9 +1,7 @@
 import { Component, computed, effect, inject, signal, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatInput } from '@angular/material/input';
 import { BaseDialogComponent } from 'src/app/core/dialogs/components/base-dialog/base-dialog.component';
 import { DialogComponent } from 'src/app/core/dialogs/components/dialog.component';
 import { DialogButtonBuilder } from 'src/app/core/dialogs/models/builder/dialog-button.builder';
@@ -24,8 +22,7 @@ import { EmptyComponent } from 'src/app/features/empty/empty.component';
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		BaseDialogComponent, EmptyComponent,
-		MatButton, MatIcon, MatInput,
-		MatFormFieldModule, ReactiveFormsModule, EmailInputComponent, PasswordInputComponent,
+		MatButton, MatIcon, EmailInputComponent, PasswordInputComponent,
 	],
 })
 export class FirebaseAuthDialogComponent extends DialogComponent {
