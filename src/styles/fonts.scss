@@ -16,15 +16,16 @@
 :root {
 	--app-font: var(--serif-font);
 
+	--sans-serif-type: 'Lato';
 	--sans-serif-font: 'open-arrow', var(--sans-serif-type), sans-serif;
+
+	--serif-type: 'EB Garamond';
 	--serif-font: 'open-arrow', var(--serif-type), serif;
-	--initial-font: 'EB Garamond Initials', var(--serif-font);
+
+	--monospace-type: 'Victor Mono';
 	--monospace-font: 'open-arrow', var(--monospace-type), monospace;
 
-	/* do not reference these directly */
-	--sans-serif-type: 'Lato';
-	--serif-type: 'EB Garamond';
-	--monospace-type: 'Victor Mono';
+	--initial-font: 'EB Garamond Initials', var(--serif-font);
 
 	--weight-thin: 100;
 	--weight-extralight: 200;
@@ -35,4 +36,8 @@
 	--weight-bold: 700;
 	--weight-extrabold: 800;
 	--weight-black: 900;
+
+	font-variant-alternates: swash(swash);
+	font-variant-ligatures: common-ligatures discretionary-ligatures historical-ligatures contextual;
+	font-variant-numeric: oldstyle-nums;
 }
