@@ -1,10 +1,16 @@
-base-dialog {
+base-dialog, form-dialog {
 	display: flex;
 	flex-flow: column nowrap;
 	max-height: calc(100vh - var(--navigation-height) - 1rem);
 	overflow: hidden;
 
-	> .dialog-body {
+	> form {
+		display: flex;
+		flex-flow: column nowrap;
+		overflow: hidden;
+	}
+
+	.dialog-body {
 		flex: 1 1 auto;
 		padding: 1rem;
 		overflow: hidden auto;

@@ -4,6 +4,7 @@
 .mat-mdc-dialog-container {
 	@include mat.dialog-overrides((
 		container-shape: var(--mat-sys-corner-large),
+		headline-padding: 1rem,
 		content-padding: 1rem,
 		with-actions-content-padding: 1rem,
 		actions-padding: 1rem,

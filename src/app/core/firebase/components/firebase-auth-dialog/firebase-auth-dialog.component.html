@@ -1,4 +1,4 @@
-<base-dialog [configuration]="dialogConfiguration()">
+<form-dialog [configuration]="dialogConfiguration()">
 	<main>
 		@switch (authScreen()) {
 		@case (AuthScreen.AUTH_SELECTION) {
@@ -23,29 +23,21 @@
 			</empty>
 		}
 		@case (AuthScreen.EMAIL_AUTH) {
-			<form>
-				<email-input [emailControl]="emailControl"/>
-			</form>
+			<email-input [emailControl]="emailControl"/>
 
 			<a href="javascript:" (click)="forgotPassword()">Forgot your password?</a>
 		}
 		@case (AuthScreen.EMAIL_PASSWORD) {
-			<form>
-				<password-input [passwordControl]="passwordControl"/>
-			</form>
+			<password-input [passwordControl]="passwordControl"/>
 
 			<a href="javascript:" (click)="forgotPassword()">Forgot your password?</a>
 		}
 		@case (AuthScreen.CONFIRM_PASSWORD) {
-			<form>
-				<password-input [passwordControl]="passwordControl"/>
-				<password-input [passwordControl]="confirmPasswordControl"/>
-			</form>
+			<password-input [passwordControl]="passwordControl"/>
+			<password-input [passwordControl]="confirmPasswordControl"/>
 		}
 		@case (AuthScreen.RECOVER_PASSWORD) {
-			<form>
-				<email-input [emailControl]="emailControl"/>
-			</form>
+			<email-input [emailControl]="emailControl"/>
 		}
 		@case (AuthScreen.SUCCESS) {
 			You have successfully signed in.
@@ -55,4 +47,4 @@
 		}
 		}
 	</main>
-</base-dialog>
+</form-dialog>

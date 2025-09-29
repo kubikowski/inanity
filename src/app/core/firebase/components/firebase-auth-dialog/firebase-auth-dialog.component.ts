@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { BaseDialogComponent } from 'src/app/core/dialogs/components/base-dialog/base-dialog.component';
 import { DialogComponent } from 'src/app/core/dialogs/components/dialog.component';
+import { FormDialogComponent } from 'src/app/core/dialogs/components/form-dialog/form-dialog.component';
 import { DialogBuilder } from 'src/app/core/dialogs/models/builder/dialog.builder';
 import { DialogConfiguration } from 'src/app/core/dialogs/models/configuration/dialog-configuration.model';
 import { DialogResolution } from 'src/app/core/dialogs/models/dialog-resolution.enum';
@@ -20,7 +20,7 @@ import { EmptyComponent } from 'src/app/features/empty/empty.component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ FirebaseAuthDialogService ],
 	imports: [
-		BaseDialogComponent, EmptyComponent,
+		FormDialogComponent, EmptyComponent,
 		MatButton, MatIcon, EmailInputComponent, PasswordInputComponent,
 	],
 })

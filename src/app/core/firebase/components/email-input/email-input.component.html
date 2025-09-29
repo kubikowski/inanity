@@ -1,7 +1,8 @@
 <mat-form-field>
 	<mat-label>Email Address</mat-label>
 
-	<input matInput type="text" autocomplete="off"
+	<input matInput type="email"
+		   id="email" autocomplete="email"
 		   [formControl]="emailControl()"/>
 
 	@if (emailControl().getError('email')) {
