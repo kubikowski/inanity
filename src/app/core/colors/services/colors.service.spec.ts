@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base-color-palette.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
@@ -36,6 +37,10 @@ describe('ColorsService', () => {
 	}
 
 	beforeEach(() => {
+		TestBed.configureTestingModule({
+			providers: [ provideZonelessChangeDetection() ],
+		});
+
 		colorsService = TestBed.inject(ColorsService);
 
 		colorsService.theme.set(LightTheme);

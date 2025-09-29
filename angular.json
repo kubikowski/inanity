@@ -22,9 +22,6 @@
 							"browser": ""
 						},
 						"index": "src/index.html",
-						"polyfills": [
-							"src/polyfills.ts"
-						],
 						"tsConfig": "tsconfig.app.json",
 						"preserveSymlinks": true,
 						"assets": [
@@ -112,9 +109,6 @@
 				"test": {
 					"builder": "@angular-devkit/build-angular:jest",
 					"options": {
-						"polyfills": [
-							"src/polyfills.ts"
-						],
 						"tsConfig": "tsconfig.spec.json"
 					}
 				},

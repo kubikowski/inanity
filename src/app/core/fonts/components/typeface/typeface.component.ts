@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { FontService } from 'src/app/core/fonts/services/font.service';
 import { NotificationService } from 'src/app/core/notifications/notification.service';
 import { Typeface } from '../../models/typeface.model';
@@ -7,6 +7,7 @@ import { Typeface } from '../../models/typeface.model';
 	selector: 'typeface',
 	templateUrl: 'typeface.component.html',
 	styleUrl: 'typeface.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[style.--typeface-name]': 'typefaceName()',
 	},

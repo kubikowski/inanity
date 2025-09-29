@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatError, MatFormField, MatSuffix } from '@angular/material/form-field';
@@ -9,6 +9,7 @@ import { MatInput, MatLabel } from '@angular/material/input';
 	selector: 'password-input',
 	templateUrl: 'password-input.component.html',
 	styleUrl: 'password-input.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		MatError, MatFormField, MatInput, MatLabel,
 		ReactiveFormsModule, MatIcon, MatSuffix, MatIconButton,

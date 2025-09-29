@@ -1,4 +1,4 @@
-import { Component, effect, inject, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { BaseDialogComponent } from 'src/app/core/dialogs/components/base-dialog/base-dialog.component';
@@ -17,7 +17,7 @@ import { EmptyComponent } from 'src/app/features/empty/empty.component';
 	selector: 'firebase-auth-dialog',
 	templateUrl: 'firebase-auth-dialog.component.html',
 	styleUrl: 'firebase-auth-dialog.component.scss',
-	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ FirebaseAuthDialogService ],
 	imports: [
 		BaseDialogComponent, EmptyComponent,

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormField } from '@angular/material/form-field';
 import { MatInput, MatLabel } from '@angular/material/input';
@@ -7,6 +7,7 @@ import { MatInput, MatLabel } from '@angular/material/input';
 	selector: 'email-input',
 	templateUrl: 'email-input.component.html',
 	styleUrl: 'email-input.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		MatError, MatFormField, MatInput, MatLabel,
 		ReactiveFormsModule,
