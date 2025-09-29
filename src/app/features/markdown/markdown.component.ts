@@ -1,19 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	DOCUMENT,
-	effect,
-	inject,
-	Injector,
-	input,
-	OnDestroy,
-	OnInit,
-	signal,
-	untracked,
-	ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DOCUMENT, effect, inject, Injector, input, OnDestroy, OnInit, signal, untracked, ViewEncapsulation } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { DomSanitizer } from '@angular/platform-browser';
 import hljs from 'highlight.js';
@@ -63,6 +49,7 @@ export class MarkdownComponent implements OnInit, OnDestroy {
 	}
 
 	public ngOnInit(): void {
+		// TODO: migrate to httpResource
 		this.subscriptions.sink = this.http.get(this.url(), { responseType: 'text' })
 			.subscribe(markdown => this.markdown.set(markdown));
 	}

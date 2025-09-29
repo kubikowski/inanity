@@ -23,6 +23,7 @@ export class RefreshIconComponent<T> implements OnDestroy {
 	private readonly matTooltip = inject(MatTooltip);
 	private readonly subscriptions = new SubSink();
 
+	// TODO: migrate to signal signal event management
 	public readonly refresh$ = input.required<Observable<T>>();
 	public readonly doRefresh = input<null>();
 
@@ -32,7 +33,7 @@ export class RefreshIconComponent<T> implements OnDestroy {
 
 	/* time spent in DONE state (milliseconds) */
 	public readonly debounceTime = input(10_000);
-	/* css size string */
+	/* CSS size string */
 	public readonly size = input<string>();
 
 	private readonly nextState = signal(RefreshState.IDLE);

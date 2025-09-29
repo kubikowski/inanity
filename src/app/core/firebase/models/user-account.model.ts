@@ -1,5 +1,6 @@
 import { User } from '@angular/fire/auth';
-import { getAnonymousAnimal } from 'src/app/core/firebase/models/anonymous-animals.constant';
+import { AnonymousAnimalUtil } from 'src/app/core/firebase/models/anonymous-animals.constant';
+import { titleCase } from 'src/app/core/functions/string/title-case.function';
 
 export class UserAccount {
 	private constructor(
@@ -27,7 +28,8 @@ export class UserAccount {
 	}
 
 	public static fromUser(user: User): UserAccount {
-		const nickname = `Anonymous ${ getAnonymousAnimal() }`;
+		const animal = AnonymousAnimalUtil.random();
+		const nickname = `Anonymous ${ titleCase(animal) }`;
 		const createdOn = new Date();
 
 		return new UserAccount(
