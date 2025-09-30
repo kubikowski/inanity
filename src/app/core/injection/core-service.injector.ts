@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { AnalyticsService } from 'src/app/core/browser/services/analytics.service';
 import { AnimationFrameService } from 'src/app/core/browser/services/animation-frame.service';
+import { AsciiService } from 'src/app/core/browser/services/ascii.service';
 import { FaviconService } from 'src/app/core/browser/services/favicon.service';
 import { RouterService } from 'src/app/core/browser/services/router.service';
 import { ScreenService } from 'src/app/core/browser/services/screen.service';
@@ -23,6 +24,7 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 interface BrowserServices {
 	readonly analyticsService: AnalyticsService;
 	readonly animationFrameService: AnimationFrameService;
+	readonly asciiService: AsciiService;
 	readonly faviconService: FaviconService;
 	readonly routerService: RouterService;
 	readonly screenService: ScreenService;
@@ -70,6 +72,7 @@ function injectBrowserServices(): BrowserServices {
 	return {
 		analyticsService: inject(AnalyticsService),
 		animationFrameService: inject(AnimationFrameService),
+		asciiService: inject(AsciiService),
 		faviconService: inject(FaviconService),
 		routerService: inject(RouterService),
 		screenService: inject(ScreenService),

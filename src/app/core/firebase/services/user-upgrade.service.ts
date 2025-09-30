@@ -1,4 +1,4 @@
-import { effect, inject, Injectable } from '@angular/core';
+import { effect, inject, Injectable, isDevMode } from '@angular/core';
 import { linkWithCredential } from '@angular/fire/auth';
 import { FirebaseService } from 'src/app/core/firebase/services/firebase.service';
 import { FirestoreService } from 'src/app/core/firebase/services/firestore.service';
@@ -34,7 +34,7 @@ export class UserUpgradeService {
 		const authCredential = this.authCredential();
 
 		if (anonymousUser !== null && identifiedUser !== null && authCredential !== null) {
-			console.log('Upgrading anonymous account:', { anonymousUser, identifiedUser, authCredential });
+			if (isDevMode()) console.log('Upgrading anonymous account:', { anonymousUser, identifiedUser, authCredential });
 			await linkWithCredential(anonymousUser, authCredential);
 		}
 	}
