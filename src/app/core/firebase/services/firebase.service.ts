@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, linkedSignal, OnDestroy, signal } from '@angular/core';
+import { computed, inject, Injectable, isDevMode, linkedSignal, OnDestroy, signal } from '@angular/core';
 import {
 	Auth, AuthCredential, EmailAuthProvider, GoogleAuthProvider,
 	signInAnonymously, signInWithEmailAndPassword, signInWithPopup, Unsubscribe, User, UserCredential,
@@ -41,7 +41,7 @@ export class FirebaseService implements OnDestroy {
 	private getAuthStateSubscription(): Unsubscribe {
 		return this.auth.onAuthStateChanged(user => {
 			if (user === null) return;
-			console.log('Auth State Changed', user);
+			if (isDevMode()) console.log('Auth State Changed', user);
 
 			if (user.isAnonymous) {
 				this.anonymousUser.set(user);
@@ -57,10 +57,10 @@ export class FirebaseService implements OnDestroy {
 		await timeout(5_000);
 		if (this.userInfo() !== null) return;
 
-		console.log('Attempting Anonymous SignIn');
+		if (isDevMode()) console.log('Attempting Anonymous SignIn');
 		const anonymousCredential = await signInAnonymously(this.auth);
 
-		console.log('Anonymous SignIn Response', anonymousCredential);
+		if (isDevMode()) console.log('Anonymous SignIn Response', anonymousCredential);
 		this.anonymousCredential.set(anonymousCredential);
 	}
 	// endregion Anonymous Sign In
@@ -68,7 +68,7 @@ export class FirebaseService implements OnDestroy {
 
 	// region Email Sign In
 	public async emailSignIn(email: string, password: string): Promise<void> {
-		console.log('attempting email & password sign in');
+		if (isDevMode()) console.log('attempting email & password sign in');
 		await this.signInHandler(this.attemptEmailSignIn(email, password));
 	}
 
@@ -84,7 +84,7 @@ export class FirebaseService implements OnDestroy {
 
 	// region Google Sign In
 	public async googleSignIn(): Promise<void> {
-		console.log('attempting google sign in');
+		if (isDevMode()) console.log('attempting google sign in');
 		await this.signInHandler(this.attemptGoogleSignIn());
 	}
 

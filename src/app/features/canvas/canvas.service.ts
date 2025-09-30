@@ -7,7 +7,7 @@ export abstract class CanvasService {
 	protected readonly colorsService = inject(ColorsService);
 
 	protected readonly canvas = signal<HTMLCanvasElement | null>(null);
-	protected readonly context = computed(() => this.canvas()?.getContext('2d') ?? null);
+	protected readonly context = computed(() => this.canvas()?.getContext('2d', { willReadFrequently: true }) ?? null);
 
 	protected abstract readonly rawCanvasWidth: Signal<number>;
 	protected abstract readonly rawCanvasHeight: Signal<number>;

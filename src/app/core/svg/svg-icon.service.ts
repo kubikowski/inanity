@@ -1,8 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { DOCUMENT, inject, Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ErrorEmission, ignoreError } from 'src/app/core/functions/rxjs/ignore-error.function';
 import { ExternalSvgIcon } from 'src/app/core/svg/external-svg-icon.enum';
 import { HandIconUtil } from 'src/app/core/svg/hand-icon.enum';
@@ -12,6 +12,9 @@ import { InternalSvgIcon } from 'src/app/core/svg/internal-svg-icon.enum';
 export class SvgIconService {
 	private readonly matIconRegistry = inject(MatIconRegistry);
 	private readonly domSanitizer = inject(DomSanitizer);
+
+	private readonly document = inject(DOCUMENT);
+	private readonly hiddenIcons = this.createHiddenIcons();
 
 	public constructor() {
 		this.registerInternalIcons(InternalSvgIcon);
@@ -80,10 +83,31 @@ export class SvgIconService {
 		if (iconKey.includes(':')) {
 			const [ parsedNamespace, parsedIconKey ] = iconKey.split(':') as [ string, string ];
 			return this.matIconRegistry.getNamedSvgIcon(parsedIconKey, parsedNamespace)
-				.pipe(ignoreError(ErrorEmission.NULL));
+				.pipe(tap(icon => this.registerHiddenIcon(icon, parsedIconKey, parsedNamespace)), ignoreError(ErrorEmission.NULL));
 		} else {
 			return this.matIconRegistry.getNamedSvgIcon(iconKey, namespace)
-				.pipe(ignoreError(ErrorEmission.NULL));
+				.pipe(tap(icon => this.registerHiddenIcon(icon, iconKey, namespace)), ignoreError(ErrorEmission.NULL));
+		}
+	}
+
+	private createHiddenIcons(): HTMLDivElement {
+		const hiddenIcons = this.document.createElement('div');
+
+		hiddenIcons.setAttribute('id', 'hidden-icons');
+		hiddenIcons.setAttribute('class', 'cdk-visually-hidden');
+
+		this.document.body.appendChild(hiddenIcons);
+		return hiddenIcons;
+	}
+
+	public registerHiddenIcon(svgElement: SVGElement, iconKey: string, namespace?: string): void {
+		const iconId = `icon:${ namespace ?? '' }:${ iconKey }`;
+		const hasHiddenIcon = Array.from(this.hiddenIcons.children)
+			.some(icon => icon.id === iconId);
+
+		if (!hasHiddenIcon) {
+			svgElement.setAttribute('id', iconId);
+			this.hiddenIcons.appendChild(svgElement);
 		}
 	}
 }

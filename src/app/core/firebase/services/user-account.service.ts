@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable, resource } from '@angular/core';
+import { computed, effect, inject, Injectable, isDevMode, resource } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import { UserAccount } from 'src/app/core/firebase/models/user-account.model';
 import { FirebaseService } from 'src/app/core/firebase/services/firebase.service';
@@ -18,7 +18,7 @@ export class UserAccountService {
 	public constructor() {
 		effect(() => {
 			const userAccount = this.userAccount();
-			if (userAccount !== null) console.log('user account:', userAccount);
+			if (userAccount !== null && isDevMode()) console.log('user account:', userAccount);
 		});
 	}
 
