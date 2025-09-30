@@ -5,5 +5,7 @@ import { map } from 'rxjs/operators';
 import { formStatus } from 'src/app/core/functions/rxjs/form-status.function';
 
 export function formValidity<T>(formElement: AbstractControl<T>): Signal<boolean> {
-	return toSignal(formStatus(formElement).pipe(map(status => status === 'VALID'))) as Signal<boolean>;
+	return toSignal(formStatus(formElement).pipe(
+		map(status => status === 'VALID')),
+	) as Signal<boolean>;
 }

@@ -69,8 +69,7 @@ export class FirebaseService implements OnDestroy {
 	// region Email Sign In
 	public async emailSignIn(email: string, password: string): Promise<void> {
 		console.log('attempting email & password sign in');
-		await this.attemptEmailSignIn(email, password)
-			.catch(console.error); // handle rejection
+		await this.signInHandler(this.attemptEmailSignIn(email, password));
 	}
 
 	private async attemptEmailSignIn(email: string, password: string): Promise<void> {
@@ -86,8 +85,7 @@ export class FirebaseService implements OnDestroy {
 	// region Google Sign In
 	public async googleSignIn(): Promise<void> {
 		console.log('attempting google sign in');
-		await this.attemptGoogleSignIn()
-			.catch(console.error); // handle rejection
+		await this.signInHandler(this.attemptGoogleSignIn());
 	}
 
 	private async attemptGoogleSignIn(): Promise<void> {
@@ -98,6 +96,20 @@ export class FirebaseService implements OnDestroy {
 		this.authCredential.set(authCredential);
 	}
 	// endregion Google Sign In
+
+
+	private async signInHandler(signInAttempt: Promise<void>): Promise<void> {
+		await signInAttempt
+			.then(() => {
+				this.authSuccess.set(true);
+			})
+			.catch(error => {
+				console.error(error);
+
+				this.authFailure.set(true);
+				setTimeout(() => this.authFailure.set(false), 100);
+			});
+	}
 
 
 	// region Auth Providers

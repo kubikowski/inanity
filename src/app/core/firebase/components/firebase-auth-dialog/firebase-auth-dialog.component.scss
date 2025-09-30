@@ -1,6 +1,6 @@
 :host main {
 	flex-flow: column nowrap;
-	gap: 1rem;
+	gap: 0.5rem;
 
 	> .auth-options {
 		display: flex;
@@ -14,6 +14,12 @@
 			font-family: var(--sans-serif-font);
 			text-align: center;
 		}
+	}
+
+	> .auth-navigation {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
 	}
 
 	> .mat-mdc-form-field {

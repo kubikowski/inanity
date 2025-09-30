@@ -1,22 +1,27 @@
+import { AuthProvider } from './auth-provider.enum';
+
 export enum AuthScreen {
 	AUTH_SELECTION = 'AUTH_SELECTION',
 	GOOGLE_AUTH = 'GOOGLE_AUTH',
 	EMAIL_AUTH = 'EMAIL_AUTH',
-	EMAIL_PASSWORD = 'EMAIL_PASSWORD',
-	CONFIRM_PASSWORD = 'CONFIRM_PASSWORD',
+	CREATE_ACCOUNT = 'CREATE_ACCOUNT',
 	RECOVER_PASSWORD = 'RECOVER_PASSWORD',
+	OAUTH_FAILURE = 'OAUTH_FAILURE',
+	EMAIL_FAILURE = 'EMAIL_FAILURE',
 	SUCCESS = 'SUCCESS',
-	FAILURE = 'FAILURE',
 }
 
 export abstract class AuthScreenUtility {
 	public static getTitle(authScreen: AuthScreen): string {
 		switch (authScreen) {
+			case AuthScreen.CREATE_ACCOUNT:
+				return 'Sign Up';
 			case AuthScreen.RECOVER_PASSWORD:
 				return 'Recover Password';
 			case AuthScreen.SUCCESS:
 				return 'Signed In';
-			case AuthScreen.FAILURE:
+			case AuthScreen.OAUTH_FAILURE:
+			case AuthScreen.EMAIL_FAILURE:
 				return 'Sign In Failed';
 			default:
 				return 'Sign In';
@@ -27,27 +32,16 @@ export abstract class AuthScreenUtility {
 		return this.getBackTarget(authScreen) !== null;
 	}
 
-	public static canGoNext(authScreen: AuthScreen): boolean {
-		return this.getNextTarget(authScreen) !== null;
+	public static canSignIn(authScreen: AuthScreen): boolean {
+		return authScreen === AuthScreen.EMAIL_AUTH;
 	}
 
-	public static canSubmit(authScreen: AuthScreen): boolean {
-		switch (authScreen) {
-			case AuthScreen.EMAIL_PASSWORD:
-			case AuthScreen.CONFIRM_PASSWORD:
-				return true;
-			default:
-				return false;
-		}
+	public static canSignUp(authScreen: AuthScreen): boolean {
+		return authScreen === AuthScreen.CREATE_ACCOUNT;
 	}
 
 	public static canRecover(authScreen: AuthScreen): boolean {
-		switch (authScreen) {
-			case AuthScreen.RECOVER_PASSWORD:
-				return true;
-			default:
-				return false;
-		}
+		return authScreen === AuthScreen.RECOVER_PASSWORD;
 	}
 
 	/**
@@ -59,9 +53,9 @@ export abstract class AuthScreenUtility {
 		switch (authScreen) {
 			case AuthScreen.GOOGLE_AUTH:
 			case AuthScreen.EMAIL_AUTH:
+			case AuthScreen.OAUTH_FAILURE:
 				return AuthScreen.AUTH_SELECTION;
-			case AuthScreen.EMAIL_PASSWORD:
-			case AuthScreen.CONFIRM_PASSWORD:
+			case AuthScreen.CREATE_ACCOUNT:
 			case AuthScreen.RECOVER_PASSWORD:
 				return AuthScreen.EMAIL_AUTH;
 			default:
@@ -69,12 +63,14 @@ export abstract class AuthScreenUtility {
 		}
 	}
 
-	public static getNextTarget(authScreen: AuthScreen): AuthScreen | null {
-		switch (authScreen) {
-			case AuthScreen.EMAIL_AUTH:
-				return AuthScreen.EMAIL_PASSWORD;
-			default:
-				return null;
+	public static getFailureMode(authProvider: AuthProvider | null): AuthScreen {
+		switch (authProvider) {
+			case AuthProvider.EMAIL:
+				return AuthScreen.EMAIL_FAILURE;
+			case AuthProvider.GOOGLE:
+				return AuthScreen.OAUTH_FAILURE;
+			case null:
+				return AuthScreen.AUTH_SELECTION;
 		}
 	}
 }

@@ -16,7 +16,10 @@ export class UserAccountService {
 
 	public readonly userAccount = computed(() => this.userAccountDoc.value() ?? null);
 	public constructor() {
-		effect(() => console.log('user account:', this.userAccount()));
+		effect(() => {
+			const userAccount = this.userAccount();
+			if (userAccount !== null) console.log('user account:', userAccount);
+		});
 	}
 
 	private async getUserAccount(user: User | null): Promise<UserAccount | null> {

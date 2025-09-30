@@ -24,27 +24,46 @@
 		}
 		@case (AuthScreen.EMAIL_AUTH) {
 			<email-input [emailControl]="emailControl"/>
-
-			<a href="javascript:" (click)="forgotPassword()">Forgot your password?</a>
+			<password-input [passwordControl]="passwordControl" passwordType="current"/>
+			<ng-container [ngTemplateOutlet]="authNavigation"/>
 		}
-		@case (AuthScreen.EMAIL_PASSWORD) {
-			<password-input [passwordControl]="passwordControl"/>
-
-			<a href="javascript:" (click)="forgotPassword()">Forgot your password?</a>
-		}
-		@case (AuthScreen.CONFIRM_PASSWORD) {
-			<password-input [passwordControl]="passwordControl"/>
-			<password-input [passwordControl]="confirmPasswordControl"/>
+		@case (AuthScreen.CREATE_ACCOUNT) {
+			<email-input [emailControl]="emailControl"/>
+			<password-input [passwordControl]="passwordControl" passwordType="new"/>
+			<password-input [passwordControl]="confirmPasswordControl" passwordType="confirm"/>
 		}
 		@case (AuthScreen.RECOVER_PASSWORD) {
 			<email-input [emailControl]="emailControl"/>
+			If you have an existing account, a password recovery email will be be sent to the address provided.
 		}
 		@case (AuthScreen.SUCCESS) {
-			You have successfully signed in.
+			<empty>
+				<mat-icon>sentiment_satisfied</mat-icon>
+				You have signed in successfully.
+			</empty>
 		}
-		@case (AuthScreen.FAILURE) {
-			Yeah nah huh?
+		@case (AuthScreen.OAUTH_FAILURE) {
+			<empty>
+				<mat-icon>sentiment_very_dissatisfied</mat-icon>
+				We're not sure what happened, but it looks like
+				your Google sign in didn't go through. Did you close the popup?
+			</empty>
+		}
+		@case (AuthScreen.EMAIL_FAILURE) {
+			<empty>
+				<mat-icon>sentiment_very_dissatisfied</mat-icon>
+				Your email and password combination weren't accepted.
+				Please try again, or, if you don't have one, you can
+				<a href="javascript:" (click)="createAccount()">create an account.</a>.
+			</empty>
 		}
 		}
 	</main>
 </form-dialog>
+
+<ng-template #authNavigation>
+	<section class="auth-navigation">
+		<a href="javascript:" (click)="forgotPassword()">Forgot your password?</a>
+		<a href="javascript:" (click)="createAccount()">Don't have an account yet?</a>
+	</section>
+</ng-template>

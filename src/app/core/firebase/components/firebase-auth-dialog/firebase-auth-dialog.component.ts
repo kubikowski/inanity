@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -21,7 +22,7 @@ import { EmptyComponent } from 'src/app/features/empty/empty.component';
 	providers: [ FirebaseAuthDialogService ],
 	imports: [
 		FormDialogComponent, EmptyComponent,
-		MatButton, MatIcon, EmailInputComponent, PasswordInputComponent,
+		MatButton, MatIcon, EmailInputComponent, PasswordInputComponent, NgTemplateOutlet,
 	],
 })
 export class FirebaseAuthDialogComponent extends DialogComponent {
@@ -39,12 +40,7 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 		super();
 
 		effect(() => this.firebaseService.authSuccess() && (() => {
-			this.authScreen.set(AuthScreen.SUCCESS);
 			setTimeout(() => this.dialogRef.close(DialogResolution.SUCCESS), 2_000);
-		})());
-
-		effect(() => this.firebaseService.authFailure() && (() => {
-			this.authScreen.set(AuthScreen.FAILURE);
 		})());
 	}
 
@@ -65,6 +61,10 @@ export class FirebaseAuthDialogComponent extends DialogComponent {
 
 	public selectEmailSignIn(): void {
 		this.firebaseAuthDialogService.selectEmailSignIn();
+	}
+
+	public createAccount(): void {
+		this.firebaseAuthDialogService.createAccount();
 	}
 
 	public forgotPassword(): void {
