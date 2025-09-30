@@ -1,9 +1,69 @@
-<base-dialog [configuration]="dialogConfiguration()">
+<form-dialog [configuration]="dialogConfiguration()">
 	<main>
-		@if (authSuccess()) {
-		} @else if (authFailure()) {
-		} @else {
-			<section id="firebaseui-auth-container"></section>
+		@switch (authScreen()) {
+		@case (AuthScreen.AUTH_SELECTION) {
+			<section class="auth-options">
+				<button mat-flat-button type="button"
+						(click)="selectGoogleSignIn()">
+					<mat-icon class="fill">G</mat-icon>
+					<div class="auth-title">Sign in with Google</div>
+				</button>
+
+				<button mat-stroked-button class="neutral" type="button"
+						(click)="selectEmailSignIn()">
+					<mat-icon class="fill">email</mat-icon>
+					<div class="auth-title">Sign in with Email</div>
+				</button>
+			</section>
+		}
+		@case (AuthScreen.GOOGLE_AUTH) {
+			<empty omitPadding>
+				<h2>Google Authentication</h2>
+				<p>Please submit the Google Authentication popup.</p>
+			</empty>
+		}
+		@case (AuthScreen.EMAIL_AUTH) {
+			<email-input [emailControl]="emailControl"/>
+			<password-input [passwordControl]="passwordControl" passwordType="current"/>
+			<ng-container [ngTemplateOutlet]="authNavigation"/>
+		}
+		@case (AuthScreen.CREATE_ACCOUNT) {
+			<email-input [emailControl]="emailControl"/>
+			<password-input [passwordControl]="passwordControl" passwordType="new"/>
+			<password-input [passwordControl]="confirmPasswordControl" passwordType="confirm"/>
+		}
+		@case (AuthScreen.RECOVER_PASSWORD) {
+			<email-input [emailControl]="emailControl"/>
+			If you have an existing account, a password recovery email will be be sent to the address provided.
+		}
+		@case (AuthScreen.SUCCESS) {
+			<empty>
+				<mat-icon>sentiment_satisfied</mat-icon>
+				You have signed in successfully.
+			</empty>
+		}
+		@case (AuthScreen.OAUTH_FAILURE) {
+			<empty>
+				<mat-icon>sentiment_very_dissatisfied</mat-icon>
+				We're not sure what happened, but it looks like
+				your Google sign in didn't go through. Did you close the popup?
+			</empty>
+		}
+		@case (AuthScreen.EMAIL_FAILURE) {
+			<empty>
+				<mat-icon>sentiment_very_dissatisfied</mat-icon>
+				Your email and password combination weren't accepted.
+				Please try again, or, if you don't have one, you can
+				<a href="javascript:" (click)="createAccount()">create an account.</a>.
+			</empty>
+		}
 		}
 	</main>
-</base-dialog>
+</form-dialog>
+
+<ng-template #authNavigation>
+	<section class="auth-navigation">
+		<a href="javascript:" (click)="forgotPassword()">Forgot your password?</a>
+		<a href="javascript:" (click)="createAccount()">Don't have an account yet?</a>
+	</section>
+</ng-template>

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';
+import { ShapeValue } from 'src/app/core/browser/components/background-image/shape.enum';
 import { ImageSrcset } from 'src/app/core/functions/http/image-srcset.function';
 
 /**
@@ -35,5 +36,5 @@ export class BackgroundImageComponent {
 	public readonly scrollHeight = input.required<number>();
 
 	/** Whether to clip the image */
-	public readonly clip = input<'parallelogram' | 'wave'>();
+	public readonly clip = input<ShapeValue>();
 }

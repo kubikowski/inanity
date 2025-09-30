@@ -24,10 +24,10 @@ export class ConfirmDialogComponent extends DialogComponent<ConfirmDialogConfigu
 	public initializeDialogConfiguration() {
 		return DialogBuilder.new()
 			.withHeaderTitle(this.configuration.title)
-			.withSubmitButtonText(this.configuration?.submitButtonText ?? 'Confirm')
-			.withCancelButtonText(this.configuration?.cancelButtonText ?? 'Cancel')
-			.withSubmitButtonAction(() => this.onSubmit())
-			.withCancelButtonAction(() => this.dialogRef.close(DialogResolution.DISMISS))
+			.withSubmitText(this.configuration?.submitButtonText ?? 'Confirm')
+			.withCancelText(this.configuration?.cancelButtonText ?? 'Cancel')
+			.withSubmitAction(() => this.onSubmit())
+			.withCancelAction(() => this.dialogRef.close(DialogResolution.DISMISS))
 			.build();
 	}
 

@@ -22,7 +22,7 @@ import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dysl
 	},
 })
 export class AboutCardComponent {
-	public readonly backdrop = inject(BackgroundService).enabled;
+	public readonly backdrop = inject(BackgroundService).gradient;
 
 	public readonly data = input.required<AboutCardData>();
 

@@ -1,9 +1,11 @@
 <canvas #canvas></canvas>
 
-<h6>
-	<span>{{ fps() | number }} FPS</span>
+@if (moving()) {
+	<h6>
+		<span>{{ fps() | number }} fps</span>
 
-	<mat-divider vertical></mat-divider>
+		<mat-divider vertical></mat-divider>
 
-	<clock/>
-</h6>
+		<clock/>
+	</h6>
+}

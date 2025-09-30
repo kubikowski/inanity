@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
 import { SnekStateService } from 'src/app/features/snek/services/core/snek-state.service';
 
@@ -6,6 +6,7 @@ import { SnekStateService } from 'src/app/features/snek/services/core/snek-state
 	selector: 'snek-border',
 	templateUrl: 'snek-border.component.html',
 	styleUrl: 'snek-border.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ MatTooltip ],
 })
 export class SnekBorderComponent {

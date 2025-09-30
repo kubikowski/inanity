@@ -3,6 +3,7 @@ import { MatIconButton } from '@angular/material/button';
 import { ThemePalette } from '@angular/material/core';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Observable } from 'rxjs';
+import { coerceBooleanInput } from 'src/app/core/functions/boolean/coerce-boolean-input.function';
 import { RefreshState, RefreshStateUtil } from 'src/app/features/refresh/enums/refresh-state.enum';
 import { RefreshIconComponent } from 'src/app/features/refresh/refresh-icon/refresh-icon.component';
 
@@ -22,7 +23,7 @@ export class RefreshButtonComponent<T> {
 
 	public readonly color = input<ThemePalette>();
 	public readonly tooltip = input('');
-	public readonly tooltipDisabled = input(false);
+	public readonly tooltipDisabled = input(false, { transform: coerceBooleanInput });
 
 	/* time spent in DONE state (milliseconds) */
 	public readonly debounceTime = input(10_000);

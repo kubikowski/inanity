@@ -1,6 +1,7 @@
 :host {
 	display: flex;
 	flex-flow: column nowrap;
+	font-family: var(--typeface-name), var(--app-font);
 
 	> h6 > a {
 		color: inherit;

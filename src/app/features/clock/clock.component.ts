@@ -7,7 +7,7 @@ import { ClockUtil } from 'src/app/features/clock/clock-util.function';
 
 @Component({
 	selector: 'clock',
-	template: '{{ time() | date: \'shortTime\' }}',
+	template: '{{ time() | date: \'HH:mm\' }} local time',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ DatePipe ],
 })

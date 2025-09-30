@@ -56,6 +56,7 @@ export class RouterService implements OnDestroy {
 	}
 
 	private listenForNavigationEvents(): void {
+		// TODO: migrate to router.currentNavigation signals
 		this.subscriptions.sink = this.router.events
 			.pipe(
 				tap(event => {

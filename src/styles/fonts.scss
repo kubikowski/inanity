@@ -2,22 +2,30 @@
 @use './fonts/lato.font';
 
 /* Serif Fonts */
+@use './fonts/cooper.font';
 @use './fonts/eb-garamond.font';
 @use './fonts/eb-garamond-initials.font';
 
 /* Monospace Fonts */
 @use './fonts/victor-mono.font';
 
-/* Material Symbols */
+/* Symbols */
 @use './fonts/material-symbols.font';
+@use './fonts/open-arrow.font';
 
 :root {
 	--app-font: var(--serif-font);
 
-	--sans-serif-font: Lato, sans-serif;
-	--serif-font: 'EB Garamond', serif;
+	--sans-serif-type: 'Lato';
+	--sans-serif-font: 'open-arrow', var(--sans-serif-type), sans-serif;
+
+	--serif-type: 'EB Garamond';
+	--serif-font: 'open-arrow', var(--serif-type), serif;
+
+	--monospace-type: 'Victor Mono';
+	--monospace-font: 'open-arrow', var(--monospace-type), monospace;
+
 	--initial-font: 'EB Garamond Initials', var(--serif-font);
-	--monospace-font: 'Victor Mono', monospace;
 
 	--weight-thin: 100;
 	--weight-extralight: 200;
@@ -28,4 +36,8 @@
 	--weight-bold: 700;
 	--weight-extrabold: 800;
 	--weight-black: 900;
+
+	font-variant-alternates: swash(swash);
+	font-variant-ligatures: common-ligatures discretionary-ligatures historical-ligatures contextual;
+	font-variant-numeric: oldstyle-nums;
 }

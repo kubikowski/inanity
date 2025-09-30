@@ -1,58 +1,129 @@
-import { inject, Injectable, OnDestroy, signal, untracked } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
-import firebase from 'firebase/compat/app';
-import { auth } from 'firebaseui';
+import { computed, inject, Injectable, linkedSignal, OnDestroy, signal } from '@angular/core';
+import {
+	Auth, AuthCredential, EmailAuthProvider, GoogleAuthProvider,
+	signInAnonymously, signInWithEmailAndPassword, signInWithPopup, Unsubscribe, User, UserCredential,
+} from '@angular/fire/auth';
+import { timeout } from 'src/app/core/functions/promise/timeout.function';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FirebaseService implements OnDestroy {
 	private readonly auth = inject(Auth);
 
-	public readonly user = signal<firebase.UserInfo | null>(null);
+	private readonly emailAuthProvider = FirebaseService.getEmailAuthProvider();
+	private readonly googleAuthProvider = FirebaseService.getGoogleAuthProvider();
+
+	// These fields seem a bit redundant, given that we auth state subscription. But I digress.
+	public readonly anonymousCredential = signal<UserCredential | null>(null);
+	public readonly identifiedCredential = signal<UserCredential | null>(null);
+	public readonly authCredential = signal<AuthCredential | null>(null);
+
+	public readonly anonymousUser = linkedSignal<User | null>(() => this.anonymousCredential()?.user ?? null);
+	public readonly identifiedUser = linkedSignal<User | null>(() => this.identifiedCredential()?.user ?? null);
+
+	public readonly userInfo = computed(() => this.identifiedUser() ?? this.anonymousUser());
+	public readonly userId = computed(() => this.userInfo()?.uid ?? null);
+
+	private readonly authSubscriptionCallback: Unsubscribe;
 	public readonly authSuccess = signal(false);
 	public readonly authFailure = signal(false);
 
-	private readonly firebaseAuthConfig: auth.Config = {
-		signInOptions: [
-			firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-			firebase.auth.EmailAuthProvider.PROVIDER_ID,
-		],
-		callbacks: {
-			signInSuccessWithAuthResult: (authResult: unknown, redirectUrl?: string) => {
-				console.log('Sign In Success', authResult, redirectUrl);
-				this.user.set(authResult as firebase.UserInfo);
-				this.authSuccess.set(true);
-				return false;
-			},
-			signInFailure: async (error: auth.AuthUIError) => {
-				console.warn('Sign In Failure', error);
-				this.authFailure.set(true);
-				await new Promise(() => {});
-			},
-		},
-	};
+	public constructor() {
+		this.authSubscriptionCallback = this.getAuthStateSubscription();
 
-	private readonly authSubscriptionCallback = this.auth.onAuthStateChanged(user => {
-		console.log('Auth State Changed', user);
-
-		if (user !== null) {
-			this.user.set(user);
-			this.authSuccess.set(true);
-		}
-	});
+		this.anonymousSignIn()
+			.catch(console.error);
+	}
 
 	public ngOnDestroy(): void {
 		this.authSubscriptionCallback();
 	}
 
-	private getAuthUI(): auth.AuthUI {
-		return auth.AuthUI.getInstance('inanity')
-			?? new auth.AuthUI(this.auth, 'inanity');
+	private getAuthStateSubscription(): Unsubscribe {
+		return this.auth.onAuthStateChanged(user => {
+			if (user === null) return;
+			console.log('Auth State Changed', user);
+
+			if (user.isAnonymous) {
+				this.anonymousUser.set(user);
+			} else {
+				this.identifiedUser.set(user);
+				this.authSuccess.set(true);
+			}
+		});
 	}
 
-	public attachAuthUI(): void {
-		if (untracked(this.user) === null) {
-			const authUI = this.getAuthUI();
-			authUI.start('#firebaseui-auth-container', this.firebaseAuthConfig);
-		}
+	// region Anonymous Sign In
+	private async anonymousSignIn(): Promise<void> {
+		await timeout(5_000);
+		if (this.userInfo() !== null) return;
+
+		console.log('Attempting Anonymous SignIn');
+		const anonymousCredential = await signInAnonymously(this.auth);
+
+		console.log('Anonymous SignIn Response', anonymousCredential);
+		this.anonymousCredential.set(anonymousCredential);
 	}
+	// endregion Anonymous Sign In
+
+
+	// region Email Sign In
+	public async emailSignIn(email: string, password: string): Promise<void> {
+		console.log('attempting email & password sign in');
+		await this.signInHandler(this.attemptEmailSignIn(email, password));
+	}
+
+	private async attemptEmailSignIn(email: string, password: string): Promise<void> {
+		const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+		this.identifiedCredential.set(userCredential);
+
+		const authCredential = EmailAuthProvider.credential(email, password);
+		this.authCredential.set(authCredential);
+	}
+	// endregion Email Sign In
+
+
+	// region Google Sign In
+	public async googleSignIn(): Promise<void> {
+		console.log('attempting google sign in');
+		await this.signInHandler(this.attemptGoogleSignIn());
+	}
+
+	private async attemptGoogleSignIn(): Promise<void> {
+		const userCredential = await signInWithPopup(this.auth, this.googleAuthProvider);
+		this.identifiedCredential.set(userCredential);
+
+		const authCredential = GoogleAuthProvider.credentialFromResult(userCredential);
+		this.authCredential.set(authCredential);
+	}
+	// endregion Google Sign In
+
+
+	private async signInHandler(signInAttempt: Promise<void>): Promise<void> {
+		await signInAttempt
+			.then(() => {
+				this.authSuccess.set(true);
+			})
+			.catch(error => {
+				console.error(error);
+
+				this.authFailure.set(true);
+				setTimeout(() => this.authFailure.set(false), 100);
+			});
+	}
+
+
+	// region Auth Providers
+	private static getEmailAuthProvider(): EmailAuthProvider {
+		return new EmailAuthProvider();
+	}
+
+	private static getGoogleAuthProvider(): GoogleAuthProvider {
+		const provider = new GoogleAuthProvider();
+
+		provider.addScope('profile');
+		provider.addScope('email');
+
+		return provider;
+	}
+	// endregion Auth Providers
 }

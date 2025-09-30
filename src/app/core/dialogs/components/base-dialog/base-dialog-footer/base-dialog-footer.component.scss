@@ -1,10 +1,13 @@
 :host .mat-mdc-dialog-actions {
 	flex-flow: row-reverse nowrap;
-	justify-content: flex-start;
+	justify-content: space-between;
 	border-top: 1px solid var(--dark-border-color);
+	gap: 0.5rem;
 
-	&.has-cancel-button {
-		justify-content: space-between;
+	> .footer-buttons {
+		display: flex;
+		flex-flow: row-reverse nowrap;
+		gap: 0.5rem;
 	}
 
 	button:disabled {

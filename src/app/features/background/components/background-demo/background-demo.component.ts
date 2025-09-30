@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
-import { BackgroundType } from 'src/app/features/background/models/background-type.enum';
+import { BackgroundType, BackgroundTypeUtil } from 'src/app/features/background/models/background-type.enum';
 import { BackgroundDemoService } from 'src/app/features/background/services/background-demo.service';
 import { BackgroundService } from 'src/app/features/background/services/background.service';
 
@@ -11,7 +11,7 @@ import { BackgroundService } from 'src/app/features/background/services/backgrou
 	providers: [ BackgroundDemoService ],
 	host: {
 		'[class.selected]': 'selected()',
-		'[class.gradient]': 'showGradient()',
+		'[class.gradient]': 'gradient()',
 		'(click)': 'selectBackgroundType()',
 		'(keydown.enter)': 'selectBackgroundType()',
 		'tabindex': '0',
@@ -27,9 +27,7 @@ export class BackgroundDemoComponent implements AfterViewInit {
 	private readonly selectedType = this.backgroundService.type;
 	public readonly selected = computed(() => this.type() === this.selectedType());
 
-	private readonly enabled = this.backgroundService.enabled;
-	private readonly isMovingBackground = computed(() => this.type() !== BackgroundType.BLANK);
-	public readonly showGradient = computed(() => this.isMovingBackground() || this.enabled());
+	public readonly gradient = computed(() => BackgroundTypeUtil.gradient(this.type()));
 
 	public ngAfterViewInit(): void {
 		this.backgroundDemoService.backgroundType.set(this.type());

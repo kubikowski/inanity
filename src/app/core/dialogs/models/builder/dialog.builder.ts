@@ -1,6 +1,6 @@
 import { Signal, signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DialogConfiguration } from '../configuration/dialog-configuration.model';
+import { DialogConfiguration, DialogButtonConfiguration } from '../configuration/dialog-configuration.model';
 
 export class DialogBuilder {
 	private readonly configuration: DialogConfiguration = {
@@ -18,15 +18,20 @@ export class DialogBuilder {
 			submitButton: {
 				action: undefined,
 				text: signal('Submit'),
+				visible: signal(true),
+				enabled: signal(true),
 				attribute: 'flat',
 				color: 'primary',
 			},
 			cancelButton: {
 				action: undefined,
 				text: signal('Cancel'),
+				visible: signal(true),
+				enabled: signal(true),
 				attribute: 'stroked',
 				color: 'neutral',
 			},
+			extraButtons: [ ],
 		},
 	};
 
@@ -70,67 +75,90 @@ export class DialogBuilder {
 
 
 	// region Submit Button
-	public withSubmitButtonAction(action: <T> () => Observable<T> | void): this {
+	public withSubmitAction(action: <T> () => Observable<T> | void): this {
 		this.configuration.footer.submitButton.action = action;
 		return this;
 	}
 
-	public withSubmitButtonText(text: string | Signal<string>): this {
+	public withSubmitText(text: string | Signal<string>): this {
 		this.configuration.footer.submitButton.text = (typeof text === 'string') ? signal(text) : text;
 		return this;
 	}
 
-	public withSubmitButtonIcon(icon: string | Signal<string>): this {
+	public withSubmitIcon(icon: string | Signal<string>): this {
 		this.configuration.footer.submitButton.icon = (typeof icon === 'string') ? signal(icon) : icon;
 		return this;
 	}
 
-	public withSubmitButtonIconFill(iconFill = true): this {
+	public withSubmitIconFill(iconFill = true): this {
 		this.configuration.footer.submitButton.iconFill = iconFill;
 		return this;
 	}
 
-	public withSubmitButtonHidden(hidden: boolean | Signal<boolean> = true): this {
-		this.configuration.footer.submitButton.hidden = (typeof hidden === 'boolean') ? signal(hidden) : hidden;
+	public withSubmitIconAlignment(iconAlignment: 'left' | 'right'): this {
+		this.configuration.footer.submitButton.iconAlignment = iconAlignment;
 		return this;
 	}
 
-	public withSubmitButtonDisabled(disabled: boolean | Signal<boolean> = true): this {
-		this.configuration.footer.submitButton.disabled = (typeof disabled === 'boolean') ? signal(disabled) : disabled;
+	public withSubmitVisible(visible: boolean | Signal<boolean> = true): this {
+		this.configuration.footer.submitButton.visible = (typeof visible === 'boolean') ? signal(visible) : visible;
+		return this;
+	}
+
+	public withSubmitEnabled(enabled: boolean | Signal<boolean> = true): this {
+		this.configuration.footer.submitButton.enabled = (typeof enabled === 'boolean') ? signal(enabled) : enabled;
 		return this;
 	}
 	// endregion Submit Button
 
 
 	// region Cancel Button
-	public withCancelButtonAction(action: <T> () => Observable<T> | void): this {
+	public withCancelAction(action: <T> () => Observable<T> | void): this {
 		this.configuration.footer.cancelButton.action = action;
 		return this;
 	}
 
-	public withCancelButtonText(text: string | Signal<string>): this {
+	public withCancelText(text: string | Signal<string>): this {
 		this.configuration.footer.cancelButton.text = (typeof text === 'string') ? signal(text) : text;
 		return this;
 	}
 
-	public withCancelButtonIcon(icon: string | Signal<string>): this {
+	public withCancelIcon(icon: string | Signal<string>): this {
 		this.configuration.footer.cancelButton.icon = (typeof icon === 'string') ? signal(icon) : icon;
 		return this;
 	}
 
-	public withCancelButtonIconFill(iconFill = true): this {
+	public withCancelIconFill(iconFill = true): this {
 		this.configuration.footer.cancelButton.iconFill = iconFill;
 		return this;
 	}
 
-	public withCancelButtonHidden(hidden: boolean | Signal<boolean> = true): this {
-		this.configuration.footer.cancelButton.hidden = (typeof hidden === 'boolean') ? signal(hidden) : hidden;
+	public withCancelIconAlignment(iconAlignment: 'left' | 'right'): this {
+		this.configuration.footer.cancelButton.iconAlignment = iconAlignment;
 		return this;
 	}
 
-	public withCancelButtonDisabled(disabled: boolean | Signal<boolean> = true): this {
-		this.configuration.footer.cancelButton.disabled = (typeof disabled === 'boolean') ? signal(disabled) : disabled;
+	public withCancelVisible(visible: boolean | Signal<boolean> = true): this {
+		this.configuration.footer.cancelButton.visible = (typeof visible === 'boolean') ? signal(visible) : visible;
+		return this;
+	}
+
+	public withCancelEnabled(enabled: boolean | Signal<boolean> = true): this {
+		this.configuration.footer.cancelButton.enabled = (typeof enabled === 'boolean') ? signal(enabled) : enabled;
 		return this;
 	}
 	// endregion Cancel Button
+
+
+	// region Extra Buttons
+	public withExtraButton(extraButton: DialogButtonConfiguration): this {
+		this.configuration.footer.extraButtons.push(extraButton);
+		return this;
+	}
+
+	public withExtraButtons(extraButtons: DialogButtonConfiguration[]): this {
+		this.configuration.footer.extraButtons.push(...extraButtons);
+		return this;
+	}
+	// endregion Extra Buttons
 }

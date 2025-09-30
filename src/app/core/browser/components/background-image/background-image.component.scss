@@ -9,8 +9,30 @@ background-image.background-image {
 	background-repeat: no-repeat;
 	background-size: cover;
 
+	&.circle {
+		clip-path: circle(50% at 50% 50%);
+	}
+
+	&.ellipse {
+		clip-path: ellipse(50% 50% at 50% 50%);
+	}
+
 	&.parallelogram {
 		clip-path: polygon(0 10%, 100% 0, 100% 90%, 0% 100%);
+	}
+
+	&.squircle {
+		clip-path: shape(
+			from 0 25%,
+			curve to 25% 0 with 0 0 / 0 0,
+			hline to 75%,
+			curve to 100% 25% with 100% 0 / 100% 0,
+			vline to 75%,
+			curve to 75% 100% with 100% 100% / 100% 100%,
+			hline to 25%,
+			curve to 0 75% with 0 100% / 0 100%,
+			close,
+		);
 	}
 
 	&.wave {

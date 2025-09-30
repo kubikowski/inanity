@@ -3,9 +3,12 @@
 :host {
 	position: absolute;
 	width: 100%;
-	height: calc(100% - var(--navigation-height));
+	height: 100%;
 	z-index: -1;
-	@include background.gradient();
+
+	&.gradient {
+		@include background.gradient();
+	}
 
 	> canvas {
 		position: absolute;

@@ -1,0 +1,13 @@
+@use '@angular/material' as mat;
+
+.mat-mdc-form-field {
+	@include mat.form-field-overrides((
+		container-height: 48px,
+		container-vertical-padding: 12px,
+
+		outlined-container-shape: var(--mat-sys-corner-small),
+		outlined-outline-color: var(--disabled-text-color),
+
+		container-text-font: var(--sans-serif-font),
+	));
+}

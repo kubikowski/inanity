@@ -1,19 +1,19 @@
 import { effect, Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
-export class DyslexicTextService {
+export class DyslexiaService {
 
 	public static readonly minAmount = 0;
 	public static readonly maxAmount = 100;
 	public static readonly wordCombinations = new Map<string, readonly string[]>();
 
-	public readonly enabled = signal(DyslexicTextService.persistEnabled);
-	public readonly amount = signal(DyslexicTextService.persistAmount);
+	public readonly enabled = signal(DyslexiaService.persistEnabled);
+	public readonly amount = signal(DyslexiaService.persistAmount);
 
 	public constructor() {
 		effect(() => {
-			DyslexicTextService.persistEnabled = this.enabled();
-			DyslexicTextService.persistAmount = this.amount();
+			DyslexiaService.persistEnabled = this.enabled();
+			DyslexiaService.persistAmount = this.amount();
 		});
 	}
 

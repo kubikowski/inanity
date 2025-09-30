@@ -104,7 +104,7 @@
 	}
 }
 
-.desktop :host.large-format {
+:is(.desktop, .tablet) :host.large-format {
 	grid-row-end: span 5;
 	grid-column-end: span 2;
 }

@@ -1,0 +1,13 @@
+<mat-form-field>
+	<mat-label>Email Address</mat-label>
+
+	<input matInput type="email"
+		   id="email" autocomplete="email"
+		   [formControl]="emailControl()"/>
+
+	@if (emailControl().getError('email')) {
+		<mat-error>Please enter a valid email address.</mat-error>
+	} @else if (emailControl().getError('required')) {
+		<mat-error>Please enter your email address.</mat-error>
+	}
+</mat-form-field>

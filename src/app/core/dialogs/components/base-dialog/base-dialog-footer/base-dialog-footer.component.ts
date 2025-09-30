@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { MatDialogActions, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DialogFooterButtonConfiguration, DialogFooterConfiguration } from '../../../models/configuration/dialog-configuration.model';
+import { BaseDialogButtonComponent } from 'src/app/core/dialogs/components/base-dialog/base-dialog-button/base-dialog-button.component';
+import { DialogButtonConfiguration, DialogFooterConfiguration } from '../../../models/configuration/dialog-configuration.model';
 import { DialogResolution } from '../../../models/dialog-resolution.enum';
-import { BaseDialogFooterButtonComponent } from '../base-dialog-footer-button/base-dialog-footer-button.component';
 
 @Component({
 	selector: 'base-dialog-footer',
@@ -12,14 +12,16 @@ import { BaseDialogFooterButtonComponent } from '../base-dialog-footer-button/ba
 	styleUrl: 'base-dialog-footer.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		BaseDialogFooterButtonComponent,
+		BaseDialogButtonComponent,
 		MatDialogActions,
 	],
 })
 export class BaseDialogFooterComponent {
-	public readonly configuration = input.required<DialogFooterConfiguration>();
 	private readonly dialogRef = inject(MatDialogRef<unknown>);
 
+	public readonly configuration = input.required<DialogFooterConfiguration>();
+
+	// region button configurations
 	public readonly submitButton = computed(() => BaseDialogFooterComponent.spliceDialogClosure(
 		this.configuration().submitButton,
 		() => this.dialogRef.close(DialogResolution.SUCCESS)));
@@ -28,23 +30,29 @@ export class BaseDialogFooterComponent {
 		this.configuration().cancelButton,
 		() => this.dialogRef.close(DialogResolution.DISMISS)));
 
-	public readonly hasSubmitButton = computed(() =>
-		!this.submitButton().hidden?.());
+	private readonly extraButtons = computed(() => this.configuration().extraButtons);
+	public readonly extraButtonsLeft = computed(() => this.extraButtons().filter(button => (button.alignment ?? 'left') === 'left'));
+	public readonly extraButtonsRight = computed(() => this.extraButtons().filter(button => button.alignment === 'right'));
+	// endregion button configurations
 
-	public readonly hasCancelButton = computed(() =>
-		!this.cancelButton().hidden?.());
 
+	// region has buttons
+	public readonly hasSubmitButton = computed(() => this.submitButton().visible());
+	public readonly hasCancelButton = computed(() => this.cancelButton().visible());
+	private readonly hasExtraButtons = computed(() => this.extraButtons().some(button => button.visible()));
 	public readonly hasVisibleButtons = computed(() =>
-		this.hasSubmitButton() || this.hasCancelButton());
+		this.hasSubmitButton() || this.hasCancelButton() || this.hasExtraButtons());
+	// endregion has buttons
 
 
-	private static spliceDialogClosure(button: DialogFooterButtonConfiguration, closure: () => void): DialogFooterButtonConfiguration {
+	private static spliceDialogClosure(button: DialogButtonConfiguration, closure: () => void): DialogButtonConfiguration {
 		if (typeof button.action === 'undefined') {
 			button.action = () => closure();
 
 		} else {
+			const existingAction = button.action;
 			button.action = <T> () => {
-				const result = button.action?.() as Observable<T> | void;
+				const result: Observable<T> | void = existingAction?.();
 
 				if (typeof result !== 'undefined') {
 					return result.pipe(tap(() => closure()));

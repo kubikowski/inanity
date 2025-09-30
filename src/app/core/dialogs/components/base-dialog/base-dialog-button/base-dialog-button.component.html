@@ -1,0 +1,42 @@
+@let icon = configuration().icon?.();
+@let iconFill = configuration().iconFill;
+@let iconAlignment = configuration().iconAlignment ?? 'left';
+
+@switch (configuration().attribute) {
+	@case ('flat') {
+		<button type="button"
+				mat-flat-button
+				[class]="configuration().color"
+				[disabled]="!configuration().enabled()"
+				[hidden]="!configuration().visible()"
+				(click)="doAction()">
+
+			<span>{{ configuration().text() }}</span>
+
+			@if (icon && iconAlignment === 'left') {
+				<mat-icon [class.fill]="iconFill">{{ icon }}</mat-icon>
+			}
+			@if (icon && iconAlignment === 'right') {
+				<mat-icon iconPositionEnd [class.fill]="iconFill">{{ icon }}</mat-icon>
+			}
+		</button>
+	}
+	@case ('stroked') {
+		<button type="button"
+				mat-stroked-button
+				[class]="configuration().color"
+				[disabled]="!configuration().enabled()"
+				[hidden]="!configuration().visible()"
+				(click)="doAction()">
+
+			<span>{{ configuration().text() }}</span>
+
+			@if (icon && iconAlignment === 'left') {
+				<mat-icon [class.fill]="iconFill">{{ icon }}</mat-icon>
+			}
+			@if (icon && iconAlignment === 'right') {
+				<mat-icon iconPositionEnd [class.fill]="iconFill">{{ icon }}</mat-icon>
+			}
+		</button>
+	}
+}

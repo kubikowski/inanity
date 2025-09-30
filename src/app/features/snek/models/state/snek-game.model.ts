@@ -111,6 +111,14 @@ export class SnekGame {
 		return this.#seed;
 	}
 
+	public get width(): number {
+		return this.#width;
+	}
+
+	public get height(): number {
+		return this.#height;
+	}
+
 	public get grid(): ReadonlyArray<ReadonlyArray<SnekGridNode>> {
 		return this.#grid;
 	}

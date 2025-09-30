@@ -24,10 +24,10 @@ export abstract class SnekNodeTypeUtil {
 		}
 	}
 
-	public static getIconOptions(snekNoteType: SnekNodeType | null, gameCounter: number): SnekIcon[] {
+	public static getIconOptions(snekNoteType: SnekNodeType | null, counter: number): SnekIcon[] {
 		switch (snekNoteType) {
 			case SnekNodeType.HEAD: {
-				const evenTiming = (gameCounter % 4) > 1;
+				const evenTiming = (counter % 4) > 1;
 
 				return (evenTiming)
 					? [ SnekIcon.HEAD_DEFAULT ]

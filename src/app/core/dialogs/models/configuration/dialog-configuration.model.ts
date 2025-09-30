@@ -20,17 +20,20 @@ export interface DialogContentConfiguration {
 }
 
 export interface DialogFooterConfiguration {
-	submitButton: DialogFooterButtonConfiguration;
-	cancelButton: DialogFooterButtonConfiguration;
+	submitButton: DialogButtonConfiguration;
+	cancelButton: DialogButtonConfiguration;
+	extraButtons: DialogButtonConfiguration[];
 }
 
-export interface DialogFooterButtonConfiguration {
-	action?: <T> () => Observable<T> | void;
+export interface DialogButtonConfiguration {
+	action?: <T> () => (Observable<T> | void);
 	text: Signal<string>;
 	icon?: Signal<string>;
-	hidden?: Signal<boolean>;
-	disabled?: Signal<boolean>;
-	attribute: 'flat' | 'stroked';
-	color?: 'primary' | 'neutral';
 	iconFill?: boolean;
+	iconAlignment?: 'left' | 'right';
+	visible: Signal<boolean>;
+	enabled: Signal<boolean>;
+	attribute: 'flat' | 'stroked';
+	alignment?: 'left' | 'right';
+	color?: 'primary' | 'neutral';
 }

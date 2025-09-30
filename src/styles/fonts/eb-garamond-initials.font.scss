@@ -2,7 +2,10 @@
 @font-face {
 	font-family: 'EB Garamond Initials';
 	src: url('/assets/fonts/eb-garamond-initials/EBGaramond-Initials.ttf') format('truetype');
-	font-weight: 400;
+	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
+	unicode-range:
+		U+21, U+28, U+29, U+3F, U+41-5B, U+5D, U+A1, U+AB, U+BB, U+BF,
+		U+2018-201A, U+201C-201E, U+2039, U+203A, U+2E22, U+2E23;
 }

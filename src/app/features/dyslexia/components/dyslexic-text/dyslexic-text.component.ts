@@ -3,7 +3,7 @@ import { combineLatest, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { clamp } from 'src/app/core/functions/number/clamp.function';
 import { DyslexicWord } from 'src/app/features/dyslexia/models/dyslexic-word.model';
-import { DyslexicTextService } from 'src/app/features/dyslexia/services/dyslexic-text.service';
+import { DyslexiaService } from 'src/app/features/dyslexia/services/dyslexia.service';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -13,7 +13,7 @@ import { SubSink } from 'subsink';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DyslexicTextComponent {
-	private readonly dyslexicTextService = inject(DyslexicTextService);
+	private readonly dyslexiaService = inject(DyslexiaService);
 	private readonly subscriptions = new SubSink();
 
 	public readonly text = input<string>('');
@@ -36,7 +36,7 @@ export class DyslexicTextComponent {
 		effect(() => {
 			this.subscriptions.unsubscribe();
 
-			if (this.dyslexicTextService.enabled()) {
+			if (this.dyslexiaService.enabled()) {
 				this.subscriptions.sink = this.outputWords$()
 					.subscribe(outputWords => this.outputWords.set(outputWords));
 
@@ -47,27 +47,27 @@ export class DyslexicTextComponent {
 	}
 
 	private getDyslexicWord(word: string): string {
-		if (!untracked(this.dyslexicTextService.enabled)) {
+		if (!untracked(this.dyslexiaService.enabled)) {
 			return word;
 		}
 
 		const combinations = this.getCombinations(word);
 
-		const dyslexiaAmount = clamp(DyslexicTextService.minAmount, untracked(this.dyslexicTextService.amount), DyslexicTextService.maxAmount);
-		const combinationIndex = Math.floor(Math.random() * combinations.length * DyslexicTextService.maxAmount / dyslexiaAmount);
+		const dyslexiaAmount = clamp(DyslexiaService.minAmount, untracked(this.dyslexiaService.amount), DyslexiaService.maxAmount);
+		const combinationIndex = Math.floor(Math.random() * combinations.length * DyslexiaService.maxAmount / dyslexiaAmount);
 
 		return combinations[combinationIndex]
 			?? word;
 	}
 
 	private getCombinations(word: string): readonly string[] {
-		if (!DyslexicTextService.wordCombinations.has(word)) {
+		if (!DyslexiaService.wordCombinations.has(word)) {
 			const combinations = DyslexicWord.from(word).combinations;
 
-			DyslexicTextService.wordCombinations.set(word, combinations);
+			DyslexiaService.wordCombinations.set(word, combinations);
 		}
 
-		return DyslexicTextService.wordCombinations.get(word) as readonly string[];
+		return DyslexiaService.wordCombinations.get(word) as readonly string[];
 	}
 
 	private getOutputText(outputWords: string[], delimiters: string[], startsWithWord: boolean): string {

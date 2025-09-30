@@ -64,14 +64,14 @@ export class SnekCanvasService extends CanvasService {
 		this.colorsService.computedPalette();
 		if (context === null || typeof svgElements === 'undefined') return;
 
-		if (typeof previousState !== 'undefined' && previousState.gameCounter < currentState.gameCounter) {
-			this.drawSnekNode(context, previousState.headNode, currentState.gameCounter);
-			this.drawSnekNode(context, previousState.tailNode, currentState.gameCounter);
+		if (typeof previousState !== 'undefined' && previousState.counter < currentState.counter) {
+			this.drawSnekNode(context, previousState.headNode, currentState.counter);
+			this.drawSnekNode(context, previousState.tailNode, currentState.counter);
 		}
 
-		this.drawSnekNode(context, currentState.headNode, currentState.gameCounter);
-		this.drawSnekNode(context, currentState.tailNode, currentState.gameCounter);
-		this.drawSnekNode(context, currentState.foodNode, currentState.gameCounter);
+		this.drawSnekNode(context, currentState.headNode, currentState.counter);
+		this.drawSnekNode(context, currentState.tailNode, currentState.counter);
+		this.drawSnekNode(context, currentState.foodNode, currentState.counter);
 	}
 
 	private drawBackground(context: CanvasRenderingContext2D): void {
@@ -94,10 +94,10 @@ export class SnekCanvasService extends CanvasService {
 		context.fillRect(width * scalar, height * scalar, scalar, scalar);
 	}
 
-	private drawSnekNode(context: CanvasRenderingContext2D, snekGridNode: SnekGridNode, gameCounter: number): void {
+	private drawSnekNode(context: CanvasRenderingContext2D, snekGridNode: SnekGridNode, counter: number): void {
 		this.drawGridNode(context, snekGridNode.width, snekGridNode.height);
 
-		const svgPath = this.getIcon(snekGridNode, gameCounter);
+		const svgPath = this.getIcon(snekGridNode, counter);
 		if (svgPath === null) return;
 
 		const pathString = svgPath.attributes.getNamedItem('d')?.nodeValue ?? null;
@@ -116,11 +116,11 @@ export class SnekCanvasService extends CanvasService {
 		context.fill(path);
 	}
 
-	private getIcon(snekGridNode: SnekGridNode, gameCounter: number): SVGPathElement | null {
+	private getIcon(snekGridNode: SnekGridNode, counter: number): SVGPathElement | null {
 		const svgElements = untracked(this.svgElements);
 		if (typeof svgElements === 'undefined') return null;
 
-		const snekIconOptions = snekGridNode.getIconOptions(gameCounter);
+		const snekIconOptions = snekGridNode.getIconOptions(counter);
 		for (const snekIcon of snekIconOptions) {
 			const svgElement = svgElements[snekIcon];
 

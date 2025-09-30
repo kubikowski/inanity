@@ -5,8 +5,7 @@
 	position: relative;
 	width: 100%;
 	height: 6rem;
-	background-color: var(--default-background-color);
-	border-radius: 0.5rem;
+	border-radius: var(--mat-sys-corner-small);
 	cursor: pointer;
 
 	@include selectable.border(
@@ -14,7 +13,7 @@
 	);
 
 	&.gradient {
-		@include background.gradient();
+		@include background.simple-gradient();
 	}
 
 	canvas {
@@ -22,7 +21,7 @@
 		max-width: 100%;
 		min-height: 100%;
 		max-height: 100%;
-		border-radius: 0.5rem;
+		border-radius: var(--mat-sys-corner-small);
 	}
 
 	.background-demo-title {
@@ -41,7 +40,7 @@
 		width: 100%;
 		height: 100%;
 		border: solid 2px transparent;
-		border-radius: calc(0.5rem - 1px);
+		border-radius: calc(var(--mat-sys-corner-small) - 1px);
 		z-index: 1;
 	}
 }

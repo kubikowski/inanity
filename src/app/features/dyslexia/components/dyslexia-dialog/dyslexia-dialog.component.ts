@@ -9,7 +9,7 @@ import { DialogBuilder } from 'src/app/core/dialogs/models/builder/dialog.builde
 import { DialogConfiguration } from 'src/app/core/dialogs/models/configuration/dialog-configuration.model';
 import { formValue } from 'src/app/core/functions/rxjs/form-value.function';
 import { DyslexicTextComponent } from 'src/app/features/dyslexia/components/dyslexic-text/dyslexic-text.component';
-import { DyslexicTextService } from 'src/app/features/dyslexia/services/dyslexic-text.service';
+import { DyslexiaService } from 'src/app/features/dyslexia/services/dyslexia.service';
 
 @Component({
 	selector: 'dyslexia-dialog',
@@ -22,22 +22,22 @@ import { DyslexicTextService } from 'src/app/features/dyslexia/services/dyslexic
 	],
 })
 export class DyslexiaDialogComponent extends DialogComponent {
-	private readonly dyslexicTextService = inject(DyslexicTextService);
+	private readonly dyslexiaService = inject(DyslexiaService);
 
-	public readonly minAmount = DyslexicTextService.minAmount;
-	public readonly maxAmount = DyslexicTextService.maxAmount;
+	public readonly minAmount = DyslexiaService.minAmount;
+	public readonly maxAmount = DyslexiaService.maxAmount;
 
-	public readonly enabledControl = new FormControl(untracked(this.dyslexicTextService.enabled), { nonNullable: true });
+	public readonly enabledControl = new FormControl(untracked(this.dyslexiaService.enabled), { nonNullable: true });
 	public readonly enabled = toSignal(formValue(this.enabledControl));
 
-	public readonly amountControl = new FormControl(untracked(this.dyslexicTextService.amount), { nonNullable: true });
+	public readonly amountControl = new FormControl(untracked(this.dyslexiaService.amount), { nonNullable: true });
 	public readonly amount = toSignal(this.amountControl.valueChanges);
 
 	public initializeDialogConfiguration(): DialogConfiguration {
 		return DialogBuilder.new()
 			.withHeaderTitle('Dyslexia')
-			.withSubmitButtonHidden()
-			.withCancelButtonHidden()
+			.withSubmitVisible(false)
+			.withCancelVisible(false)
 			.build();
 	}
 
@@ -45,7 +45,7 @@ export class DyslexiaDialogComponent extends DialogComponent {
 		const enabled = untracked(this.enabled);
 
 		if (typeof enabled !== 'undefined') {
-			this.dyslexicTextService.enabled.set(enabled);
+			this.dyslexiaService.enabled.set(enabled);
 		}
 	}
 
@@ -53,7 +53,7 @@ export class DyslexiaDialogComponent extends DialogComponent {
 		const amount = untracked(this.amount);
 
 		if (typeof amount !== 'undefined') {
-			this.dyslexicTextService.amount.set(amount);
+			this.dyslexiaService.amount.set(amount);
 		}
 	}
 }

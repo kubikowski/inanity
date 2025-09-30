@@ -17,13 +17,12 @@ export class BackgroundCanvasService extends CanvasService {
 	protected readonly animationFrameService = inject(AnimationFrameService);
 	protected readonly svgIconService = inject(SvgIconService);
 
-	protected readonly canvasTopOffset = computed(() => this.canvas()?.getBoundingClientRect().top ?? 0);
 	protected readonly rawCanvasWidth = this.screenService.screenWidth.asReadonly();
-	protected readonly rawCanvasHeight = computed(() => this.screenService.screenHeight() - this.canvasTopOffset());
+	protected readonly rawCanvasHeight = this.screenService.screenHeight.asReadonly();
 
 	protected readonly mousePosition = computed<[ number, number ]>(() => {
 		const [ x, y ] = this.screenService.mousePosition();
-		return [ x * this.pixelDensity(), (y - this.canvasTopOffset()) * this.pixelDensity() ];
+		return [ x * this.pixelDensity(), y * this.pixelDensity() ];
 	});
 
 	private readonly svgOverlay = toSignal(this.svgIconService.getIcon(HandIconUtil.random(), HandIconUtil.namespace));
@@ -99,7 +98,7 @@ export class BackgroundCanvasService extends CanvasService {
 		const reference = this.referenceElement();
 		const renderedElements = this.renderedElements();
 
-		if (context !== null) {
+		if (context !== null && renderedElements.size > 0) {
 			reference.paintElements(renderedElements, context, canvasWidth, canvasHeight, colorPalette);
 			this.renderedElements.set(new Set());
 		}

@@ -8,7 +8,7 @@ export class ColorTheme extends BaseColorTheme {
 	public static readonly infoColorLight = Color.fromString('#00627A'); /* IntelliJ light theme method color */
 	public static readonly successColorLight = Color.fromString('#067D17'); /* Intellij light theme string color */
 	public static readonly warningColorLight = Color.fromString('#C47233'); /* Intellij light theme error mark color */
-	public static readonly dangerColorLight = Color.fromString('#F50000'); /* IntelliJ light theme unknown symbol color */
+	public static readonly dangerColorLight = Color.fromString('#D00000'); /* IntelliJ light theme unknown symbol color: #F50000 */
 
 	// Dark Static App Colors
 	public static readonly infoColorDark = Color.fromString('#57AAF7'); /* IntelliJ dark theme method color */

@@ -1,0 +1,28 @@
+:host main {
+	flex-flow: column nowrap;
+	gap: 0.5rem;
+
+	> .auth-options {
+		display: flex;
+		flex-flow: column nowrap;
+		align-self: center;
+		gap: 0.75rem;
+		width: 75%;
+
+		.auth-title {
+			width: 10rem;
+			font-family: var(--sans-serif-font);
+			text-align: center;
+		}
+	}
+
+	> .auth-navigation {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+	}
+
+	> .mat-mdc-form-field {
+		width: 100%;
+	}
+}

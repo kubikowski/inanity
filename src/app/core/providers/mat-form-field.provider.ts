@@ -6,6 +6,6 @@ export const matFormFieldProvider: ValueProvider = {
 	useValue: {
 		appearance: 'outline',
 		hideRequiredMarker: true,
-		subscriptSizing: 'dynamic',
+		subscriptSizing: 'fixed',
 	},
 };

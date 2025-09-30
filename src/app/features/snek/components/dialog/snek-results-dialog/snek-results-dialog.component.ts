@@ -3,7 +3,7 @@ import { BaseDialogComponent } from 'src/app/core/dialogs/components/base-dialog
 import { DialogComponent } from 'src/app/core/dialogs/components/dialog.component';
 import { DialogBuilder } from 'src/app/core/dialogs/models/builder/dialog.builder';
 import { DialogConfiguration } from 'src/app/core/dialogs/models/configuration/dialog-configuration.model';
-import { SnekResults } from 'src/app/features/snek/models/state/snek-results.interface';
+import { SnekResults } from 'src/app/features/snek/models/report/snek-results.interface';
 
 @Component({
 	selector: 'snek-results-dialog',
@@ -19,8 +19,8 @@ export class SnekResultsDialogComponent extends DialogComponent<SnekResults> {
 	public initializeDialogConfiguration(): DialogConfiguration {
 		return DialogBuilder.new()
 			.withHeaderTitle(this.isNewHighScore() ? 'Congratulations!' : 'Woof')
-			.withSubmitButtonText(this.isNewHighScore() ? '🤌' : 'woof')
-			.withCancelButtonText(this.isNewHighScore() ? '✨' : 'woof')
+			.withSubmitText(this.isNewHighScore() ? '🤌' : 'woof')
+			.withCancelText(this.isNewHighScore() ? '✨' : 'woof')
 			.build();
 	}
 }

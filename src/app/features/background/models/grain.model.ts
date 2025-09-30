@@ -3,6 +3,7 @@ import { BaseColorPalette } from 'src/app/core/colors/models/color-palettes/base
 import { ColorPaletteUtil } from 'src/app/core/colors/models/color-palettes/color-palette-util.model';
 import { ColorPalette } from 'src/app/core/colors/models/color-palettes/color-palette.model';
 import { xor } from 'src/app/core/functions/boolean/xor.function';
+import { clamp } from 'src/app/core/functions/number/clamp.function';
 import { shuffle } from 'src/app/core/functions/random/shuffle.function';
 import { CanvasElement } from 'src/app/features/background/models/canvas-element.model';
 import { CanvasSingleton } from 'src/app/features/background/models/canvas-singleton.model';
@@ -19,14 +20,16 @@ export class Grain extends CanvasSingleton {
 	public override readonly renderInterval = 40;
 	public override readonly paintInterval = 40;
 
-	private static readonly renderBaseline = 1 / 20;
-	private static readonly visibilityRate = 1 / 16;
+	private static readonly baselineRender = 1 / 16;
+	private static readonly baselineVisibility = 1 / 64;
 	private static readonly reversalRate = 9 / 10;
+	private static readonly transparency = 0.15;
 
 	private constructor(
 		private readonly canvasWidth: number,
 		private readonly canvasHeight: number,
-		private readonly grainRate: number,
+		private readonly renderRate: number,
+		private readonly visibilityTarget: number,
 		private readonly grainOffsetSize: number,
 		private readonly grainOffsets: [ number, number ][],
 		private grainIndex = 0,
@@ -35,7 +38,7 @@ export class Grain extends CanvasSingleton {
 	}
 
 	public static reference(): Grain {
-		return new Grain(0, 0, 0, 0, []);
+		return new Grain(0, 0, 0, 0, 0, []);
 	}
 
 	protected override isReferenceType(canvasElement: CanvasElement): canvasElement is this {
@@ -45,9 +48,10 @@ export class Grain extends CanvasSingleton {
 	protected override calibrate(canvasWidth: number, canvasHeight: number, calibration: number, maxCalibration: number): this {
 		const grainOffsetSize = Math.floor(maxCalibration / 2);
 		const grainOffsets = this.getGrainOffsets(grainOffsetSize);
-		const grainRate = Grain.renderBaseline * grainOffsetSize * calibration / maxCalibration;
+		const renderRate = Grain.baselineRender * Math.pow(calibration, 0.5);
+		const visibilityTarget = Grain.baselineVisibility * Math.pow(calibration, 0.5);
 
-		return new Grain(canvasWidth, canvasHeight, grainRate, grainOffsetSize, grainOffsets) as this;
+		return new Grain(canvasWidth, canvasHeight, renderRate, visibilityTarget, grainOffsetSize, grainOffsets) as this;
 	}
 
 	private getGrainOffsets(grainOffsetSize: number): [ number, number ][] {
@@ -62,23 +66,24 @@ export class Grain extends CanvasSingleton {
 	}
 
 	protected override getFillPalette(colorPalette: ColorPalette): ColorPalette {
-		return colorPalette.transparent(0.35);
+		return colorPalette.transparent(Grain.transparency);
 	}
 
 	protected override getStrokePalette(colorPalette: ColorPalette): ColorPalette {
-		return ColorPaletteUtil.similar(colorPalette.paletteName).transparent(0.35);
+		return ColorPaletteUtil.similar(colorPalette.paletteName).transparent(Grain.transparency);
 	}
 
 	protected override paint(context: CanvasRenderingContext2D, fillPalette: ColorPalette, strokePalette: ColorPalette): void {
 		const [ xOffset, yOffset ] = this.getGrainOffset();
+		const visibilityRate = this.getVisibilityRate(context);
 
 		for (let y = yOffset; y < this.canvasHeight; y += this.grainOffsetSize) {
 			for (let x = xOffset; x < this.canvasWidth; x += this.grainOffsetSize) {
 
-				if (Math.random() > this.grainRate) continue;
+				if (Math.random() > this.renderRate) continue;
 				context.clearRect(x, y, 1, 1);
 
-				if (Math.random() > Grain.visibilityRate) continue;
+				if (Math.random() > visibilityRate) continue;
 				const colorKey = BaseColorPalette.getRandomKey();
 
 				const pointInOverlay = this.isPointInSvgOverlay(x, y);
@@ -150,5 +155,34 @@ export class Grain extends CanvasSingleton {
 		};
 
 		return svgOverlay?.isPointInFill(localCoordinatePoint) ?? false;
+	}
+
+	private getVisibilityRate(context: CanvasRenderingContext2D): number {
+		const maxVisibilityRate = this.visibilityTarget * 4;
+		const minVisibilityRate = this.visibilityTarget / 4;
+		const visibilitySample = this.sampleCurrentVisibility(context);
+		const visibilityRate = Math.pow(this.visibilityTarget, 2) * visibilitySample;
+
+		return clamp(minVisibilityRate, visibilityRate, maxVisibilityRate);
+	}
+
+	/**
+	 * image data is stored in a one dimensional uint8 array
+	 * with 4 bit chunks for rgba
+	 */
+	private sampleCurrentVisibility(context: CanvasRenderingContext2D): number {
+		const colorData = context.getImageData(0, 0, 64, 64).data;
+		const transparencies = [];
+
+		for (let index = 0; index < colorData.length; index += 4) {
+			const alpha = colorData[index + 3];
+
+			if (typeof alpha !== 'undefined') {
+				transparencies.push(alpha / 255);
+			}
+		}
+
+		const averageTransparency = transparencies.reduce((acc, current) => acc + current) / transparencies.length;
+		return Grain.transparency / averageTransparency;
 	}
 }

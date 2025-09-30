@@ -14,7 +14,7 @@ export class NavigationService {
 		NavigationItem.from('Snek', SvgIcon.SNAKE, '/snek'),
 		NavigationItem.from('Sprinter', SvgIcon.SPRINTER, '/sprinter', isDevMode()),
 		NavigationItem.from('Gong', SvgIcon.GONG, '/gong', isDevMode()),
-		NavigationItem.from('Noise', SvgIcon.GONG, '/background', this.backgroundService.enabled()),
+		NavigationItem.from('Noise', SvgIcon.GONG, '/background', this.backgroundService.moving()),
 	].filter(navigationItem => navigationItem.enabled)));
 
 

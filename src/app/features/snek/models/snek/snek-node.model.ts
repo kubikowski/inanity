@@ -64,8 +64,8 @@ export class SnekNode {
 		this.#direction = SnekDirectionUtil.nodeDirection(this.#parentDirection, this.#childDirection);
 	}
 
-	public getIconOptions(gameCounter: number): SnekIcon[] {
-		return SnekNodeTypeUtil.getIconOptions(this.#type, gameCounter);
+	public getIconOptions(counter: number): SnekIcon[] {
+		return SnekNodeTypeUtil.getIconOptions(this.#type, counter);
 	}
 
 	public get parent(): SnekNode | null {

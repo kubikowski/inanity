@@ -4,24 +4,22 @@
 	background-image: linear-gradient(to bottom, var(--gradient-0), var(--gradient-1));
 }
 
-@mixin ten-step-gradient {
-	--gradient-0: transparent;
-	--gradient-1: transparent;
-	--gradient-2: transparent;
-	--gradient-3: transparent;
-	--gradient-4: rgb(from var(--lightest-theme-color) r g b / 0.05);
-	--gradient-5: rgb(from var(--lightest-theme-color) r g b / 0.10);
-	--gradient-6: rgb(from var(--lightest-theme-color) r g b / 0.15);
-	--gradient-7: rgb(from var(--lighter-theme-color) r g b / 0.20);
-	--gradient-8: rgb(from var(--light-theme-color) r g b / 0.275);
-	--gradient-9: rgb(from var(--default-theme-color) r g b / 0.35);
+@mixin gradient {
+	--gradient-00: transparent;
+	--gradient-01: transparent;
+	--gradient-02: transparent;
+	--gradient-03: transparent;
+	--gradient-04: transparent;
+	--gradient-05: transparent;
+	--gradient-06: rgb(from var(--lightest-theme-color) r g b / 0.05);
+	--gradient-07: rgb(from var(--lightest-theme-color) r g b / 0.10);
+	--gradient-08: rgb(from var(--lightest-theme-color) r g b / 0.15);
+	--gradient-09: rgb(from var(--lighter-theme-color) r g b / 0.20);
+	--gradient-10: rgb(from var(--light-theme-color) r g b / 0.275);
+	--gradient-11: rgb(from var(--default-theme-color) r g b / 0.35);
 
 	background-image: linear-gradient(to bottom,
-		var(--gradient-0), var(--gradient-1), var(--gradient-2), var(--gradient-3), var(--gradient-4),
-		var(--gradient-5), var(--gradient-6), var(--gradient-7), var(--gradient-8), var(--gradient-9),
+		var(--gradient-00), var(--gradient-01), var(--gradient-02), var(--gradient-03), var(--gradient-04), var(--gradient-05),
+		var(--gradient-06), var(--gradient-07), var(--gradient-08), var(--gradient-09), var(--gradient-10), var(--gradient-11),
 	);
-}
-
-@mixin gradient {
-	@include ten-step-gradient;
 }

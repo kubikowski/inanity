@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { MatDialogTitle } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { DialogHeaderConfiguration } from '../../../models/configuration/dialog-configuration.model';
@@ -8,7 +9,7 @@ import { DialogHeaderConfiguration } from '../../../models/configuration/dialog-
 	templateUrl: 'base-dialog-header.component.html',
 	styleUrl: 'base-dialog-header.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [ MatIcon, MatTooltip ],
+	imports: [ MatIcon, MatTooltip, MatDialogTitle ],
 })
 export class BaseDialogHeaderComponent {
 	public readonly configuration = input.required<DialogHeaderConfiguration>();

@@ -1,11 +1,31 @@
 @use '@angular/material' as mat;
 
-.mat-divider {
+mat-divider.mat-divider {
 	@include mat.divider-overrides((
-		width: 2px,
+		color: var(--default-text-color),
+		width: 1px,
 	));
+
+	&.mat-divider-horizontal {
+		width: 100%;
+		margin: 1rem 0;
+	}
 
 	&.mat-divider-vertical {
 		margin: 0 0.5rem;
+	}
+
+	&.thick {
+		@include mat.divider-overrides((
+			width: 2px,
+		));
+	}
+
+	&.double {
+		border-top: solid 2px var(--mat-divider-color);
+		border-bottom: solid 1px var(--mat-divider-color);
+		border-left: none;
+		border-right: none;
+		height: 9px;
 	}
 }

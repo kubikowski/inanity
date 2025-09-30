@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -9,6 +9,7 @@ import { SlideUpAnimation } from 'src/app/core/animations/slide-up.animation';
 	selector: 'snek-score',
 	templateUrl: 'snek-score.component.html',
 	styleUrl: 'snek-score.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ MatIcon ],
 	hostDirectives: [ MatTooltip ],
 	animations: [ SlideUpAnimation ],
