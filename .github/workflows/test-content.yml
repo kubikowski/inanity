@@ -25,6 +25,7 @@ jobs:
             -   name: Install ImageMagick
                 timeout-minutes: 2
                 run: |
+                    sudo apt-get update;
                     sudo apt-get install imagemagick;
                     identify --version;
 
