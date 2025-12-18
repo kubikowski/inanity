@@ -1,0 +1,17 @@
+@mixin drop-shadow(
+	$size: 1rem,
+	$shadow-color: var(--shadow-color),
+	$highlight-color: var(--default-background-color),
+) {
+	--sh-size: #{$size};
+	--sh-color: #{$shadow-color};
+	--hl-color: #{$highlight-color};
+
+	box-shadow:
+		var(--sh-size) var(--sh-size) calc(var(--sh-size) * 2) var(--sh-color),
+		calc(var(--sh-size) * -1) calc(var(--sh-size) * -1) calc(var(--sh-size) * 2) var(--hl-color),
+		calc(var(--sh-size) * -1) calc(var(--sh-size) * -1) calc(var(--sh-size) * 4) var(--hl-color),
+		inset var(--sh-size) var(--sh-size) calc(var(--sh-size) * 2) var(--sh-color),
+		inset calc(var(--sh-size) * -1) calc(var(--sh-size) * -1) calc(var(--sh-size) * 2) var(--hl-color),
+		inset calc(var(--sh-size) * -1) calc(var(--sh-size) * -1) calc(var(--sh-size) * 4) var(--hl-color);
+}
